@@ -1,0 +1,108 @@
+/* ============================================
+   RACK INVADERS — Game Styles
+   ============================================ */
+
+.mc-game {
+  text-align: center;
+  padding: 1rem 0 2rem;
+}
+
+.mc-game h1 {
+  font-family: monospace;
+  color: #33ff33;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(51, 255, 51, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.mc-game .mc-game-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-family: monospace;
+}
+
+/* Canvas container */
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.5rem;
+  position: relative;
+}
+
+#game-canvas {
+  border: 2px solid #1a3a1a;
+  border-radius: 4px;
+  box-shadow:
+    0 0 20px rgba(51, 255, 51, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.3);
+  image-rendering: pixelated;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+/* CRT curvature effect */
+#game-canvas {
+  background: #0a0e0a;
+}
+
+/* Controls hint */
+.mc-game-controls {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.mc-game-controls kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #444;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 #bbb;
+}
+
+/* Mobile touch zone hints */
+.mc-game-touch-hint {
+  display: none;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.75rem;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .mc-game-controls {
+    display: none;
+  }
+  .mc-game-touch-hint {
+    display: block;
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+  .mc-game h1 {
+    font-size: 1.5rem;
+  }
+
+  .mc-game .mc-game-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .game-container {
+    margin-bottom: 1rem;
+  }
+
+  #game-canvas {
+    border-width: 1px;
+  }
+}
