@@ -1,0 +1,494 @@
+/* ============================================
+   mcornelia.com
+   ============================================ */
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Base --- */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  background: #ffffff;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Layout --- */
+.site-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --- Navigation --- */
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0 1rem;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 3rem;
+}
+
+.site-nav .nav-name a {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.site-nav .nav-name a:hover {
+  color: #1a6b8a;
+}
+
+.site-nav .nav-links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.site-nav .nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a.active {
+  color: #1a1a1a;
+}
+
+/* --- Footer --- */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid #e8e8e8;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.site-footer a {
+  color: #999;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #666;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4 {
+  color: #1a1a1a;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin-top: 2rem;
+  margin-bottom: 0.4rem;
+}
+
+h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #444;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+  color: #2a2a2a;
+}
+
+a {
+  color: #1a6b8a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #134f66;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 2.5rem 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+ul, ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+li {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: #2a2a2a;
+  line-height: 1.65;
+}
+
+blockquote {
+  border-left: 3px solid #1a6b8a;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: #444;
+  font-style: normal;
+}
+
+/* ============================================
+   HOME PAGE
+   ============================================ */
+
+.mc-home {
+  padding: 4rem 0 2rem;
+}
+
+.mc-home h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+}
+
+.mc-home .mc-tagline {
+  font-size: 1.15rem;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+.mc-home .mc-intro p {
+  font-size: 1.1rem;
+  color: #2a2a2a;
+  line-height: 1.8;
+}
+
+.mc-home .mc-nav-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.mc-home .mc-nav-links a {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a6b8a;
+  border-bottom: 2px solid #1a6b8a;
+  padding-bottom: 2px;
+}
+
+.mc-home .mc-nav-links a:hover {
+  color: #134f66;
+  border-bottom-color: #134f66;
+}
+
+/* ============================================
+   ABOUT PAGE
+   ============================================ */
+
+.mc-about h2 {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mc-about .mc-lede {
+  font-size: 1.15rem;
+  color: #444;
+  line-height: 1.8;
+}
+
+/* ============================================
+   CV PAGE
+   ============================================ */
+
+.mc-cv .mc-cv-subtitle {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 2.5rem;
+}
+
+.mc-cv .mc-cv-name {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.mc-cv .mc-cv-contact {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.mc-cv .mc-cv-summary {
+  font-size: 1.05rem;
+  color: #2a2a2a;
+  line-height: 1.8;
+  padding: 1.25rem 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2.5rem;
+}
+
+.mc-cv .mc-section-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mc-cv .mc-role-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+  margin-top: 2rem;
+  color: #1a1a1a;
+}
+
+.mc-cv .mc-role-title:first-of-type {
+  margin-top: 0;
+}
+
+.mc-cv .mc-role-meta {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.mc-cv .mc-role-desc {
+  font-size: 1rem;
+  color: #2a2a2a;
+  margin-bottom: 0.75rem;
+}
+
+.mc-cv ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.mc-cv li {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.6;
+}
+
+.mc-cv .mc-competencies {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.mc-cv .mc-education p {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+/* ============================================
+   WRITING PAGE
+   ============================================ */
+
+.mc-writing .mc-writing-intro {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2.5rem;
+}
+
+.mc-writing .mc-post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.mc-writing .mc-post-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 0;
+}
+
+.mc-writing .mc-post-item:first-child {
+  border-top: 1px solid #e8e8e8;
+}
+
+.mc-writing .mc-post-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.mc-writing .mc-post-title a {
+  color: #1a1a1a;
+}
+
+.mc-writing .mc-post-title a:hover {
+  color: #1a6b8a;
+}
+
+.mc-writing .mc-post-excerpt {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ============================================
+   BLOG POSTS
+   ============================================ */
+
+.mc-post .mc-post-header {
+  margin-bottom: 2.5rem;
+}
+
+.mc-post .mc-post-header h1 {
+  font-size: 2rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.mc-post .mc-post-back {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.mc-post .mc-post-back:hover {
+  color: #1a6b8a;
+}
+
+.mc-post p {
+  line-height: 1.8;
+}
+
+.mc-post h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   CONTACT PAGE
+   ============================================ */
+
+.mc-contact {
+  padding: 4rem 0 2rem;
+}
+
+.mc-contact h1 {
+  margin-bottom: 2rem;
+}
+
+.mc-contact .mc-contact-email {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.mc-contact .mc-contact-email a {
+  color: #1a1a1a;
+  border-bottom: 2px solid #1a6b8a;
+  padding-bottom: 2px;
+}
+
+.mc-contact .mc-contact-email a:hover {
+  color: #1a6b8a;
+}
+
+.mc-contact .mc-contact-links {
+  font-size: 1.05rem;
+  color: #555;
+}
+
+.mc-contact .mc-contact-links a {
+  color: #1a6b8a;
+  font-weight: 500;
+}
+
+.mc-contact .mc-contact-sep {
+  margin: 0 0.5rem;
+  color: #ccc;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+  .site-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .site-nav .nav-links {
+    gap: 1.25rem;
+  }
+
+  .mc-home h1 {
+    font-size: 2rem;
+  }
+
+  .mc-home {
+    padding: 2rem 0 1rem;
+  }
+
+  .mc-contact {
+    padding: 2rem 0 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .mc-cv .mc-cv-name {
+    font-size: 1.5rem;
+  }
+
+  .mc-post .mc-post-header h1 {
+    font-size: 1.6rem;
+  }
+}
