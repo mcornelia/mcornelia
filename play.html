@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rack Invaders &mdash; Mike Cornelia</title>
-  <meta name="description" content="Rack Invaders: a data-center-themed arcade game. Defend your data center from rogue SEVs, overheating GPUs, and cascading errors.">
+  <title>Play &mdash; Mike Cornelia</title>
+  <meta name="description" content="Retro arcade games. Built for fun, playable on desktop and mobile.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/game.css">
 </head>
@@ -16,6 +16,7 @@
     <div class="nav-name"><a href="/">Mike Cornelia</a></div>
     <ul class="nav-links">
       <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
       <li><a href="/writing.html">Writing</a></li>
       <li><a href="/play.html" class="active">Play</a></li>
       <li><a href="/contact.html">Contact</a></li>
@@ -24,19 +25,24 @@
 
   <main class="mc-game">
 
-    <h1>Rack Invaders</h1>
-    <p class="mc-game-subtitle">Defend the data center. Repair the fleet.</p>
+    <h1>Arcade</h1>
+    <p class="mc-game-subtitle">Retro games. Built with code, played for fun.</p>
 
-    <div class="game-container">
-      <canvas id="game-canvas" width="480" height="600"></canvas>
+    <div class="game-menu">
+
+      <a href="/play/rack-invaders.html" class="game-card">
+        <div class="game-card-icon">&#x1F5A5;</div>
+        <h2>Rack Invaders</h2>
+        <p>Defend the data center from rogue SEVs, overheating GPUs, and cascading errors. A data-center-themed Space Invaders.</p>
+      </a>
+
+      <a href="/play/asteroids.html" class="game-card">
+        <div class="game-card-icon">&#x2604;</div>
+        <h2>Asteroids</h2>
+        <p>Pilot your ship through an asteroid field. Blast rocks, dodge debris, survive as long as you can.</p>
+      </a>
+
     </div>
-
-    <p class="mc-game-controls">
-      <kbd>&larr;</kbd> <kbd>&rarr;</kbd> Move &ensp; <kbd>Space</kbd> Repair
-    </p>
-    <p class="mc-game-touch-hint">
-      Bottom half: touch left/right to move &ensp; Upper half: tap to repair
-    </p>
 
   </main>
 
@@ -46,6 +52,5 @@
 
 </div>
 
-<script src="js/game.js"></script>
 </body>
 </html>

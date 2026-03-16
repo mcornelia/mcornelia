@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rack Invaders &mdash; Mike Cornelia</title>
+  <meta name="description" content="Rack Invaders: a data-center-themed arcade game. Defend your data center from rogue SEVs, overheating GPUs, and cascading errors.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/writing.html">Writing</a></li>
+      <li><a href="/play.html" class="active">Play</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="mc-game">
+
+    <a href="/play.html" class="mc-post-back">&larr; Arcade</a>
+
+    <h1>Rack Invaders</h1>
+    <p class="mc-game-subtitle">Defend the data center. Repair the fleet.</p>
+
+    <div class="game-container">
+      <canvas id="game-canvas" width="480" height="600"></canvas>
+    </div>
+
+    <p class="mc-game-controls">
+      <kbd>&larr;</kbd> <kbd>&rarr;</kbd> Move &ensp; <kbd>Space</kbd> Repair
+    </p>
+    <p class="mc-game-touch-hint">
+      Bottom half: touch left/right to move &ensp; Upper half: tap to repair
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+
+</div>
+
+<script src="../js/game.js"></script>
+</body>
+</html>

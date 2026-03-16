@@ -1,5 +1,5 @@
 /* ============================================
-   RACK INVADERS — Game Styles
+   ARCADE — Game Styles
    ============================================ */
 
 .mc-game {
@@ -22,7 +22,62 @@
   font-family: monospace;
 }
 
-/* Canvas container */
+/* ============================================
+   GAME MENU — Card Grid
+   ============================================ */
+
+.game-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
+  text-align: left;
+}
+
+.game-card {
+  display: block;
+  padding: 1.5rem;
+  border: 1px solid #1a3a1a;
+  border-radius: 6px;
+  background: #0a0e0a;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.game-card:hover {
+  border-color: #33ff33;
+  box-shadow: 0 0 20px rgba(51, 255, 51, 0.15);
+  transform: translateY(-2px);
+}
+
+.game-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
+.game-card h2 {
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: #33ff33;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+  border: none;
+  padding: 0;
+}
+
+.game-card p {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============================================
+   GAME CANVAS
+   ============================================ */
+
 .game-container {
   display: flex;
   justify-content: center;
@@ -40,10 +95,6 @@
   image-rendering: pixelated;
   cursor: pointer;
   max-width: 100%;
-}
-
-/* CRT curvature effect */
-#game-canvas {
   background: #0a0e0a;
 }
 
@@ -104,5 +155,15 @@
 
   #game-canvas {
     border-width: 1px;
+  }
+
+  .game-menu {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .game-card {
+    padding: 1.25rem;
   }
 }
