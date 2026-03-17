@@ -75,6 +75,42 @@
 }
 
 /* ============================================
+   VIBE CODING — Section
+   ============================================ */
+
+.play-divider {
+  border: none;
+  border-top: 1px solid #1a1a2e;
+  max-width: 600px;
+  margin: 3rem auto 2rem;
+}
+
+.vibe-heading {
+  font-family: monospace;
+  color: #6b8afd;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(107, 138, 253, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.vibe-subtitle {
+  color: #666;
+}
+
+.vibe-card {
+  border-color: #1a1a3a;
+}
+
+.vibe-card:hover {
+  border-color: #6b8afd;
+  box-shadow: 0 0 20px rgba(107, 138, 253, 0.15);
+}
+
+.vibe-card h2 {
+  color: #6b8afd;
+}
+
+/* ============================================
    GAME CANVAS
    ============================================ */
 
