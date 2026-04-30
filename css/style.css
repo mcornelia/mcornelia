@@ -654,11 +654,6 @@ blockquote {
   background: rgba(0, 217, 255, 0.04);
 }
 
-.mc-writing .mc-post-item:first-child {
-  border-top: 1px solid var(--border);
-  border-left: 3px solid var(--accent-magenta);
-}
-
 .mc-writing .mc-post-title {
   font-family: var(--font-mono);
   font-size: 1.05rem;
