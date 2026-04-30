@@ -24,4 +24,4 @@ I love the technology. I love the people. I've never bought the idea that you ca
 - You name it, I've automated it (or I'm trying to)
 
 ## outside the lab
-Cooking food that's probably too spicy. Several half and full Ironman triathlons. Woodworking. Mass Effect fan (yes, EDI is named for Enhanced Defense Intelligence). Athens, GA with Aimee, Olive, and Huck.
+Cooking food that's probably too spicy. Several half and full Ironman triathlons. Woodworking. Gaming with friends — yes, EDI and Glyph are both Mass Effect AI characters. Athens, GA with Aimee, Olive, and Huck.
