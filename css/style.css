@@ -722,6 +722,214 @@ blockquote {
 }
 
 /* ============================================
+   BLOG POSTS — RICH CONTENT EXTENSIONS
+   (tables, enhanced code blocks, checklists)
+   ============================================ */
+
+/* Tables */
+.mc-post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  background: rgba(13, 17, 23, 0.4);
+  border: 1px solid var(--border);
+}
+
+.mc-post table th,
+.mc-post table td {
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.mc-post table th {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  background: rgba(0, 217, 255, 0.04);
+  border-bottom: 2px solid var(--border);
+}
+
+.mc-post table td {
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.mc-post table td strong {
+  color: var(--accent-amber);
+}
+
+.mc-post table tr:last-child td {
+  border-bottom: none;
+}
+
+.mc-post table tr:hover td {
+  background: rgba(0, 217, 255, 0.03);
+}
+
+/* Enhanced code blocks for copy-pasteable prompts */
+.mc-post .mc-prompt-block {
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-magenta);
+  background: var(--bg-solid);
+}
+
+.mc-post .mc-prompt-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-magenta);
+  padding: 0.6rem 1rem;
+  background: rgba(255, 92, 242, 0.06);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mc-post .mc-prompt-label::after {
+  content: 'copy →';
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.mc-post .mc-prompt-block pre {
+  margin: 0;
+  border: none;
+  background: transparent;
+  padding: 1rem 1.1rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.mc-post .mc-prompt-block pre::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mc-post .mc-prompt-block pre::-webkit-scrollbar-track {
+  background: var(--bg-solid);
+}
+
+.mc-post .mc-prompt-block pre::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.mc-post .mc-prompt-block pre::-webkit-scrollbar-thumb:hover {
+  background: var(--border-bright);
+}
+
+/* Checklists (use <ul class="mc-checklist"> and prefix items with [ ]) */
+.mc-post .mc-checklist {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.25rem 0;
+}
+
+.mc-post .mc-checklist li {
+  position: relative;
+  padding-left: 1.85rem;
+  margin-bottom: 0.55rem;
+  line-height: 1.6;
+}
+
+.mc-post .mc-checklist li::before {
+  content: '☐';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-cyan);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-family: var(--font-mono);
+}
+
+/* Callout boxes for honest-tradeoff / important framing */
+.mc-post .mc-callout {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-amber);
+  background: rgba(255, 184, 0, 0.04);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.mc-post .mc-callout strong {
+  color: var(--accent-amber);
+}
+
+.mc-post .mc-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Stat row for proof points */
+.mc-post .mc-stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+.mc-post .mc-stat {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-green);
+  background: rgba(13, 17, 23, 0.4);
+}
+
+.mc-post .mc-stat-number {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.mc-post .mc-stat-label {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.mc-post .mc-stat-source {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .mc-post .mc-stat-row {
+    grid-template-columns: 1fr;
+  }
+  .mc-post table {
+    font-size: 0.85rem;
+  }
+  .mc-post table th,
+  .mc-post table td {
+    padding: 0.5rem 0.65rem;
+  }
+}
+
+/* ============================================
    CONTACT PAGE
    ============================================ */
 

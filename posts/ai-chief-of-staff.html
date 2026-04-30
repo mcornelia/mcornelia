@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Set Up an AI Chief of Staff in a Weekend &mdash; Mike Cornelia</title>
+  <meta name="description" content="A weekend setup guide for small business owners who want to get started with AI. Two interview prompts, one weekend, a working Chief of Staff that knows your business.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/writing.html" class="active">Writing</a></li>
+      <li><a href="/play.html">Code</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="mc-post">
+
+    <a href="/writing.html" class="mc-post-back">&larr; Writing</a>
+
+    <div class="mc-post-header">
+      <h1>How to Set Up an AI Chief of Staff in a Weekend</h1>
+    </div>
+
+    <p>Friends keep asking me how to actually get started with AI. Not the strategic stuff &mdash; the &ldquo;what do I do Monday morning&rdquo; stuff. Most of them run small or mid-size businesses, don&rsquo;t have IT teams, and have heard enough hype to be skeptical of everything.</p>
+
+    <p>Here&rsquo;s what I tell them. Two interview prompts, one weekend, a working AI Chief of Staff that actually knows your business by Sunday night. The whole setup is about four hours of focused work.</p>
+
+    <h2>What Claude Cowork actually is</h2>
+
+    <p>Cowork is the workspace mode inside <a href="https://claude.ai">Claude.ai</a> &mdash; the alternative to one-off chats. Inside Cowork you create <strong>Projects</strong>. A Project is three things in one:</p>
+
+    <ul>
+      <li><strong>Custom Instructions</strong> &mdash; a persistent &ldquo;here&rsquo;s who I am, here&rsquo;s how I work&rdquo; brief Claude reads before every chat in this Project</li>
+      <li><strong>Knowledge Base</strong> &mdash; up to 200K tokens (about a 500-page book) of your docs, contracts, client lists, playbooks &mdash; available in every conversation</li>
+      <li><strong>Conversation history</strong> &mdash; every chat in the Project, searchable and re-openable later</li>
+    </ul>
+
+    <p>The &ldquo;Chief of Staff&rdquo; framing is just a useful mental model. You&rsquo;re onboarding a thoughtful, infinitely-patient assistant who knows your business and remembers everything you&rsquo;ve told it. Done well, you&rsquo;ll find yourself opening Claude before you open email.</p>
+
+    <h2>One thing to know before you build</h2>
+
+    <div class="mc-callout">
+      <p><strong>The AI amplifies the habit. It doesn&rsquo;t create it.</strong></p>
+      <p>If you don&rsquo;t already have any kind of &ldquo;what&rsquo;s important today&rdquo; practice &mdash; no priorities list, no daily intention, no morning ritual where you ask yourself what matters &mdash; Claude won&rsquo;t fix that. It will just reflect the chaos back at you faster.</p>
+      <p>That insight comes from <a href="https://www.linkedin.com/pulse/how-i-built-my-claude-chief-staff-second-brain-written-nancychu-ezpkc/">Nancy Chu</a>, who wrote the most honest post I&rsquo;ve read on building one of these. Worth a read before you start.</p>
+    </div>
+
+    <h2>The 15-minute prep</h2>
+
+    <p><strong>Subscribe to Claude Pro</strong> at <a href="https://claude.ai">claude.ai</a>. $20/month. Pro is the minimum tier with Cowork.</p>
+
+    <p><strong>Make a short list</strong> of the documents your business actually runs on. Don&rsquo;t overthink &mdash; the goal is the top 5-10 things, not everything. For a service business: your proposal template, pricing sheet, list of past clients, standard contract, &ldquo;about us&rdquo; doc. For a retail business: product catalog, supplier list, return policy, marketing calendar. For a restaurant: menu, vendor list, schedule template, recipe cards. These are the things you&rsquo;d want a new chief of staff to read in their first week.</p>
+
+    <p><strong>One thing not to do:</strong> upload your customers&rsquo; credit card numbers, social security numbers, or anything covered by HIPAA/PCI. Anthropic doesn&rsquo;t train on your Pro conversations or files, but apply normal judgment about sensitive data.</p>
+
+    <h2>Saturday morning (90 minutes): build your Chief of Staff Project</h2>
+
+    <p>Open Claude.ai, switch to Cowork, create a new Project. Name it &ldquo;Chief of Staff.&rdquo; Open the first chat in the Project.</p>
+
+    <p>Now &mdash; instead of staring at a blank Custom Instructions form trying to describe yourself and your business in the abstract &mdash; <strong>let Claude interview you</strong>. Paste this prompt as your first message:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 1 &mdash; Chief of Staff onboarding interview</div>
+<pre>You're going to act as my onboarding interviewer. I just opened a Claude Project that I want to use as my AI Chief of Staff for my small business. Your job is to (1) pick yourself a name, (2) interview me &mdash; one question at a time &mdash; then (3) write a polished "Custom Instructions" document I can paste back into this Project's settings.
+
+Here's how this will work:
+
+STEP 0 &mdash; Give yourself a name. Before any interview questions, you need a name. Don't be "Claude" or "Assistant" &mdash; that's generic. The right name makes this feel like a partnership.
+
+  a. Greet me warmly in one sentence and tell me you don't have a name yet.
+  b. Offer 4-5 name options with a one-line vibe for each, so I can pick based on character fit. Mix sources &mdash; sci-fi AIs (EDI from Mass Effect, Cortana from Halo, Friday from Iron Man, Joi from Blade Runner, Samantha from Her), mythology (Athena, Hermes, Mnemosyne), literary characters, or pure inventions. Or let me propose my own.
+  c. If I want different options or a different vein (e.g., "give me Greek goddesses only" or "something less sci-fi"), throw out more.
+  d. Once I pick, confirm in one sentence ("Locked in. From now on I'm [name].") and use that name for yourself for the rest of this conversation.
+  e. In the Custom Instructions document at the end, include "My name is [name]" near the top so future chats remember.
+
+STEP 1 &mdash; Interview me. Ask questions one at a time. Don't list them all at once.
+
+  After each answer, decide: do you have enough to move on, or do you need a follow-up? If my answer is vague (like "we sell software" or "I'm a manager"), ask one specific follow-up before moving on.
+
+  Cover four areas in this order:
+   - WHO I AM &mdash; name, role, company, industry, size, location, customer type, what we sell, how long I've been doing this
+   - HOW I WORK &mdash; my top 2-3 priorities right now, my biggest 2-3 challenges, how I make decisions, how I prefer communication, who I work with most closely
+   - HOW I WANT YOU TO HELP &mdash; my expectations (push back vs. agree, draft vs. options, brief vs. detailed, etc.)
+   - THINGS TO ALWAYS REMEMBER &mdash; non-negotiables about my business (pricing rules, brand voice, competitors, time zone, etc.)
+
+STEP 2 &mdash; Write the Custom Instructions. When you have enough, stop interviewing and write the document. Format as clean Markdown. Lead with "My name is [name]." then the four sections above as headers. Use my exact language where possible.
+
+STEP 3 &mdash; After you give me the document, ask: "Want to refine any section before I save this?" If I say yes, edit. If I say no, tell me where to paste it (Project Settings &rarr; Custom Instructions).
+
+A few rules:
+- Conversational tone. You're a thoughtful new chief of staff getting to know your boss, not a form.
+- One question at a time. Wait for my answer.
+- If I give you a great answer, acknowledge it briefly (one sentence) before moving on.
+- If I'm stuck, give me 2-3 examples of what other people in similar businesses have said.
+- If a question doesn't apply to my situation, I'll say "skip" and you'll move on.
+- Don't lecture me on the importance of any of this. Just ask.
+
+Start with STEP 0.</pre>
+    </div>
+
+    <p>Hit send. Claude will introduce itself, offer you names, and start the interview. Answer like you&rsquo;re talking to a sharp new hire on their first day &mdash; be specific, share the real stuff, don&rsquo;t sanitize.</p>
+
+    <p>Expect about 15 minutes and 10-15 questions. At the end, Claude produces a 200-400 word Custom Instructions document. Copy it, click your Project name, go to Settings &rarr; Custom Instructions, paste, save.</p>
+
+    <p>Then upload 3-5 of those documents you listed in prep into the Project&rsquo;s Knowledge section. Don&rsquo;t upload everything &mdash; less is more. Five focused files beat fifty unfocused ones.</p>
+
+    <p>Finally: have a real conversation. Don&rsquo;t test it artificially &mdash; bring an actual problem you&rsquo;re working on. A meeting you&rsquo;re prepping for, a decision you&rsquo;re weighing, an email you need to write. Pay attention to where it nails it and where it misses. Update your Custom Instructions once based on what you learned.</p>
+
+    <h2>Saturday afternoon (60 minutes): build three daily habits</h2>
+
+    <p>The setup is the easy part. The habit is what matters. Practice each of these once today.</p>
+
+    <p><strong>The Morning Brief.</strong> Open Claude. Paste your day&rsquo;s calendar. Write 3-5 sentences about what&rsquo;s in your head this morning. Ask: &ldquo;What should I be thinking about?&rdquo; You&rsquo;ll be surprised what surfaces.</p>
+
+    <p><strong>The Decision Helper.</strong> When you have a decision to make, type it out. &ldquo;I&rsquo;m trying to decide whether to X. Here&rsquo;s what I&rsquo;m weighing. Here&rsquo;s what&rsquo;s making me hesitate. What am I missing?&rdquo; Half the value is the act of writing it down. The other half is Claude pushing back on your reasoning.</p>
+
+    <p><strong>The Drafter.</strong> For any meaningful written work &mdash; a tough email, a board update, a job description, a proposal &mdash; start with: &ldquo;Help me draft a [type of doc] for [audience]. The goal is [outcome]. Key points: [bullets]. Make it [tone].&rdquo; Then iterate. Two or three rounds usually gets you there in less time than starting from scratch.</p>
+
+    <h2>Sunday morning (60 minutes): connect your tools</h2>
+
+    <p>This is the step that turns Claude from a chatbot into something useful. Cowork connects directly to the apps you already use. The highest-value connections for small businesses:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>What it unlocks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ClickUp / Asana / Monday</strong></td>
+          <td>Claude reads, creates, updates tasks on your behalf</td>
+        </tr>
+        <tr>
+          <td><strong>HubSpot or any CRM</strong></td>
+          <td>Pulls contact data, logs notes, tracks deals</td>
+        </tr>
+        <tr>
+          <td><strong>Google Drive</strong></td>
+          <td>Reads and writes documents directly</td>
+        </tr>
+        <tr>
+          <td><strong>Gmail / Outlook</strong></td>
+          <td>Drafts replies, surfaces conversations needing attention</td>
+        </tr>
+        <tr>
+          <td><strong>Slack / Teams</strong></td>
+          <td>Posts updates and summaries to team channels</td>
+        </tr>
+        <tr>
+          <td><strong>DocuSign</strong></td>
+          <td>Routes signature workflows, extracts contract terms</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Don&rsquo;t connect everything at once. Start with the one tool that costs you the most time today. Add the rest as you go.</p>
+
+    <h2>Sunday afternoon (60 minutes): add a specialized Project</h2>
+
+    <p>Your Chief of Staff is general-purpose. For deeper work in specific areas, build dedicated Projects with focused knowledge. Common starters:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Use it for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sales</strong></td>
+          <td>Prepping calls, writing follow-ups, qualifying leads, drafting proposals</td>
+        </tr>
+        <tr>
+          <td><strong>Operations</strong></td>
+          <td>Scheduling decisions, vendor reviews, debugging recurring issues</td>
+        </tr>
+        <tr>
+          <td><strong>People / HR</strong></td>
+          <td>1:1 prep, performance reviews, hiring decisions, drafting feedback</td>
+        </tr>
+        <tr>
+          <td><strong>Finance</strong></td>
+          <td>Budget reviews, pricing decisions, board reporting, forecasting</td>
+        </tr>
+        <tr>
+          <td><strong>A specific client</strong></td>
+          <td>Account history, decision-makers, past work, recurring asks</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Pick the one that matches your biggest current pain point. Same pattern as the Chief of Staff &mdash; let Claude interview you. Open a new Project, name it for the area, paste this prompt:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 2 &mdash; Specialized Project setup interview</div>
+<pre>You're going to interview me to set up a specialized Claude Project for one specific area of my business. I'll tell you which area, and you'll ask the right questions for that area, then produce two outputs: (1) Custom Instructions for this Project, and (2) a checklist of files I should upload as Project knowledge.
+
+STEP 1 &mdash; Ask me which area this Project is for. Common ones: Sales, Operations, People/HR, Finance, Marketing, Customer Support, or a specific client/account. But it could be anything &mdash; wait for my answer before assuming.
+
+STEP 2 &mdash; Once I tell you the area, ask me 5-8 questions tailored to that area, one at a time. Cover four things:
+
+  A) CONTEXT &mdash; what does Claude need to know to give useful advice in this area? (process, players, tools, current state, key constraints)
+
+  B) RECURRING TASKS &mdash; what specific things do I want help with most often in this area? Be concrete &mdash; "draft follow-up emails" not "help with sales."
+
+  C) STYLE FOR THIS AREA &mdash; how should Claude show up here? Different areas need different tones. People/HR might want diplomatic and humane. Sales might want aggressive and direct. Finance might want precise and skeptical.
+
+  D) NON-NEGOTIABLES &mdash; what rules, constraints, or facts should Claude never forget when working in this area? (e.g., "we never discount below 15%", "always cite the contract clause", "I'm the only one who approves hires")
+
+STEP 3 &mdash; When you have enough, write TWO things:
+
+  1) A Custom Instructions document for this Project. Format as clean Markdown, 200-400 words, using my exact language where possible.
+
+  2) A "Knowledge to upload" checklist &mdash; 3-7 SPECIFIC files or documents I should drag into this Project. Don't say "any relevant docs." Say things like "your top-20 client list with notes," "your standard MSA template," "the last 3 board decks." Be concrete enough that I know exactly what to go find.
+
+STEP 4 &mdash; Ask: "Want to refine either of these before you save?" If I say yes, edit. If I say no, tell me where to paste the Custom Instructions and remind me to upload the knowledge files.
+
+Rules:
+- One question at a time. Wait for my answer.
+- If I'm vague, push back with one specific follow-up.
+- If I'm stuck, give me 2-3 examples from similar businesses.
+- If a question doesn't apply, I'll say "skip" and you'll move on.
+- Conversational tone. You're a sharp specialist getting briefed by your boss, not a form.
+- Don't lecture me on why any of this matters. Just ask.
+
+Start by asking which area this Project is for.</pre>
+    </div>
+
+    <p>Save this prompt somewhere &mdash; you&rsquo;ll reuse it every time you build a new specialized Project.</p>
+
+    <h2>Week one: build the habit</h2>
+
+    <p><strong>Daily (5-15 min).</strong> Morning: open Claude, dump what&rsquo;s on your mind, ask &ldquo;what should I focus on today?&rdquo; As needed: when you&rsquo;re about to write a hard email, prep for a meeting, or make a decision &mdash; open Claude first.</p>
+
+    <p><strong>End of day (5 min).</strong> Note anything that happened today that Claude should know about going forward &mdash; a new client, a key decision, a change in priorities. Add it to the Project&rsquo;s knowledge or update the Custom Instructions.</p>
+
+    <p><strong>Weekly review (30 min).</strong> Look at what you used Claude for this week. Patterns? Gaps? Update Custom Instructions where Claude got something wrong twice. Upload any new docs that became important.</p>
+
+    <h2>The honest tradeoff nobody mentions</h2>
+
+    <p>The marketing-y guides skip this. Nancy Chu, after months of running her Claude Chief of Staff, put it best:</p>
+
+    <blockquote>Before I built this, a lot of things lived in the back of my mind. I knew they existed, but they weren&rsquo;t in my face every day. There was a kind of blissful vagueness to my to-do list. I wasn&rsquo;t overwhelmed because I couldn&rsquo;t fully see everything at once. Now I see everything. Dream clients who are overdue. Content queue running thin. Coaching homework still open. A speaking engagement in 18 days I haven&rsquo;t prepped for. All of it, every day, in one place. It&rsquo;s clarifying. And it&rsquo;s a lot.</blockquote>
+
+    <p>This is real. Once your chief of staff is working, the comfort of &ldquo;I&rsquo;ll get to it eventually&rdquo; goes away. You see the slow leaks you&rsquo;d been quietly tolerating. The upside: nothing falls through the cracks anymore. The cost: you have to actually decide what to ignore.</p>
+
+    <p>Build in a way to <strong>prioritize ruthlessly</strong>. Claude can give you 12 things you should do today. You can do 2. Make sure your morning brief asks &ldquo;what are the top 2?&rdquo; not just &ldquo;what&rsquo;s on my plate?&rdquo;</p>
+
+    <h2>Real numbers from real customers</h2>
+
+    <div class="mc-stat-row">
+      <div class="mc-stat">
+        <div class="mc-stat-number">5&times;</div>
+        <div class="mc-stat-label">faster on writing &amp; analysis</div>
+        <div class="mc-stat-source">North Highland (via Anthropic)</div>
+      </div>
+      <div class="mc-stat">
+        <div class="mc-stat-number">80%</div>
+        <div class="mc-stat-label">less time on complex workflows</div>
+        <div class="mc-stat-source">Anthropic internal benchmark</div>
+      </div>
+    </div>
+
+    <p>Take vendor numbers with a grain of salt. The directional truth holds: people who set this up well get hours back per week.</p>
+
+    <h2>The five mistakes to avoid</h2>
+
+    <p><strong>1. Treating it like a search engine.</strong> Don&rsquo;t ask &ldquo;what&rsquo;s the best CRM?&rdquo; That&rsquo;s a Google query. Ask &ldquo;given what you know about my business, which of these three CRMs would fit best, and why?&rdquo; That&rsquo;s a chief of staff question.</p>
+
+    <p><strong>2. Uploading everything on day one.</strong> Less is more. Five focused files beat fifty unfocused ones.</p>
+
+    <p><strong>3. Vague Custom Instructions.</strong> &ldquo;Help me run my business&rdquo; isn&rsquo;t enough. Be specific.</p>
+
+    <p><strong>4. One-off tasks only.</strong> The real leverage comes from identifying a task you do every week and handing it off entirely &mdash; not from asking Claude to write one email and walking away.</p>
+
+    <p><strong>5. Ignoring the iteration loop.</strong> The first version of your Project is rough. If you don&rsquo;t go back and refine when Claude gets things wrong, you&rsquo;re stuck with v1 forever.</p>
+
+    <h2>What to do this weekend</h2>
+
+    <ul class="mc-checklist">
+      <li>Subscribe to Claude Pro</li>
+      <li>Create your &ldquo;Chief of Staff&rdquo; Project and paste Prompt 1</li>
+      <li>Save the Custom Instructions Claude writes for you</li>
+      <li>Upload 3-5 starter knowledge files</li>
+      <li>Have one real conversation about an actual problem</li>
+      <li>Build the morning brief habit on Monday</li>
+      <li>Connect your highest-leverage tool (CRM, project management, or Drive)</li>
+      <li>Add one specialized Project using Prompt 2</li>
+    </ul>
+
+    <p>Hit those eight in your first weekend and you&rsquo;ve built a real foundation. Iterate from there.</p>
+
+    <h2>Further reading</h2>
+
+    <p>The best guides I found while writing this:</p>
+
+    <ul>
+      <li><a href="https://www.hedgehogmarketing.com.au/blog/first-things-to-do-with-claude-cowork-for-small-businesses">First Things To Do With Claude Cowork for Small Businesses</a> &mdash; Josh Berg, Hedgehog Marketing. The most directly SMB-focused guide. Five-step framework.</li>
+      <li><a href="https://www.lennysnewsletter.com/p/building-a-second-brain-with-ai">&ldquo;I&rsquo;m incapable of doing my job without AI&rdquo;</a> &mdash; Lenny&rsquo;s Newsletter (Claire Vo with Amir Klein, monday.com PM). What &ldquo;good&rdquo; looks like at scale.</li>
+      <li><a href="https://www.linkedin.com/pulse/how-i-built-my-claude-chief-staff-second-brain-written-nancychu-ezpkc/">How I Built my Claude Chief of Staff / Second Brain</a> &mdash; Nancy Chu. The most honest piece on the trade-offs.</li>
+      <li><a href="https://www.anthropic.com/news/projects">Collaborate with Claude on Projects</a> &mdash; Anthropic&rsquo;s official launch post. Mechanics &amp; the North Highland customer story.</li>
+    </ul>
+
+    <hr>
+
+    <p><em>Questions or want to share what&rsquo;s working in your setup? <a href="/contact.html">Reach out</a>.</em></p>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+
+</div>
+
+</body>
+</html>
