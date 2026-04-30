@@ -52,9 +52,18 @@ The site has these pages (each is a standalone HTML file in the repo root):
 | About | /about.html | `about.html` | Personal narrative, what I've built, before Meta, outside work |
 | CV | /cv.html | `cv.html` | Detailed work history, experience, education |
 | Code | /play.html | `play.html` | Side projects (games + AI/coding side projects) |
-| Writing | /writing.html | `writing.html` | Blog posts index |
+| Writing | /writing.html | `writing.html` | Blog posts index — newest at top |
 | Contact | /contact.html | `contact.html` | Email + social links |
-| Posts | /posts/*.html | `posts/` folder | Individual blog posts |
+| Posts | /posts/*.html | `posts/` folder | Individual blog posts (see inventory below) |
+
+**Current posts (newest first)**:
+
+| Post | URL | File |
+|---|---|---|
+| AI Chief of Staff (101 guide) | /posts/ai-chief-of-staff.html | `posts/ai-chief-of-staff.html` |
+| Workforce Problem | /posts/workforce.html | `posts/workforce.html` |
+| AI-Native Operations | /posts/ai-native.html | `posts/ai-native.html` |
+| Commissioning a DC Region | /posts/commissioning.html | `posts/commissioning.html` |
 
 Other folders:
 - `css/style.css` — global styles (don't regenerate; edit directly if styling needs to change)
@@ -135,16 +144,49 @@ Always quote-encode in HTML; don't paste raw smart quotes.
 
 **Em-dashes on the CV page**: I removed all em-dashes from the CV per recruiter advice (em-dashes signal AI-generated content to ATS scanners and human reviewers). When editing `cv.html`, use commas, semicolons, or colons instead of em-dashes. Other pages (Home, About, etc.) can keep em-dashes — I have a deliberate voice there.
 
-**Things to NEVER touch**:
-- `css/style.css` — global styles, only edit if I explicitly ask
-- `play.html`, `writing.html`, anything in `posts/` or `play/` — these are managed separately
+**Two workflows, two scopes:**
+
+- **Routine maintenance** (this project's default scope): you help me update Home, About, CV, and Contact. Don't touch anything else unless I explicitly say so.
+- **Posts authoring** (separate scope): adding a new blog post, updating `writing.html`, or extending `css/style.css` for new post features (tables, code blocks, etc.). I'll tell you when we're in this mode.
+
+**Things to NEVER touch in the maintenance workflow**:
+- `css/style.css` — global styles, only edit if I explicitly ask (posts authoring is the exception)
+- `play.html`, `writing.html`, anything in `posts/` or `play/` — these belong to the posts/games workflow
 - The `<head>`, `<nav>`, or `<footer>` — only the `<main>` block changes when updating content
 - `CNAME` file (custom domain config)
+
+**Even in the posts authoring workflow, NEVER touch**:
+- `<head>`, `<nav>`, `<footer>` template (still constant across pages)
+- `CNAME`
+- Existing posts unless I explicitly ask to edit them
+- The base CSS rules (only ADD new sections at the end of `css/style.css`)
 
 **Always preserve**:
 - Class names exactly as they are (`mc-cv`, `mc-role-title`, etc.)
 - The active nav class (the page you're editing keeps `class="active"` on its nav link)
 - The footer copyright year
+
+## Posts authoring conventions (when adding a new blog post)
+
+When I tell you we're authoring a new post (not doing routine maintenance), here's the playbook:
+
+**1. Create the post HTML** at `posts/<slug>.html`. Use the existing posts as templates (`posts/workforce.html`, `posts/ai-chief-of-staff.html`). The wrapper is `<main class="mc-post">` with `<a class="mc-post-back">`, `<div class="mc-post-header">`, then content.
+
+**2. Update `writing.html`** — add a new `<li class="mc-post-item">` at the **top** of the `<ul class="mc-post-list">` (newest first ordering).
+
+**3. Available rich-content classes** (defined in `css/style.css` under "BLOG POSTS — RICH CONTENT EXTENSIONS"):
+
+| Element | When to use | HTML pattern |
+|---|---|---|
+| Standard tables | Comparisons, inventories | `<table><thead><tr><th>...</th></tr></thead><tbody><tr><td>...</td></tr></tbody></table>` |
+| Copy-pasteable prompt blocks | Long prompts users will copy | `<div class="mc-prompt-block"><div class="mc-prompt-label">Label here</div><pre>...prompt...</pre></div>` |
+| Checklists (☐) | Action lists at end of posts | `<ul class="mc-checklist"><li>Item</li></ul>` |
+| Callout boxes | "Important — read this" framing | `<div class="mc-callout"><p><strong>Headline.</strong></p><p>Body.</p></div>` |
+| Stat cards | Proof points / numbers | `<div class="mc-stat-row"><div class="mc-stat"><div class="mc-stat-number">5×</div><div class="mc-stat-label">label</div><div class="mc-stat-source">attribution</div></div></div>` |
+
+**4. If a post needs a NEW kind of element** not on this list, add a new section to the bottom of `css/style.css` (under the "BLOG POSTS — RICH CONTENT EXTENSIONS" header). Then update this table so the next post can reuse it.
+
+**5. Em-dashes are fine in posts** — only the CV strips them. Posts are personal voice.
 
 ## Workflow: how I update the site
 
