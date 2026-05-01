@@ -264,10 +264,10 @@ Every page `<head>` block must include:
 - `twitter:card` — `summary_large_image`
 - `twitter:title`, `twitter:description`, `twitter:image`
 
-**OG image** (all pages share one):
-- Always `https://mcornelia.com/og-image.png`
-- Generated from `~/gdrive/03_resources/visualizations/og_image.html` (1200×630)
-- Lives at site root `/og-image.png`
+**OG images** (split between site default + per-post):
+- **Main pages** (Home, About, CV, Writing, Code, Contact) use `https://mcornelia.com/og-image.png`. Generated from `~/gdrive/03_resources/visualizations/og_image.html` (1200×630). Lives at `/og-image.png`.
+- **Each blog post** uses its own dedicated OG image at `https://mcornelia.com/og-images/[slug].png`. Generated from `~/gdrive/03_resources/visualizations/og_images/post_[slug].html`. Lives at `/og-images/[slug].png`.
+- When adding a new post: create a new per-post OG template by copying one of the existing `og_images/post_*.html` files, swap the title/tags/accent color, screenshot, save as `/og-images/[slug].png`. Then reference that path in the post's OG meta.
 
 **Person JSON-LD** (home + about only):
 - `@type: Person`, includes name, jobTitle, worksFor, url, sameAs (social profiles), address, knowsAbout (skill keywords)
@@ -285,6 +285,10 @@ Every page `<head>` block must include:
 - og:title, twitter:title (typically shorter than full `<title>`)
 - og:description, twitter:description (typically shorter than `<meta name="description">`)
 - JSON-LD headline (matches `<h1>`, often longer than og:title)
+- og:image, twitter:image, JSON-LD image — point to `/og-images/[slug].png`
+- Create the per-post OG image: copy a template from `~/gdrive/03_resources/visualizations/og_images/`, swap title/tags/accent color, screenshot at 1200×630, save as `og-images/[slug].png` in the website folder
+
+**Sitemap + robots** — `sitemap.xml` lives at site root and lists every page with lastmod/changefreq/priority. When adding a new post or page, ADD it to sitemap.xml. `robots.txt` (also at root) allows all crawlers and points to the sitemap. Don't touch `robots.txt` unless you're explicitly changing crawler policy.
 
 **When adding a NEW main page** — copy the head from `about.html` (if profile-style) or `play.html` (if functional) and update title, description, canonical URL, og:url, JSON-LD url. Skip article-specific tags.
 

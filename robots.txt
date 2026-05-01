@@ -1,0 +1,8 @@
+# robots.txt for mcornelia.com
+# Allow all well-behaved crawlers to index everything.
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://mcornelia.com/sitemap.xml
