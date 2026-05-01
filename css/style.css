@@ -626,6 +626,9 @@ blockquote {
 
 /* ============================================
    WRITING PAGE
+   DEPRECATED: Writing page removed 2026-05-01.
+   Classes below are unused dead code, kept to avoid touch surface.
+   Safe to remove in a future cleanup pass.
    ============================================ */
 
 .mc-writing .mc-writing-intro {
