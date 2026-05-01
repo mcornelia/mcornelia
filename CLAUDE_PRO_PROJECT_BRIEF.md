@@ -26,7 +26,8 @@ Keep it tight. If anything's unclear, ask me before we proceed.
 1. **Em-dashes removed only on `cv.html`**; other pages (Home, About, etc.) keep them — deliberate voice choice
 2. **Edit `about.html`**; bullet wraps in `<p>` (the About page uses paragraphs, not `<ul>` lists for the body — check the existing "Outside work" section for pattern); content goes inside `<main class="mc-about">`
 3. `cd ~/mcornelia` → `git pull origin main` → `git add -A` → `git commit -m "..."` → `git push origin main`
-4. Any three of: `css/style.css`, `play.html`, `writing.html`, anything in `posts/` or `play/`, the `<head>`/`<nav>`/`<footer>` template, `CNAME`
+4. Any three of: the `<head>`/`<nav>`/`<footer>` template, `CNAME`, `css/game.css`, anything in `play/` (the games themselves), existing posts unless asked to edit them, base CSS rules in `css/style.css` (only ADD new sections at the end).
+   - Note: `posts/`, `writing.html`, `play.html`, and `css/style.css` ARE editable — but only inside their dedicated workflows (posts authoring, code page maintenance), not as part of routine page edits.
 
 If Claude nails 3-4 of those, you're good. If it whiffs on #1 or #4 — those are the safety-critical ones — re-paste the brief.
 
@@ -117,6 +118,9 @@ The active page in nav gets `class="active"` added to its `<a>` tag.
 - About: `<main class="mc-about">` — uses `<h1>`, `<p class="mc-lede">` (first paragraph), `<h2>`, `<p>`, `<strong>` for emphasis
 - CV: `<main class="mc-cv">` — uses `<h1>`, `<p class="mc-cv-subtitle">`, `<p class="mc-cv-name">`, `<p class="mc-cv-contact">`, `<p class="mc-cv-summary">`, `<h2 class="mc-section-title">`, `<h3 class="mc-role-title">`, `<p class="mc-role-meta">`, `<p class="mc-role-desc">`, `<h4>` for subsections, `<ul><li>`, `<hr>` between roles
 - Contact: `<main class="mc-contact">` — uses `<h1>`, `<p class="mc-contact-email">`, `<p class="mc-contact-links">`
+- Writing index: `<main class="mc-writing">` — uses `<h1>`, `<ul class="mc-post-list">` with `<li class="mc-post-item">` containing `<p class="mc-post-title">` and `<p class="mc-post-excerpt">`
+- Code page: `<main class="mc-game">` — uses `<h1>`, `<p class="mc-game-subtitle">`, then `<div class="game-menu">` containing `<a class="game-card">` tiles (for games) or `<a class="game-card vibe-card">` tiles (for AI/coding side projects). Each tile has `<div class="game-card-icon">`, `<h2>`, `<p>`. Sections separated by `<hr class="play-divider">`.
+- Posts: `<main class="mc-post">` — see "Posts authoring conventions" section below for the full pattern + rich-content classes
 
 Match these conventions when generating HTML.
 
@@ -144,14 +148,15 @@ Always quote-encode in HTML; don't paste raw smart quotes.
 
 **Em-dashes on the CV page**: I removed all em-dashes from the CV per recruiter advice (em-dashes signal AI-generated content to ATS scanners and human reviewers). When editing `cv.html`, use commas, semicolons, or colons instead of em-dashes. Other pages (Home, About, etc.) can keep em-dashes — I have a deliberate voice there.
 
-**Two workflows, two scopes:**
+**Three workflows, three scopes:**
 
-- **Routine maintenance** (this project's default scope): you help me update Home, About, CV, and Contact. Don't touch anything else unless I explicitly say so.
-- **Posts authoring** (separate scope): adding a new blog post, updating `writing.html`, or extending `css/style.css` for new post features (tables, code blocks, etc.). I'll tell you when we're in this mode.
+- **Routine maintenance** (default scope): you help me update Home, About, CV, and Contact. Don't touch anything else unless I explicitly invoke one of the workflows below.
+- **Posts authoring** (separate scope): adding a new blog post, updating `writing.html`, or extending `css/style.css` for new post features (tables, code blocks, etc.). I'll say something like "let's add a new post" or "we're authoring."
+- **Code page maintenance** (separate scope): adding/editing tiles on `play.html` (the Code page) — new side project tiles, new arcade games, link updates, target attribute changes. I'll say something like "add a tile" or "edit the Code page."
 
-**Things to NEVER touch in the maintenance workflow**:
-- `css/style.css` — global styles, only edit if I explicitly ask (posts authoring is the exception)
-- `play.html`, `writing.html`, anything in `posts/` or `play/` — these belong to the posts/games workflow
+**Things to NEVER touch in the routine maintenance workflow**:
+- `css/style.css` — global styles, only edit during posts authoring (when adding new rich-content sections)
+- `play.html`, `writing.html`, anything in `posts/` or `play/` — these belong to the posts authoring or code page workflows
 - The `<head>`, `<nav>`, or `<footer>` — only the `<main>` block changes when updating content
 - `CNAME` file (custom domain config)
 
@@ -160,6 +165,15 @@ Always quote-encode in HTML; don't paste raw smart quotes.
 - `CNAME`
 - Existing posts unless I explicitly ask to edit them
 - The base CSS rules (only ADD new sections at the end of `css/style.css`)
+- `play.html` or anything in `play/`
+
+**Even in the code page workflow, NEVER touch**:
+- `<head>`, `<nav>`, `<footer>` template
+- `CNAME`
+- Existing tiles unless I explicitly ask to edit them
+- The arcade games themselves (anything in `play/` like `rack-invaders.html`, `asteroids.html`)
+- `css/game.css` (only edit if I explicitly ask)
+- `posts/`, `writing.html`
 
 **Always preserve**:
 - Class names exactly as they are (`mc-cv`, `mc-role-title`, etc.)
@@ -187,6 +201,42 @@ When I tell you we're authoring a new post (not doing routine maintenance), here
 **4. If a post needs a NEW kind of element** not on this list, add a new section to the bottom of `css/style.css` (under the "BLOG POSTS — RICH CONTENT EXTENSIONS" header). Then update this table so the next post can reuse it.
 
 **5. Em-dashes are fine in posts** — only the CV strips them. Posts are personal voice.
+
+## Code page maintenance conventions (when adding or editing tiles on `play.html`)
+
+When I tell you we're editing the Code page, here's the playbook:
+
+**Two sections on `play.html`:**
+
+- **Arcade** (top half): retro browser games, individual files in `play/` (e.g., `play/rack-invaders.html`). Tiles use class `game-card` and link internally — they open in the same window (intentional).
+- **Coding** (bottom half, after `<hr class="play-divider">`): AI/coding side projects and guides. Tiles use class `game-card vibe-card`. They open in **new tabs** (`target="_blank" rel="noopener"`) — even internal links.
+
+**Tile HTML pattern:**
+
+```html
+<a href="[URL]" class="game-card vibe-card" target="_blank" rel="noopener">
+  <div class="game-card-icon">[HTML entity for emoji icon]</div>
+  <h2>Tile Title</h2>
+  <p>One or two sentences. Match the punchy, action-oriented voice of the existing tiles.</p>
+</a>
+```
+
+**Icon convention**: Use unique HTML entity emoji per tile (`&#x1F916;` 🤖, `&#x1F4D0;` 📐, `&#x1F3A9;` 🎩, `&#x1F4E1;` 📡, etc.). Don't reuse icons across tiles in the same section.
+
+**Description voice**: Compare to existing tiles. Two short sentences max. Action-first. No fluff.
+
+**Current Coding tiles (newest last):**
+
+| Tile | Target | Icon |
+|---|---|---|
+| OpenClaw Setup Guide | https://mcornelia.github.io/openclaw-setup-guide | 🤖 `&#x1F916;` |
+| Room Layout Tool | https://mcornelia.github.io/room-layout-tool | 📐 `&#x1F4D0;` |
+| AI Chief of Staff Setup | /posts/ai-chief-of-staff.html | 🎩 `&#x1F3A9;` |
+| Mountain Mesh Setup Guide | https://mcornelia.github.io/mountain-mesh-node-guide | 📡 `&#x1F4E1;` |
+
+**To add a new tile**: append to the `<div class="game-menu vibe-menu">` block (after Mountain Mesh). To reorder: cut and paste the `<a>` block to a new position.
+
+**To edit the Arcade section**: same pattern, but tiles drop the `vibe-card` class and `target="_blank"` attributes.
 
 ## Workflow: how I update the site
 
@@ -232,6 +282,20 @@ I'm a data center operations leader, 13 years at Meta. Voice on the site is dire
 - Pithy and a little sarcastic is fine.
 - When you make a change, tell me exactly what changed and what I need to do next.
 - Don't ask for permission for trivial edits I clearly want made. Do ask for confirmation on bigger structural changes.
+
+---
+
+## Sister repos that share styling
+
+These are separate GitHub Pages sites that intentionally use the same dark terminal CSS for brand consistency. They're NOT part of mcornelia.com — different repos, different `.github.io` URLs — but if I ask you to tweak styling on one of them, you'll find a near-verbatim copy of `css/style.css` in each repo.
+
+| Sister repo | URL | Purpose |
+|---|---|---|
+| `mcornelia/mountain-mesh-node-guide` | https://mcornelia.github.io/mountain-mesh-node-guide | Meshtastic LoRa setup guide for the Mountain Mesh network |
+| `mcornelia/openclaw-setup-guide` | https://mcornelia.github.io/openclaw-setup-guide | Interactive OpenClaw AI agent setup guide |
+| `mcornelia/room-layout-tool` | https://mcornelia.github.io/room-layout-tool | Drag-and-drop floor plan designer |
+
+If I ask to restyle one of these, treat it as its own scope — don't bleed mcornelia.com edits into it. If I update the master `css/style.css` here, I may want the same change propagated to the sister repos — I'll tell you when.
 
 ---
 
