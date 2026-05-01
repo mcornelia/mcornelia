@@ -224,14 +224,14 @@ When I tell you we're editing the Code page, here's the playbook:
 
 **Description voice**: Compare to existing tiles. Two short sentences max. Action-first. No fluff.
 
-**Current Coding tiles (newest last):**
+**Current Coding tiles (display order — top tiles get most attention):**
 
-| Tile | Target | Icon |
-|---|---|---|
-| OpenClaw Setup Guide | https://mcornelia.github.io/openclaw-setup-guide | 🤖 `&#x1F916;` |
-| Room Layout Tool | https://mcornelia.github.io/room-layout-tool | 📐 `&#x1F4D0;` |
-| AI Chief of Staff Setup | /posts/ai-chief-of-staff.html | 🎩 `&#x1F3A9;` |
-| Mountain Mesh Setup Guide | https://mcornelia.github.io/mountain-mesh-node-guide | 📡 `&#x1F4E1;` |
+| # | Tile | Target | Icon |
+|---|---|---|---|
+| 1 | OpenClaw Setup Guide | https://mcornelia.github.io/openclaw-setup-guide | 🤖 `&#x1F916;` |
+| 2 | AI Chief of Staff Setup | /posts/ai-chief-of-staff.html | 🎩 `&#x1F3A9;` |
+| 3 | Room Layout Tool | https://mcornelia.github.io/room-layout-tool | 📐 `&#x1F4D0;` |
+| 4 | Mountain Mesh Setup Guide | https://mcornelia.github.io/mountain-mesh-node-guide | 📡 `&#x1F4E1;` |
 
 **To add a new tile**: append to the `<div class="game-menu vibe-menu">` block (after Mountain Mesh). To reorder: cut and paste the `<a>` block to a new position.
 
