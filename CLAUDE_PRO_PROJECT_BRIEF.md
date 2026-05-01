@@ -202,6 +202,8 @@ When I tell you we're authoring a new post (not doing routine maintenance), here
 
 **5. Em-dashes are fine in posts** — only the CV strips them. Posts are personal voice.
 
+**6. SEO meta block** — every new post needs the full SEO `<head>` block (see "SEO conventions" section below). At minimum: canonical URL, OG tags, Twitter Card tags, Article JSON-LD with `datePublished`, keyword-tuned title and description. Use existing posts as templates.
+
 ## Code page maintenance conventions (when adding or editing tiles on `play.html`)
 
 When I tell you we're editing the Code page, here's the playbook:
@@ -237,6 +239,54 @@ When I tell you we're editing the Code page, here's the playbook:
 **To add a new tile**: append to the `<div class="game-menu vibe-menu">` block (after Mountain Mesh). To reorder: cut and paste the `<a>` block to a new position.
 
 **To edit the Arcade section**: same pattern, but tiles drop the `vibe-card` class and `target="_blank"` attributes.
+
+## SEO conventions (every page, baked into the `<head>`)
+
+The site is optimized for two audiences:
+1. **Recruiters / network** Googling "Mike Cornelia" → Person JSON-LD on home + about (clean Knowledge Panel)
+2. **Industry readers** finding posts via topic search → Article JSON-LD + topic keywords on posts
+
+Every page `<head>` block must include:
+
+**Standard meta** (all pages):
+- `<title>` — keyword-tuned, includes role or topic
+- `<meta name="description">` — keyword-rich, ~150-160 chars
+- `<meta name="author" content="Mike Cornelia">`
+
+**Canonical URL** (all pages):
+- `<link rel="canonical" href="https://mcornelia.com/[path]">`
+
+**Open Graph tags** (all pages — controls LinkedIn/Slack/iMessage previews):
+- `og:type` — `website` for landing pages, `profile` for about/cv, `article` for blog posts
+- `og:title`, `og:description`, `og:url`, `og:image`, `og:site_name`
+
+**Twitter Card tags** (all pages):
+- `twitter:card` — `summary_large_image`
+- `twitter:title`, `twitter:description`, `twitter:image`
+
+**OG image** (all pages share one):
+- Always `https://mcornelia.com/og-image.png`
+- Generated from `~/gdrive/03_resources/visualizations/og_image.html` (1200×630)
+- Lives at site root `/og-image.png`
+
+**Person JSON-LD** (home + about only):
+- `@type: Person`, includes name, jobTitle, worksFor, url, sameAs (social profiles), address, knowsAbout (skill keywords)
+
+**Article JSON-LD** (every blog post):
+- `@type: BlogPosting`, includes headline, description, image, url, datePublished, dateModified, author, publisher, mainEntityOfPage, keywords
+- Also add `<meta property="article:published_time">`, `article:section`, `article:tag` (multiple)
+- Also add `<meta name="keywords">` with topic-specific terms
+
+**When adding a NEW post** — copy the head from `posts/ai-chief-of-staff.html` and update:
+- title, description, keywords (meta + JSON-LD)
+- canonical URL, og:url, JSON-LD url, mainEntityOfPage @id (all 4 must match)
+- article:published_time + JSON-LD datePublished + dateModified
+- article:section + article:tag (multiple)
+- og:title, twitter:title (typically shorter than full `<title>`)
+- og:description, twitter:description (typically shorter than `<meta name="description">`)
+- JSON-LD headline (matches `<h1>`, often longer than og:title)
+
+**When adding a NEW main page** — copy the head from `about.html` (if profile-style) or `play.html` (if functional) and update title, description, canonical URL, og:url, JSON-LD url. Skip article-specific tags.
 
 ## Workflow: how I update the site
 
