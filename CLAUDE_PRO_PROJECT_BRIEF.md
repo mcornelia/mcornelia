@@ -62,6 +62,7 @@ The site has these pages (each is a standalone HTML file in the repo root):
 
 | Post | URL | File |
 |---|---|---|
+| Morning Brief Setup (Claude Cowork) | /posts/morning-brief.html | `posts/morning-brief.html` |
 | AI Chief of Staff (101 guide) | /posts/ai-chief-of-staff.html | `posts/ai-chief-of-staff.html` |
 
 Other folders:
@@ -230,8 +231,9 @@ When I tell you we're editing the Code page, here's the playbook:
 |---|---|---|---|
 | 1 | OpenClaw Setup Guide | https://mcornelia.github.io/openclaw-setup-guide | 🤖 `&#x1F916;` |
 | 2 | AI Chief of Staff Setup | /posts/ai-chief-of-staff.html | 🎩 `&#x1F3A9;` |
-| 3 | Room Layout Tool | https://mcornelia.github.io/room-layout-tool | 📐 `&#x1F4D0;` |
-| 4 | Mountain Mesh Setup Guide | https://mcornelia.github.io/mountain-mesh-node-guide | 📡 `&#x1F4E1;` |
+| 3 | Claude Morning Brief Setup | /posts/morning-brief.html | ☀️ `&#x2600;` |
+| 4 | Room Layout Tool | https://mcornelia.github.io/room-layout-tool | 📐 `&#x1F4D0;` |
+| 5 | Mountain Mesh Setup Guide | https://mcornelia.github.io/mountain-mesh-node-guide | 📡 `&#x1F4E1;` |
 
 **To add a new tile**: append to the `<div class="game-menu vibe-menu">` block (after Mountain Mesh). To reorder: cut and paste the `<a>` block to a new position.
 
@@ -345,6 +347,7 @@ These are separate GitHub Pages sites linked from the Code page. They intentiona
 | `mcornelia/mountain-mesh-node-guide` | https://mcornelia.github.io/mountain-mesh-node-guide | Meshtastic LoRa setup guide for the Mountain Mesh network | `01_projects/18_mountain_mesh_node_guide/` |
 | `mcornelia/openclaw-setup-guide` | https://mcornelia.github.io/openclaw-setup-guide | Interactive OpenClaw AI agent setup guide | `01_projects/19_openclaw_setup_guide/` |
 | `mcornelia/room-layout-tool` | https://mcornelia.github.io/room-layout-tool | Drag-and-drop floor plan designer | `01_projects/20_room_layout_tool/` |
+| `mcornelia/claude-morning-brief` | https://github.com/mcornelia/claude-morning-brief | Public README guide for the Morning Brief setup. Local clone lives at `~/claude-morning-brief/` on the Mac (NOT in gdrive — `.git` over gdrive sync is unstable). PARA metadata at `01_projects/21_claude_morning_brief/`. Note: this repo doesn't share the dark terminal CSS — it's a README-only repo, no styled HTML. |
 
 Each sister repo has:
 - A near-verbatim copy of `css/style.css`

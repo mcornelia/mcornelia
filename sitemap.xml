@@ -43,4 +43,11 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://mcornelia.com/posts/morning-brief.html</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
