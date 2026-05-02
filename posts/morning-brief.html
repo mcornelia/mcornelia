@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up a Personal Morning Brief in Claude Cowork &mdash; Mike Cornelia</title>
+  <meta name="description" content="Step-by-step Claude Cowork setup guide for a daily Morning Brief: calendar, email, and optional career search via public ATS APIs and the LinkedIn guest jobs API. Scheduled task, autonomous delivery.">
+  <meta name="author" content="Mike Cornelia">
+  <meta name="keywords" content="Claude Cowork, morning brief, AI scheduled task, Claude Code scheduled tasks, Greenhouse API, Ashby API, Lever API, Workday careers API, LinkedIn guest jobs API, ATS scraping, AI job search">
+
+  <link rel="canonical" href="https://mcornelia.com/posts/morning-brief.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Setting Up a Personal Morning Brief in Claude Cowork">
+  <meta property="og:description" content="A daily scheduled task that delivers calendar, email, and (optionally) career search across AI/cloud companies via public ATS APIs and LinkedIn. All prompt-driven.">
+  <meta property="og:url" content="https://mcornelia.com/posts/morning-brief.html">
+  <meta property="og:image" content="https://mcornelia.com/og-images/morning-brief.png">
+  <meta property="og:site_name" content="Mike Cornelia">
+  <meta property="article:author" content="Mike Cornelia">
+  <meta property="article:published_time" content="2026-05-02">
+  <meta property="article:section" content="AI &amp; Productivity">
+  <meta property="article:tag" content="Claude Cowork">
+  <meta property="article:tag" content="Morning Brief">
+  <meta property="article:tag" content="Scheduled Tasks">
+  <meta property="article:tag" content="ATS APIs">
+  <meta property="article:tag" content="LinkedIn">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Setting Up a Personal Morning Brief in Claude Cowork">
+  <meta name="twitter:description" content="Daily calendar + email + optional career search delivered by a Claude Cowork scheduled task. Step-by-step setup guide.">
+  <meta name="twitter:image" content="https://mcornelia.com/og-images/morning-brief.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Setting Up a Personal Morning Brief in Claude Cowork",
+    "description": "Step-by-step Claude Cowork setup guide for a daily Morning Brief: calendar, email, and optional career search via public ATS APIs and the LinkedIn guest jobs API.",
+    "image": "https://mcornelia.com/og-images/morning-brief.png",
+    "url": "https://mcornelia.com/posts/morning-brief.html",
+    "datePublished": "2026-05-02",
+    "dateModified": "2026-05-02",
+    "author": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mcornelia.com/posts/morning-brief.html"
+    },
+    "keywords": "Claude Cowork, morning brief, AI scheduled task, Greenhouse API, Ashby API, Workday careers API, LinkedIn guest jobs API"
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/play.html" class="active">Code</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="mc-post">
+
+    <a href="/play.html" class="mc-post-back">&larr; Code</a>
+
+    <div class="mc-post-header">
+      <h1>Setting Up a Personal Morning Brief in Claude Cowork</h1>
+    </div>
+
+    <p>This guide is for <a href="https://claude.ai/code">Claude Cowork</a> &mdash; Anthropic&rsquo;s AI workspace that can read your email, calendar, and the web, then act on what it finds. If you don&rsquo;t have it yet, start there.</p>
+
+    <div class="mc-callout">
+      <p><strong>&#x23F1;&#xFE0F; Do this all in one session.</strong> The steps build on each other and Claude needs context from earlier prompts. Start a fresh conversation and work through all steps without closing the tab.</p>
+    </div>
+
+    <h2>What You&rsquo;re Building</h2>
+
+    <p>A daily scheduled task that delivers a morning briefing. It runs every day, but not every section runs every day:</p>
+
+    <ol>
+      <li><strong>Calendar</strong> &mdash; Today + next 2-3 days <em>(daily)</em></li>
+      <li><strong>Email</strong> &mdash; Last 24 hours, filtered into actionable vs noise <em>(daily)</em></li>
+      <li><strong>Career Search</strong> &mdash; Open roles across AI/cloud companies via public ATS APIs, scored against your resume and preferences <em>(Mon &amp; Thu only)</em></li>
+      <li><strong>LinkedIn Search</strong> &mdash; Live LinkedIn jobs fetched and scored against your preferences <em>(Mon &amp; Thu only)</em></li>
+    </ol>
+
+    <p>Sections 3 and 4 are <strong>optional</strong> &mdash; only set them up if you&rsquo;re actively job hunting.</p>
+
+    <h3>Choose your path</h3>
+
+    <ul>
+      <li><strong>Just calendar + email?</strong> Do Steps 0&ndash;2, then jump to Step 4 (Test) and Step 5 (Schedule). Skip Step 3 entirely.</li>
+      <li><strong>Calendar + email + career search?</strong> Do every step in order.</li>
+    </ul>
+
+    <p>You can add (or remove) career search later &mdash; see the Maintenance section at the bottom.</p>
+
+    <h2>Before You Start: Set Up Gmail and Calendar Access</h2>
+
+    <p>Do this first, in any conversation &mdash; it only needs to happen once. Paste this into Claude:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Connect Gmail + Calendar</div>
+<pre>I need you to be able to read my Gmail inbox and Google Calendar. Can you set up the Google integration so you can access both? I need read access to email and calendar.</pre>
+    </div>
+
+    <p>Claude will walk you through the authentication steps. Once connected, test it:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Verify access</div>
+<pre>Show me my calendar for the next 3 days.
+
+Show me my last 10 emails.</pre>
+    </div>
+
+    <p>If both work, you&rsquo;re ready. Start a fresh conversation for the setup below.</p>
+
+    <h2>Step 0: Prime Claude for the Setup</h2>
+
+    <p>Start a fresh conversation and paste this first &mdash; it tells Claude to expect a multi-step setup:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Prime the conversation</div>
+<pre>I'm going to walk you through a multi-step setup for a daily morning briefing. I'll give you each piece one at a time &mdash; don't try to jump ahead or do everything at once. Wait for my prompt at each step, confirm what you did, and I'll give you the next one. We'll build up a set of files together, then test and schedule the whole thing at the end.</pre>
+    </div>
+
+    <div class="mc-callout">
+      <p><strong>Note:</strong> Claude will ask for permission the first time it tries to write a file, read your email, access your calendar, or fetch a web page. Click <strong>&ldquo;Always Allow&rdquo;</strong> each time these pop up. You&rsquo;ll see a few of these during setup and the first test run &mdash; after that, everything runs without prompts.</p>
+    </div>
+
+    <h2>Step 1: Configure Delivery</h2>
+
+    <p>Tell Claude where to send the brief and what timezone you&rsquo;re in. These two settings are needed for every brief, regardless of which sections you set up. Paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Save delivery config</div>
+<pre>I want to configure delivery settings for my morning brief. Save the following two values to a file called `brief-config.md`:
+
+1. Email address &mdash; where the morning brief should be delivered each day
+2. Timezone &mdash; my local timezone in IANA format (e.g., America/New_York, America/Los_Angeles, Europe/London)
+
+Ask me for each value, then show me the file and confirm before saving.</pre>
+    </div>
+
+    <h2>Step 2: Create the Morning Brief Instructions</h2>
+
+    <p>This step builds the core instructions file that Claude will follow every morning. Paste these prompts in order &mdash; Claude will assemble them into one file.</p>
+
+    <h3>Step 2a &mdash; Create the file + Calendar &amp; Email sections</h3>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 2a &mdash; Calendar &amp; Email sections</div>
+<pre>I want to create a scheduled daily task called 'morning-brief.' Save the following as a file called morning-brief-instructions.md so the scheduled task can reference it every morning. I'll give you the content in parts &mdash; save everything into one file.
+
+TONE
+Keep the brief upbeat, encouraging, and forward-looking. This brief should feel like a helpful friend giving you a morning rundown, not a cold report. Frame calendar and email summaries as "here's what's ahead" rather than "here's what you have to deal with."
+
+MORNING BRIEF FORMAT
+Generate a daily briefing in plain text using Unicode box-drawing characters. Use the timezone from brief-config.md for all times.
+
+SECTION 1 &mdash; CALENDAR
+Pull today + next 2-3 days from Google Calendar. Include event title, time, location, attendees, and relevant details. If a day is clear, say "Clear." Flag conflicts, early mornings, or anything needing prep.
+
+SECTION 2 &mdash; EMAIL (LAST 24 HOURS)
+Scan Gmail inbox for the last 24 hours. Split into:
+- Worth acting on &mdash; requires response, has a deadline, confirms something important, delivers something ordered. One bullet per item with a brief note on why it matters.
+- Noise skipped &mdash; newsletters, promos, digests, automated notifications, marketing. One line, comma-separated list of sender/subject.
+
+If there are no actionable emails, say "Nothing requiring action." If there are no noise emails, say "Inbox was quiet."</pre>
+    </div>
+
+    <h3>Step 2b &mdash; Error handling + Output template</h3>
+
+    <p>After Claude confirms Step 2a is saved, paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 2b &mdash; Error handling + Output template</div>
+<pre>Continue adding to morning-brief-instructions.md:
+
+ERROR HANDLING
+- If Gmail or Calendar authentication has expired, note it at the top of the brief: "&#x26A0;&#xFE0F; Gmail/Calendar auth expired &mdash; re-authenticate to restore this section."
+- Never fabricate calendar events or email summaries. If data is unavailable, say so.
+
+OUTPUT TEMPLATE
+
+MORNING BRIEF &mdash; [DAY OF WEEK], [FULL DATE]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+&#x1F4C5; CALENDAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[calendar content]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+&#x1F4EC; EMAIL &mdash; LAST 24 HOURS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Worth acting on:
+&bull; [item]
+&bull; [item]
+Noise skipped: [comma-separated list]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated [DATE]</pre>
+    </div>
+
+    <h3>Step 2c &mdash; Confirm Claude understood</h3>
+
+    <p>After Claude saves the complete file, verify it internalized everything:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 2c &mdash; Read-back check</div>
+<pre>Read back morning-brief-instructions.md and confirm you understand the format and the error handling rules. Summarize what you'll do for each section.</pre>
+    </div>
+
+    <h2>Step 3: Add Career Search <em>(Optional &mdash; only if you&rsquo;re actively job hunting)</em></h2>
+
+    <p>If you&rsquo;re not job hunting, skip this entire step and jump to Step 4. The brief will run with just calendar and email.</p>
+
+    <p>This step adds two new sections to your morning brief &mdash; Section 3 (Career Search via public ATS APIs) and Section 4 (LinkedIn Search via the public guest API). Together they fetch real job listings, score them against your resume and preferences, and dedupe across sources.</p>
+
+    <h3>Step 3a &mdash; Add your resume and career preferences</h3>
+
+    <p>Paste this into Claude:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3a-i &mdash; Save resume</div>
+<pre>I'm going to give you my resume. Save it as resume.md so you can reference it for daily job matching.</pre>
+    </div>
+
+    <p>Attach, drop, or paste your resume. Claude will save it as <code>resume.md</code>.</p>
+
+    <p>After the resume is saved, paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3a-ii &mdash; Career preferences interview</div>
+<pre>Now I want you to interview me about my career preferences &mdash; what I'm actually looking for, not just what I've done. Ask me questions one at a time, and when we're done, generate a career-preferences.md file from my answers.
+
+Cover these topics:
+- Location &mdash; Where I'd want to work, cities or regions I'd consider, willingness to relocate
+- Work mode &mdash; Remote, hybrid, or on-site preference, and whether it's a deal-breaker or just a preference
+- Level &amp; compensation &mdash; Whether I'm looking to stay lateral, step up, or open to a step back for the right opportunity. Any compensation floor.
+- Skills &amp; direction &mdash; What I want to do more of, what I'm done with, and where I see my career heading
+- Company &amp; culture &mdash; Startup vs. BigCo preference, industries or sectors to avoid
+- Logistics &mdash; Travel tolerance, hard deal-breakers, and whether I'm actively looking or just passively monitoring
+
+After each answer, ask a brief follow-up if my answer is vague or could be more specific. When we're done, show me the generated career-preferences.md and ask me to confirm before saving.</pre>
+    </div>
+
+    <p>Just answer naturally. When the interview is done, Claude will show you <code>career-preferences.md</code> for approval before saving.</p>
+
+    <p>These preferences sharpen the scoring. Without them, Claude can only match on <em>what you&rsquo;ve done</em>. With them, it matches on <em>what you actually want</em>.</p>
+
+    <h3>Step 3b &mdash; Save the starter careers-endpoints.md</h3>
+
+    <p>Most company careers pages are protected by Cloudflare or Akamai bot detection, or are JavaScript-rendered single-page apps that return an empty shell to a server-side fetch. Direct scraping is unreliable.</p>
+
+    <p>The fix: most companies post jobs through a small number of Applicant Tracking Systems (Greenhouse, Lever, Ashby, Workday) that expose <strong>public JSON APIs</strong>. The list below is pre-verified &mdash; every endpoint returned live job data when this guide was written. For BigCo holdouts (Google, Microsoft, Apple, Meta, etc.) that don&rsquo;t expose APIs, Section 4 (LinkedIn) covers them, since they all post their roles to LinkedIn anyway.</p>
+
+    <p>Paste this into Claude:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3b &mdash; Save the ATS endpoints map</div>
+<pre>Save the following content as `careers-endpoints.md`. This is the company-to-ATS-endpoint map my morning brief will use to fetch jobs each day:
+
+| Company | ATS | Endpoint |
+|---|---|---|
+| Anthropic | Greenhouse | https://boards-api.greenhouse.io/v1/boards/anthropic/jobs |
+| OpenAI | Ashby | https://api.ashbyhq.com/posting-api/job-board/openai |
+| NVIDIA | Workday | https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/jobs |
+| CoreWeave | Greenhouse | https://boards-api.greenhouse.io/v1/boards/coreweave/jobs |
+| Scale AI | Greenhouse | https://boards-api.greenhouse.io/v1/boards/scaleai/jobs |
+| Crusoe Energy | Ashby | https://api.ashbyhq.com/posting-api/job-board/crusoe |
+| Lambda | Ashby | https://api.ashbyhq.com/posting-api/job-board/lambda |
+| Cloudflare | Greenhouse | https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs |
+| Anduril | Greenhouse | https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs |
+
+The four ATS providers above all expose public JSON endpoints with documented patterns:
+
+- Greenhouse &mdash; https://boards-api.greenhouse.io/v1/boards/{slug}/jobs (GET)
+- Lever &mdash; https://api.lever.co/v0/postings/{slug}?mode=json (GET)
+- Ashby &mdash; https://api.ashbyhq.com/posting-api/job-board/{slug} (GET)
+- Workday &mdash; https://{tenant}.wdN.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs (POST with {"appliedFacets":{},"limit":20,"offset":0,"searchText":""})
+
+Confirm the file is saved and let me know how many companies are in it.</pre>
+    </div>
+
+    <p>Want to add or remove companies? See the Maintenance section below.</p>
+
+    <h3>Step 3c &mdash; Add Section 3 (Career Search) to the instructions</h3>
+
+    <p>After endpoints are saved, paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3c &mdash; Section 3: Career Search</div>
+<pre>Continue adding to morning-brief-instructions.md:
+
+CADENCE UPDATE
+Sections 3 (Career Search) and 4 (LinkedIn Search) only run on Monday and Thursday. On other days, skip them and add a line at the end: "Career search runs Mon &amp; Thu &mdash; next run [day]."
+
+SECTION 3 &mdash; CAREER SEARCH
+
+Read the company list and endpoints from `careers-endpoints.md`. For each company, fetch open roles using the listed ATS:
+
+- Greenhouse / Lever / Ashby endpoints &mdash; GET the JSON endpoint and parse the job list directly.
+- Workday endpoints &mdash; POST with {"appliedFacets":{},"limit":50,"offset":0,"searchText":""} and parse the jobPostings array.
+
+If an endpoint returns an error or empty data, skip it and add the company to an "Unreachable" list at the bottom of this section. Do not invent jobs.
+
+Score each role against `resume.md` and `career-preferences.md`. Filter out roles that violate any deal-breakers (wrong work mode, excluded industries, etc.) before scoring.
+
+Process companies in batches of 5. Complete each batch before starting the next. If you hit a timeout or error, report what completed and continue with the remaining companies.
+
+Scoring rubric &mdash; score each role on 5 dimensions (1 point each, sum for total):
+- Title match (1 pt) &mdash; Role title aligns with current or target title from resume/preferences
+- Scope/level match (1 pt) &mdash; Seniority, team size, budget responsibility, or IC depth is comparable
+- Domain match (1 pt) &mdash; Industry, function, or technical domain overlaps with experience or stated direction
+- Location match (1 pt) &mdash; Role is in a preferred city/region, or is remote-eligible when remote is preferred
+- Work mode match (1 pt) &mdash; Remote/hybrid/on-site aligns with preferences
+
+Only show roles scoring 3/5 or higher.
+
+Output format for each match:
+- Job title &mdash; Score: X/5 (dimensions matched: title, scope, domain, etc.)
+- Location | Department &mdash; if remote-eligible or remote-friendly, add a &#x1F3E0; emoji next to the location
+- One-line "Why" noting which dimensions matched and which didn't
+- Direct application link
+
+Group into "STRONG MATCHES (4-5/5)" and "REASONABLE MATCHES (3/5)." Report total jobs reviewed across all reachable companies, total matches found, and any unreachable companies. If there are zero matches, say "No matches today" &mdash; do not stretch to include weak matches.
+
+IMPORTANT: Never fabricate jobs. If a company is unreachable, list it and move on. Quality over quantity.</pre>
+    </div>
+
+    <h3>Step 3d &mdash; Add Section 4 (LinkedIn Search) to the instructions</h3>
+
+    <p>After Section 3 is saved, paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3d &mdash; Section 4: LinkedIn Search</div>
+<pre>Continue adding to morning-brief-instructions.md:
+
+SECTION 4 &mdash; LINKEDIN SEARCH
+
+Section 4 covers everything Section 3 doesn't &mdash; BigCo employers (Google, Microsoft, Apple, Meta, Oracle, etc.) and the long tail of smaller companies. It uses LinkedIn's public guest jobs API (no auth needed) to fetch real listings, then scores them using the same rubric as Section 3.
+
+ENDPOINT
+Base URL: https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search
+
+Query parameters to build from career-preferences.md:
+- keywords &mdash; URL-encoded boolean expression. Use AND, OR, quotes for exact phrases, parentheses for grouping. Build from skills/direction/target titles in career-preferences.md.
+- location &mdash; city, region, or "United States" based on preferences
+- f_WT &mdash; work mode filter: 1=onsite, 2=remote, 3=hybrid (omit if any is acceptable)
+- f_TPR=r604800 &mdash; past 7 days only (keeps results fresh; on Mon use r259200, Thu use r345600 to avoid showing the same week twice)
+- f_E &mdash; experience level: 4=mid-senior, 5=director, 6=executive (pick what matches preferences)
+- start=0 &mdash; pagination
+
+QUERY STRATEGY
+Generate 1-3 targeted queries based on the user's preferences (e.g., one for primary target title, one for adjacent/stretch role, one for specific domain). Don't run more than 3 queries per brief &mdash; LinkedIn rate-limits aggressive callers.
+
+PARSING
+The endpoint returns HTML job cards (not JSON). Each card includes:
+- data-entity-urn (the LinkedIn job ID)
+- Job title, company, location
+- Posting date / "X days ago"
+- Apply URL
+
+Parse these fields from each card. If the HTML structure has changed and parsing fails, note it: "&#x26A0;&#xFE0F; LinkedIn parser may need updating &mdash; card markup may have changed." Do not fabricate jobs.
+
+SCORING &amp; DEDUP
+Score each job against resume.md and career-preferences.md using the same 5-dimension rubric as Section 3. Note: domain match is title-only since LinkedIn search responses don't include full descriptions &mdash; be appropriately conservative with that dimension.
+
+Dedup against (a) jobs already shown in Section 3 of this brief and (b) seen-jobs.md from prior runs. Only show roles scoring 3/5 or higher.
+
+OUTPUT
+Use the same STRONG / REASONABLE matches grouping as Section 3. Cap total LinkedIn matches shown at 10 per brief &mdash; if more qualify, show the top 10 by score and note "X additional matches suppressed for length." Report total LinkedIn jobs reviewed and total queries run.</pre>
+    </div>
+
+    <h3>Step 3e &mdash; Add deduplication, error handling, and output template additions</h3>
+
+    <p>After Section 4 is saved, paste this final piece:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3e &mdash; Dedup + error handling + output template</div>
+<pre>Finish updating morning-brief-instructions.md with these additions:
+
+DEDUPLICATION
+Maintain a file called ~/.claude/morning-brief/seen-jobs.md. Dedup applies across both Section 3 (ATS) and Section 4 (LinkedIn) &mdash; the same job often appears in both, and should only be shown once per brief. Use job title + company (case-insensitive) as the dedup key.
+
+Before including a match in either section, check if the same job title + company combination already exists in seen-jobs.md. If it does, skip it &mdash; unless the posting date is newer, which indicates a repost worth resurfacing. Within a single brief, also dedup between Section 3 and Section 4 &mdash; if a Section 3 match is already shown, suppress the equivalent in Section 4.
+
+After each run, append any new matches to seen-jobs.md with the date first seen, formatted as:
+
+[2026-04-17] Senior PM &mdash; Anthropic
+[2026-04-17] Staff Engineer &mdash; Stripe
+
+If seen-jobs.md doesn't exist yet, create it on the first run.
+
+CAREER SEARCH ERROR HANDLING (additions to existing ERROR HANDLING block)
+- If a careers-endpoints.md entry returns an error or empty data, skip it and list unreachable companies at the bottom of Section 3.
+- If the LinkedIn guest API returns an error, rate-limits, or returns 0 cards across all queries, note it at the top of Section 4: "&#x26A0;&#xFE0F; LinkedIn fetch failed &mdash; check rate limits or endpoint changes" and continue with the rest of the brief.
+- Never fabricate job listings.
+
+TONE ADDITIONS
+Career searching can be stressful. Celebrate good matches. Keep "no matches today" low-key and positive ("nothing jumped out today &mdash; tomorrow's a new batch").
+
+OUTPUT TEMPLATE ADDITIONS
+Insert the following blocks into the OUTPUT TEMPLATE between the existing EMAIL section and the "Generated [DATE]" footer:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+&#x1F3E2; CAREER SEARCH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+~[N] jobs reviewed across [N] companies &middot; [N] matches found
+
+STRONG MATCHES (4-5/5)
+──────────────────────
+[Job Title] &mdash; Score: X/5 (title, scope, domain, location, work mode)
+Location: [Location] &#x1F3E0; | Dept: [Dept]
+Why: [which dimensions matched/missed]
+Link: [url]
+
+REASONABLE MATCHES (3/5)
+─────────────────────────
+[Job Title] &mdash; Score: X/5 (title, domain, work mode)
+Location: [Location] &#x1F3E0; | Dept: [Dept]
+Why: [which dimensions matched/missed]
+Link: [url]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+&#x1F50D; LINKEDIN SEARCH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+~[N] jobs reviewed across [N] queries &middot; [N] matches found
+
+STRONG MATCHES (4-5/5)
+──────────────────────
+[Job Title] &mdash; Score: X/5 (title, scope, domain, location, work mode)
+Company: [Company] | Location: [Location] &#x1F3E0;
+Why: [which dimensions matched/missed]
+Link: [LinkedIn job URL]
+
+REASONABLE MATCHES (3/5)
+─────────────────────────
+[Job Title] &mdash; Score: X/5 (title, location, work mode)
+Company: [Company] | Location: [Location] &#x1F3E0;
+Why: [which dimensions matched/missed]
+Link: [LinkedIn job URL]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Also update the footer line to read:
+Generated [DATE]
+Resume last updated: [date from resume.md] &middot; Preferences last updated: [date from career-preferences.md]</pre>
+    </div>
+
+    <h3>Step 3f &mdash; Confirm Claude understood the additions</h3>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 3f &mdash; Read-back check (career)</div>
+<pre>Read back morning-brief-instructions.md and confirm you understand the career search sections, the scoring rubric, the deduplication logic, and the updated error handling. Summarize what you'll do for Sections 3 and 4.</pre>
+    </div>
+
+    <h2>Step 4: Test It</h2>
+
+    <p>Paste this into Claude:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 4 &mdash; Full test run</div>
+<pre>Run a full test of the morning brief using the instructions in morning-brief-instructions.md (and any supporting files that exist: brief-config.md, careers-endpoints.md, resume.md, career-preferences.md). Include every section that's defined in the instructions file, regardless of what day it is. Give me the full output.</pre>
+    </div>
+
+    <p>Review the output. Check:</p>
+
+    <ul class="mc-checklist">
+      <li>Calendar events are correct and times are in your timezone</li>
+      <li>Email filtering makes sense (right things in &ldquo;actionable&rdquo; vs &ldquo;noise&rdquo;)</li>
+      <li><em>(career search only)</em> ATS endpoints returned real jobs; any unreachable companies are noted, not fabricated</li>
+      <li><em>(career search only)</em> LinkedIn fetch returned real jobs (not duplicated against Section 3)</li>
+      <li><em>(career search only)</em> Job matches are relevant and properly scored against your preferences</li>
+      <li>Links work</li>
+    </ul>
+
+    <p>If anything needs tuning, tell Claude what to fix and have it update the relevant file.</p>
+
+    <div class="mc-callout">
+      <p><strong>Delivery notes for the test run:</strong></p>
+      <ul>
+        <li><strong>Email</strong> &mdash; During the manual test, Claude may create a draft in your Gmail drafts folder instead of sending directly. That&rsquo;s normal. When the scheduled task runs autonomously, it should send. Check your drafts folder to verify formatting looks right, and confirm on the first real scheduled run that it sends rather than drafts.</li>
+        <li><strong>Dispatch (mobile push)</strong> &mdash; This only fires during scheduled task runs, not when running manually in conversation. You won&rsquo;t see the push notification until the first real scheduled run.</li>
+      </ul>
+    </div>
+
+    <h2>Step 5: Schedule It</h2>
+
+    <p>Once you&rsquo;re happy with the output, paste this:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt 5 &mdash; Schedule the daily task</div>
+<pre>Schedule the morning brief to run every day at 6:30 AM (using the timezone in brief-config.md), 7 days a week. It should read the instructions from morning-brief-instructions.md, plus any supporting files that exist (brief-config.md, careers-endpoints.md, resume.md, career-preferences.md), then generate and deliver the brief. Send the output to the email address in brief-config.md and deliver it via Claude Dispatch so I also get it as a mobile notification. Call the scheduled task 'morning-brief'.</pre>
+    </div>
+
+    <p>Claude will set up the scheduled task. Confirm it&rsquo;s scheduled:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Verify schedule</div>
+<pre>Show me my scheduled tasks.</pre>
+    </div>
+
+    <div class="mc-callout">
+      <p><strong>Important:</strong> The first scheduled run will pause to ask for tool approvals (Gmail, Calendar, web access). To pre-approve everything now, click <strong>&ldquo;Run now&rdquo;</strong> from the Scheduled section in the sidebar. Let it run through and approve each permission it asks for. After that, future runs will be fully autonomous.</p>
+    </div>
+
+    <p>Once confirmed, paste this final prompt to let Claude know the setup is complete:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Final consistency check</div>
+<pre>Setup is complete. Do a final check &mdash; read every file you created (morning-brief-instructions.md, brief-config.md, plus any of resume.md, career-preferences.md, careers-endpoints.md that exist), confirm they're consistent with each other, and let me know if anything looks off. If it all checks out, we're done.</pre>
+    </div>
+
+    <h2>Maintenance</h2>
+
+    <p><strong>Update delivery email or timezone:</strong></p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Update config</div>
+<pre>Update brief-config.md &mdash; [describe the change].</pre>
+    </div>
+
+    <p><strong>Add career search later:</strong> If you started with calendar + email only and now want to enable Sections 3 and 4:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Add career search</div>
+<pre>I want to add the career search sections to my morning brief. Walk me through Step 3 from the setup guide &mdash; resume + preferences, ATS endpoints, and adding Sections 3 and 4 to morning-brief-instructions.md.</pre>
+    </div>
+
+    <p><strong>Remove career search:</strong> If you want to stop the career sections (e.g., new role landed, taking a break):</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Remove career search</div>
+<pre>Remove Sections 3 and 4 from morning-brief-instructions.md, remove the Career Search and LinkedIn output template blocks, and delete careers-endpoints.md, resume.md, career-preferences.md, and seen-jobs.md. Keep brief-config.md, calendar, and email as they are.</pre>
+    </div>
+
+    <p><strong>Update your resume:</strong> When your role or responsibilities change:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Update resume</div>
+<pre>Update my resume in resume.md &mdash; [describe changes].</pre>
+    </div>
+
+    <p><strong>Update your preferences:</strong> When your career direction or constraints change:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Update preferences</div>
+<pre>Update my career preferences in career-preferences.md &mdash; [describe changes].</pre>
+    </div>
+
+    <p><strong>Add a company:</strong> To add a new company to the career search:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Add company</div>
+<pre>Add [Company Name] to careers-endpoints.md. Their careers page is [URL]. Try the standard ATS patterns (Greenhouse boards-api.greenhouse.io/v1/boards/{slug}/jobs, Ashby api.ashbyhq.com/posting-api/job-board/{slug}, Lever api.lever.co/v0/postings/{slug}?mode=json, Workday {tenant}.wdN.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs) &mdash; confirm the endpoint returns real JSON job data with a quick test fetch before adding it. If none of the standard ATS patterns work, skip the company and tell me &mdash; direct-scraping a custom careers system is rarely worth the trouble.</pre>
+    </div>
+
+    <p><strong>Remove a company:</strong></p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Remove company</div>
+<pre>Remove [Company Name] from careers-endpoints.md.</pre>
+    </div>
+
+    <p><strong>Refresh endpoints:</strong> ATS providers occasionally change URLs or companies switch ATS vendors. If you start seeing &ldquo;unreachable&rdquo; for a company that used to work:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Re-verify endpoint</div>
+<pre>Re-verify the endpoint for [Company Name] in careers-endpoints.md.</pre>
+    </div>
+
+    <p><strong>Adjust the email filter:</strong> If something keeps landing in the wrong category:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Prompt &mdash; Tune email filter</div>
+<pre>Update the morning brief instructions &mdash; emails from [sender] should always be in 'worth acting on' (or 'noise').</pre>
+    </div>
+
+    <h2>Files Created</h2>
+
+<pre>~/.claude/morning-brief/
+&#x251C;&#x2500;&#x2500; morning-brief-instructions.md   # Format, scoring rubric, section logic (always)
+&#x251C;&#x2500;&#x2500; brief-config.md                 # Email + timezone for delivery (always)
+&#x251C;&#x2500;&#x2500; careers-endpoints.md            # ATS endpoints per company (career search only)
+&#x251C;&#x2500;&#x2500; resume.md                       # Your resume for job matching (career search only)
+&#x251C;&#x2500;&#x2500; career-preferences.md           # Location, work mode, direction, deal-breakers (career search only)
+&#x2514;&#x2500;&#x2500; seen-jobs.md                    # Dedup log &mdash; auto-maintained, don't edit (career search only)</pre>
+
+    <p>If you set up calendar + email only, you&rsquo;ll just have <code>morning-brief-instructions.md</code> and <code>brief-config.md</code>. The other files appear when you enable career search.</p>
+
+    <p>Everything is prompt-driven. No CLI commands, no config files, no code. Just tell Claude what you want.</p>
+
+    <hr>
+
+    <p><em>Source on GitHub: <a href="https://github.com/mcornelia/claude-morning-brief">mcornelia/claude-morning-brief</a>. Questions or improvements? <a href="/contact.html">Reach out</a>.</em></p>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+
+</div>
+
+</body>
+</html>
