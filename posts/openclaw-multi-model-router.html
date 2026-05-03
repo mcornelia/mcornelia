@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Multi-Model Router &mdash; Local Gemma + Qwen + Claude Setup Guide &mdash; Mike Cornelia</title>
+  <meta name="description" content="Setup guide for a three-model AI router that runs on a Mac Mini alongside OpenClaw. Routes simple questions to local Gemma and Qwen, escalates complex reasoning to the Claude API. Cheap, private, fast.">
+  <meta name="author" content="Mike Cornelia">
+  <meta name="keywords" content="OpenClaw, multi-model AI router, Ollama, Gemma 4 31B, Qwen 2.5 Coder, Claude API, local LLM, hybrid AI router, Mac Mini AI, FastAPI router, LiteLLM, on-prem AI">
+
+  <link rel="canonical" href="https://mcornelia.com/posts/openclaw-multi-model-router.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenClaw Multi-Model Router &mdash; Local Gemma + Qwen + Claude">
+  <meta property="og:description" content="Three-model AI router for OpenClaw: local Gemma + Qwen handle simple work, the Claude API handles deep reasoning. Smart routing keeps costs low and responses fast.">
+  <meta property="og:url" content="https://mcornelia.com/posts/openclaw-multi-model-router.html">
+  <meta property="og:image" content="https://mcornelia.com/og-images/openclaw-multi-model-router.png">
+  <meta property="og:site_name" content="Mike Cornelia">
+  <meta property="article:author" content="Mike Cornelia">
+  <meta property="article:published_time" content="2026-05-03">
+  <meta property="article:section" content="AI &amp; Productivity">
+  <meta property="article:tag" content="OpenClaw">
+  <meta property="article:tag" content="Local LLMs">
+  <meta property="article:tag" content="Ollama">
+  <meta property="article:tag" content="Claude API">
+  <meta property="article:tag" content="Multi-Model Routing">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenClaw Multi-Model Router">
+  <meta name="twitter:description" content="Local Gemma + Qwen handle simple work, Claude handles deep reasoning. A three-model AI router for your OpenClaw agent.">
+  <meta name="twitter:image" content="https://mcornelia.com/og-images/openclaw-multi-model-router.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "OpenClaw Multi-Model Router &mdash; Local Gemma + Qwen + Claude Setup Guide",
+    "description": "Three-model AI router for OpenClaw: local Gemma + Qwen handle simple work, the Claude API handles deep reasoning.",
+    "image": "https://mcornelia.com/og-images/openclaw-multi-model-router.png",
+    "url": "https://mcornelia.com/posts/openclaw-multi-model-router.html",
+    "datePublished": "2026-05-03",
+    "dateModified": "2026-05-03",
+    "author": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mcornelia.com/posts/openclaw-multi-model-router.html"
+    },
+    "keywords": "OpenClaw, multi-model AI router, Ollama, Gemma, Qwen, Claude API, local LLM, hybrid AI router"
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/play.html" class="active">Code</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="mc-post">
+
+    <a href="/play.html" class="mc-post-back">&larr; Code</a>
+
+    <div class="mc-post-header">
+      <h1>OpenClaw Multi-Model Router &mdash; Local Gemma + Qwen + Claude</h1>
+    </div>
+
+    <p>A three-model AI setup that routes requests intelligently between local models and Claude. Simple questions stay local (free, private, fast). Complex reasoning escalates to the Claude API.</p>
+
+    <div class="mc-callout">
+      <p><strong>Prerequisite.</strong> You need <a href="https://mcornelia.github.io/openclaw-setup-guide" target="_blank" rel="noopener">OpenClaw</a> already running, with your agent (the &ldquo;Operator&rdquo;) configured. If you haven&rsquo;t done that yet, follow the OpenClaw Setup Guide first &mdash; this post picks up where that one ends.</p>
+    </div>
+
+    <h2>The Architecture</h2>
+
+<pre>Your message &rarr; the Operator (your local agent)
+                &boxv;&boxh;&boxh; General Q&amp;A, chat, trivia  &rarr; [Gemma]   Gemma 4 31B        (local, free)
+                &boxv;&boxh;&boxh; Code tasks                 &rarr; [Qwen]    Qwen 2.5 Coder 32B (local, free)
+                &boxvr;&boxh;&boxh; Complex reasoning,         &rarr; [Claude]  Claude Sonnet      (API)
+                    personal context, tools</pre>
+
+    <p>Every response is labeled <code>[Gemma]</code>, <code>[Qwen]</code>, or <code>[Claude]</code> so you always know which model answered.</p>
+
+    <div class="mc-callout">
+      <p><strong>Customize the labels.</strong> I personally use <code>[EDI]</code> for Claude (named after the AI in Mass Effect) and a custom name for my Operator. Pick whatever fits your setup &mdash; just keep the labeling consistent so you always know who&rsquo;s talking.</p>
+    </div>
+
+    <p><strong>Hardware tested on:</strong> Mac Mini M4, 24GB unified memory, ~60GB free disk for models.</p>
+
+    <h2>Step 1 &mdash; Install Ollama and Python 3.11</h2>
+
+<pre>brew install ollama python@3.11</pre>
+
+    <p>Verify:</p>
+
+<pre>ollama --version
+/opt/homebrew/bin/python3.11 --version</pre>
+
+    <h2>Step 2 &mdash; Start Ollama</h2>
+
+<pre>brew services start ollama</pre>
+
+    <p>Verify with <code>ollama list</code>.</p>
+
+    <h2>Step 3 &mdash; Pull the Models</h2>
+
+<pre>ollama pull gemma4:31b
+ollama pull qwen2.5-coder:32b</pre>
+
+    <ul>
+      <li><strong>Gemma 4 31B</strong> &mdash; Google DeepMind. General-purpose, 256K context, multimodal.</li>
+      <li><strong>Qwen 2.5 Coder 32B</strong> &mdash; Alibaba. Coding specialist, 92 languages.</li>
+    </ul>
+
+    <p>Each is ~19&ndash;20 GB. Disk needed: ~40 GB. RAM needed: 24 GB (one model loads at a time).</p>
+
+    <h2>Step 4 &mdash; Install Python Packages</h2>
+
+<pre>/opt/homebrew/bin/python3.11 -m pip install litellm anthropic uvicorn fastapi</pre>
+
+    <h2>Step 5 &mdash; Create the Router Project</h2>
+
+<pre>mkdir -p ~/.openclaw/workspace/openclaw-router</pre>
+
+    <p>Create <code>~/.openclaw/workspace/openclaw-router/start.sh</code>:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">start.sh</div>
+<pre>#!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &amp;&amp; pwd)"
+[ -f "$SCRIPT_DIR/.env" ] &amp;&amp; export $(grep -v '^#' "$SCRIPT_DIR/.env" | xargs)
+[ -z "$ANTHROPIC_API_KEY" ] &amp;&amp; echo "ERROR: ANTHROPIC_API_KEY not set" &amp;&amp; exit 1
+exec /opt/homebrew/bin/python3.11 -m uvicorn router:app \
+    --host 0.0.0.0 --port 4242 --log-level info --app-dir "$SCRIPT_DIR"</pre>
+    </div>
+
+<pre>chmod +x ~/.openclaw/workspace/openclaw-router/start.sh</pre>
+
+    <p>Create <code>~/.openclaw/workspace/openclaw-router/.env</code>:</p>
+
+<pre>ANTHROPIC_API_KEY=sk-ant-...</pre>
+
+    <p>Then drop in the <code>router.py</code> source from the <a href="https://github.com/mcornelia/openclaw-multi-model-router" target="_blank" rel="noopener">repo</a>.</p>
+
+    <div class="mc-callout">
+      <p><strong>Never commit your <code>.env</code>.</strong> The repo&rsquo;s <code>.gitignore</code> excludes it for a reason.</p>
+    </div>
+
+    <h2>Step 6 &mdash; Auto-Start on Login (Optional)</h2>
+
+    <p>Save this as <code>~/Library/LaunchAgents/com.openclaw.router.plist</code> &mdash; replace <code>YOUR_USERNAME</code> with your Mac username:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">com.openclaw.router.plist</div>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.openclaw.router&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/Users/YOUR_USERNAME/.openclaw/workspace/openclaw-router/start.sh&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+    &lt;string&gt;/Users/YOUR_USERNAME/.openclaw/workspace/openclaw-router/router.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/Users/YOUR_USERNAME/.openclaw/workspace/openclaw-router/router.log&lt;/string&gt;
+    &lt;key&gt;EnvironmentVariables&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;PATH&lt;/key&gt;
+        &lt;string&gt;/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin&lt;/string&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</pre>
+    </div>
+
+    <p>Load it:</p>
+
+<pre>launchctl load ~/Library/LaunchAgents/com.openclaw.router.plist</pre>
+
+    <p>The router will now start automatically every time you log in, and restart if it crashes.</p>
+
+    <h2>Step 7 &mdash; Configure Your Operator to Route Automatically</h2>
+
+    <p>Add this section to <code>~/.openclaw/workspace/AGENTS.md</code> before the &ldquo;Make It Yours&rdquo; section:</p>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">AGENTS.md addition &mdash; Smart Routing</div>
+<pre>## Smart Routing &mdash; Three-Way: Gemma / Qwen / Claude
+
+| Model              | Label    | Role                    |
+|--------------------|----------|-------------------------|
+| Gemma 4 31B        | [Gemma]  | On-premise generalist   |
+| Qwen 2.5 Coder 32B | [Qwen]   | Coding agent            |
+| Claude (you)       | [Claude] | Deep reasoning          |
+
+You are the Operator &mdash; direct the models, don't label yourself.
+
+Route to Gemma: trivia, definitions, casual chat, greetings, sign-offs,
+anything under ~20 words with no technical content.
+
+Route to Qwen: writing/debugging/explaining code, scripting, architecture,
+anything involving a code block or programming language.
+
+Keep with Claude: multi-step reasoning, analysis, tradeoffs, personal context
+(user's family/work/schedule), tool use, long input (&gt;500 words),
+anything requiring Bash/file/web access.
+
+How to call Gemma (Bash tool):
+curl -s --max-time 90 http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gemma4:31b","messages":[{"role":"user","content":"PROMPT"}],"stream":false}' \
+  | /opt/homebrew/bin/python3.11 -c "import sys,json; print(json.load(sys.stdin)['message']['content'])"
+
+How to call Qwen (Bash tool):
+curl -s --max-time 90 http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5-coder:32b","messages":[{"role":"user","content":"PROMPT"}],"stream":false}' \
+  | /opt/homebrew/bin/python3.11 -c "import sys,json; print(json.load(sys.stdin)['message']['content'])"
+
+Always start every reply with [Gemma], [Qwen], or [Claude].
+If a local model times out, fall back to Claude silently and label [Claude].</pre>
+    </div>
+
+    <h2>Step 8 &mdash; Test Everything</h2>
+
+    <div class="mc-prompt-block">
+      <div class="mc-prompt-label">Smoke tests for both local models</div>
+<pre># Test Gemma
+curl -s --max-time 90 http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gemma4:31b","messages":[{"role":"user","content":"What is the capital of France?"}],"stream":false}' \
+  | /opt/homebrew/bin/python3.11 -c "import sys,json; print(json.load(sys.stdin)['message']['content'])"
+
+# Test Qwen
+curl -s --max-time 90 http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5-coder:32b","messages":[{"role":"user","content":"Write a Python function to reverse a string."}],"stream":false}' \
+  | /opt/homebrew/bin/python3.11 -c "import sys,json; print(json.load(sys.stdin)['message']['content'])"</pre>
+    </div>
+
+    <p>Both should respond within 30 seconds (longer on first call as the model loads into memory).</p>
+
+    <h2>Routing at a Glance</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Goes to</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Greeting, joke, trivia, simple question</td><td>Gemma</td></tr>
+        <tr><td>Code, debugging, scripting, architecture</td><td>Qwen</td></tr>
+        <tr><td>Planning, analysis, personal info, tools</td><td>Claude</td></tr>
+        <tr><td>Local model timeout</td><td>Claude (fallback)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Troubleshooting</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Problem</th>
+          <th>Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ollama not responding</td><td><code>brew services restart ollama</code></td></tr>
+        <tr><td>Model not found</td><td><code>ollama pull gemma4:31b</code> or <code>ollama pull qwen2.5-coder:32b</code></td></tr>
+        <tr><td>Slow first response</td><td>Normal &mdash; model loads on first query (~30 sec)</td></tr>
+        <tr><td>Router won&rsquo;t start</td><td><code>cat ~/.openclaw/workspace/openclaw-router/router.log</code></td></tr>
+        <tr><td>Out of memory</td><td>Restart Ollama: <code>brew services restart ollama</code></td></tr>
+        <tr><td>API key not set</td><td>Check <code>.env</code> exists in <code>openclaw-router/</code> and contains the key</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Why this exists</h2>
+
+    <p>Running everything through the Claude API gets expensive fast, especially for casual chat. Running everything locally means slow, inconsistent answers on hard problems. This router gives you the best of both: cheap local speed for the 80% of requests that don&rsquo;t need a frontier model, and Claude&rsquo;s deep reasoning for the 20% that do.</p>
+
+    <p>The labels (<code>[Gemma]</code>, <code>[Qwen]</code>, <code>[Claude]</code>) make the trade-off transparent. You always know which model answered, so you can tell the Operator to &ldquo;ask Claude this one&rdquo; if the local answer was weak.</p>
+
+    <h2>Source code &amp; further reading</h2>
+
+    <ul>
+      <li><a href="https://github.com/mcornelia/openclaw-multi-model-router" target="_blank" rel="noopener">mcornelia/openclaw-multi-model-router</a> &mdash; the GitHub repo (start.sh, plist, router.py, full README)</li>
+      <li><a href="https://mcornelia.github.io/openclaw-setup-guide" target="_blank" rel="noopener">OpenClaw Setup Guide</a> &mdash; the prerequisite (sets up your local Operator)</li>
+      <li><a href="https://ollama.com/library/gemma4" target="_blank" rel="noopener">Gemma 4 on Ollama</a> &middot; <a href="https://ollama.com/library/qwen2.5-coder" target="_blank" rel="noopener">Qwen 2.5 Coder on Ollama</a></li>
+      <li><a href="https://docs.litellm.ai/" target="_blank" rel="noopener">LiteLLM docs</a> &middot; <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI docs</a></li>
+    </ul>
+
+    <hr>
+
+    <p><em>Questions, ideas, or want to share your own routing rules? <a href="/contact.html">Reach out</a>.</em></p>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+
+</div>
+
+</body>
+</html>
