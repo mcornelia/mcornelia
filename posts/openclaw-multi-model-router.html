@@ -59,6 +59,103 @@
   </script>
 
   <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .mc-flow-diagram {
+      margin: 36px 0;
+      padding: 32px 28px;
+      background: rgba(13, 17, 23, 0.5);
+      border: 1px solid rgba(255, 92, 242, 0.25);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .mc-flow-diagram .flow-node {
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 92, 242, 0.45);
+      border-radius: 6px;
+      text-align: center;
+      min-width: 260px;
+    }
+    .mc-flow-diagram .flow-label {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: 0.02em;
+    }
+    .mc-flow-diagram .flow-sublabel {
+      font-size: 0.82rem;
+      color: #8b949e;
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+    }
+    .mc-flow-diagram .flow-arrow {
+      color: #ff5cf2;
+      font-size: 1.6rem;
+      line-height: 1;
+      margin: 14px 0;
+      opacity: 0.85;
+    }
+    .mc-flow-diagram .flow-routes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .mc-flow-diagram .flow-route {
+      padding: 18px 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      border-top: 3px solid;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mc-flow-diagram .flow-route-gemma { border-top-color: #00d9ff; }
+    .mc-flow-diagram .flow-route-qwen { border-top-color: #39ff14; }
+    .mc-flow-diagram .flow-route-claude { border-top-color: #ff5cf2; }
+    .mc-flow-diagram .flow-route-tag {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .mc-flow-diagram .flow-route-gemma .flow-route-tag { color: #00d9ff; }
+    .mc-flow-diagram .flow-route-qwen .flow-route-tag { color: #39ff14; }
+    .mc-flow-diagram .flow-route-claude .flow-route-tag { color: #ff5cf2; }
+    .mc-flow-diagram .flow-route-name {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 0.92rem;
+      color: #f0f6fc;
+      font-weight: 600;
+    }
+    .mc-flow-diagram .flow-route-use {
+      font-size: 0.85rem;
+      color: #c9d1d9;
+      line-height: 1.35;
+      min-height: 2.4em;
+    }
+    .mc-flow-diagram .flow-route-meta {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 0.72rem;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    @media (max-width: 640px) {
+      .mc-flow-diagram { padding: 24px 16px; }
+      .mc-flow-diagram .flow-node { min-width: auto; width: 100%; }
+      .mc-flow-diagram .flow-routes {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -90,11 +187,41 @@
 
     <h2>The Architecture</h2>
 
-<pre>Your message &rarr; the Operator (your local agent)
-                &boxv;&boxh;&boxh; General Q&amp;A, chat, trivia  &rarr; [Gemma]   Gemma 4 31B        (local, free)
-                &boxv;&boxh;&boxh; Code tasks                 &rarr; [Qwen]    Qwen 2.5 Coder 32B (local, free)
-                &boxvr;&boxh;&boxh; Complex reasoning,         &rarr; [Claude]  Claude Sonnet      (API)
-                    personal context, tools</pre>
+    <div class="mc-flow-diagram">
+      <div class="flow-node">
+        <div class="flow-label">Your message</div>
+      </div>
+
+      <div class="flow-arrow">&darr;</div>
+
+      <div class="flow-node">
+        <div class="flow-label">the Operator</div>
+        <div class="flow-sublabel">your local agent &mdash; decides where to route</div>
+      </div>
+
+      <div class="flow-arrow">&darr;</div>
+
+      <div class="flow-routes">
+        <div class="flow-route flow-route-gemma">
+          <div class="flow-route-tag">[Gemma]</div>
+          <div class="flow-route-name">Gemma 4 31B</div>
+          <div class="flow-route-use">General Q&amp;A, chat, trivia</div>
+          <div class="flow-route-meta">Local &middot; Free</div>
+        </div>
+        <div class="flow-route flow-route-qwen">
+          <div class="flow-route-tag">[Qwen]</div>
+          <div class="flow-route-name">Qwen 2.5 Coder 32B</div>
+          <div class="flow-route-use">Code tasks &mdash; writing, debugging, scripting</div>
+          <div class="flow-route-meta">Local &middot; Free</div>
+        </div>
+        <div class="flow-route flow-route-claude">
+          <div class="flow-route-tag">[Claude]</div>
+          <div class="flow-route-name">Claude Sonnet</div>
+          <div class="flow-route-use">Complex reasoning, personal context, tools</div>
+          <div class="flow-route-meta">API</div>
+        </div>
+      </div>
+    </div>
 
     <p>Every response is labeled <code>[Gemma]</code>, <code>[Qwen]</code>, or <code>[Claude]</code> so you always know which model answered.</p>
 
