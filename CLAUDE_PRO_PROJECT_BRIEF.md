@@ -293,6 +293,50 @@ Every page `<head>` block must include:
 
 **When adding a NEW main page** — copy the head from `about.html` (if profile-style) or `play.html` (if functional) and update title, description, canonical URL, og:url, JSON-LD url. Skip article-specific tags.
 
+## Legacy URL redirect stubs
+
+The site previously ran on WordPress, and Google still has cached URLs from that era. To clean up Search Console "Not found (404)" errors without losing any link equity, there are tiny meta-refresh redirect stubs at the old URL paths.
+
+**Why meta-refresh and not real 301s**: GitHub Pages doesn't support `.htaccess` or `_redirects` files (Netlify only). Plain HTML site = no Jekyll redirect plugin either. Meta-refresh + `rel=canonical` is the standard GitHub Pages workaround — Google treats it as functionally equivalent to a 301 for indexing.
+
+**Stub template** (~10 lines, all redirects use this shape):
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting&hellip;</title>
+<link rel="canonical" href="https://mcornelia.com/[target]">
+<meta http-equiv="refresh" content="0; url=https://mcornelia.com/[target]">
+<meta name="robots" content="noindex">
+</head>
+<body><p>Redirecting to <a href="https://mcornelia.com/[target]">mcornelia.com</a>&hellip;</p></body>
+</html>
+```
+
+**Current stubs** (added 2026-05-05 from Search Console 404 report):
+
+| Old URL | Target | Reason |
+|---|---|---|
+| `/2007/09/06/vnc-demonstration/` | `/` | Old WP blog post |
+| `/2013/04/07/sun-ray-wed-administration-css-issue/` | `/` | Old WP blog post |
+| `/2013/04/18/linux-dual-boot-fedora-18-ubuntu-13-04/` | `/` | Old WP blog post |
+| `/2013/04/25/wan-fail-over-load-balancing/` | `/` | Old WP blog post |
+| `/2013/05/13/rhel-6-installation-options/` | `/` | Old WP blog post |
+| `/2013/05/20/solaris-svcs-to-the-rescue/` | `/` | Old WP blog post |
+| `/2013/07/01/my-next-adventure/` | `/` | Old WP blog post (joining Meta) |
+| `/category/internet/` | `/` | Old WP category page |
+| `/about/` | `/about.html` | WP trailing-slash &rarr; static `.html` convention |
+| `/contact/` | `/contact.html` | WP trailing-slash &rarr; static `.html` convention |
+| `/resume/` | `/cv.html` | Old page renamed |
+
+**Rules for stubs**:
+- **NEVER add stubs to `sitemap.xml`** &mdash; they're for Google's old cached URLs only, not for new indexing
+- **NEVER touch existing stubs** unless the canonical target moves
+- If Search Console flags new 404 URLs in the future, follow the same pattern: create a stub `index.html` at the path and add a row to the table above
+- Stubs use `<meta name="robots" content="noindex">` so the redirect page itself doesn't get indexed &mdash; only the canonical does
+
 ## Workflow: how I update the site
 
 You'll typically help me in one of these patterns:
