@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Image: Always-On AI on a Mac Mini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #0d1117;
+}
+body {
+  color: #c9d1d9;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  padding: 36px 48px 32px;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: -200px;
+  background: linear-gradient(115deg,
+    transparent 0%, transparent 18%,
+    rgba(57, 255, 20, 0.10) 19%, rgba(57, 255, 20, 0.26) 20%, rgba(57, 255, 20, 0.10) 21%,
+    transparent 22%, transparent 56%,
+    rgba(0, 217, 255, 0.06) 57%, rgba(0, 217, 255, 0.20) 58%, rgba(0, 217, 255, 0.06) 59%,
+    transparent 60%, transparent 100%);
+  z-index: 0;
+}
+.content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+
+.header-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; }
+.accent-bar {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #39ff14 0%, #00d9ff 50%, #b388ff 100%);
+  margin-bottom: 10px;
+}
+.brand-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: #39ff14;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.brand-line::before { content: '> '; opacity: 0.7; }
+.series-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0d1117;
+  background: #39ff14;
+  padding: 4px 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+h1.title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 34px;
+  font-weight: 800;
+  color: #f0f6fc;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+}
+h1.title em { color: #39ff14; font-style: normal; }
+.right-header {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #8b949e;
+  line-height: 1.6;
+}
+.right-header b { color: #f0f6fc; font-weight: 700; }
+
+.diagram {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  padding: 8px 0;
+}
+
+.zone {
+  position: relative;
+  border-radius: 10px;
+  padding: 20px 16px 18px;
+  flex-shrink: 0;
+}
+.zone-label {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  background: #0d1117;
+  padding: 0 8px;
+}
+.zone-anywhere {
+  width: 240px;
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: rgba(0, 217, 255, 0.04);
+}
+.zone-anywhere .zone-label { color: #00d9ff; }
+.zone-home {
+  width: 460px;
+  border: 2px dashed rgba(57, 255, 20, 0.55);
+  background: rgba(57, 255, 20, 0.04);
+  padding: 28px 18px 18px;
+}
+.zone-home .zone-label { color: #39ff14; }
+.zone-cloud {
+  width: 180px;
+  border: 1px solid rgba(255, 92, 242, 0.4);
+  background: rgba(255, 92, 242, 0.04);
+}
+.zone-cloud .zone-label { color: #ff5cf2; }
+
+.node {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.node-icon { font-size: 30px; line-height: 1; margin-bottom: 6px; }
+.node-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f0f6fc;
+}
+.node-sub {
+  font-size: 10px;
+  color: #8b949e;
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.anywhere-stack { display: flex; flex-direction: column; gap: 8px; }
+.guest-network {
+  border: 2px dotted rgba(255, 184, 0, 0.6);
+  border-radius: 10px;
+  padding: 18px 14px 14px;
+  position: relative;
+  background: rgba(255, 184, 0, 0.04);
+}
+.guest-label {
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffb800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  background: #0d1117;
+  padding: 0 6px;
+}
+.guest-stack { display: flex; gap: 10px; align-items: center; }
+.guest-stack .node { flex: 1; }
+
+.arrow {
+  flex: 1;
+  position: relative;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(57, 255, 20, 0.5) 20%, rgba(57, 255, 20, 0.5) 80%, transparent 100%);
+  min-width: 40px;
+  max-width: 60px;
+}
+.arrow::after {
+  content: '▶';
+  position: absolute;
+  top: -9px;
+  right: 0;
+  color: #39ff14;
+  font-size: 16px;
+  line-height: 1;
+}
+.arrow-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #8b949e;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.arrow-cloud {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 92, 242, 0.5) 20%, rgba(255, 92, 242, 0.5) 80%, transparent 100%);
+}
+.arrow-cloud::after { color: #ff5cf2; }
+
+.footer {
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #c9d1d9;
+  text-align: center;
+  border-left: 3px solid #39ff14;
+}
+.footer b { color: #39ff14; }
+</style>
+</head>
+<body>
+<div class="content">
+  <div class="header-row">
+    <div class="left-header">
+      <div class="accent-bar"></div>
+      <div class="brand-line">homeai/part-2</div>
+      <span class="series-tag">Part 2 of 3</span>
+      <h1 class="title">Always-On AI,<br><em>Reachable from Anywhere</em></h1>
+    </div>
+    <div class="right-header">
+      <b>Hardware:</b> MacMini 16&ndash;32GB<br>
+      <b>OS:</b> macOS<br>
+      <b>Cost:</b> $20/mo (Claude Pro) + power
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="zone zone-anywhere">
+      <div class="zone-label">From Anywhere</div>
+      <div class="anywhere-stack">
+        <div class="node">
+          <div class="node-icon">📱</div>
+          <div class="node-name">Your Phone</div>
+          <div class="node-sub">cell or wifi</div>
+        </div>
+        <div class="node">
+          <div class="node-icon">💬</div>
+          <div class="node-name">WhatsApp Business</div>
+          <div class="node-sub">dedicated number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <div class="arrow-label">internet</div>
+    </div>
+
+    <div class="zone zone-home">
+      <div class="zone-label">Your Home</div>
+      <div class="guest-network">
+        <div class="guest-label">&nbsp;Guest Network &mdash; Isolated&nbsp;</div>
+        <div class="guest-stack">
+          <div class="node">
+            <div class="node-icon">🖥️</div>
+            <div class="node-name">Mac Mini</div>
+            <div class="node-sub">always on</div>
+          </div>
+          <div class="node">
+            <div class="node-icon">🤖</div>
+            <div class="node-name">OpenClaw Agent</div>
+            <div class="node-sub">your &ldquo;Operator&rdquo;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow arrow-cloud">
+      <div class="arrow-label">Claude Pro</div>
+    </div>
+
+    <div class="zone zone-cloud">
+      <div class="zone-label">Cloud</div>
+      <div class="node">
+        <div class="node-icon">☁️</div>
+        <div class="node-name">Claude Pro</div>
+        <div class="node-sub">your existing subscription</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Text your home AI from anywhere &middot; <b>guest network isolation</b> means it can't see your laptop, phone, or smart home &middot; uses your existing Claude Pro
+  </div>
+</div>
+</body>
+</html>

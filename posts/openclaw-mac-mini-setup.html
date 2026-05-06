@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Always-On AI on a Mac Mini &mdash; OpenClaw + WhatsApp Setup Guide &mdash; Mike Cornelia</title>
+  <meta name="description" content="Step-by-step guide to running an always-on AI agent on a dedicated Mac Mini using OpenClaw and WhatsApp. Text your agent from anywhere using your existing Claude Pro subscription. Network-isolated, always available, zero extra AI cost.">
+  <meta name="author" content="Mike Cornelia">
+  <meta name="keywords" content="OpenClaw, Mac Mini, always-on AI, WhatsApp AI agent, Claude Pro, home AI, personal AI assistant, dedicated AI server, OpenClaw setup, WhatsApp Business">
+
+  <link rel="canonical" href="https://mcornelia.com/posts/openclaw-mac-mini-setup.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Always-On AI on a Mac Mini &mdash; OpenClaw + WhatsApp">
+  <meta property="og:description" content="Run your own always-on AI agent on a Mac Mini. Text it from your phone via WhatsApp. Uses your existing Claude Pro subscription &mdash; no extra AI cost.">
+  <meta property="og:url" content="https://mcornelia.com/posts/openclaw-mac-mini-setup.html">
+  <meta property="og:image" content="https://mcornelia.com/og-images/openclaw-mac-mini-setup.png">
+  <meta property="og:site_name" content="Mike Cornelia">
+  <meta property="article:author" content="Mike Cornelia">
+  <meta property="article:published_time" content="2026-05-06">
+  <meta property="article:section" content="AI &amp; Productivity">
+  <meta property="article:tag" content="OpenClaw">
+  <meta property="article:tag" content="Mac Mini">
+  <meta property="article:tag" content="WhatsApp">
+  <meta property="article:tag" content="Claude Pro">
+  <meta property="article:tag" content="Home AI">
+  <meta property="article:tag" content="Always-On Agent">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Always-On AI on a Mac Mini &mdash; OpenClaw + WhatsApp">
+  <meta name="twitter:description" content="Run your own always-on AI agent on a dedicated Mac Mini. Text it from your phone via WhatsApp. No extra AI cost.">
+  <meta name="twitter:image" content="https://mcornelia.com/og-images/openclaw-mac-mini-setup.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Always-On AI on a Mac Mini &mdash; OpenClaw + WhatsApp Setup Guide",
+    "description": "Step-by-step guide to running an always-on AI agent on a dedicated Mac Mini using OpenClaw and WhatsApp.",
+    "image": "https://mcornelia.com/og-images/openclaw-mac-mini-setup.png",
+    "url": "https://mcornelia.com/posts/openclaw-mac-mini-setup.html",
+    "datePublished": "2026-05-06",
+    "dateModified": "2026-05-06",
+    "author": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Mike Cornelia",
+      "url": "https://mcornelia.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mcornelia.com/posts/openclaw-mac-mini-setup.html"
+    },
+    "keywords": "OpenClaw, Mac Mini, WhatsApp, Claude Pro, home AI, always-on agent, personal AI assistant"
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/play.html" class="active">Code</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="mc-post">
+
+    <a href="/play.html" class="mc-post-back">&larr; Code</a>
+
+    <div class="mc-post-header">
+      <h1>Always-On AI on a Mac Mini &mdash; OpenClaw + WhatsApp</h1>
+    </div>
+
+    <p>An always-on AI agent running on a dedicated box in your house. Same Claude brain you already pay for ($20/mo Pro), but now it lives in a box on your network &mdash; and you can talk to it from anywhere, including WhatsApp, from your phone, while you&rsquo;re walking the dog.</p>
+
+    <h2>What You&rsquo;re Building</h2>
+
+    <p>An open-source agent runtime called <strong>OpenClaw</strong>, installed on a Mac Mini, connected to your existing Claude Pro subscription, and bridged to WhatsApp Business so you can text it from anywhere.</p>
+
+    <p>The end state:</p>
+    <ul>
+      <li>The agent is always running. You don&rsquo;t need to open a browser to use it.</li>
+      <li>You text it from your phone. It texts back.</li>
+      <li>It retains the context you share with it (anything you choose to expose to it).</li>
+      <li>It uses your existing Claude Pro subscription &mdash; no extra AI costs beyond the $20/mo you already pay.</li>
+      <li>It runs in network isolation for privacy and safety.</li>
+    </ul>
+
+    <h2>Hardware &mdash; Why a Dedicated Mac Mini</h2>
+
+    <p>A Mac Mini is the sweet spot for this, but sourcing one can take a long lead time:</p>
+    <ul>
+      <li><strong>Affordable</strong> &mdash; base model M4 with 16GB RAM is around $799 new, less refurbished. If you want to run local LLM models too, bump it to 32GB.</li>
+      <li><strong>Quiet</strong> &mdash; fanless or near-fanless under normal load. Stick it on a shelf and forget it.</li>
+      <li><strong>Power-efficient</strong> &mdash; costs pennies a day to run 24/7.</li>
+      <li><strong>macOS</strong> &mdash; same OS as your work laptop probably, easy to manage.</li>
+    </ul>
+
+    <p>Avoid running this on your daily-driver Mac. The whole point is &ldquo;always on, doesn&rsquo;t crash when I close my laptop.&rdquo; A dedicated box also means you can be selective about what you let it access, without worrying about your personal files.</p>
+
+    <div class="mc-callout">
+      <p><strong>Pro tip &mdash; give your agent its own accounts.</strong> Set up the Mac Mini with dedicated service accounts, completely separate from yours:</p>
+      <ul>
+        <li><strong>macOS user account</strong> &mdash; a dedicated macOS user for your agent (don&rsquo;t use your personal Apple ID login)</li>
+        <li><strong>Google account</strong> &mdash; gives it its own Gmail, Google Drive (shared folders with you), and Google Calendar (share a calendar with your personal account &mdash; your agent adds events via GCal invite, not direct access to yours)</li>
+        <li><strong>iCloud account</strong> &mdash; a dedicated Apple ID for the Mac Mini. Keeps iCloud, Find My, and macOS services isolated.</li>
+      </ul>
+      <p>This takes 15&ndash;20 minutes of one-time setup, but the payoff is big: your agent can autonomously send you emails, manage a shared calendar, store files in Drive, and operate with clear boundaries.</p>
+    </div>
+
+    <h2>Network Isolation &mdash; Put It on the Guest Network</h2>
+
+    <p>Your AI agent is going to have an internet connection, Claude Pro credentials, and the ability to run code. It is, by definition, a privileged piece of software running on your network. Treat it that way.</p>
+
+    <p><strong>Put the Mac Mini on your guest WiFi network.</strong> Most modern routers support a guest network that has internet access but is isolated from your main network (laptops, phones, work devices, smart home stuff). If the agent ever does something weird, it can&rsquo;t see or touch your main devices. The blast radius is the Mac Mini itself.</p>
+
+    <h2>Install OpenClaw</h2>
+
+    <p>The official OpenClaw installer detects your OS, installs Node if needed, installs OpenClaw, and launches the interactive onboarding wizard. One command, ~5 minutes total.</p>
+
+    <h3>Step 0 &mdash; Install iTerm2</h3>
+
+    <p>Download from iterm2.com &rarr; drag to Applications &rarr; launch. Better than the default macOS Terminal: improved tab handling, search, copy/paste, and color rendering.</p>
+
+    <p><strong>Advanced:</strong> install VS Code from code.visualstudio.com if you want a full editor with built-in terminal (helpful for editing <code>AGENTS.md</code> and <code>openclaw.json</code> later).</p>
+
+    <h3>Step 1 &mdash; Install OpenClaw</h3>
+
+<pre>curl -fsSL https://openclaw.ai/install-cli.sh | bash</pre>
+
+    <p>That&rsquo;s it. The script puts everything under <code>~/.openclaw</code> and launches the onboarding wizard automatically.</p>
+
+    <h3>Step 2 &mdash; Complete Onboarding</h3>
+
+    <p>The wizard is interactive. It walks you through:</p>
+    <ul>
+      <li><strong>Model / Auth</strong> &mdash; choose Claude CLI. This reuses the Claude Pro login you already have &mdash; no separate API key needed. If Claude CLI isn&rsquo;t installed yet, install it first (<code>npm install -g @anthropic-ai/claude-code</code>), then run <code>claude login</code>.</li>
+      <li><strong>Workspace</strong> &mdash; defaults to <code>~/.openclaw/workspace</code>. Hit Enter.</li>
+      <li><strong>Gateway</strong> &mdash; defaults to port 18789 on localhost. Hit Enter.</li>
+      <li><strong>Channels</strong> &mdash; skip for now. We&rsquo;ll add WhatsApp below.</li>
+      <li><strong>Daemon</strong> &mdash; say <strong>YES</strong>. Installs a macOS LaunchAgent so OpenClaw auto-starts on boot.</li>
+      <li><strong>Health check</strong> &mdash; wizard confirms the Gateway is running.</li>
+    </ul>
+
+    <p>When the wizard finishes, your agent is alive. Open <strong>http://localhost:18789</strong> in a browser on the Mac Mini to chat via the Control UI.</p>
+
+    <h3>Step 3 &mdash; Give Your Agent a Personality</h3>
+
+    <p>The onboarding wizard seeded <code>~/.openclaw/workspace/AGENTS.md</code> &mdash; this file is your agent&rsquo;s &ldquo;Custom Instructions&rdquo; (same idea as Cowork, except always loaded). Two ways to fill it in:</p>
+    <ul>
+      <li><strong>Edit it directly</strong> &mdash; <code>nano ~/.openclaw/workspace/AGENTS.md</code> in iTerm2, or open in VS Code. Add your name, family, pets, time zone, communication style.</li>
+      <li><strong>Or just chat with your agent</strong> at http://localhost:18789 and tell it &ldquo;remember the following about my household&hellip;&rdquo; &mdash; it&rsquo;ll write to AGENTS.md as you teach it.</li>
+    </ul>
+
+    <p><strong>Optional &mdash; macOS menu-bar app:</strong> install <strong>OpenClaw.app</strong> from openclaw.ai for a system-tray indicator and macOS permissions (Camera, Screen Recording, Automation). The CLI install is enough for headless operation; the .app is a quality-of-life add-on.</p>
+
+    <h2>WhatsApp Business Bridge &mdash; Talk to Your Agent from Anywhere</h2>
+
+    <p>OpenClaw ships with a WhatsApp channel plugin powered by Baileys (the same library WhatsApp Web itself uses). Your job is to give your agent a phone number, link it, and configure who can talk to it.</p>
+
+    <h3>Step 1 &mdash; Give Your Agent Its Own Phone Number</h3>
+
+    <p>Your agent needs a dedicated phone number that isn&rsquo;t your personal WhatsApp. The cleanest free option is <strong>Google Voice</strong>.</p>
+
+    <p>Provision a Google Voice number:</p>
+    <ol>
+      <li>Go to voice.google.com &mdash; sign in with a Google account (create a dedicated one for your agent &mdash; see the Pro Tip above)</li>
+      <li>Click &ldquo;Get started&rdquo; &rarr; select a number (search by area code)</li>
+      <li>Link it to an existing phone for verification &mdash; just for setup, not ongoing use</li>
+      <li>Done. You now have a number like +14045550123 that can receive SMS</li>
+    </ol>
+
+    <p><strong>Why Google Voice:</strong> free, receives SMS, no SIM needed, works entirely in software. Alternative: an eSIM from Visible or US Mobile (~$5&ndash;10/month) gives you a &ldquo;real&rdquo; carrier number.</p>
+
+    <h3>Step 2 &mdash; Register the Number on WhatsApp Business</h3>
+
+    <p>You need a WhatsApp account on the Google Voice number that&rsquo;s separate from your personal WhatsApp. The easiest way on iPhone: use the <strong>WhatsApp Business</strong> app.</p>
+
+    <ol>
+      <li>Download WhatsApp Business from the App Store &mdash; installs alongside your regular WhatsApp, no conflict</li>
+      <li>Open it &rarr; enter your Google Voice number</li>
+      <li>WhatsApp sends an SMS verification code &rarr; check voice.google.com Messages tab</li>
+      <li>Complete setup: give the account your agent&rsquo;s name, skip business details</li>
+      <li>Done &mdash; you now have a WhatsApp account on a dedicated number</li>
+    </ol>
+
+    <div class="mc-callout">
+      <p><strong>No developer account needed.</strong> You don&rsquo;t need Meta&rsquo;s WhatsApp Business API or any developer portal. WhatsApp Business app is just a free alternative client that lets you run a second account on the same iPhone.</p>
+    </div>
+
+    <h3>Step 3 &mdash; Add WhatsApp to OpenClaw</h3>
+
+    <p>From iTerm2 on the Mac Mini, add the WhatsApp channel. This installs the plugin (on demand), configures the channel, and prompts you to scan a QR code:</p>
+
+<pre>openclaw channels add --channel whatsapp</pre>
+
+    <p>When the QR code appears in your terminal:</p>
+    <ol>
+      <li>Open WhatsApp Business on your iPhone &rarr; Settings &rarr; Linked Devices &rarr; Link a Device</li>
+      <li>Scan the QR code in the terminal</li>
+      <li>Done &mdash; OpenClaw is now connected to your agent&rsquo;s WhatsApp number</li>
+    </ol>
+
+    <p>The session is persisted to <code>~/.openclaw/credentials/whatsapp/default/creds.json</code>. On subsequent starts (including reboots), it reconnects automatically without re-scanning.</p>
+
+    <h3>Step 4 &mdash; Tell Your Agent Who Can Talk to It</h3>
+
+    <p>The easy path: just ask your agent &mdash; <em>&ldquo;switch the WhatsApp dmPolicy to allowlist and add my number and my spouse&rsquo;s number.&rdquo;</em> Your agent has filesystem access on the Mac Mini, so it can edit the config and restart itself.</p>
+
+    <p>For reference, here&rsquo;s what the config looks like in <code>~/.openclaw/openclaw.json</code>:</p>
+
+<pre>{
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "+1YOUR_NUMBER",
+        "+1HOUSEHOLD_MEMBER_1",
+        "+1HOUSEHOLD_MEMBER_2"
+      ],
+      "groupPolicy": "allowlist",
+      "groupAllowFrom": ["+1YOUR_NUMBER"]
+    }
+  }
+}</pre>
+
+    <p><strong>dmPolicy options:</strong></p>
+    <ul>
+      <li><strong>&ldquo;allowlist&rdquo;</strong> &mdash; only numbers in allowFrom can DM your agent. Most explicit. <strong>Recommended for household use.</strong></li>
+      <li><strong>&ldquo;pairing&rdquo;</strong> &mdash; only contacts your agent has messaged first. Looser.</li>
+      <li><strong>&ldquo;open&rdquo;</strong> &mdash; anyone with the number can message in. <strong>Don&rsquo;t use this.</strong></li>
+      <li><strong>&ldquo;disabled&rdquo;</strong> &mdash; DMs off entirely.</li>
+    </ul>
+
+    <p><strong>allowFrom</strong> &mdash; the explicit list of numbers in E.164 format (country code + number, no spaces or dashes, e.g. +14045550123).</p>
+
+    <h3>Adding a Household Member Later</h3>
+
+    <p><strong>Easy path:</strong> tell your agent &mdash; <em>&ldquo;Add my spouse at +1XXX-XXX-XXXX to the WhatsApp allowlist.&rdquo;</em> Done.</p>
+
+    <p><strong>Optional &mdash; per-person customization.</strong> You can give individual contacts a custom system prompt:</p>
+
+<pre>"direct": {
+  "+1HOUSEHOLD_MEMBER_1": {
+    "systemPrompt": "You are talking with [name], my spouse. Keep responses brief and friendly."
+  }
+}</pre>
+
+    <h2>Costs</h2>
+
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Claude Pro subscription</td><td>$20/mo (you already pay this)</td></tr>
+        <tr><td>Google Voice number</td><td>Free</td></tr>
+        <tr><td>WhatsApp Business app</td><td>Free</td></tr>
+        <tr><td>OpenClaw + WhatsApp plugin</td><td>Free (open source)</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Total: $0/month beyond your existing $20/mo Claude Pro subscription.</strong></p>
+
+    <h2>Gotchas</h2>
+
+    <ul>
+      <li><strong>WhatsApp Web sessions expire.</strong> WhatsApp disconnects linked devices after ~14 days of inactivity. Re-scan the QR code with <code>openclaw channels add --channel whatsapp</code>. Plan to re-scan every few weeks.</li>
+      <li><strong>Google Voice SMS delivery is sometimes slow.</strong> The verification SMS can take 30&ndash;60 seconds. Don&rsquo;t immediately request a call verification &mdash; wait for the SMS.</li>
+      <li><strong>Use &ldquo;allowlist&rdquo;, not &ldquo;open&rdquo;.</strong> &ldquo;open&rdquo; lets anyone with your agent&rsquo;s number message it. &ldquo;allowlist&rdquo; requires you to explicitly add each number.</li>
+      <li><strong>Numbers must be E.164 format.</strong> Country code + number, no spaces or dashes (+14045550123, not 404-555-0123). Most common cause of &ldquo;why doesn&rsquo;t it respond.&rdquo;</li>
+      <li><strong>WhatsApp may flag new numbers.</strong> A fresh Google Voice number can get a temporary ban (24&ndash;48 hours). Let the account sit for a few days before heavy automation.</li>
+      <li><strong>If you skipped daemon install during onboarding</strong>, run <code>openclaw gateway install</code> to add the LaunchAgent later.</li>
+      <li><strong>Re-scanning doesn&rsquo;t reset your config.</strong> The session file (<code>creds.json</code>) is separate from your channel config in <code>openclaw.json</code>.</li>
+    </ul>
+
+    <h2>What This Unlocks</h2>
+
+    <p>Once the agent is running and reachable via WhatsApp:</p>
+    <ul>
+      <li><strong>Drive-by tasks.</strong> &ldquo;Add eggs and milk to the grocery list.&rdquo; &ldquo;Remind me to call the vet tomorrow morning.&rdquo; &ldquo;What&rsquo;s on my calendar Thursday afternoon?&rdquo;</li>
+      <li><strong>Hands-free decisions.</strong> &ldquo;I&rsquo;m at Home Depot &mdash; should I get the cheaper paint or the better one for what we&rsquo;re doing in the kitchen?&rdquo; Your agent has the context.</li>
+      <li><strong>Family hand-off.</strong> Your spouse can text the same agent. So can your teenager. Same context, same memory, all in one place.</li>
+      <li><strong>Background work.</strong> &ldquo;While I&rsquo;m at dinner, draft me a polite email to the contractor pushing back on the new estimate.&rdquo; It does the work; you check the draft when you&rsquo;re back.</li>
+    </ul>
+
+    <p>It stops being &ldquo;AI you go talk to&rdquo; and starts being &ldquo;household infrastructure that&rsquo;s just there.&rdquo;</p>
+
+    <h2>Coming Next &mdash; Part 3</h2>
+
+    <p>Once you&rsquo;re using your agent constantly, you&rsquo;ll notice the same thing I did: most of what you ask it is easy. &ldquo;What time does Home Depot close?&rdquo; doesn&rsquo;t need a frontier model.</p>
+
+    <p>Part 3 is <a href="/posts/openclaw-multi-model-router.html">multi-model routing</a> &mdash; putting two free, fast, local models on the same Mac Mini (Gemma and Qwen) and having your agent decide which one to use. Easy questions stay local. Complex stuff goes to Claude. Your AI bill drops ~80% without losing quality on the hard stuff.</p>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+
+</div>
+
+</body>
+</html>
