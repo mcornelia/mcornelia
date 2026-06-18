@@ -14,7 +14,7 @@ I love the technology. I love the people. I've never bought the idea that you ca
 ## what I'm building
 - **EDI** — always-on Chief-of-Staff agent that never forgets, hooked into LLMs, my calendar, email, and a knowledge base of everything I've ever worked on
 - **Glyph** — Messenger agent running on OpenClaw (an open-source agent framework I run locally), reachable from my phone
-- **mcornelia.com** — this site, edited entirely through Claude Code
+- **mcornelia.com** — this site, managed by Glyph, built with Claude Code, Codex, and Qwen
 - **room-layout-tool**, **openclaw-setup-guide**, an in-browser [Asteroids clone](/play.html)
 
 ## how I work
