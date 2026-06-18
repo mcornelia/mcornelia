@@ -418,7 +418,7 @@
 
     blinkTimer++;
     if (Math.floor(blinkTimer / 30) % 2 === 0) {
-      glowText('PRESS SPACE OR TAP TO START', W / 2, H / 2 + 50, PADDLE_COLOR, 15, 12);
+      glowText('PRESS SPACE TO START', W / 2, H / 2 + 50, PADDLE_COLOR, 15, 12);
     }
 
     if (bestScore > 0) {
@@ -454,7 +454,7 @@
 
     blinkTimer++;
     if (Math.floor(blinkTimer / 30) % 2 === 0) {
-      glowText('PRESS SPACE OR TAP TO PLAY AGAIN', W / 2, H / 2 + 74, PADDLE_COLOR, 14, 10);
+      glowText('PRESS SPACE TO PLAY AGAIN', W / 2, H / 2 + 74, PADDLE_COLOR, 14, 10);
     }
   }
 
@@ -528,7 +528,7 @@
         ctx.font = '13px "Courier New", monospace';
         ctx.textAlign = 'center';
         ctx.fillStyle = '#aaa';
-        ctx.fillText('SPACE / TAP TO LAUNCH', W / 2, H - 18);
+        ctx.fillText('SPACE TO LAUNCH', W / 2, H - 18);
         ctx.restore();
       }
     } else {
