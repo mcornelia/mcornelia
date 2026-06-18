@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breakout &mdash; Mike Cornelia</title>
+  <meta name="description" content="Breakout: smash every brick, save every life, beat your best. The classic arcade game, rebuilt for the web.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+<div class="site-wrapper">
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/play.html" class="active">Code</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main class="mc-game">
+    <a href="/play.html" class="mc-post-back">&larr; Arcade</a>
+    <h1>Breakout</h1>
+    <p class="mc-game-subtitle">Smash every brick. Don&rsquo;t drop the ball.</p>
+    <div class="game-container">
+      <canvas id="game-canvas" width="480" height="560"></canvas>
+    </div>
+    <p class="mc-game-controls">
+      <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or mouse to move paddle &ensp; <kbd>Space</kbd> to launch
+    </p>
+    <p class="mc-game-touch-hint">
+      Touch left / right to move paddle &ensp; Tap to launch
+    </p>
+  </main>
+  <footer class="site-footer">
+    &copy; 2026 Mike Cornelia
+  </footer>
+</div>
+<script src="../js/breakout.js"></script>
+  <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2b2752bd56614a1d98f09afcc8b3e8b0"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
