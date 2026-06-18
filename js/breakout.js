@@ -77,6 +77,7 @@
     }
     if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)) {
       e.preventDefault();
+      mouseX = null; // yield control back to keyboard
     }
   });
   window.addEventListener('keyup',  e => { keys[e.code] = false; });
