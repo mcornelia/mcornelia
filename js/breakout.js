@@ -91,7 +91,6 @@
   canvas.addEventListener('touchstart', e => {
     e.preventDefault();
     handleTouchInput(e);
-    handleLaunch();
   }, { passive: false });
 
   canvas.addEventListener('touchmove', e => {
@@ -103,6 +102,10 @@
     e.preventDefault();
     touchLeft = false;
     touchRight = false;
+    // Detect tap: fire handleLaunch for start/gameover/ball-stuck states
+    if (state === 'start' || state === 'gameover' || (state === 'playing' && ballStuck)) {
+      handleLaunch();
+    }
   }, { passive: false });
 
   function handleTouchInput(e) {
