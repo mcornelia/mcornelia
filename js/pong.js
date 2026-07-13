@@ -215,8 +215,10 @@ canvas.addEventListener('touchend', function() {
 
 document.addEventListener('keydown', function(e) {
   keys[e.code] = true;
-  if (e.code === 'Space') {
+  if (['ArrowUp', 'ArrowDown', 'Space'].includes(e.code)) {
     e.preventDefault();
+  }
+  if (e.code === 'Space') {
     initAudio();
     if (state === 'START' || state === 'GAMEOVER') {
       startGame();
