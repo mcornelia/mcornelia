@@ -184,6 +184,7 @@ function startGame() {
 let lastTouchY = null;
 
 canvas.addEventListener('touchstart', function(e) {
+  e.preventDefault();
   initAudio();
   if (state === 'START' || state === 'GAMEOVER') {
     startGame();
@@ -201,6 +202,7 @@ canvas.addEventListener('click', function() {
 });
 
 canvas.addEventListener('touchmove', function(e) {
+  e.preventDefault();
   if (lastTouchY !== null && state === 'PLAYING') {
     const rect = canvas.getBoundingClientRect();
     const scale = canvas.height / rect.height;
@@ -209,7 +211,8 @@ canvas.addEventListener('touchmove', function(e) {
   }
 });
 
-canvas.addEventListener('touchend', function() {
+canvas.addEventListener('touchend', function(e) {
+  e.preventDefault();
   lastTouchY = null;
 });
 
