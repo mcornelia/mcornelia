@@ -227,13 +227,13 @@ function update(dt) {
     if (state !== 'PLAYING') return;
     vehicles.forEach(vehicle => {
         vehicle.x += vehicle.speed * dt;
-        if (vehicle.x < -vehicle.width) vehicle.x = canvas.width + gridCellSize;
-        else if (vehicle.x > canvas.width) vehicle.x = -gridCellSize;
+        if (vehicle.x < -vehicle.width) vehicle.x = canvas.width;
+        else if (vehicle.x > canvas.width) vehicle.x = -vehicle.width;
     });
     logs.forEach(log => {
         log.x += log.speed * dt;
-        if (log.x < -log.width) log.x = canvas.width + gridCellSize;
-        else if (log.x > canvas.width) log.x = -gridCellSize;
+        if (log.x < -log.width) log.x = canvas.width;
+        else if (log.x > canvas.width) log.x = -log.width;
     });
     if (ridingLog) {
         frogX += ridingLog.speed * dt;
@@ -266,6 +266,7 @@ function render(dt) {
         logs.forEach(log => drawLog(log.x, log.y, log.width, log.height));
         vehicles.forEach(vehicle => drawVehicle(vehicle.x, vehicle.y, vehicle.width, vehicle.height, '#FF6347'));
         drawFrog(frogX, frogY, gridCellSize);
+        ctx.textAlign = 'left';
         drawText(`Score: ${score}`, 20, 38, '24px monospace', '#FFFFFF');
         drawText(`Lives: ${lives}`, canvas.width - 120, 38, '24px monospace', '#FFFFFF');
     }
