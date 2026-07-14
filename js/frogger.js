@@ -43,6 +43,45 @@ function drawFrog(x, y, size) {
     ctx.fillRect(x + size * 0.28, y + size * 0.28, 4, 4);
     ctx.fillRect(x + size * 0.68, y + size * 0.28, 4, 4);
 }
+function drawVehicle(x, y, w, h, color) {
+    const bodyY = y + h * 0.2;
+    const bodyH = h * 0.6;
+    ctx.fillStyle = color;
+    ctx.fillRect(x + 2, bodyY, w - 4, bodyH);
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x + 2, bodyY, w - 4, bodyH);
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fillRect(x + w * 0.15, bodyY + bodyH * 0.15, w * 0.3, bodyH * 0.5);
+    ctx.fillRect(x + w * 0.55, bodyY + bodyH * 0.15, w * 0.3, bodyH * 0.5);
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(x + w * 0.2, y + h * 0.82, h * 0.16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x + w * 0.8, y + h * 0.82, h * 0.16, 0, Math.PI * 2);
+    ctx.fill();
+}
+function drawLog(x, y, w, h) {
+    ctx.fillStyle = 'saddlebrown';
+    ctx.fillRect(x, y + 6, w, h - 12);
+    ctx.strokeStyle = '#3d2410';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y + 6, w, h - 12);
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x + 2, y + h / 2);
+    ctx.lineTo(x + w - 2, y + h / 2);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.beginPath();
+    ctx.arc(x + w * 0.25, y + h / 2, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x + w * 0.7, y + h / 2, 4, 0, Math.PI * 2);
+    ctx.fill();
+}
 function drawText(text, x, y, font, color) { ctx.font = font; ctx.fillStyle = color; ctx.fillText(text, x, y); }
 document.addEventListener('keydown', function(e) {
     if (state === 'START' || state === 'GAMEOVER') {
@@ -108,17 +147,21 @@ function startGame() {
     goals.forEach(goal => goal.filled = false);
     vehicles = [];
     logs = [];
-    carRows.forEach(row => {
-        const speed = (row % 2 === 1) ? -80 : 60;
-        for (let i = 0; i < numCols * 3; i += 4) {
-            let x = row % 2 === 1 ? canvas.width + gridCellSize * i : -gridCellSize * i;
+    carRows.forEach((row, rowIndex) => {
+        const speed = (row % 2 === 1) ? -(100 + rowIndex * 15) : (90 + rowIndex * 15);
+        const spacing = 160;
+        const count = Math.ceil(canvas.width / spacing) + 1;
+        for (let i = 0; i < count; i++) {
+            let x = i * spacing - (row % 2 === 1 ? 0 : spacing / 2);
             vehicles.push({x, y: row * gridCellSize, width: Math.random() > 0.5 ? 80 : 60, height: gridCellSize, speed});
         }
     });
-    logRows.forEach(row => {
-        const speed = (row % 2 === 1) ? -40 : 30;
-        for (let i = 0; i < numCols * 3; i += 3) {
-            let x = row % 2 === 1 ? canvas.width + gridCellSize * i : -gridCellSize * i;
+    logRows.forEach((row, rowIndex) => {
+        const speed = (row % 2 === 1) ? -(50 + rowIndex * 10) : (45 + rowIndex * 10);
+        const spacing = 140;
+        const count = Math.ceil(canvas.width / spacing) + 1;
+        for (let i = 0; i < count; i++) {
+            let x = i * spacing - (row % 2 === 1 ? 0 : spacing / 2);
             logs.push({x, y: row * gridCellSize, width: Math.random() > 0.5 ? 80 : 60, height: gridCellSize, speed});
         }
     });
@@ -220,8 +263,8 @@ function render(dt) {
         drawText(`High Score: ${highScore}`, canvas.width / 2, canvas.height - 30, '20px monospace', '#FFFFFF');
     } else if (state === 'PLAYING') {
         goals.forEach(goal => drawRect(goal.x + 2, goal.y + 2, gridCellSize - 4, gridCellSize - 4, goal.filled ? '#FFD700' : '#145214'));
-        logs.forEach(log => drawRect(log.x, log.y, log.width, log.height, 'saddlebrown'));
-        vehicles.forEach(vehicle => drawRect(vehicle.x, vehicle.y, vehicle.width, vehicle.height, '#FF6347'));
+        logs.forEach(log => drawLog(log.x, log.y, log.width, log.height));
+        vehicles.forEach(vehicle => drawVehicle(vehicle.x, vehicle.y, vehicle.width, vehicle.height, '#FF6347'));
         drawFrog(frogX, frogY, gridCellSize);
         drawText(`Score: ${score}`, 20, 38, '24px monospace', '#FFFFFF');
         drawText(`Lives: ${lives}`, canvas.width - 120, 38, '24px monospace', '#FFFFFF');
