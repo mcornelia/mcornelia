@@ -148,7 +148,7 @@ function startGame() {
     vehicles = [];
     logs = [];
     carRows.forEach((row, rowIndex) => {
-        const speed = (row % 2 === 1) ? -(100 + rowIndex * 15) : (90 + rowIndex * 15);
+        const speed = (row % 2 === 1) ? -(85 + rowIndex * 13) : (77 + rowIndex * 13);
         const spacing = 160;
         const count = Math.ceil(canvas.width / spacing) + 1;
         for (let i = 0; i < count; i++) {
@@ -157,7 +157,7 @@ function startGame() {
         }
     });
     logRows.forEach((row, rowIndex) => {
-        const speed = (row % 2 === 1) ? -(50 + rowIndex * 10) : (45 + rowIndex * 10);
+        const speed = (row % 2 === 1) ? -(42 + rowIndex * 8) : (38 + rowIndex * 8);
         const spacing = 140;
         const count = Math.ceil(canvas.width / spacing) + 1;
         for (let i = 0; i < count; i++) {
@@ -228,12 +228,12 @@ function update(dt) {
     vehicles.forEach(vehicle => {
         vehicle.x += vehicle.speed * dt;
         if (vehicle.x < -vehicle.width) vehicle.x = canvas.width + gridCellSize;
-        if (vehicle.x > canvas.width) vehicle.x = -gridCellSize;
+        else if (vehicle.x > canvas.width) vehicle.x = -gridCellSize;
     });
     logs.forEach(log => {
         log.x += log.speed * dt;
         if (log.x < -log.width) log.x = canvas.width + gridCellSize;
-        if (log.x > canvas.width) log.x = -gridCellSize;
+        else if (log.x > canvas.width) log.x = -gridCellSize;
     });
     if (ridingLog) {
         frogX += ridingLog.speed * dt;
