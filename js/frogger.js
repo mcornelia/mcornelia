@@ -33,6 +33,16 @@ function beep(freq, duration, vol) {
     oscillator.stop(audioCtx.currentTime + duration);
 }
 function drawRect(x, y, w, h, color) { ctx.fillStyle = color; ctx.fillRect(x, y, w, h); }
+function drawFrog(x, y, size) {
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(x + 2, y + 2, size - 4, size - 4);
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x + 2, y + 2, size - 4, size - 4);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(x + size * 0.28, y + size * 0.28, 4, 4);
+    ctx.fillRect(x + size * 0.68, y + size * 0.28, 4, 4);
+}
 function drawText(text, x, y, font, color) { ctx.font = font; ctx.fillStyle = color; ctx.fillText(text, x, y); }
 document.addEventListener('keydown', function(e) {
     if (state === 'START' || state === 'GAMEOVER') {
@@ -212,7 +222,7 @@ function render(dt) {
         goals.forEach(goal => drawRect(goal.x + 2, goal.y + 2, gridCellSize - 4, gridCellSize - 4, goal.filled ? '#FFD700' : '#145214'));
         logs.forEach(log => drawRect(log.x, log.y, log.width, log.height, 'saddlebrown'));
         vehicles.forEach(vehicle => drawRect(vehicle.x, vehicle.y, vehicle.width, vehicle.height, '#FF6347'));
-        drawRect(frogX, frogY, gridCellSize, gridCellSize, 'limegreen');
+        drawFrog(frogX, frogY, gridCellSize);
         drawText(`Score: ${score}`, 20, 38, '24px monospace', '#FFFFFF');
         drawText(`Lives: ${lives}`, canvas.width - 120, 38, '24px monospace', '#FFFFFF');
     }
