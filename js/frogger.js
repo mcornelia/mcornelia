@@ -148,7 +148,7 @@ function startGame() {
     vehicles = [];
     logs = [];
     carRows.forEach((row, rowIndex) => {
-        const speed = (row % 2 === 1) ? -(85 + rowIndex * 13) : (77 + rowIndex * 13);
+        const speed = (row % 2 === 1) ? -(77 + rowIndex * 12) : (69 + rowIndex * 12);
         const spacing = 160;
         const count = Math.ceil(canvas.width / spacing) + 1;
         for (let i = 0; i < count; i++) {
@@ -157,7 +157,7 @@ function startGame() {
         }
     });
     logRows.forEach((row, rowIndex) => {
-        const speed = (row % 2 === 1) ? -(42 + rowIndex * 8) : (38 + rowIndex * 8);
+        const speed = (row % 2 === 1) ? -(38 + rowIndex * 7) : (34 + rowIndex * 7);
         const spacing = 140;
         const count = Math.ceil(canvas.width / spacing) + 1;
         for (let i = 0; i < count; i++) {
