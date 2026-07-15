@@ -343,8 +343,132 @@ def render_index(items):
   <header class="index-header">
     <h1>The Richard H. Cornelia Collection<br>of Carved Ivory, Bone, and Horn</h1>
     <p class="subtitle">A working digital catalog &mdash; not a formal appraisal. {len(items)} items.</p>
+    <p class="subtitle"><a href="regulatory.html">Legal &amp; Regulatory Considerations &rarr;</a></p>
   </header>
 {sections_html}
+</div>
+</body>
+</html>
+"""
+
+
+MATERIAL_TIERS = {
+    "Marine mammal material (whale tooth / walrus ivory or bone)": [
+        "RHC-001", "RHC-006", "RHC-007", "RHC-008", "RHC-010", "RHC-011",
+        "RHC-017", "RHC-019", "RHC-021", "RHC-022", "RHC-023", "RHC-024",
+    ],
+    "Likely mammoth ivory": ["RHC-014", "RHC-020", "RHC-043"],
+    "Confirmed horn (not ivory)": ["RHC-002"],
+    "Unresolved — presumed ivory or bone, species not confirmed": [
+        "RHC-003", "RHC-004", "RHC-005", "RHC-009", "RHC-012", "RHC-013",
+        "RHC-015", "RHC-016", "RHC-018", "RHC-025", "RHC-026", "RHC-027",
+        "RHC-028", "RHC-029", "RHC-030", "RHC-031", "RHC-032", "RHC-033",
+        "RHC-034", "RHC-035", "RHC-036", "RHC-037", "RHC-038", "RHC-039",
+        "RHC-040", "RHC-041", "RHC-042", "RHC-044", "RHC-045", "RHC-046",
+        "RHC-047", "RHC-048", "RHC-049", "RHC-050", "RHC-051", "RHC-052",
+        "RHC-053", "RHC-054", "RHC-055",
+    ],
+}
+
+
+def render_regulatory_page():
+    tier_html = ""
+    for tier_name, ids in MATERIAL_TIERS.items():
+        chips = " ".join(
+            f"<a href='items/{i.lower()}.html' class='tag'>{esc(i)}</a>" for i in ids
+        )
+        tier_html += f"""
+    <div class="field">
+      <dt>{esc(tier_name)}</dt>
+      <dd>{len(ids)} items<br>{chips}</dd>
+    </div>"""
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Legal &amp; Regulatory Considerations &mdash; The Richard H. Cornelia Collection</title>
+<link rel="stylesheet" href="css/collection.css">
+</head>
+<body>
+<div class="draft-banner">Working document &mdash; under family review, not for public distribution.</div>
+<div class="wrapper">
+  <div class="item-nav"><a href="index.html" class="back-link">&larr; Back to Index</a></div>
+  <header class="item-header">
+    <h1>Legal &amp; Regulatory Considerations</h1>
+  </header>
+
+  <section class="research-callout">
+    <h2>Not legal advice</h2>
+    <p>This page summarizes publicly available regulatory frameworks that are likely relevant
+    to this collection, gathered during cataloging and research. It is not a legal opinion,
+    not a compliance determination, and not a substitute for review by a qualified wildlife-law
+    attorney or appraiser before any loan, donation, sale, or interstate/international
+    transfer. Material identifications throughout this catalog are visual/presumed, not
+    lab-confirmed, unless explicitly noted otherwise.</p>
+  </section>
+
+  <h2 style="margin-top:2rem;">Frameworks that likely apply</h2>
+  <dl class="fields">
+    <div class="field">
+      <dt>New York State ivory law</dt>
+      <dd>NY ECL &sect;11-0535-a prohibits the sale, offer for sale, purchase, trade, barter,
+      or distribution of elephant ivory <strong>and mammoth ivory</strong> within New York
+      without a state DEC permit &mdash; mammoth ivory is explicitly covered because it can be
+      visually confused with elephant ivory. A narrow antique exception exists (item is 100+
+      years old, ivory is less than 20% of the object, verified by a qualified appraiser), but
+      permits are required even where an exception applies. This matters for any of this
+      collection's presumed-ivory or mammoth-ivory items if a sale or transfer would occur in
+      or through New York.</dd>
+    </div>
+    <div class="field">
+      <dt>Federal African elephant ivory rules (ESA / 4(d) rule)</dt>
+      <dd>Commercial import of African elephant ivory is prohibited. Interstate/foreign
+      commercial sale can qualify under two narrow federal exceptions: (1) the <strong>ESA
+      antique exception</strong> (100+ years old, documented), or (2) the <strong>de minimis
+      exception</strong>, which requires <em>all three</em> of: ivory component under 200
+      grams, item manufactured before July 6, 2016, and the ivory removed from the wild before
+      February 26, 1976. A low weight alone (e.g. RHC-055's 140g dealer tag) satisfies only one
+      of the three conditions &mdash; the other two still require separate documentation.</dd>
+    </div>
+    <div class="field">
+      <dt>Marine Mammal Protection Act / NOAA</dt>
+      <dd>Bones, teeth, and ivory from marine mammals (whale, walrus) collected from dead
+      animals cannot simply be commercialized. A Letter of Determination may be required to
+      possess, import, export, or sell protected-species parts, and applicants must document
+      age and origin. Authentic Alaska Native handicrafts made from marine-mammal materials
+      occupy a separate, narrower exempt category &mdash; relevant to items like RHC-028
+      (beluga figure) if Alaska Native origin can be established, but that is not assumed by
+      default.</dd>
+    </div>
+  </dl>
+
+  <h2 style="margin-top:2rem;">Collection breakdown by material tier</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem;">Based on each item's catalog
+  <code>material</code> field, which is a visual/presumed identification made during
+  photography, not a lab test. This groups items by which regulatory regime most likely
+  applies &mdash; it is not a valuation or condition judgment.</p>
+  <dl class="fields">
+    {tier_html}
+  </dl>
+
+  <h2 style="margin-top:2rem;">Recommended next steps</h2>
+  <dl class="fields">
+    <div class="field"><dt>1. Material testing</dt><dd>Non-destructive species/material
+    testing (e.g. UV fluorescence, Schreger-line examination) for the 39 "unresolved" items
+    before any sale, loan, or donation decision.</dd></div>
+    <div class="field"><dt>2. Documentation assembly</dt><dd>Gather any purchase receipts,
+    prior appraisals, family letters, or dealer records that establish acquisition date and
+    origin &mdash; this is the single biggest lever for both legal transferability and
+    value.</dd></div>
+    <div class="field"><dt>3. Formal appraisal</dt><dd>A qualified appraiser experienced with
+    wildlife-material antiques can combine art-historical dating with the compliance
+    questions above in one pass.</dd></div>
+  </dl>
+
+  <p class="contact-line"><a href="mailto:mike.cornelia@gmail.com">Spot an error or have something to add? Email Mike</a></p>
 </div>
 </body>
 </html>
@@ -394,6 +518,9 @@ def main():
     index_page = render_index(items)
     (ROOT / "index.html").write_text(index_page)
     print("Wrote index.html")
+
+    (ROOT / "regulatory.html").write_text(render_regulatory_page())
+    print("Wrote regulatory.html")
 
     if missing:
         print(f"\nWARNING: {len(missing)} referenced photos were not found on disk.")
