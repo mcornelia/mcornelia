@@ -37,13 +37,99 @@ FIELD_ORDER = [
     ("date_cataloged", "Date Cataloged"),
 ]
 
-GROUPS = [
-    ("Netsuke", lambda it: "netsuke" in (it["object_type"] + " ".join(it.get("keywords", []))).lower()),
-    ("Scrimshaw (Engraved Teeth & Tusks)", lambda it: "scrimshaw" in " ".join(it.get("keywords", [])).lower() or "engraved" in it["object_type"].lower()),
-    ("Asian Export Carvings", lambda it: any(k in " ".join(it.get("keywords", [])).lower() for k in ["asian export", "chinese", "canton", "elephant"]) ),
-    ("Sculptural Figures", lambda it: any(k in it["object_type"].lower() for k in ["figure", "sculpture", "bear", "mammoth", "rider", "horse"])),
-    ("Ceremonial & Other", lambda it: True),
+# Explicit, manually-verified per-item grouping (not derived from substring
+# matching on free-text fields — that approach produced false positives,
+# e.g. "bear" matching inside "beard", "engraved" matching inside the
+# "not flat-engraved" keyword flag, pulling nearly everything into
+# Scrimshaw). Groupings were checked against each item's `keywords` tags
+# and cross-referenced with the collection's documented sub-groups.
+# Re-verify/extend this map by hand whenever new items are added.
+GROUP_ORDER = [
+    "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "Netsuke",
+    "Sculptural Figures",
+    "Asian Export Carvings",
+    "Personal & Utilitarian Objects",
 ]
+
+GROUP_MAP = {
+    # Scrimshaw (Engraved Teeth, Tusks & Plaques) — flat-engraved scenes,
+    # excludes items whose keywords include "not scrimshaw technique" or
+    # "not flat-engraved", and excludes RHC-040 (engraved but grouped with
+    # its Chinese-export siblings instead).
+    "RHC-001": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-004": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-005": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-006": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-007": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-008": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-009": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-010": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-011": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-012": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-013": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-014": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-015": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-016": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-017": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-018": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-019": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-020": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-021": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-022": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-023": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-024": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-025": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+    "RHC-026": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
+
+    # Netsuke — RHC-048/049 confirmed via two-differently-sized-himotoshi
+    # criterion; RHC-044 remains "netsuke uncertain" per its own record
+    # (no himotoshi found) but is the closest fit of the existing groups.
+    "RHC-044": "Netsuke",
+    "RHC-048": "Netsuke",
+    "RHC-049": "Netsuke",
+
+    # Sculptural Figures — freestanding three-dimensional carved
+    # figures/animals (not handles, finials, or other functional forms).
+    "RHC-027": "Sculptural Figures",
+    "RHC-028": "Sculptural Figures",
+    "RHC-029": "Sculptural Figures",
+    "RHC-030": "Sculptural Figures",
+    "RHC-031": "Sculptural Figures",
+    "RHC-043": "Sculptural Figures",
+    "RHC-050": "Sculptural Figures",
+    "RHC-052": "Sculptural Figures",
+
+    # Asian Export Carvings — Chinese/South-Southeast Asian export pieces,
+    # per each item's "Chinese export" / "Asian export" / "East Asian
+    # export" keyword tag.
+    "RHC-037": "Asian Export Carvings",
+    "RHC-040": "Asian Export Carvings",
+    "RHC-042": "Asian Export Carvings",
+    "RHC-045": "Asian Export Carvings",
+    "RHC-047": "Asian Export Carvings",
+    "RHC-051": "Asian Export Carvings",
+    "RHC-053": "Asian Export Carvings",
+    "RHC-054": "Asian Export Carvings",
+    "RHC-055": "Asian Export Carvings",
+
+    # Personal & Utilitarian Objects — grooming tools, writing/sewing
+    # implements, smoking accessories, and other small functional pieces
+    # that don't belong in any of the above (previously mis-grouped into
+    # a vague "Ceremonial & Other" catch-all, e.g. RHC-033's comb was
+    # wrongly caught by a "bear"/"beard" substring match into Sculptural).
+    "RHC-002": "Personal & Utilitarian Objects",
+    "RHC-003": "Personal & Utilitarian Objects",
+    "RHC-032": "Personal & Utilitarian Objects",
+    "RHC-033": "Personal & Utilitarian Objects",
+    "RHC-034": "Personal & Utilitarian Objects",
+    "RHC-035": "Personal & Utilitarian Objects",
+    "RHC-036": "Personal & Utilitarian Objects",
+    "RHC-038": "Personal & Utilitarian Objects",
+    "RHC-039": "Personal & Utilitarian Objects",
+    "RHC-041": "Personal & Utilitarian Objects",
+    "RHC-046": "Personal & Utilitarian Objects",
+}
 
 
 def esc(s):
@@ -110,10 +196,13 @@ def load_items():
 
 
 def group_item(it):
-    for name, pred in GROUPS:
-        if pred(it):
-            return name
-    return "Ceremonial & Other"
+    try:
+        return GROUP_MAP[it["id"]]
+    except KeyError:
+        raise SystemExit(
+            f"ERROR: {it['id']} has no entry in GROUP_MAP — add it to build.py "
+            "before building (every item must be explicitly categorized)."
+        )
 
 
 def render_item_page(it, items_by_id, prev_id, next_id):
@@ -218,7 +307,7 @@ def render_index(items):
         grouped.setdefault(g, []).append(it)
 
     sections_html = ""
-    for gname, _ in GROUPS:
+    for gname in GROUP_ORDER:
         its = grouped.get(gname, [])
         if not its:
             continue
@@ -282,6 +371,10 @@ def copy_photos(items):
 def main():
     items = load_items()
     print(f"Loaded {len(items)} items")
+
+    unmapped = [it["id"] for it in items if it["id"] not in GROUP_MAP]
+    if unmapped:
+        raise SystemExit(f"ERROR: items missing from GROUP_MAP: {unmapped}")
 
     copied, missing = copy_photos(items)
     print(f"Copied {copied} photos ({len(missing)} missing)")
