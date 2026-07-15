@@ -3,6 +3,7 @@
 
 User-agent: *
 Allow: /
+Disallow: /collection/
 
 # Sitemap location
 Sitemap: https://mcornelia.com/sitemap.xml
