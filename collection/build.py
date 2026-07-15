@@ -79,7 +79,6 @@ GROUP_MAP = {
     "RHC-022": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
     "RHC-023": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
     "RHC-024": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
-    "RHC-025": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
     "RHC-026": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
 
     # Netsuke — RHC-048/049 confirmed via two-differently-sized-himotoshi
@@ -120,6 +119,7 @@ GROUP_MAP = {
     # wrongly caught by a "bear"/"beard" substring match into Sculptural).
     "RHC-002": "Personal & Utilitarian Objects",
     "RHC-003": "Personal & Utilitarian Objects",
+    "RHC-025": "Personal & Utilitarian Objects",
     "RHC-032": "Personal & Utilitarian Objects",
     "RHC-033": "Personal & Utilitarian Objects",
     "RHC-034": "Personal & Utilitarian Objects",
