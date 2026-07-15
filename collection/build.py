@@ -343,9 +343,9 @@ def render_index(items):
   <header class="index-header">
     <h1>The Richard H. Cornelia Collection<br>of Carved Ivory, Bone, and Horn</h1>
     <p class="subtitle">A working digital catalog &mdash; not a formal appraisal. {len(items)} items.</p>
-    <p class="subtitle"><a href="regulatory.html">Legal &amp; Regulatory Considerations &rarr;</a></p>
   </header>
 {sections_html}
+  <p class="contact-line"><a href="regulatory.html">Legal &amp; Regulatory Considerations</a></p>
 </div>
 </body>
 </html>
