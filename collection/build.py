@@ -83,7 +83,7 @@ GROUP_MAP = {
 
     # Netsuke — RHC-048/049 confirmed via two-differently-sized-himotoshi
     # criterion. RHC-044 ("netsuke uncertain", no himotoshi found) moved to
-    # Asian Export Carvings per Mike Cornelia — better fit than Netsuke.
+    # Asian Export Carvings per T. M. Cornelia — better fit than Netsuke.
     "RHC-048": "Netsuke",
     "RHC-049": "Netsuke",
 
