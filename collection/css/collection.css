@@ -5,13 +5,13 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #faf7f2;
-  --panel: #ffffff;
-  --border: #ddd5c7;
-  --text: #2a2521;
-  --text-muted: #6b625a;
-  --accent: #8a6d3b;
-  --accent-bg: #f3ead9;
+  --bg: #121110;
+  --panel: #1c1a18;
+  --border: #3a352e;
+  --text: #ece8e1;
+  --text-muted: #a39a8c;
+  --accent: #c9a24a;
+  --accent-bg: #2b2417;
   --font-serif: 'Source Serif 4', Georgia, serif;
   --font-sans: 'Inter', -apple-system, sans-serif;
   --max-width: 1000px;
@@ -33,9 +33,9 @@ body {
 }
 
 .draft-banner {
-  background: #fff3cd;
-  border-bottom: 1px solid #e0c26e;
-  color: #6b5416;
+  background: #3d3010;
+  border-bottom: 1px solid #6b5416;
+  color: #e8c874;
   text-align: center;
   padding: 0.6rem 1rem;
   font-size: 0.85rem;
@@ -78,8 +78,8 @@ a:hover { text-decoration: underline; }
   color: var(--text);
   transition: box-shadow 0.15s, transform 0.15s;
 }
-.tile:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); transform: translateY(-2px); text-decoration: none; }
-.tile img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #eee; }
+.tile:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.5), 0 0 0 1px var(--accent); transform: translateY(-2px); text-decoration: none; }
+.tile img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #222; }
 .tile-caption { padding: 0.6rem 0.7rem; font-size: 0.82rem; line-height: 1.35; }
 .tile-id { display: block; font-weight: 600; color: var(--accent); font-size: 0.75rem; margin-bottom: 0.15rem; }
 
