@@ -83,9 +83,8 @@ GROUP_MAP = {
     "RHC-026": "Scrimshaw (Engraved Teeth, Tusks & Plaques)",
 
     # Netsuke — RHC-048/049 confirmed via two-differently-sized-himotoshi
-    # criterion; RHC-044 remains "netsuke uncertain" per its own record
-    # (no himotoshi found) but is the closest fit of the existing groups.
-    "RHC-044": "Netsuke",
+    # criterion. RHC-044 ("netsuke uncertain", no himotoshi found) moved to
+    # Asian Export Carvings per Mike Cornelia — better fit than Netsuke.
     "RHC-048": "Netsuke",
     "RHC-049": "Netsuke",
 
@@ -104,6 +103,7 @@ GROUP_MAP = {
     # per each item's "Chinese export" / "Asian export" / "East Asian
     # export" keyword tag.
     "RHC-037": "Asian Export Carvings",
+    "RHC-044": "Asian Export Carvings",
     "RHC-040": "Asian Export Carvings",
     "RHC-042": "Asian Export Carvings",
     "RHC-045": "Asian Export Carvings",
