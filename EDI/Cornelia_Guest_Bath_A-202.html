@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-202 Guest Bath - Interior Elevations (North Wall, Full — Shower + Toilet Area)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.5in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.5in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: ELEVATION -->
+    <div class="elev-wrap">
+      <div class="col-heading">1 &nbsp;NORTH WALL ELEVATION — FULL (SHOWER + TOILET AREA) &nbsp;—&nbsp; SCALE 3/4" = 1'-0"</div>
+
+      <div class="elev-svg-holder">
+        <svg width="9.328125in" height="9.0625in" viewBox="-22 -18 149.25 145" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- WALL PLANE (background), full 69.25" north wall (room x=0-69.25) x 99" tall -->
+          <rect x="0" y="0" width="69.25" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <line x1="0" y1="99" x2="69.25" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="69.25" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- local_x 0 = WEST end (left, at west wall corner), local_x 69.25 = EAST end (right, at east wall corner) — facing north, left=west, right=east -->
+
+          <!-- ============ ZONE 1: SHOWER'S NORTH WALL (local_x 0-36, behind glass) ============ -->
+          <!-- single large-format tile, floor-to-ceiling, no band split — Bond Tile Stonehenge, Silver, same as A-205 -->
+          <rect x="0" y="0" width="36" height="99" fill="#c9c4bb" stroke="#171310" stroke-width="0.3"/>
+          <!-- Horizontal grout coursing is FLOOR-referenced (0,24,48,72,96" AFF), matching the toilet zone's floor-referenced lower band — this is intentional so the grout lines run through continuously across the shower/toilet boundary at x=36. Any leftover partial course falls at the ceiling (96"-99" AFF), not the floor. -->
+          <g stroke="#a8a196" stroke-width="0.08">
+            <line x1="0" y1="75" x2="36" y2="75"/>
+            <line x1="0" y1="51" x2="36" y2="51"/>
+            <line x1="0" y1="27" x2="36" y2="27"/>
+            <line x1="0" y1="3" x2="36" y2="3"/>
+            <line x1="24" y1="0" x2="24" y2="99"/>
+          </g>
+
+          <!-- NICHE — same placeholder as A-205 (north wall panel), centered on this 36" zone. size/height ASSUMED, TBD -->
+          <rect x="11" y="47" width="14" height="14" fill="#a8a196" stroke="#a00000" stroke-width="0.2" stroke-dasharray="1,0.8"/>
+          <line x1="11" y1="54" x2="25" y2="54" stroke="#a00000" stroke-width="0.1"/>
+
+          <!-- ============ ZONE 2: TOILET AREA (local_x 36-69.25, open room, east of glass plane) ============ -->
+          <!-- LOWER TILE BAND: Bond Tile Stonehenge, Silver, 0"-48" AFF -->
+          <rect x="36" y="51" width="33.25" height="48" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <line x1="36" y1="75" x2="69.25" y2="75" stroke="#a8a196" stroke-width="0.1"/>
+          <g stroke="#a8a196" stroke-width="0.08">
+            <line x1="48" y1="51" x2="48" y2="99"/>
+          </g>
+
+          <!-- UPPER TILE BAND: Bedrosians Sahara mosaic, White, vertical kit-kat, 48"-99" AFF -->
+          <rect x="36" y="0" width="33.25" height="51" fill="#f3efe6" stroke="#171310" stroke-width="0.25"/>
+          <g stroke="#c9c2b3" stroke-width="0.08">
+            <line x1="38.8" y1="0" x2="38.8" y2="51"/>
+            <line x1="42.6" y1="0" x2="42.6" y2="51"/>
+            <line x1="46.4" y1="0" x2="46.4" y2="51"/>
+            <line x1="50.2" y1="0" x2="50.2" y2="51"/>
+            <line x1="54" y1="0" x2="54" y2="51"/>
+            <line x1="57.8" y1="0" x2="57.8" y2="51"/>
+            <line x1="61.6" y1="0" x2="61.6" y2="51"/>
+            <line x1="65.4" y1="0" x2="65.4" y2="51"/>
+          </g>
+          <text x="52.5" y="14" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#8a7f5c">SAHARA MOSAIC — VERTICAL</text>
+
+          <!-- SCHLUTER QUADEC TRANSITION TRIM — Model Q100MGS, Matte Black, 3/8" profile, at the 48" AFF band split. Decided by Aimee 2026-07-17, see A-201 schedule. NOT used at the shower's single-tile wall (zone 1). -->
+          <rect x="36" y="50.8" width="33.25" height="0.4" fill="#1a1a1a" stroke="none"/>
+
+          <!-- GLASS PLANE marker — the shower's east glass wall crosses this wall's plane at local_x=36, running perpendicular (away from viewer), not literally on this wall's face. Drawn last (on top) so it isn't hidden under the tile zone boundary strokes. -->
+          <line x1="36" y1="1" x2="36" y2="98" stroke="#4a6a7a" stroke-width="0.45" stroke-dasharray="2,1.3"/>
+
+          <!-- TOILET (front/elevation view) — Kuomih 1-Piece ADA 19" Elongated. Bowl centerline room x=52.5 -> local_x=52.5 (full-wall coords). Position ASSUMED, per A-201. -->
+          <rect x="45.5" y="70" width="14" height="10" rx="1.3" fill="#fbfbfa" stroke="#4a2f1f" stroke-width="0.25"/>
+          <rect x="44" y="80" width="17" height="4" rx="0.8" fill="#fbfbfa" stroke="#4a2f1f" stroke-width="0.25"/>
+          <line x1="42.5" y1="80" x2="62.5" y2="80" stroke="#a00000" stroke-width="0.12" stroke-dasharray="0.6,0.5"/>
+          <path d="M45,84 L60,84 L57.3,99 L47.7,99 Z" fill="#fbfbfa" stroke="#4a2f1f" stroke-width="0.25"/>
+
+          <!-- Toilet paper holder moved to the EAST wall (Sheet A-203), near the toilet — per Mike 2026-07-17. Not shown on this wall. -->
+
+          <!-- CALLOUT: intentional design choice per Mike 2026-07-17 — grout coursing is floor-referenced in BOTH zones so this 24" AFF course line runs through continuously across the shower/toilet boundary, rather than the two zones' tile joints landing at different heights. -->
+          <g>
+            <line x1="28" y1="75" x2="44" y2="75" stroke="#2f6f4f" stroke-width="0.35"/>
+            <circle cx="36" cy="75" r="0.6" fill="#2f6f4f"/>
+            <text x="36" y="64.5" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#2f6f4f">GROUT COURSING ALIGNS ACROSS ZONES</text>
+          </g>
+
+          <!-- ================= AFF HEIGHT LADDER (right side) ================= -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="75" y1="0" x2="75" y2="99" stroke="#555" stroke-width="0.1"/>
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="72" y1="0" x2="78" y2="0"/>
+              <text x="80" y="0.8">99" CLG (SHOWER: TILE TO CLG.)</text>
+              <line x1="72" y1="51" x2="78" y2="51"/>
+              <text x="80" y="51.8">48" TILE BAND SPLIT + TRIM</text>
+              <line x1="72" y1="99" x2="78" y2="99"/>
+              <text x="80" y="99.8">0" FLOOR</text>
+            </g>
+            <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
+              <line x1="72" y1="80" x2="78" y2="80"/>
+              <text x="80" y="80.8">19" SEAT (ADA)</text>
+              <line x1="72" y1="47" x2="78" y2="47"/>
+              <text x="80" y="44.8">52" NICHE TOP (ASSUMED)</text>
+              <line x1="72" y1="61" x2="78" y2="61"/>
+              <text x="80" y="64.8">38" NICHE BOT. (ASSUMED)</text>
+            </g>
+          </g>
+
+          <!-- ================= ZONE LABELS (below elevation) ================= -->
+          <text x="34.6" y="107" text-anchor="middle" font-family="Helvetica" font-size="2" fill="#333">NORTH WALL — FULL 69.25" (SHOWER + TOILET AREA)</text>
+          <g font-family="Helvetica" font-size="1.4" text-anchor="middle">
+            <text x="18" y="110.5" fill="#5c4020">SHOWER ZONE — single tile, flr-to-clg.</text>
+            <text x="18" y="113.3" fill="#5c4020">see A-205 for unfolded shower view</text>
+            <text x="52.5" y="110.5" fill="#a00000">TOILET ZONE — 2-band tile + trim</text>
+            <text x="52.5" y="113.3" fill="#a00000">toilet position assumed, see A-201</text>
+          </g>
+
+          <!-- overall width dimension, with tick at the shower/glass boundary -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-8" x2="69.25" y2="-8"/>
+            <line x1="0" y1="-11" x2="0" y2="-5"/>
+            <line x1="36" y1="-9.5" x2="36" y2="-6.5"/>
+            <line x1="69.25" y1="-11" x2="69.25" y2="-5"/>
+          </g>
+          <text x="34.6" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.2" fill="#2b2117">69.25" WALL RUN (WEST END LEFT — EAST END RIGHT)</text>
+          <text x="18" y="-3.5" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">36" SHOWER</text>
+          <text x="52.5" y="-3.5" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">33.25" TOILET AREA</text>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-201)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: KEY PLAN / VERIFY LIST / LEGEND / NOTES -->
+    <div class="right-col">
+
+      <div class="keyplan-box">
+        <div class="hdr">KEY PLAN — VIEW 1</div>
+        <svg width="2.6in" height="3in" viewBox="-12 -10 95 165" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="69.25" height="137" fill="#f2e6cf" stroke="#171310" stroke-width="2.5"/>
+          <!-- full north wall highlighted -->
+          <line x1="1.5" y1="1.5" x2="67.75" y2="1.5" stroke="#a00000" stroke-width="4"/>
+          <g stroke="#a00000" stroke-width="2" fill="none">
+            <line x1="34.6" y1="18" x2="34.6" y2="6"/>
+            <path d="M31.1,10 L34.6,6 L38.1,10"/>
+          </g>
+          <circle cx="34.6" cy="30" r="8" fill="#fff" stroke="#171310" stroke-width="1.3"/>
+          <line x1="27.6" y1="30" x2="41.6" y2="30" stroke="#171310" stroke-width="0.7"/>
+          <text x="34.6" y="27.8" text-anchor="middle" font-family="Helvetica" font-size="6">1</text>
+          <text x="34.6" y="35" text-anchor="middle" font-family="Helvetica" font-size="4">A-202</text>
+        </svg>
+      </div>
+
+      <div class="verify-box">
+        <div class="hdr">DIMENSIONS TO VERIFY</div>
+        <p style="margin:0 0 8px 0;">This elevation shows the full north wall (2026-07-17, expanded from an earlier toilet-only version per Aimee's request, so the shower and toilet zones read together). Most mounting heights below are reasonable placeholders, not confirmed selections. Confirm each before rough-in/fabrication:</p>
+        <ol>
+          <li><b>Toilet position</b> — shown per A-201's placeholder zone (north wall, east of divider); exact rough-in not yet confirmed (see A-201 Dimensions to Verify).</li>
+          <li><b>Toilet paper holder</b> — moved to the East Wall (Sheet A-203), near the toilet, per Mike 2026-07-17. Not shown on this sheet.</li>
+          <li><b>Tile band split height</b> (48" AFF, 2 courses of 24" Stonehenge) — CONFIRMED per owner 2026-07-17 (see A-201 schedule, "Wall tile — lower band").</li>
+          <li><b>Wall tile transition trim</b> — CONFIRMED 2026-07-17 (Aimee): Schluter Quadec, Model Q100MGS, Matte Black, 3/8" profile, at the band split. See A-201 schedule ("Wall tile transition trim" row) for full product detail.</li>
+          <li><b>Shower niche</b> — size/height shown as a placeholder (14"x14", 38"-52" AFF), matching A-205. Tile lining (Stonehenge, matching shower walls) and edge trim (Schluter-JOLLY, Matte Black, 3/8") ARE confirmed — see A-201 schedule, "Shower niche" row. Size/height/shelf count still TBD.</li>
+          <li><b>Glass plane</b> — the shower's east glass wall crosses this elevation's plane at local 36" but is not part of this wall's face; shown schematically as a dashed reference line only. See A-201 plan and A-205 for the actual glass layout.</li>
+          <li><b>Grout coursing datum — CONFIRMED design choice, per Mike 2026-07-17:</b> the shower zone and toilet zone are the same physical wall and the same Bond Tile Stonehenge product, so both zones' horizontal grout lines are set from ONE common datum — the floor (0" AFF) — in 24" courses (24", 48", 72", 96" AFF). This makes the tile joints run through continuously at the x=36 zone boundary instead of the two zones coursing independently from different starting edges. Any leftover partial course falls at the ceiling line (96"-99" AFF), which is the standard, least-visible place to absorb a cut tile. Marked on the elevation at the 24" AFF course line (green tick + label). See also A-205, which shows this same coursing convention on the other 2 shower walls.</li>
+        </ol>
+      </div>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Bond Tile Stonehenge 24x24, Silver — full height in shower zone; lower band (0"-48" AFF) in toilet zone</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6;"></div>Bedrosians Sahara 1"x12" mosaic, White, vertical — upper band (48"-99" AFF), toilet zone only</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#1a1a1a;"></div>Schluter Quadec trim, Matte Black, 3/8" — at the band split, toilet zone only</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fbfbfa;"></div>Toilet — Kuomih 1-Piece ADA Elongated, White</div>
+        <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px dashed #7d8fa0;"></span>Glass plane (perpendicular, beyond this wall's face) — shower boundary only</div>
+        <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px solid #2f6f4f;"></span>Grout course aligned across shower/toilet boundary — floor-referenced coursing, both zones (see note)</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
+        <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">ELEVATION NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This elevation is a companion to Sheet A-201 (Floor Plan). Refer to A-201 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule. <b>A-201 itself was not modified to produce this sheet.</b></li>
+          <li>Elevation shown is the FULL north wall (69.25" wide, room x=0"-69.25"), viewed looking north from inside the room — both the shower's north wall (behind the glass, west portion) and the open toilet area (east portion) together, per Aimee's request 2026-07-17. An earlier version of this sheet showed only the toilet-area segment (33.25") — see CHANGELOG.</li>
+          <li>The shower zone (0"-36") is shown here for overall wall context only. For the true, dimensionally-unfolded shower elevation (with the west and divider/south walls alongside this same north wall), see Sheet A-205.</li>
+          <li>Tile scope confirmed by owner 2026-07-17: the shower zone is large-format Bond Tile Stonehenge (Silver), single product, floor-to-ceiling, no band split. The toilet zone uses the room's standard 2-band design — Stonehenge lower band (0"-48" AFF) transitioning to Bedrosians Sahara vertical mosaic upper band (48"-99" AFF), with a Schluter Quadec trim strip (Matte Black, 3/8") at the transition — confirmed by Aimee 2026-07-17.</li>
+          <li>Toilet shown per A-201's plan position (placeholder — exact rough-in not yet confirmed). Toilet paper holder is on the East Wall (Sheet A-203), not this sheet — per Mike 2026-07-17.</li>
+          <li><b>Grout coursing set from the floor, both zones, so the joints run through continuously at the shower/toilet boundary (x=36) — CONFIRMED design intent per Mike 2026-07-17.</b> This is the same physical wall and the same tile product on both sides of the boundary, so it's tiled as one continuous coursing run rather than two independently-started zones. Tile setter should hold a full course starting at the floor and let any cut course land at the ceiling line, not the floor, on this entire wall.</li>
+          <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop202" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom202" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop202" xlink:href="#sealArcTop202" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom202" xlink:href="#sealArcBottom202" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">INTERIOR<br>ELEVATIONS —<br>NORTH WALL (FULL)</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue for owner review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      TOILET POSITION, NICHE SIZE, AND SOME MOUNTING HEIGHTS ARE ASSUMED (SEE RED CALLOUTS) — CONFIRM ALL HEIGHTS BEFORE ROUGH-IN OR FABRICATION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-202</div>
+      <div class="of">SHEET 9 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

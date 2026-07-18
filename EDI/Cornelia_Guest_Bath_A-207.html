@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-207 Guest Bath - Interior Elevations (West Wall/Vanity + Divider Wall Shelving, Standalone)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.4in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.4in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .flag-box { border: 0.025in dashed #a00000; padding: 0.09in 0.12in; font-size: 8pt; line-height: 1.45; margin-bottom: 0.16in; background: #fff8f6; }
+  .flag-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 4px; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: TWO STANDALONE ELEVATIONS, STACKED -->
+    <div class="elev-wrap">
+
+      <div class="col-heading">6 &nbsp;WEST WALL ELEVATION — VANITY (STANDALONE) &nbsp;—&nbsp; SCALE 3/4" = 1'-0"</div>
+
+      <div class="elev-svg-holder">
+        <svg width="9.125in" height="8.875in" viewBox="-16 -20 146 142" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- WALL PLANE, 73" wide x 99" tall. Geometry identical to A-206 Panel 1 (West Wall/Vanity) as of 2026-07-17 — this is a standalone re-drawing for full independent dimensioning, NOT a new design decision. -->
+          <rect x="0" y="0" width="73" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <line x1="0" y1="99" x2="73" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="73" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- local_x 0 = SOUTH end (left, near door), local_x 73 = NORTH end (right, at the divider-wall corner) — facing west, south=left/north=right, same convention as A-206 -->
+
+          <!-- Floor-to-underside tile, floating counter zone -->
+          <rect x="0" y="67" width="37" height="32" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <g stroke="#a8a196" stroke-width="0.08">
+            <line x1="0" y1="75" x2="37" y2="75"/>
+            <line x1="24" y1="67" x2="24" y2="99"/>
+          </g>
+
+          <!-- Floor-to-underside tile, below floating cabinet -->
+          <rect x="37" y="87" width="36" height="12" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <line x1="48" y1="87" x2="48" y2="99" stroke="#a8a196" stroke-width="0.08"/>
+
+          <!-- CABINET — Teodor Austin SLIM 36" Wall Mount, Walnut. Height/position ASSUMED (~20" tall, floating, 12"-32" AFF) -->
+          <rect x="37" y="67" width="36" height="20" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.25"/>
+          <line x1="55" y1="67" x2="55" y2="87" stroke="#2b1a10" stroke-width="0.15"/>
+          <rect x="52.7" y="74" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
+          <rect x="56.7" y="74" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
+
+          <!-- COUNTERTOP — Black Concrete, 34" AFF top, ~2" overhang south end, full 73" run -->
+          <rect x="-2" y="65" width="75" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
+
+          <!-- BACKSPLASH — integral, 34"-38" AFF, 4" tall, full 73" run -->
+          <rect x="0" y="61" width="73" height="4" fill="#2b2b2b" stroke="#171310" stroke-width="0.15"/>
+
+          <!-- MIRROR — 71"w x 38"h (38"-76" AFF), sits directly on backsplash, left edge inset 2" from south wall, right edge flush to the corner/shelving unit (local_x=73) -->
+          <rect x="1.7" y="22.7" width="71.6" height="38.6" fill="none" stroke="#4a3a2a" stroke-width="0.3"/>
+          <rect x="2" y="23" width="71" height="38" fill="#b8c4c9" stroke="#171310" stroke-width="0.3"/>
+          <rect x="2.3" y="23.3" width="70.4" height="37.4" fill="none" stroke="#ffd98a" stroke-width="0.15" opacity="0.85"/>
+
+          <!-- SINK — integral/monolithic, ASSUMED centered in cabinet zone -->
+          <rect x="46" y="64.3" width="18" height="1.4" rx="0.5" fill="#3a3a3a" stroke="#171310" stroke-width="0.2"/>
+
+          <!-- FAUCET — KANE, Matte Black, deck-mounted, ASSUMED position -->
+          <g stroke="#171310" stroke-width="0.3" fill="none">
+            <line x1="55" y1="65" x2="55" y2="56"/>
+            <path d="M55,56 Q58.5,54.3 58.5,59.5"/>
+          </g>
+          <circle cx="55" cy="65" r="0.5" fill="#171310"/>
+
+          <!-- Tile above mirror — large-format Stonehenge exception, 76"-99" AFF -->
+          <rect x="0" y="0" width="73" height="23" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <g stroke="#a8a196" stroke-width="0.08">
+            <line x1="0" y1="3" x2="73" y2="3"/>
+            <line x1="24" y1="0" x2="24" y2="23"/>
+            <line x1="48" y1="0" x2="48" y2="23"/>
+            <line x1="72" y1="0" x2="72" y2="23"/>
+          </g>
+
+          <!-- Tile beside mirror's south edge, 2" sliver -->
+          <rect x="0" y="23" width="2" height="38" fill="#c9c4bb" stroke="#171310" stroke-width="0.2" stroke-dasharray="1,0.8"/>
+
+          <!-- PENDANT — ET2 Reeds Mini Pendant, Gold, Item # ET22507011: actual fixture per A-201's Finish & Fixture Schedule is 17.75"H x 2.25" dia. (reeded glass tube, ribbed aluminum housing top, frosted diffuser), 4.75" dia. ceiling canopy, hanging length adjustable 23.25"-62.5". Drawn to actual product scale, matching A-206. Mounting height/hanging length still ASSUMED — EDI's pick; bottom held at 68" AFF, ceiling-to-bottom hanging length = 31". -->
+          <ellipse cx="18.5" cy="0" rx="2.375" ry="0.4" fill="#8a6a1a" stroke="#171310" stroke-width="0.15"/>
+          <line x1="18.5" y1="0.4" x2="18.5" y2="13.25" stroke="#2b2b2b" stroke-width="0.25"/>
+          <rect x="17.375" y="13.25" width="2.25" height="2" fill="#8a6a1a" stroke="#171310" stroke-width="0.15"/>
+          <rect x="17.375" y="15.25" width="2.25" height="15.55" fill="#f0e6c8" stroke="#c9a227" stroke-width="0.15" opacity="0.92"/>
+          <g stroke="#c9a227" stroke-width="0.08" opacity="0.55">
+            <line x1="17.65" y1="15.25" x2="17.65" y2="30.6"/>
+            <line x1="17.95" y1="15.25" x2="17.95" y2="30.6"/>
+            <line x1="18.25" y1="15.25" x2="18.25" y2="30.6"/>
+            <line x1="18.5" y1="15.25" x2="18.5" y2="30.6"/>
+            <line x1="18.75" y1="15.25" x2="18.75" y2="30.6"/>
+            <line x1="19.05" y1="15.25" x2="19.05" y2="30.6"/>
+            <line x1="19.35" y1="15.25" x2="19.35" y2="30.6"/>
+          </g>
+          <rect x="17.375" y="30.4" width="2.25" height="0.6" fill="#8a6a1a" stroke="#171310" stroke-width="0.15"/>
+
+          <!-- ================= AFF HEIGHT LADDER ================= -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="79" y1="0" x2="79" y2="99" stroke="#555" stroke-width="0.1"/>
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="75" y1="0" x2="81" y2="0"/>
+              <text x="83" y="0.8">99" CLG</text>
+              <line x1="75" y1="23" x2="81" y2="23"/>
+              <text x="83" y="23.8">76" MIRROR TOP</text>
+              <line x1="75" y1="61" x2="81" y2="61"/>
+              <text x="83" y="58.8">38" MIRROR BOT. / BACKSPLASH TOP</text>
+              <line x1="75" y1="65" x2="81" y2="65"/>
+              <text x="83" y="68">34" COUNTERTOP</text>
+              <line x1="75" y1="99" x2="81" y2="99"/>
+              <text x="83" y="99.8">0" FLOOR</text>
+            </g>
+            <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
+              <line x1="75" y1="67" x2="81" y2="67"/>
+              <text x="83" y="76">32" CABINET TOP (ASSUMED)</text>
+              <line x1="75" y1="87" x2="81" y2="87"/>
+              <text x="83" y="87.8">12" CABINET BOT. (ASSUMED, FLOATING)</text>
+              <line x1="75" y1="31" x2="81" y2="31"/>
+              <text x="83" y="31.8">68" PENDANT BOT. (ASSUMED — EDI'S PICK)</text>
+            </g>
+          </g>
+
+          <!-- ================= ZONE LABELS ================= -->
+          <g font-family="Helvetica" font-size="2" text-anchor="middle" fill="#333">
+            <text x="36.5" y="106">WEST WALL / VANITY — 73"</text>
+          </g>
+          <g font-family="Helvetica" font-size="1.6" text-anchor="middle" fill="#5c4020">
+            <text x="18.5" y="110.5">Floating make-up counter (S) — pendant, no cabinet below</text>
+            <text x="55" y="110.5">Teodor cabinet (N) — integral sink, faucet</text>
+          </g>
+
+          <!-- OVERALL WIDTH DIMENSION -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-14" x2="73" y2="-14"/>
+            <line x1="0" y1="-17" x2="0" y2="-11"/>
+            <line x1="73" y1="-17" x2="73" y2="-11"/>
+          </g>
+          <text x="36.5" y="-16.5" text-anchor="middle" font-family="Helvetica" font-size="2.4" fill="#2b2117">73" WALL RUN (SOUTH END LEFT — NORTH END/CORNER RIGHT)</text>
+
+          <!-- BREAKDOWN DIMENSION — mirror inset + width -->
+          <g stroke="#555" stroke-width="0.1">
+            <line x1="0" y1="-6" x2="73" y2="-6"/>
+            <line x1="0" y1="-8" x2="0" y2="-4"/>
+            <line x1="2" y1="-8" x2="2" y2="-4"/>
+            <line x1="73" y1="-8" x2="73" y2="-4"/>
+          </g>
+          <text x="1" y="-1.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#5c4020">2"</text>
+          <text x="37.5" y="-7.2" text-anchor="middle" font-family="Helvetica" font-size="1.7" fill="#5c4020">71" MIRROR (FLUSH TO CORNER)</text>
+
+        </svg>
+      </div>
+
+      <div class="col-heading" style="margin-top:0.3in;">7 &nbsp;DIVIDER WALL ELEVATION — OPEN SHELVING (STANDALONE) &nbsp;—&nbsp; SCALE 3/4" = 1'-0"</div>
+
+      <div class="elev-svg-holder">
+        <svg width="6.9375in" height="8.875in" viewBox="-16 -20 111 142" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- WALL PLANE, 36" wide x 99" tall. Geometry identical to A-206 Panel 2 (Divider Wall, south/room-facing side) as of 2026-07-17, re-baselined to its own local_x=0-36 (was local_x=73-109 on A-206's unfolded view) — standalone re-drawing for full independent dimensioning, NOT a new design decision. -->
+          <rect x="0" y="0" width="36" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <line x1="0" y1="99" x2="36" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="36" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- local_x 0 = WEST end (left, at the vanity-wall corner), local_x 36 = EAST end (right, toward shower glass) — facing north, west/corner=left, east/glass=right, same convention as A-206 -->
+
+          <!-- Wall tile behind/around the shelving box, Stonehenge, floor to box-top (0"-76" AFF). Width REVISED 2026-07-18, was 24" wide — see SHELF NOOK note below -->
+          <rect x="0" y="23" width="19.5" height="76" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+
+          <!-- Tile ABOVE the top shelf, 76"-99" AFF, same Stonehenge finish. Width REVISED 2026-07-18, was 24" wide -->
+          <rect x="0" y="0" width="19.5" height="23" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <line x1="0" y1="3" x2="19.5" y2="3" stroke="#a8a196" stroke-width="0.08"/>
+
+          <!-- SHELF NOOK — 19.5" wide (REVISED 2026-07-18, was 24" — matches the corrected 19.5"-deep vanity countertop/shelving on the adjacent wall; see A-201 and A-206 for the full correction history, owner-approved 2026-07-18). 2 real open shelves aligned to mirror mid/top height + a solid forward apron/lip at mirror-bottom height (not a shelf) — per owner's reference photo. Datums: lip 34"-38" AFF, mid shelf 57" AFF, top shelf 76" AFF. -->
+
+          <!-- Solid apron/lip, 34"-38" AFF: top flush with backsplash-top/mirror-bottom, bottom flush with countertop, 4" tall. REVISED 2026-07-18: west edge pulled back from x=-1 to x=0 (flush with the physical inside corner) — the old 1" west overhang visually crossed the corner into the vanity-wall elevation panel, not physically possible for a solid lip across a real 90° corner (flagged by owner: "shelf nook also goes into the wall visually"). East side keeps its 1" "proud" overhang, now to x=20.5. -->
+          <rect x="0" y="61" width="20.5" height="4" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.3"/>
+
+          <!-- Lower open cubby, 38"-57" AFF -->
+          <line x1="19.5" y1="42" x2="19.5" y2="61" stroke="#2b1a10" stroke-width="0.2"/>
+
+          <!-- Shelf 1 (mid) — 57" AFF, aligns mirror mid-height -->
+          <rect x="0" y="41.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
+
+          <!-- Upper open cubby, 57"-76" AFF -->
+          <line x1="19.5" y1="23" x2="19.5" y2="41.5" stroke="#2b1a10" stroke-width="0.2"/>
+
+          <!-- Shelf 2 (top / box cap) — 76" AFF, aligns mirror top, caps the nook box -->
+          <rect x="0" y="22.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
+
+          <!-- Backlit reveal at shelf-box top — PROPOSED, NOT yet confirmed by owner -->
+          <rect x="0.3" y="22.7" width="18.9" height="0.5" fill="none" stroke="#ffd98a" stroke-width="0.15" opacity="0.85" stroke-dasharray="1,0.6"/>
+
+          <!-- Remaining divider-wall sliver east of the shelf nook, 16.5" wide (REVISED 2026-07-18, was 12" — grew as the shelf nook narrowed from 24" to 19.5"), toward shower glass — standard 2-band tile scheme, ASSUMED for this specific sliver -->
+          <rect x="19.5" y="51" width="16.5" height="48" fill="#c9c4bb" stroke="#171310" stroke-width="0.2"/>
+          <rect x="19.5" y="0" width="16.5" height="51" fill="#f3efe6" stroke="#171310" stroke-width="0.2"/>
+          <rect x="19.5" y="50.8" width="16.5" height="0.4" fill="#1a1a1a" stroke="none"/>
+          <line x1="19.5" y1="75" x2="36" y2="75" stroke="#a8a196" stroke-width="0.08"/>
+          <g stroke="#c9c2b3" stroke-width="0.06">
+            <line x1="23.5" y1="0" x2="23.5" y2="51"/>
+            <line x1="27.5" y1="0" x2="27.5" y2="51"/>
+            <line x1="31.5" y1="0" x2="31.5" y2="51"/>
+          </g>
+
+          <!-- ================= AFF HEIGHT LADDER ================= -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="42" y1="0" x2="42" y2="99" stroke="#555" stroke-width="0.1"/>
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="38" y1="0" x2="44" y2="0"/>
+              <text x="46" y="0.8">99" CLG</text>
+              <line x1="38" y1="23" x2="44" y2="23"/>
+              <text x="46" y="23.8">76" SHELF TOP</text>
+              <line x1="38" y1="42" x2="44" y2="42"/>
+              <text x="46" y="42.8">57" SHELF (MID)</text>
+              <line x1="38" y1="61" x2="44" y2="61"/>
+              <text x="46" y="58.8">38" LIP TOP</text>
+              <line x1="38" y1="51" x2="44" y2="51"/>
+              <text x="46" y="51.8">48" TILE BAND SPLIT + TRIM (SLIVER ONLY)</text>
+              <line x1="38" y1="99" x2="44" y2="99"/>
+              <text x="46" y="99.8">0" FLOOR</text>
+            </g>
+          </g>
+
+          <!-- ================= ZONE LABELS ================= -->
+          <g font-family="Helvetica" font-size="2" text-anchor="middle" fill="#333">
+            <text x="18" y="106">DIVIDER WALL (SOUTH FACE) — 36"</text>
+          </g>
+          <g font-family="Helvetica" font-size="1.5" text-anchor="middle">
+            <text x="18" y="110.5" fill="#a00000">Shelf nook — 19.5" wide, 2 shelves + lip, per photo ref.</text>
+            <text x="18" y="113.3" fill="#5c4020">Remaining 16.5" sliver: tile only, toward shower glass</text>
+          </g>
+
+          <!-- OVERALL WIDTH DIMENSION -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-14" x2="36" y2="-14"/>
+            <line x1="0" y1="-17" x2="0" y2="-11"/>
+            <line x1="36" y1="-17" x2="36" y2="-11"/>
+          </g>
+          <text x="18" y="-16.5" text-anchor="middle" font-family="Helvetica" font-size="2.2" fill="#2b2117">36" WALL RUN (WEST/CORNER LEFT — EAST/GLASS RIGHT)</text>
+
+          <!-- BREAKDOWN DIMENSION — shelf nook + sliver (widths REVISED 2026-07-18: nook 24"→19.5", sliver 12"→16.5", boundary tick 24→19.5 — see SHELF NOOK note above) -->
+          <g stroke="#555" stroke-width="0.1">
+            <line x1="0" y1="-6" x2="36" y2="-6"/>
+            <line x1="0" y1="-8" x2="0" y2="-4"/>
+            <line x1="19.5" y1="-8" x2="19.5" y2="-4"/>
+            <line x1="36" y1="-8" x2="36" y2="-4"/>
+          </g>
+          <text x="9.75" y="-7.2" text-anchor="middle" font-family="Helvetica" font-size="1.7" fill="#5c4020">19.5" SHELF NOOK</text>
+          <text x="27.75" y="-7.2" text-anchor="middle" font-family="Helvetica" font-size="1.7" fill="#5c4020">16.5" TILE SLIVER</text>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-201). Applies to both views 6 and 7 above.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: KEY PLAN / VERIFY LIST / LEGEND / NOTES -->
+    <div class="right-col">
+
+      <div class="keyplan-box">
+        <div class="hdr">KEY PLAN — VIEWS 6 &amp; 7</div>
+        <svg width="2.6in" height="3in" viewBox="-12 -10 95 165" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="69.25" height="137" fill="#f2e6cf" stroke="#171310" stroke-width="2.5"/>
+          <!-- west wall (vanity) + divider wall south face, highlighted -->
+          <line x1="1.5" y1="64" x2="1.5" y2="135.5" stroke="#a00000" stroke-width="4"/>
+          <line x1="1.5" y1="64" x2="34.6" y2="64" stroke="#a00000" stroke-width="4"/>
+          <circle cx="12" cy="105" r="7.5" fill="#fff" stroke="#171310" stroke-width="1.2"/>
+          <line x1="5.5" y1="105" x2="18.5" y2="105" stroke="#171310" stroke-width="0.65"/>
+          <text x="12" y="102.8" text-anchor="middle" font-family="Helvetica" font-size="6">6</text>
+          <text x="12" y="109.5" text-anchor="middle" font-family="Helvetica" font-size="3.8">A-207</text>
+
+          <circle cx="20" cy="52" r="7.5" fill="#fff" stroke="#171310" stroke-width="1.2"/>
+          <line x1="13.5" y1="52" x2="26.5" y2="52" stroke="#171310" stroke-width="0.65"/>
+          <text x="20" y="49.8" text-anchor="middle" font-family="Helvetica" font-size="6">7</text>
+          <text x="20" y="56.5" text-anchor="middle" font-family="Helvetica" font-size="3.8">A-207</text>
+        </svg>
+      </div>
+
+      <div class="flag-box">
+        <div class="hdr">⚠ KEEP IN SYNC WITH A-206</div>
+        This sheet duplicates the West Wall/Vanity and Divider Wall Shelving content already shown combined (unfolded at the corner) on Sheet A-206 — split here into two independent, fully-dimensioned drawings per the owner's request 2026-07-17, for construction clarity. Geometry, products, and confirmed/assumed flags are IDENTICAL to A-206 as drawn 2026-07-17. <b>There is no automated link between the two sheets.</b> Any future revision to the mirror, backsplash, shelf nook, cabinet, or tile scope MUST be applied to BOTH A-206 and A-207, or they will silently drift out of sync — check both sheets before treating either as current.
+      </div>
+
+      <div class="verify-box">
+        <div class="hdr">DIMENSIONS TO VERIFY</div>
+        <p style="margin:0 0 8px 0;">Full design-decision history for this geometry is documented on Sheet A-206 (talked through with the owner before drafting, revised several times 2026-07-17) and in <code>CHANGELOG.md</code>. Summarized here; confirmed items (black) and assumed placeholders (red) in the drawings above:</p>
+        <ol>
+          <li><b>Shelving stays on the divider wall</b> (not the vanity wall) — CONFIRMED by owner, matches A-201's plan.</li>
+          <li><b>Counter height, 34" AFF</b> — CONFIRMED (matches primary bath standard).</li>
+          <li><b>Shelf nook design</b> — CONFIRMED from owner's reference photo: 2 real open shelves aligned to mirror mid/top height, plus a solid forward-projecting apron/lip at mirror-bottom height (not a shelf). Exact depth/projection is schematic only.</li>
+          <li><b>Shelf nook width corrected 24" → 19.5", and apron/lip pulled back off the corner — REVISED 2026-07-18, owner-approved.</b> Matches A-201's corrected 19.5" vanity/shelving depth. The apron/lip's west edge had crossed the physical inside corner by 1" (owner: "shelf nook also goes into the wall visually") — pulled back flush with the corner; east side keeps its 1" proud overhang. Sliver grew from 12" to 16.5" to absorb the difference. See A-206 for full detail (identical fix applied to both sheets per the KEEP IN SYNC flag).</li>
+          <li><b>Mirror final position</b> — 38"-76" AFF, sits directly on a 4"-tall backsplash (no separate tile strip), inset 2" from the south wall, right edge flush to the corner/shelving unit (71" wide) — all CONFIRMED, final as of 2026-07-17.</li>
+          <li><b>Cabinet height/position</b> (~20" tall, floating, 12"-32" AFF) — ASSUMED, not specified in any source document.</li>
+          <li><b>Cabinet door configuration, sink/faucet position</b> — ASSUMED (door count/hinge side, exact centering).</li>
+          <li><b>Pendant mounting height</b> (~68" AFF bottom) — ASSUMED, EDI's standard pick per owner ("let EDI pick").</li>
+          <li><b>Tile assignment on small slivers</b> (2" beside mirror's south edge; 12" on the divider wall toward the shower glass) — ASSUMED product, inferred for visual consistency.</li>
+          <li><b>Backlit reveal atop the shelf nook</b> — PROPOSED by EDI, NOT yet confirmed by the owner.</li>
+          <li><b>A-201 has THREE schedule rows not yet updated</b> to match this geometry (Open shelving, Mirror, Wall-tile-above-mirror EXCEPTION) — see A-206 and <code>OPEN-ITEMS-GUEST-BATH.md</code> for the full list; not repeated here. A-201 has intentionally NOT been touched, pending owner review.</li>
+          <li><b>Grout coursing</b> — floor-referenced (24",48",72",96" AFF), consistent with A-202/A-205/A-206.</li>
+        </ol>
+      </div>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Bond Tile Stonehenge 24x24, Silver — floor-to-underside, above mirror, and shelf-nook zone</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6;"></div>Bedrosians Sahara 1"x12" mosaic, White — divider-wall sliver only (toward shower glass)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#1a1a1a;"></div>Schluter Quadec trim, Matte Black, 3/8" — divider-wall sliver only</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#2b2b2b;"></div>Black Concrete countertop + backsplash, Modern Concrete of Athens</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut — Teodor cabinet + open shelving/apron</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#b8c4c9;"></div>Mirror, LED perimeter shadow-gap lighting</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9a227;"></div>ET2 Reeds Mini Pendant, Gold — 17.75"H x 2.25" dia. reeded glass tube, drawn to actual product scale</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
+        <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">ELEVATION NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This sheet is a companion to Sheet A-201 (Floor Plan) and Sheet A-206 (the same two walls, shown combined/unfolded at their shared corner). Refer to A-201 for the plan footprint and Finish &amp; Fixture Schedule, and A-206 for the full design-decision narrative. <b>Neither A-201 nor A-206 was modified to produce this sheet.</b></li>
+          <li>Drawn as two fully INDEPENDENT elevations, each with its own complete dimension set — unlike A-206, there is no shared inside-corner fold line here. View 6 (West Wall/Vanity) viewed facing west, south=left/north=right. View 7 (Divider Wall, south/room-facing side) viewed facing north, west/corner=left, east/glass=right — same facing conventions as A-206.</li>
+          <li>The divider wall's OPPOSITE (shower-facing, north) side is shown separately on Sheet A-205 — a different face of the same physical wall.</li>
+          <li>Sink is integral to the Black Concrete countertop, within the 36" Teodor cabinet's footprint (north end) — per A-201's Finish &amp; Fixture Schedule. No separate sink product.</li>
+          <li>Tile scope: the vanity wall's lower zone is covered by counter/cabinet/mirror, with a confirmed exception using large-format Stonehenge (not the Sahara mosaic) above the mirror, matching the shower tile. The divider wall's small remaining sliver (toward the shower glass) uses the room's standard 2-band scheme.</li>
+          <li>Grout coursing is floor-referenced (24", 48", 72", 96" AFF) throughout, consistent with Sheets A-202, A-205, and A-206.</li>
+          <li><b>See the flag box above — this sheet must be kept in sync with A-206 for any future revision.</b></li>
+          <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop207" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom207" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop207" xlink:href="#sealArcTop207" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom207" xlink:href="#sealArcBottom207" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">INTERIOR<br>ELEVATIONS —<br>VANITY &amp; SHELVING<br>(STANDALONE)</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue — standalone split of A-206, for owner review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      CABINET HEIGHT, DOOR CONFIG, SINK/FAUCET POSITION, PENDANT HEIGHT, AND SOME TILE ASSIGNMENTS ARE ASSUMED (SEE RED CALLOUTS) — CONFIRM ALL BEFORE ROUGH-IN OR FABRICATION. THIS SHEET DUPLICATES A-206 — KEEP BOTH IN SYNC.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-207</div>
+      <div class="of">SHEET 14 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

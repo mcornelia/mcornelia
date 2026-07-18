@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-104 Primary Bath &amp; Closet - Interior Elevations (West Vanity Wall / Makeup Countertop)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.5in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.5in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .flag-box { border: 0.025in dashed #a00000; padding: 0.09in 0.12in; font-size: 8pt; line-height: 1.45; margin-bottom: 0.16in; background: #fff8f6; }
+  .flag-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 4px; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: ELEVATION -->
+    <div class="elev-wrap">
+      <div class="col-heading">3 &nbsp;WEST WALL ELEVATION — MAKEUP COUNTERTOP &nbsp;—&nbsp; SCALE 3/4" = 1'-0" &nbsp;(see also Sheet A-106, jog wall above the vanity's north end)</div>
+
+      <div class="elev-svg-holder">
+        <svg width="10.9375in" height="9.0625in" viewBox="-22 -18 175 145" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- WALL PLANE (background), 72" wide (vanity run, plan y66-138) x 99" tall -->
+          <rect x="0" y="0" width="72" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <line x1="0" y1="99" x2="72" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="72" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- local_x 0 = SOUTH end (left), local_x 72 = NORTH end (right) -->
+
+          <!-- FLOOR-TO-COUNTER TILE ZONE (owner confirmed 2026-07-17, 2nd/final round — the enclosed cabinet is now removed for real; tile runs the full height from floor to makeup countertop underside) — Bond Tile Stonehenge 24x24 ("Rizzo" listing), Earth — same product as the bathroom FLOOR tile, also used on the shower walls. Zone: floor (0" AFF) to makeup countertop underside (32" AFF), full 72" width. Makeup countertop is now exposed/floating above open tile — see flag box re: structural support (open item). -->
+          <rect x="0" y="67" width="72" height="32" fill="#cdb99a" stroke="#171310" stroke-width="0.3"/>
+          <line x1="24" y1="67" x2="24" y2="99" stroke="#a8916d" stroke-width="0.12"/>
+          <line x1="48" y1="67" x2="48" y2="99" stroke="#a8916d" stroke-width="0.12"/>
+          <line x1="0" y1="83" x2="72" y2="83" stroke="#a8916d" stroke-width="0.12"/>
+          <!-- makeup countertop slab (no backsplash — counter only, no sink): 32-34" AFF, full run -->
+          <rect x="0" y="65" width="72" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
+
+          <!-- MIRROR — full 72" span of makeup countertop/wall run, 46" tall, mounted directly above counter (2026-07-17, owner-confirmed height/width; exact mount-flush-to-counter position assumed, see Dimensions to Verify) -->
+          <rect x="0" y="19" width="72" height="46" fill="#dce8ea" stroke="#171310" stroke-width="0.25"/>
+
+          <!-- ABOVE-MIRROR TILE ZONE (mirror top to ceiling, 2026-07-17) — same Bond Tile Stonehenge 24x24 ("Rizzo" listing), Earth. Zone: mirror top (80" AFF) to ceiling (99" AFF). -->
+          <rect x="0" y="0" width="72" height="19" fill="#cdb99a" stroke="#171310" stroke-width="0.3"/>
+          <line x1="24" y1="0" x2="24" y2="19" stroke="#a8916d" stroke-width="0.12"/>
+          <line x1="48" y1="0" x2="48" y2="19" stroke="#a8916d" stroke-width="0.12"/>
+
+          <!-- WEST VANITY PENDANT LIGHTS (2026-07-17) — 2 ceiling-hung globe pendants, offset toward south/left side of wall, staggered heights, per owner reference photo (placement only). Unchanged by the mirror/tile update — hang in front of the mirror/tile as before. -->
+          <!-- Pendant A (south/left, longer drop, lower globe) -->
+          <line x1="8" y1="0" x2="8" y2="37" stroke="#8a6a2a" stroke-width="0.3"/>
+          <circle cx="8" cy="0" r="0.6" fill="#8a6a2a"/>
+          <circle cx="8" cy="41" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.3"/>
+          <!-- Pendant B (nearer mirror, shorter drop, higher globe) -->
+          <line x1="14" y1="0" x2="14" y2="29" stroke="#8a6a2a" stroke-width="0.3"/>
+          <circle cx="14" cy="0" r="0.6" fill="#8a6a2a"/>
+          <circle cx="14" cy="33" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.3"/>
+
+          <!-- No enclosed cabinet, upper cabinetry, shelving, or towel warmer on this wall — upper cabinetry/shelving/towel warmer are on the jog wall (Sheet A-106); the enclosed cabinet under the counter was removed per owner's 2nd/final round of feedback 2026-07-17. This wall is now: floor-to-counter tile, exposed/floating counter, full-width mirror, above-mirror tile, and pendants. -->
+
+
+          <!-- ================= AFF HEIGHT LADDER (right side) ================= -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="78" y1="0" x2="78" y2="99" stroke="#555" stroke-width="0.1"/>
+            <!-- confirmed: dark ink -->
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="75" y1="0" x2="81" y2="0"/>
+              <text x="83" y="0.8">99" CLG</text>
+              <line x1="75" y1="99" x2="81" y2="99"/>
+              <text x="83" y="99.8">0" FLOOR</text>
+            </g>
+            <!-- assumed: red, verify -->
+            <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
+              <line x1="75" y1="19" x2="81" y2="19"/>
+              <text x="83" y="19.8">80" MIRROR TOP / TILE ABOVE</text>
+              <line x1="75" y1="37" x2="81" y2="37"/>
+              <text x="83" y="37.8">62" PENDANT B BOT.</text>
+              <line x1="75" y1="45" x2="81" y2="45"/>
+              <text x="83" y="45.8">54" PENDANT A BOT.</text>
+              <line x1="75" y1="65" x2="81" y2="65"/>
+              <text x="83" y="65.8">34" MAKEUP COUNTERTOP / MIRROR BOT.</text>
+              <line x1="75" y1="67" x2="81" y2="67"/>
+              <text x="83" y="70.8">32" TILE ZONE START (COUNTERTOP U/S)</text>
+            </g>
+          </g>
+
+          <!-- ================= ZONE LABELS (below elevation) ================= -->
+          <text x="36" y="107" text-anchor="middle" font-family="Helvetica" font-size="2.1" fill="#333">MIRROR — FULL 72" WIDTH, 46" TALL, ABOVE MAKEUP COUNTERTOP</text>
+          <text x="36" y="112" text-anchor="middle" font-family="Helvetica" font-size="2" fill="#333">WEST VANITY — MAKEUP COUNTERTOP, 72" RUN</text>
+          <text x="36" y="115.3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">NO SINK, NO ENCLOSED CABINET — TILE FLOOR TO COUNTERTOP U/S</text>
+          <text x="36" y="118" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">Modern Concrete of Athens — Blk. Concrete makeup countertop (exposed/floating above tile, no cabinet)</text>
+
+          <!-- overall width dimension -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-8" x2="72" y2="-8"/>
+            <line x1="0" y1="-11" x2="0" y2="-5"/>
+            <line x1="72" y1="-11" x2="72" y2="-5"/>
+          </g>
+          <text x="36" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" fill="#2b2117">72" WALL RUN (SOUTH END LEFT — NORTH END RIGHT)</text>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-101)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: KEY PLAN / FLAG / VERIFY LIST / LEGEND / NOTES -->
+    <div class="right-col">
+
+      <div class="keyplan-box">
+        <div class="hdr">KEY PLAN — VIEW 3</div>
+        <svg width="2.6in" height="3in" viewBox="-10 -8 175 200" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="#f2e6cf" stroke="#171310" stroke-width="3"/>
+          <!-- west vanity wall segment highlighted (plan y66-138 at x2) -->
+          <line x1="2" y1="66" x2="2" y2="138" stroke="#a00000" stroke-width="5"/>
+          <g stroke="#a00000" stroke-width="2.5" fill="none">
+            <line x1="42" y1="102" x2="17" y2="102"/>
+            <path d="M17,102 L24,95 M17,102 L24,109"/>
+          </g>
+          <circle cx="55" cy="102" r="9" fill="#fff" stroke="#171310" stroke-width="1.5"/>
+          <line x1="46.5" y1="102" x2="63.5" y2="102" stroke="#171310" stroke-width="0.8"/>
+          <text x="55" y="99.5" text-anchor="middle" font-family="Helvetica" font-size="7">3</text>
+          <text x="55" y="108" text-anchor="middle" font-family="Helvetica" font-size="4.5">A-104</text>
+        </svg>
+      </div>
+
+      <div class="flag-box" style="border-color:#1a7a3c; background:#f5fbf6;">
+        <div class="hdr" style="color:#1a7a3c;">✓ THIS WALL HAS NO UPPER CABINETRY — CORRECTED 2026-07-17 (FINAL, 3rd pass)</div>
+        This sheet went through several incorrect states the same day, all putting cabinetry ON THIS WALL — it doesn't belong here at all. History: (1) a floating upper-cabinet run (58"–82" AFF) shown on this wall — this was already wrong when today's session started; (2) briefly a floor-to-ceiling tower here, plus a separate open-shelf+sconce unit on the jog wall (Sheet A-106); (3) a two-bay (open shelving + door cabinet) design, still on this wall, "corrected" against the owner's original A-101 PDF — <b>also wrong</b>, because that PDF's own drawing has a known bug (cabinet plotted floating off the wall, not attached to anything). (4) <b>Final, confirmed via the owner's own red-annotated markup of the original PDF:</b> the cabinetry (open shelving + cabinet w/ door + towel warmer) is mounted on the <b>jog wall</b> — the short wall segment immediately north of this vanity, running east-west, perpendicular to this one — not on this wall at all. See Sheet A-106 for that wall's elevation, and <code>CHANGELOG.md</code> for the complete history so this doesn't get re-broken.
+      </div>
+
+      <div class="flag-box" style="border-color:#1a7a3c; background:#f5fbf6;">
+        <div class="hdr" style="color:#1a7a3c;">✓ MIRROR + WALL TILE ADDED — 2026-07-17 (see CHANGELOG for full back-and-forth)</div>
+        A 72"W x 46"H mirror spans the full makeup countertop/wall width, and Bond Tile Stonehenge 24x24 ("Rizzo" listing, Earth — same product as the bathroom FLOOR tile, also used on the shower walls) covers the wall in two places: floor to makeup countertop underside (0"-32" AFF, full width) and above the mirror to the ceiling (80"-99" AFF). <b>There is no enclosed cabinet under this countertop</b> — it's a floating slab, Modern Concrete of Athens, with nothing (no DraytonWorks box) beneath it, confirmed by the owner. Earlier drafts of this sheet incorrectly showed a solid White Oak/DraytonWorks cabinet body here; that was a drafting error carried over from earlier in the project and has been fully removed, not just hidden. <b>This is unrelated to the jog-wall cabinetry</b> (two 21.5"x18" bays, open shelving + cabinet w/ door) confirmed earlier today after 5 attempts — that cabinetry lives on Sheet A-106 and was NOT touched by this change or by naming this countertop.
+      </div>
+
+      <div class="flag-box" style="border-color:#1a7a3c; background:#f5fbf6;">
+        <div class="hdr" style="color:#1a7a3c;">✓ NAMED "MAKEUP COUNTERTOP" — 2026-07-17</div>
+        This west vanity slab has no sink (see East Vanity, Sheet A-102, for the two-sink counter) — from this point forward it's referred to as the <b>"makeup countertop"</b> across this sheet, A-101's schedule, and OPEN-ITEMS.md, to distinguish it clearly from the east vanity's sink countertop. No geometry changed — naming only. The floor-to-countertop-underside tile below it was NOT newly added by this edit; it was already correctly in place from Aimee's session (confirmed against her CHANGELOG entry) — this pass only tied the tile spec explicitly to the "Rizzo" listing (same product as the bathroom floor tile) and applied the makeup-countertop naming.
+      </div>
+
+      <div class="verify-box">
+        <div class="hdr">DIMENSIONS TO VERIFY</div>
+        <p style="margin:0 0 8px 0;">The original design brief specified plan (footprint) dimensions but not mounting heights for this wall. Assumptions below match the East Wall elevation (A-102) where the same fabricator/products apply — <b>none are confirmed selections</b> unless noted otherwise. Confirm each before fabrication/install:</p>
+        <ol>
+          <li><b>Makeup countertop height</b> (assumed 34" AFF) — confirm w/ Modern Concrete of Athens; same height convention as A-102's counters.</li>
+          <li><b>Structural support for the floating makeup countertop</b> (2026-07-17) — this countertop is a floating slab (Modern Concrete of Athens) with NO enclosed cabinet body beneath it — confirmed by owner, there is no DraytonWorks cabinet on this wall at all. Confirm bracket/support method with the fabricator and, if needed, a structural engineer before fabrication, since the slab now has nothing box-like supporting it from below.</li>
+          <li><b>Mirror</b> — size CONFIRMED by owner 2026-07-17: 46" tall, spans the full 72" makeup countertop/wall width. Assumed: mounted directly above the countertop with no gap (bottom edge at 34" AFF, flush to countertop) — confirm exact mount height/hardware with installer.</li>
+          <li><b>Wall tile — floor to makeup countertop, &amp; above mirror</b> — CONFIRMED product (Bond Tile Stonehenge 24x24, "Rizzo" listing, Earth — same as the bathroom floor tile, also matches the shower walls) and zones by owner 2026-07-17: floor (0" AFF) to makeup countertop underside (32" AFF), full 72" width — NO cabinet occupies this zone — and above the mirror to the ceiling (80"-99" AFF).</li>
+          <li><b>Pendant light mounting heights</b> (assumed 54" AFF and 62" AFF to bottom of globe, staggered) — replaces the previously-assumed wall sconce. Two Lilamps "Mchary Globe Shade Pendant Light 8"" fixtures, Lacquered Brass, ceiling-hung, offset toward the south/left side of this wall per owner's reference photo (photo was for placement only, not exact heights/offset). Confirm exact hang heights, offset dimension, and electrical/junction-box locations with owner and electrician before rough-in.</li>
+          <li><b>Backsplash</b> — omitted here (mirror sits flush on the makeup countertop, no exposed splash zone); confirm w/ owner whether one is wanted for symmetry with east vanity.</li>
+          <li><b>Not on this sheet:</b> the jog-wall cabinetry (open shelving + cabinet w/ door + towel warmer, two 21.5"x18" bays) is a completely separate element on a different wall — see Sheet A-106's own Dimensions to Verify box. Nothing about that cabinetry changed today.</li>
+        </ol>
+      </div>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#2b2b2b;"></div>Black Concrete makeup countertop — Modern Concrete of Athens (no sink, floating, no cabinet beneath)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#dce8ea;"></div>Mirror — 72"W x 46"H, spans full makeup countertop width</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#cdb99a; border-color:#a8916d;"></div>Wall tile — Bond Tile Stonehenge 24x24, "Rizzo" listing, Earth (floor to makeup countertop underside + above mirror to ceiling; same product as the bathroom floor tile, also used on shower walls)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fdf6e3; border-color:#8a6a2a;"></div>Pendant light globe — Lilamps Mchary Globe Shade 8", Lacquered Brass (qty. 2, offset left/south, staggered heights)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-style:dashed;"></div>Dashed outline = floating/overhead element (not used on this sheet — see Sheet A-106 for the jog-wall cabinetry)</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
+        <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed from design brief</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">ELEVATION NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This elevation is a companion to Sheet A-101 (Floor Plan). Refer to A-101 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule.</li>
+          <li>Elevation shown is the full west vanity wall run (72" of the room's N–S depth, plan y=66"–138"), viewed looking west from inside the room. See Key Plan, this sheet.</li>
+          <li>This is a "makeup countertop" — countertop-only, no sink or faucet, per Finish Schedule (A-101). Named to distinguish it from the East vanity's two-sink countertop (A-102).</li>
+          <li>This wall has no cabinetry of any kind — the makeup countertop is a floating slab (Modern Concrete of Athens) with nothing enclosed beneath it. The jog-wall cabinetry (open shelving, cabinet w/ door, towel warmer — two 21.5"x18" bays) is a separate element on a different wall entirely, directly north of this vanity — see Sheet A-106 for that elevation. Nothing about the jog-wall cabinetry changed on this sheet.</li>
+          <li>West vanity lighting (2026-07-17) is two ceiling-hung pendant fixtures, not a wall sconce — offset toward the south/left side of this wall, staggered heights. See Finish Schedule (A-101) for product spec and Dimensions to Verify box (this sheet) for assumed mounting heights.</li>
+          <li>Mirror (2026-07-17) spans the full 72" makeup countertop/wall width, 46" tall, mounted directly above the countertop. Wall tile (Bond Tile Stonehenge 24x24, "Rizzo" listing, Earth — same product as the bathroom floor tile, also matches the shower walls) covers the wall in two places: floor to makeup countertop underside (0"-32" AFF, full width — no cabinet occupies this zone), and above the mirror up to the ceiling (80"-99" AFF). See Finish Schedule (A-101) for product spec.</li>
+          <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop4" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom4" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop4" xlink:href="#sealArcTop4" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom4" xlink:href="#sealArcBottom4" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">INTERIOR<br>ELEVATIONS —<br>WEST VANITY /<br>MAKEUP COUNTERTOP</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      MOST VERTICAL DIMENSIONS ON THIS SHEET ARE ASSUMED (SEE RED CALLOUTS) — CONFIRM ALL HEIGHTS WITH FABRICATORS BEFORE FABRICATION OR INSTALL.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-104</div>
+      <div class="of">SHEET 5 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

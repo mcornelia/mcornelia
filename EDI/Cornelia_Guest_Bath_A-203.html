@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-203 Guest Bath - Interior Elevations (East Wall)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.5in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.5in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: ELEVATION -->
+    <div class="elev-wrap">
+      <div class="col-heading">2 &nbsp;EAST WALL ELEVATION &nbsp;—&nbsp; SCALE 3/4" = 1'-0"</div>
+
+      <div class="elev-svg-holder">
+        <svg width="13.5625in" height="9.0625in" viewBox="-22 -18 217 145" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- WALL PLANE (background), 137" wide (full room N-S depth, east wall) x 99" tall -->
+          <rect x="0" y="0" width="137" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <line x1="0" y1="99" x2="137" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="137" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- local_x 0 = NORTH end (left), local_x 137 = SOUTH end (right) — facing east, left=north, right=south -->
+
+          <!-- LOWER TILE BAND: Bond Tile Stonehenge, Silver, 0"-48" AFF, 2 courses of 24" -->
+          <rect x="0" y="51" width="137" height="48" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <line x1="0" y1="75" x2="137" y2="75" stroke="#a8a196" stroke-width="0.1"/>
+          <g stroke="#a8a196" stroke-width="0.08">
+            <line x1="24" y1="51" x2="24" y2="99"/>
+            <line x1="48" y1="51" x2="48" y2="99"/>
+            <line x1="72" y1="51" x2="72" y2="99"/>
+            <line x1="96" y1="51" x2="96" y2="99"/>
+            <line x1="120" y1="51" x2="120" y2="99"/>
+          </g>
+
+          <!-- UPPER TILE BAND: Bedrosians Sahara mosaic, White, vertical kit-kat, 48"-99" AFF -->
+          <rect x="0" y="0" width="137" height="51" fill="#f3efe6" stroke="#171310" stroke-width="0.25"/>
+          <g stroke="#c9c2b3" stroke-width="0.08">
+            <line x1="11" y1="0" x2="11" y2="51"/>
+            <line x1="22" y1="0" x2="22" y2="51"/>
+            <line x1="33" y1="0" x2="33" y2="51"/>
+            <line x1="44" y1="0" x2="44" y2="51"/>
+            <line x1="55" y1="0" x2="55" y2="51"/>
+            <line x1="66" y1="0" x2="66" y2="51"/>
+            <line x1="77" y1="0" x2="77" y2="51"/>
+            <line x1="88" y1="0" x2="88" y2="51"/>
+            <line x1="99" y1="0" x2="99" y2="51"/>
+            <line x1="110" y1="0" x2="110" y2="51"/>
+            <line x1="121" y1="0" x2="121" y2="51"/>
+            <line x1="132" y1="0" x2="132" y2="51"/>
+          </g>
+          <text x="68.5" y="26" text-anchor="middle" font-family="Helvetica" font-size="2.2" fill="#8a7f5c">SAHARA MOSAIC — VERTICAL "KIT-KAT"</text>
+
+          <!-- SCHLUTER QUADEC TRANSITION TRIM — Model Q100MGS, Matte Black, 3/8" profile, at the 48" AFF band split. Decided by Aimee 2026-07-17, see A-201 schedule. -->
+          <rect x="0" y="50.8" width="137" height="0.4" fill="#1a1a1a" stroke="none"/>
+
+          <!-- TOILET PAPER HOLDER — CB2 Nicolo Knurled, wall-mounted, position/wall ASSUMED (TBD per A-201) — moved here from A-202 per Mike 2026-07-17: this is the East wall, near the toilet (toilet sits at plan y=2"-30", close to this wall's north end). Shown at local_x=18-20.5 (within the toilet's footprint range), ~26" AFF centerline. -->
+          <line x1="18" y1="73" x2="20.5" y2="73" stroke="#a00000" stroke-width="0.35"/>
+          <circle cx="18" cy="73" r="0.4" fill="#a00000"/>
+          <circle cx="20.5" cy="73" r="0.4" fill="#a00000"/>
+
+          <!-- ================= AFF HEIGHT LADDER (right side) ================= -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="143" y1="0" x2="143" y2="99" stroke="#555" stroke-width="0.1"/>
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="140" y1="0" x2="146" y2="0"/>
+              <text x="148" y="0.8">99" CLG</text>
+              <line x1="140" y1="51" x2="146" y2="51"/>
+              <text x="148" y="51.8">48" TILE BAND SPLIT + TRIM</text>
+              <line x1="140" y1="99" x2="146" y2="99"/>
+              <text x="148" y="99.8">0" FLOOR</text>
+            </g>
+            <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
+              <line x1="140" y1="73" x2="146" y2="73"/>
+              <text x="148" y="73.8">26" TP HOLDER (ASSUMED)</text>
+            </g>
+          </g>
+
+          <!-- ================= ZONE LABELS (below elevation) ================= -->
+          <text x="68.5" y="107" text-anchor="middle" font-family="Helvetica" font-size="2.2" fill="#333">EAST WALL — 137" (FULL ROOM DEPTH)</text>
+          <text x="68.5" y="110.5" text-anchor="middle" font-family="Helvetica" font-size="1.7" fill="#5c4020">Toilet paper holder near north end (toilet zone, see A-202) — tile only elsewhere</text>
+
+          <!-- overall width dimension -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-8" x2="137" y2="-8"/>
+            <line x1="0" y1="-11" x2="0" y2="-5"/>
+            <line x1="137" y1="-11" x2="137" y2="-5"/>
+          </g>
+          <text x="68.5" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" fill="#2b2117">137" WALL RUN (NORTH END LEFT — SOUTH END RIGHT)</text>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-201)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: KEY PLAN / VERIFY LIST / LEGEND / NOTES -->
+    <div class="right-col">
+
+      <div class="keyplan-box">
+        <div class="hdr">KEY PLAN — VIEW 2</div>
+        <svg width="2.6in" height="3in" viewBox="-12 -10 95 165" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="69.25" height="137" fill="#f2e6cf" stroke="#171310" stroke-width="2.5"/>
+          <!-- east wall highlighted -->
+          <line x1="67.75" y1="1.5" x2="67.75" y2="135.5" stroke="#a00000" stroke-width="4"/>
+          <g stroke="#a00000" stroke-width="2" fill="none">
+            <line x1="58" y1="68.5" x2="46" y2="68.5"/>
+            <path d="M46,68.5 L52,62.5 M46,68.5 L52,74.5"/>
+          </g>
+          <circle cx="35" cy="68.5" r="8" fill="#fff" stroke="#171310" stroke-width="1.3"/>
+          <line x1="28" y1="68.5" x2="42" y2="68.5" stroke="#171310" stroke-width="0.7"/>
+          <text x="35" y="66.3" text-anchor="middle" font-family="Helvetica" font-size="6">2</text>
+          <text x="35" y="73.5" text-anchor="middle" font-family="Helvetica" font-size="4">A-203</text>
+        </svg>
+      </div>
+
+      <div class="verify-box">
+        <div class="hdr">DIMENSIONS TO VERIFY</div>
+        <p style="margin:0 0 8px 0;">This elevation is new (2026-07-17), drafted from A-201's Finish &amp; Fixture Schedule and Mike's tile-scope direction. Confirm:</p>
+        <ol>
+          <li><b>Tile band split height</b> (48" AFF, 2 courses of 24" Stonehenge) — CONFIRMED per owner 2026-07-17 (see A-201 schedule, "Wall tile — lower band").</li>
+          <li><b>Wall tile transition trim</b> — CONFIRMED 2026-07-17 (Aimee): Schluter Quadec, Model Q100MGS, Matte Black, 3/8" profile, at the band split. See A-201 schedule ("Wall tile transition trim" row) for full product detail.</li>
+          <li><b>Toilet paper holder mounting height &amp; wall</b> (assumed 26" AFF centerline, this wall, near the toilet) — moved here from A-202 per Mike 2026-07-17. A-201 lists this item as "exact mounting position TBD"; shown here as a reasonable placeholder only.</li>
+          <li><b>Perimeter wall thickness</b> (4" nominal, assumed) — not specified in the source walkthrough; see A-201.</li>
+        </ol>
+      </div>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Wall tile, lower band — Bond Tile Stonehenge 24x24, Silver (0"-48" AFF)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6;"></div>Wall tile, upper band — Bedrosians Sahara 1"x12" mosaic, White, vertical (48"-99" AFF)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#1a1a1a;"></div>Schluter Quadec trim, Matte Black, 3/8" — at the band split</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
+        <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">ELEVATION NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This elevation is a companion to Sheet A-201 (Floor Plan). Refer to A-201 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule. <b>A-201 itself was not modified to produce this sheet.</b></li>
+          <li>Elevation shown is the full east wall (137" wide, full N-S room depth), viewed looking east from inside the room. See Key Plan, this sheet.</li>
+          <li>Tile scope confirmed by owner 2026-07-17: large-format Bond Tile Stonehenge (Silver, same as floor) from floor to 48" AFF (2 courses), transitioning to Bedrosians Sahara 1"x12" vertical mosaic (White) from 48" AFF to the ceiling (99" AFF), with a Schluter Quadec trim strip (Matte Black, 3/8") at the transition — confirmed by Aimee 2026-07-17. This 2-band design applies to every wall in this room OUTSIDE the shower enclosure (see A-205 for the shower's own full-height single-tile scope).</li>
+          <li>Toilet paper holder (CB2 Nicolo Knurled) shown near the north end of this wall, ~26" AFF centerline — moved here from A-202 per Mike 2026-07-17 ("the toilet holder should be on the East wall near the toilet"). Position/height are ASSUMED (red); exact mounting point TBD per A-201. No other fixtures, outlets, or switches are currently assigned to this wall per A-201's Finish &amp; Fixture Schedule.</li>
+          <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop203" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom203" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop203" xlink:href="#sealArcTop203" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom203" xlink:href="#sealArcBottom203" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">INTERIOR<br>ELEVATIONS —<br>EAST WALL</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue for owner review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS AND EXISTING CONDITIONS PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-203</div>
+      <div class="of">SHEET 10 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

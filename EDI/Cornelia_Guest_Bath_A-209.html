@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-209 Guest Bath - Electrical &amp; Lighting Plan</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 3px 5px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.6pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: PLAN -->
+    <div class="plan-wrap">
+      <div class="col-heading">ELECTRICAL &amp; LIGHTING PLAN — SCALE 3/4" = 1'-0"</div>
+
+      <div class="plan-svg-holder">
+        <svg width="8.125in" height="10.9375in" viewBox="-18 -12 130 175" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+          <!-- background -->
+          <rect x="-18" y="-12" width="130" height="175" fill="#ffffff"/>
+
+          <!-- FLOOR FILL -->
+          <rect x="0" y="0" width="69.25" height="137" fill="#f2e6cf" stroke="none"/>
+
+          <!-- SHOWER WET-ZONE FILL. Width REVISED 2026-07-18 34"→36" (reused from A-201's wall-flush fix, see A-201/CHANGELOG) -->
+          <rect x="2" y="2" width="36" height="58" fill="#d7e6ea"/>
+
+          <!-- WALLS: 4" nominal (base architecture reused from A-201, unchanged) -->
+          <rect x="0" y="0" width="69.25" height="137" fill="none" stroke="#171310" stroke-width="4"/>
+
+          <!-- DOOR -->
+          <line x1="33.25" y1="137" x2="61.25" y2="137" stroke="#f2e6cf" stroke-width="4.4"/>
+          <line x1="61.25" y1="137" x2="61.25" y2="109" stroke="#4a2f1f" stroke-width="0.3"/>
+          <path d="M33.25,137 A28,28 0 0,1 61.25,109" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+
+          <!-- DIVIDER WALL (6.5" thick, reused from A-201). West end REVISED 2026-07-18: shifted x=0→2 to sit flush at the west wall's interior face instead of overlapping its centerline (same wall-flush fix as A-201). -->
+          <rect x="2" y="57.5" width="36" height="6.5" fill="#a00000" fill-opacity="0.6"/>
+
+          <!-- SHOWER GLASS. REVISED 2026-07-18: shifted 2" east (x=36→38) to stay hinged at the divider wall's corrected east corner. -->
+          <line x1="38" y1="0" x2="38" y2="27.5" stroke="#a00000" stroke-width="0.5"/>
+          <line x1="38" y1="27.5" x2="38" y2="57.5" stroke="#000000" stroke-width="0.5"/>
+          <circle cx="38" cy="57.5" r="0.5" fill="#171310"/>
+          <path d="M38,27.5 A30,30 0 0,0 8,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+          <path d="M38,27.5 A30,30 0 0,1 68,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+
+          <!-- TOILET (base outline, reused from A-201) -->
+          <rect x="45" y="2" width="15" height="28" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <rect x="47.5" y="2" width="10" height="8" fill="none" stroke="#4a2f1f" stroke-width="0.18"/>
+          <ellipse cx="52.5" cy="20" rx="7.5" ry="10" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+
+          <!-- VANITY (base outline, reused from A-201 — depth/position corrected 2026-07-18, was 24" deep and flush to wall centerline; now 19.5"D countertop, inset 2" to the wall's interior face) -->
+          <rect x="2" y="64" width="19.5" height="36" fill="#e0e0e0" stroke="#171310" stroke-width="0.25"/>
+          <rect x="2" y="100" width="19.5" height="37" fill="none" stroke="#171310" stroke-width="0.25" stroke-dasharray="1.5,1"/>
+          <line x1="2" y1="100" x2="21.5" y2="100" stroke="#8a6a3a" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
+
+          <!-- NORTH ARROW -->
+          <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="95" y1="38" x2="95" y2="20"/>
+            <path d="M91.8,27.5 L95,20 L98.2,27.5"/>
+          </g>
+          <text x="95" y="16.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" font-weight="700" fill="#7a5230">N</text>
+
+          <!-- ROOM LABEL -->
+          <text x="45" y="90" text-anchor="middle" font-family="Helvetica" font-size="4" font-weight="700" fill="#2b2117">GUEST BATH</text>
+
+          <!-- ===================== ELECTRICAL SYMBOLS (amber = MEP-electrical trade color) ===================== -->
+          <g stroke="#b8860b" fill="none">
+
+            <!-- 1: Recessed can — shower (wet-rated). Nudged +1 (x=19→20) 2026-07-18 to track the divider wall's corrected 2" east shift, keeping it centered in the now-36"-wide shower zone (still a placeholder position). -->
+            <circle cx="20" cy="31" r="1.4" stroke-width="0.25"/>
+            <text x="20" y="31.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="25" cy="26" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="25" y="26.7">1</text>
+            </g>
+
+            <!-- 2: Recessed cans — vanity area, qty 2 -->
+            <circle cx="12" cy="80" r="1.4" stroke-width="0.25"/>
+            <text x="12" y="80.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <circle cx="17" cy="122" r="1.4" stroke-width="0.25"/>
+            <text x="17" y="122.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="6.5" cy="80" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="6.5" y="80.7">2</text>
+            </g>
+
+            <!-- 3: Exhaust fan/light — above toilet -->
+            <circle cx="52.5" cy="15" r="1.6" stroke-width="0.3"/>
+            <path d="M51.1,15 L53.9,15 M52.5,13.6 L52.5,16.4 M51.5,13.9 L53.5,16.1 M53.5,13.9 L51.5,16.1" stroke-width="0.18"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="58" cy="15" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="58" y="15.7">3</text>
+            </g>
+
+            <!-- 4: Vanity pendant — above floating counter -->
+            <circle cx="8" cy="118" r="1.3" stroke-width="0.25"/>
+            <line x1="6.7" y1="118" x2="9.3" y2="118" stroke-width="0.15"/>
+            <line x1="6.9" y1="116.8" x2="9.1" y2="119.2" stroke-width="0.15"/>
+            <line x1="9.1" y1="116.8" x2="6.9" y2="119.2" stroke-width="0.15"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="3" cy="115" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="3" y="115.7">4</text>
+            </g>
+
+            <!-- 5: Mirror LED rope light — full perimeter of mirror channel, west wall, y=64 to y=135 -->
+            <line x1="1" y1="64" x2="1" y2="135" stroke-width="0.35" stroke-dasharray="1.2,0.8"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="4" cy="100" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="4" y="100.7">5</text>
+            </g>
+
+            <!-- 6: Outlets — south end GFCI (west wall interior face), north end pop-out (divider wall south face). Repositioned 2026-07-18 to sit flush against the corrected wall-interior-face vanity footprint (was drawn at/inside the wall centerline). -->
+            <rect x="2.2" y="126.5" width="1.6" height="2.6" stroke-width="0.2"/>
+            <rect x="10.5" y="63.2" width="2.6" height="1.6" stroke-width="0.2"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="5" cy="130" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="5" y="130.7">6</text>
+            </g>
+
+            <!-- 7: Switches — 2-gang, south wall west of door (vanity area) -->
+            <rect x="27.5" y="134" width="3.4" height="2" stroke-width="0.2"/>
+            <line x1="29.2" y1="134" x2="29.2" y2="136" stroke-width="0.15"/>
+            <text x="28.35" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <text x="30.05" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="25" cy="132" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="25" y="132.7">7</text>
+            </g>
+          </g>
+
+          <!-- ============ REFERENCE DIMENSIONS (subset carried from A-201 for orientation only) ============ -->
+          <g font-family="Helvetica" font-size="2" fill="#2b2117">
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="0" y1="152" x2="69.25" y2="152"/>
+              <line x1="0" y1="149" x2="0" y2="155"/>
+              <line x1="69.25" y1="149" x2="69.25" y2="155"/>
+            </g>
+            <text x="34.625" y="159" text-anchor="middle">69 1/4" OVERALL (E–W)</text>
+
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="77.25" y1="0" x2="77.25" y2="137"/>
+              <line x1="73.25" y1="0" x2="81.25" y2="0"/>
+              <line x1="73.25" y1="137" x2="81.25" y2="137"/>
+            </g>
+            <text x="85.25" y="68.5" text-anchor="middle" transform="rotate(90 85.25,68.5)">137" OVERALL (N–S)</text>
+          </g>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0"</div>
+        <div class="north-mini">▲ NORTH UP</div>
+      </div>
+
+      <div class="verify-box" style="margin-top:0.14in;">
+        <div class="hdr">DESIGN-INTENT ELECTRICAL PLAN — NOT AN ENGINEERED DOCUMENT</div>
+        <p style="margin:0 0 8px 0;">This sheet shows fixture, outlet, and switch LOCATIONS only, based on the confirmed selections and wall assignments in the Finish &amp; Fixture Schedule on A-201. It does NOT show circuiting, wire runs, panel/breaker assignments, or box fill calculations — those are trade responsibilities. It has not been prepared or stamped by a licensed electrical engineer or electrician.</p>
+        <ol>
+          <li><b>Recessed lighting positions (Keynotes 1–2)</b> — ceiling zones are CONFIRMED (1 over shower, 2 over vanity area), exact positions shown are ASSUMED/placeholder. Confirm with electrician.</li>
+          <li><b>Exhaust fan/light (Keynote 3)</b> — location CONFIRMED (above toilet). Manufacturer listing does not confirm wet-location rating — verify with electrician per NEC 410.10(D) before final install.</li>
+          <li><b>Vanity pendant (Keynote 4)</b> — zone CONFIRMED (above floating counter, south end); exact position and hang length (adjustable 23.25"–62.5") NOT yet specified.</li>
+          <li><b>Mirror LED rope light (Keynote 5)</b> — concept CONFIRMED (full perimeter of mirror channel, dedicated switch); rope light product, color temp, lumens, and driver type still TBD.</li>
+          <li><b>Outlets (Keynote 6)</b> — both locations CONFIRMED by owner's own annotated markup (see A-201/CHANGELOG); exact mounting heights TBD.</li>
+          <li><b>Switches (Keynote 7)</b> — zone CONFIRMED (vanity area); exact gang/position shown is ASSUMED/placeholder, near the south wall west of the door, clear of the door's swing arc. Confirm with electrician.</li>
+        </ol>
+      </div>
+
+      <div class="keynotes">
+        <ol>
+          <li class="gen"><b>This is a design-intent electrical/lighting plan, not an engineered document.</b> GC/electrician to verify all circuiting, wire sizing, box fill, and code compliance (NEC/local electrical code) prior to rough-in.</li>
+          <li class="keyed">General/recessed lighting — NuWatt 4" Square Canless LED Wafer Light, qty. 3: one over the shower (wet-rated, confirmed use), two centered over the vanity area. Ceiling positions shown are placeholders — confirm with electrician.</li>
+          <li class="keyed">Recessed lighting, vanity area — see note above; two fixtures shown spread across the 73" vanity run, exact spacing TBD.</li>
+          <li class="keyed">Exhaust fan/light — Akicon Bathroom Exhaust Fan with Light, placed above the toilet rather than the shower — listing does not confirm wet-location rating; verify with electrician per NEC 410.10(D) before final install.</li>
+          <li class="keyed">Vanity pendant — ET2 Lighting Reeds Mini Pendant, above the floating (make-up) counter, south end. Not dimmable. Hang length adjustable 23.25"–62.5" — exact mounting height not yet specified.</li>
+          <li class="keyed">Mirror LED rope light — full perimeter of the mirror's light channel (west/vanity wall), on its own dedicated switch, independent of general lighting, per owner's decision. Rope light product/color-temp/lumens/driver type still TBD — confirm driver compatibility with the proposed dimmer (see Switch schedule) before ordering.</li>
+          <li class="keyed">Outlets — two GFCI-circuit receptacles at the vanity: south end (Legrand adorne GFCI duplex, self-test, upstream device) and north end (Legrand adorne pop-out, non-GFCI, downstream of the south GFCI on the same circuit — confirm wiring order with electrician). Both fall within 6' of the sink per code.</li>
+          <li class="keyed">Switches — two switches shown grouped near the south wall, west of the door (vanity area), clear of the door's swing arc. One dedicated to the mirror rope light (dimmer — driver compatibility TBD); one shared for the pendant + 2 recessed lights (pendant not dimmable — owner to decide a plain shared on/off switch vs. splitting onto separate switches for independent recessed dimming). Exact gang/position TBD.</li>
+          <li class="gen">All receptacles within 6' of the sink and all wet-location fixtures to be GFCI/AFCI protected per NEC and local code.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RIGHT: SCHEDULE / LEGEND / NOTES -->
+    <div class="right-col">
+      <div class="col-heading">ELECTRICAL FIXTURE SCHEDULE — LOCATION NOTES ONLY</div>
+      <p style="font-size:8pt; color:#555; margin:0 0 0.1in 0; font-style:italic;">Full product specs, manufacturers, and purchase links are on A-201's Finish &amp; Fixture Schedule. This table covers location/circuiting status only — refer to A-201 for everything else.</p>
+      <table class="sched">
+        <tr><th style="width:22%">Item</th><th style="width:28%">Location</th><th style="width:24%">Status</th><th>Notes</th></tr>
+        <tr><td>Recessed lighting (qty. 3)</td><td>1 over shower, 2 over vanity area</td><td>Zone <b>CONFIRMED</b>; positions <span class="tbd">ASSUMED</span></td><td>NuWatt 4" wafer, wet-rated over shower. See A-201 for full spec.</td></tr>
+        <tr><td>Exhaust fan/light</td><td>Ceiling, above toilet</td><td>Location <b>CONFIRMED</b></td><td>Akicon combo unit. Verify wet-rating w/ electrician.</td></tr>
+        <tr><td>Vanity pendant</td><td>Above floating counter, south end</td><td>Zone <b>CONFIRMED</b>; hang height <span class="tbd">TBD</span></td><td>ET2 Reeds Mini Pendant. Not dimmable; adjustable 23.25"–62.5".</td></tr>
+        <tr><td>Mirror LED rope light</td><td>Full perimeter of mirror channel</td><td>Concept <b>CONFIRMED</b>; product <span class="tbd">TBD</span></td><td>Dedicated switch — see Switch rows below.</td></tr>
+        <tr><td>Outlet, south end</td><td>West/vanity wall, above floating counter</td><td><b>CONFIRMED</b></td><td>Legrand adorne GFCI duplex, self-test.</td></tr>
+        <tr><td>Outlet, north end</td><td>Divider wall south face, under shelving</td><td><b>CONFIRMED</b></td><td>Legrand adorne pop-out, non-GFCI, downstream of south GFCI.</td></tr>
+        <tr><td>Switch — mirror light</td><td>Vanity area, south wall near door</td><td>Zone confirmed; position <span class="tbd">ASSUMED</span></td><td>Dimmer proposed (Legrand adorne ADPD153LW2) — driver compatibility TBD.</td></tr>
+        <tr><td>Switch — pendant + recessed</td><td>Vanity area, south wall near door</td><td>Zone confirmed; position <span class="tbd">ASSUMED</span></td><td>Shared switch — owner to decide dimming approach.</td></tr>
+      </table>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">PLAN SYMBOLS &amp; LEGEND</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.22in;height:0.22in;border-radius:50%;border:2px solid #b8860b; font-size:7pt; font-weight:700; color:#b8860b; flex:none;">R</span>Amber circle = recessed can light (wet-rated where noted)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.22in;height:0.22in;border-radius:50%;border:2px solid #b8860b;flex:none;">✕</span>Amber circle w/ cross = pendant or fan/light fixture</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;width:0.3in;height:0.14in;border:2px dashed #b8860b;flex:none;"></span>Dashed amber line on wall = LED rope/tape light run</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.24in;height:0.16in;border:2px solid #b8860b;flex:none;"></span>Amber rectangle = duplex outlet (GFCI noted where applicable)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.16in;border:2px solid #b8860b; font-size:7pt; font-weight:700; color:#b8860b; flex:none;">S</span>Amber square = switch</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:7pt;flex:none;">#</span>Numbered bubble = keyed note (see Keynotes list)</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red = assumed, needs verification. Black = confirmed. (Applies to text/labels; amber is the electrical trade color, not a status indicator.)</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">GENERAL NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This sheet is a design-intent electrical/lighting plan prepared by the owner using AI-assisted drafting. It has not been prepared or stamped by a licensed electrical engineer or electrician, and does not show circuiting, wire runs, panel/breaker assignments, or box fill.</li>
+          <li>GC/electrician to field verify all existing conditions, framing, and panel capacity prior to bid and prior to rough-in. Report conflicts to owner before proceeding.</li>
+          <li>GC/electrician to pull all required permits and confirm compliance with local electrical code (NEC as adopted locally), including GFCI/AFCI protection and wet-location ratings.</li>
+          <li>Base wall/room/fixture-silhouette geometry on this sheet is reused from A-201 for reference only — A-201 remains the sheet of record for room dimensions, wall thickness, and fixture footprints. Any conflict between this sheet and A-201 should be resolved in favor of A-201 and flagged to the designer.</li>
+          <li>All electrical fixture, switch, and outlet selections are documented in full on A-201's Finish &amp; Fixture Schedule, including manufacturer, model/SKU, and purchase links.</li>
+          <li>Switching plan is partially decided (see Keynotes 6–7) — final circuit assignment and dimmer compatibility to be confirmed with electrician prior to rough-in.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop209" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom209" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop209" xlink:href="#sealArcTop209" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom209" xlink:href="#sealArcBottom209" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">ELECTRICAL &amp;<br>LIGHTING PLAN</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.18.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.18.2026</td><td>Initial issue for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      NOT AN ENGINEERED ELECTRICAL DOCUMENT — SHOWS FIXTURE/OUTLET/SWITCH LOCATIONS ONLY, NOT CIRCUITING OR WIRE RUNS. GC/ELECTRICIAN TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, AND CODE COMPLIANCE PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-209</div>
+      <div class="of">SHEET 16 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

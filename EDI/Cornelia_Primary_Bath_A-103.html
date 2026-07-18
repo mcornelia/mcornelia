@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-103 Primary Bath &amp; Closet - Interior Elevations (Shower)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.5in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.5in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: ELEVATION -->
+    <div class="elev-wrap">
+      <div class="col-heading">2 &nbsp;SHOWER ELEVATIONS — UNFOLDED (WEST / NORTH / EAST WALLS) &nbsp;—&nbsp; SCALE 3/4" = 1'-0"</div>
+
+      <div class="elev-svg-holder">
+        <svg width="14.875in" height="9.0625in" viewBox="-22 -18 238 145" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+
+          <!-- NOTE label -->
+          <text x="-20" y="-13" font-family="Helvetica" font-size="2" fill="#5c4020" font-style="italic">NOTE: shower shown unfolded (3 walls laid flat) — see Key Plan, this sheet</text>
+
+          <!-- WALL PLANE (background) — 168" unfolded (64 + 40 + 64) x 99" tall -->
+          <rect x="0" y="0" width="168" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+
+          <!-- floor + ceiling reference lines -->
+          <line x1="0" y1="99" x2="168" y2="99" stroke="#171310" stroke-width="0.6"/>
+          <line x1="0" y1="0" x2="168" y2="0" stroke="#171310" stroke-width="0.6"/>
+
+          <!-- ============ PANEL 1: WEST WALL (local_x 0-64, 64" — plan y66 to y2) ============ -->
+          <!-- shower controls (2 handles), plan (58,56) &amp; (58,60) -> ASSUMED 44" AFF -->
+          <circle cx="10" cy="55" r="1.1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="6" cy="55" r="1.1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="10" cy="55" r="0.3" fill="#4a2f1f"/>
+          <circle cx="6" cy="55" r="0.3" fill="#4a2f1f"/>
+
+          <!-- ============ FOLD LINE 1 (west/north inside corner), local_x 64 ============ -->
+          <line x1="64" y1="0" x2="64" y2="99" stroke="#8a6a3a" stroke-width="0.25" stroke-dasharray="1.4,1"/>
+          <text x="64" y="-3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">INSIDE CORNER</text>
+
+          <!-- ============ PANEL 2: NORTH (BACK) WALL (local_x 64-104, 40" — plan x56 to x96) ============ -->
+          <!-- showerhead, plan (76,6) -> ASSUMED 80" AFF, centered on back wall -->
+          <line x1="84" y1="19" x2="84" y2="14" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="84" cy="19" r="1.3" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="84" cy="19" r="0.35" fill="#4a2f1f"/>
+          <!-- valve trim, ASSUMED 48" AFF -->
+          <circle cx="84" cy="51" r="0.9" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+
+          <!-- ============ FOLD LINE 2 (north/east inside corner), local_x 104 ============ -->
+          <line x1="104" y1="0" x2="104" y2="99" stroke="#8a6a3a" stroke-width="0.25" stroke-dasharray="1.4,1"/>
+          <text x="104" y="-3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">INSIDE CORNER</text>
+
+          <!-- ============ PANEL 3: EAST WALL — RETURN (104-128, 24" solid) + GLASS (128-168, 40") ============ -->
+          <line x1="128" y1="0" x2="128" y2="99" stroke="#171310" stroke-width="0.4"/>
+          <rect x="128" y="0" width="40" height="99" fill="#d7e6ea" fill-opacity="0.55" stroke="#000000" stroke-width="0.5"/>
+
+          <!-- ============ AFF HEIGHT LADDER (right side) ============ -->
+          <g font-family="Helvetica" font-size="1.9">
+            <line x1="174" y1="0" x2="174" y2="99" stroke="#555" stroke-width="0.1"/>
+            <!-- confirmed: dark ink -->
+            <g stroke="#171310" stroke-width="0.12" fill="#171310">
+              <line x1="171" y1="0" x2="177" y2="0"/>
+              <text x="179" y="0.8">99" CLG</text>
+              <line x1="171" y1="99" x2="177" y2="99"/>
+              <text x="179" y="99.8">0" FLOOR</text>
+            </g>
+            <!-- assumed: red, verify -->
+            <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
+              <line x1="171" y1="19" x2="177" y2="19"/>
+              <text x="179" y="19.8">80" SHOWERHEAD</text>
+              <line x1="171" y1="51" x2="177" y2="51"/>
+              <text x="179" y="51.8">48" VALVE TRIM</text>
+              <line x1="171" y1="55" x2="177" y2="55"/>
+              <text x="179" y="58.5">44" CONTROLS</text>
+            </g>
+          </g>
+
+          <!-- ============ ZONE LABELS (below elevation) ============ -->
+          <g font-family="Helvetica" font-size="2.2" fill="#333" text-anchor="middle">
+            <text x="32" y="107">WEST WALL — 64"</text>
+            <text x="32" y="110.5" fill="#a00000" font-size="1.8">CONTROLS — TBD FIXTURE</text>
+            <text x="84" y="107">NORTH (BACK) WALL — 40"</text>
+            <text x="84" y="110.5" fill="#a00000" font-size="1.8">SHOWERHEAD + VALVE — TBD FIXTURE</text>
+            <text x="136" y="107">EAST WALL — RETURN 24" + GLASS 40"</text>
+            <text x="136" y="110.5" fill="#a00000" font-size="1.8">FIXED GLASS PANEL — TBD GLAZIER</text>
+          </g>
+
+          <!-- overall width dimension -->
+          <g stroke="#555" stroke-width="0.12">
+            <line x1="0" y1="-8" x2="168" y2="-8"/>
+            <line x1="0" y1="-11" x2="0" y2="-5"/>
+            <line x1="64" y1="-9.5" x2="64" y2="-6.5"/>
+            <line x1="104" y1="-9.5" x2="104" y2="-6.5"/>
+            <line x1="168" y1="-11" x2="168" y2="-5"/>
+          </g>
+          <text x="84" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" fill="#2b2117">168" UNFOLDED (64" + 40" + 64")</text>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-101)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: KEY PLAN / VERIFY LIST / LEGEND / NOTES -->
+    <div class="right-col">
+
+      <div class="keyplan-box">
+        <div class="hdr">KEY PLAN — VIEW 2 (SHOWER, 3 WALLS)</div>
+        <svg width="2.6in" height="3in" viewBox="-10 -8 175 200" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="#f2e6cf" stroke="#171310" stroke-width="3"/>
+          <!-- 3 shower walls highlighted -->
+          <line x1="54" y1="2" x2="54" y2="66" stroke="#a00000" stroke-width="5"/>
+          <line x1="56" y1="0" x2="96" y2="0" stroke="#a00000" stroke-width="5"/>
+          <line x1="96" y1="2" x2="96" y2="66" stroke="#a00000" stroke-width="5"/>
+          <circle cx="76" cy="34" r="9" fill="#fff" stroke="#171310" stroke-width="1.5"/>
+          <line x1="67.5" y1="34" x2="84.5" y2="34" stroke="#171310" stroke-width="0.8"/>
+          <text x="76" y="31.5" text-anchor="middle" font-family="Helvetica" font-size="7">2</text>
+          <text x="76" y="40" text-anchor="middle" font-family="Helvetica" font-size="4.5">A-103</text>
+        </svg>
+      </div>
+
+      <div class="verify-box">
+        <div class="hdr">DIMENSIONS TO VERIFY</div>
+        <p style="margin:0 0 8px 0;">The original design brief specified the shower footprint (40" x 64", 6" sq. drain) but did not specify any fixture mounting heights. The heights below are reasonable industry-standard assumptions used to draft this elevation — <b>none are confirmed selections.</b> Confirm each with the plumber/fixture supplier before rough-in:</p>
+        <ol>
+          <li><b>Showerhead / shower arm height</b> (assumed 80" AFF, centered on back wall) — fixture not yet selected, see Finish Schedule (A-101).</li>
+          <li><b>Valve trim height</b> (assumed 48" AFF) — fixture not yet selected.</li>
+          <li><b>Control handle height</b> (assumed 44" AFF, west wall near entry) — fixture not yet selected.</li>
+          <li><b>Shower tile</b> (floor &amp; wall, both TBD) — full height to ceiling per Keynote 4 (A-101); confirm layout/pattern before ordering.</li>
+          <li><b>Glass panel hardware &amp; rough opening</b> — confirm with glazier per Keynote 4 (A-101) prior to framing the 4" return wall.</li>
+        </ol>
+      </div>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#faf6ee;"></div>Tiled wall (TBD selection) — full height to ceiling</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#d7e6ea;"></div>Fixed tempered glass panel (heavy line = glass edge)</div>
+        <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px dashed #8a6a3a;"></span>Inside corner (unfold fold line) — not a physical joint reveal</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
+        <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed from design brief</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">ELEVATION NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This elevation is a companion to Sheet A-101 (Floor Plan). Refer to A-101 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule.</li>
+          <li>The 3 shower walls (west, north/back, east return+glass) are shown unfolded/laid flat, hinged at the two inside corners, for clarity. See Key Plan, this sheet, for true plan orientation.</li>
+          <li>Shower entry is open at the south end (no door) — glass panel is a fixed panel continuing the return wall plane, per A-101 Keynote 4.</li>
+          <li>Provide continuous waterproof membrane at entire shower enclosure and slope floor to drain min. 1/4" per ft. per A-101 Keynote 3. No radiant floor heating in shower — see Finish Schedule (A-101).</li>
+          <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop3" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom3" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop3" xlink:href="#sealArcTop3" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom3" xlink:href="#sealArcBottom3" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">INTERIOR<br>ELEVATIONS —<br>SHOWER</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      ALL FIXTURE MOUNTING HEIGHTS ON THIS SHEET ARE ASSUMED (SEE RED CALLOUTS) — CONFIRM ALL HEIGHTS WITH PLUMBER/GLAZIER BEFORE ROUGH-IN OR FABRICATION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-103</div>
+      <div class="of">SHEET 4 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

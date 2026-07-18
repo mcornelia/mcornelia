@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-101 Primary Bath &amp; Closet - Floor Plan, Dimensions &amp; Finish Legend</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 2px 4px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: PLAN -->
+    <div class="plan-wrap">
+      <div class="col-heading">FLOOR PLAN — SCALE 3/4" = 1'-0"</div>
+
+      <div class="plan-svg-holder">
+        <svg width="12.1875in" height="12.8125in" viewBox="-18 -12 195 205" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            /* white halo behind every label so text stays readable over tile/cabinet/shower fills */
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+          <!-- background -->
+          <rect x="-18" y="-12" width="195" height="205" fill="#ffffff"/>
+
+          <!-- FLOOR FILL (L-shaped polygon: bathroom + closet), north at top -->
+          <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="#f2e6cf" stroke="none"/>
+
+          <!-- SHOWER FLOOR (pale blue-gray) -->
+          <rect x="56" y="2" width="40" height="64" fill="#d7e6ea"/>
+
+          <!-- WALLS: exterior + closet-return, 4" nominal -->
+          <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="none" stroke="#171310" stroke-width="4" stroke-linejoin="miter"/>
+
+          <!-- DOOR: east wall, 32" opening, hinge north jamb, swings in -->
+          <line x1="155" y1="100" x2="155" y2="132" stroke="#f2e6cf" stroke-width="4.4"/>
+          <line x1="155" y1="100" x2="123" y2="100" stroke="#4a2f1f" stroke-width="0.3"/>
+          <path d="M155,132 A32,32 0 0,0 123,100" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+
+          <!-- SHOWER EAST RETURN WALL (solid, 4x24) -->
+          <rect x="94" y="2" width="4" height="24" fill="#171310"/>
+          <!-- SHOWER GLASS (thick solid line, centered on return wall, to open south end) -->
+          <line x1="96" y1="26" x2="96" y2="66" stroke="#000000" stroke-width="0.5"/>
+
+          <!-- SHOWERHEAD (north end) -->
+          <circle cx="76" cy="6" r="0.9" fill="none" stroke="#4a2f1f" stroke-width="0.25"/>
+          <circle cx="76" cy="6" r="0.3" fill="#4a2f1f"/>
+          <!-- SHOWER CONTROLS (west wall, near open south end) -->
+          <circle cx="58" cy="56" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <circle cx="58" cy="60" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <!-- SHOWER DRAIN: 6" sq, centered on 40x64 footprint -->
+          <rect x="73" y="31" width="6" height="6" fill="none" stroke="#7d8fa0" stroke-width="0.2"/>
+          <line x1="73" y1="31" x2="79" y2="37" stroke="#7d8fa0" stroke-width="0.12"/>
+          <line x1="79" y1="31" x2="73" y2="37" stroke="#7d8fa0" stroke-width="0.12"/>
+
+          <!-- CEILING EXHAUST FAN (dashed = overhead) -->
+          <circle cx="110" cy="40" r="2" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.6,0.4"/>
+          <line x1="108" y1="38" x2="112" y2="42" stroke="#4a2f1f" stroke-width="0.15"/>
+          <line x1="112" y1="38" x2="108" y2="42" stroke="#4a2f1f" stroke-width="0.15"/>
+
+          <!-- TOILET -->
+          <rect x="101.3" y="2" width="15" height="28" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <rect x="103.8" y="2" width="10" height="8" fill="none" stroke="#4a2f1f" stroke-width="0.18"/>
+          <ellipse cx="108.8" cy="20" rx="7.5" ry="10" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+
+          <!-- EAST DOUBLE VANITY -->
+          <rect x="131.5" y="2" width="21.5" height="84" fill="#e0e0e0" stroke="#171310" stroke-width="0.25"/>
+          <rect x="133.25" y="12" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
+          <rect x="133.25" y="52" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
+          <circle cx="152" cy="24" r="0.4" fill="#171310"/>
+          <circle cx="152" cy="64" r="0.4" fill="#171310"/>
+
+          <!-- SOUTH-WALL PAX WARDROBES -->
+          <rect x="2" y="164.25" width="151" height="13.75" fill="#dcdcdc" stroke="#171310" stroke-width="0.25"/>
+          <line x1="27.17" y1="164.25" x2="27.17" y2="178" stroke="#171310" stroke-width="0.14"/>
+          <line x1="52.33" y1="164.25" x2="52.33" y2="178" stroke="#171310" stroke-width="0.14"/>
+          <line x1="77.5" y1="164.25" x2="77.5" y2="178" stroke="#171310" stroke-width="0.14"/>
+          <line x1="102.67" y1="164.25" x2="102.67" y2="178" stroke="#171310" stroke-width="0.14"/>
+          <line x1="127.83" y1="164.25" x2="127.83" y2="178" stroke="#171310" stroke-width="0.14"/>
+
+          <!-- EAST PAX RETURN (L-shaped) -->
+          <rect x="139.25" y="143.375" width="13.75" height="34.625" fill="#dcdcdc" stroke="#171310" stroke-width="0.25"/>
+
+          <!-- SHORT PARTITION WALLS -->
+          <rect x="2" y="138" width="21.5" height="4" fill="#171310"/>
+          <rect x="131.5" y="138" width="21.5" height="4" fill="#171310"/>
+
+          <!-- SLATTED SCREEN: 52" long, both flanking openings = 28" -->
+          <rect x="51.5" y="136" width="52" height="8" fill="none" stroke="#171310" stroke-width="0.15" stroke-dasharray="1.2,0.9"/>
+          <g stroke="#171310" stroke-width="1">
+            <line x1="54" y1="137" x2="54" y2="143"/>
+            <line x1="60.5" y1="137" x2="60.5" y2="143"/>
+            <line x1="67" y1="137" x2="67" y2="143"/>
+            <line x1="73.5" y1="137" x2="73.5" y2="143"/>
+            <line x1="80" y1="137" x2="80" y2="143"/>
+            <line x1="86.5" y1="137" x2="86.5" y2="143"/>
+            <line x1="93" y1="137" x2="93" y2="143"/>
+            <line x1="99.5" y1="137" x2="99.5" y2="143"/>
+          </g>
+
+          <!-- WEST VANITY -->
+          <rect x="2" y="66" width="21.5" height="72" fill="#e0e0e0" stroke="#171310" stroke-width="0.25"/>
+
+          <!-- JOG WALL CABINETRY: 43" total run (2 x 21.5" bays), mounted on the JOG WALL (y=64, running EAST-WEST from x=0 to x=54 — the wall separating the vanity nook from the notch above it), NOT the west wall. FINAL, confirmed 2026-07-17 (3rd correction) against owner's own red-annotated markup of the original A-101 PDF, which showed both bays side-by-side (east-west) directly under this wall, not stacked north-south along the west wall as two earlier attempts had it. WEST bay (x=2-23.5, directly above the vanity's north end) = open shelving, vanity-top (34" AFF) to ceiling. EAST bay (x=23.5-45, extending past the vanity's own depth) = cabinet w/ door, floats at 52" AFF. Both bays 18" deep (y=66-84, projecting south from the wall). See Sheet A-106 (elevation of this wall). -->
+          <rect x="2" y="66" width="21.5" height="18" fill="none" stroke="#171310" stroke-width="0.2" stroke-dasharray="1.2,0.9"/>
+          <line x1="23.5" y1="66" x2="23.5" y2="84" stroke="#171310" stroke-width="0.15" stroke-dasharray="1.2,0.9"/>
+          <rect x="23.5" y="66" width="21.5" height="18" fill="none" stroke="#171310" stroke-width="0.25" stroke-dasharray="1.2,0.9"/>
+          <circle cx="42" cy="80" r="0.4" fill="#171310"/>
+
+          <!-- towel warmer note ticks — sit in the open floor south of the EAST (door cabinet) bay, below the 52" AFF float line. Corrected 2026-07-17 (3rd correction) to match the new jog-wall cabinet position. -->
+          <g stroke="#8a5a3a" stroke-width="0.2">
+            <line x1="25" y1="87" x2="43" y2="87"/>
+            <line x1="25" y1="89.4" x2="43" y2="89.4"/>
+            <line x1="25" y1="91.8" x2="43" y2="91.8"/>
+          </g>
+
+          <!-- NORTH ARROW: straight shaft, arrowhead pointing north (up) -->
+          <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="11.5" y1="27" x2="11.5" y2="9"/>
+            <path d="M8.3,15.5 L11.5,8 L14.7,15.5"/>
+          </g>
+          <text x="11.5" y="5.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" font-weight="700" fill="#7a5230">N</text>
+
+          <!-- ROOM LABEL -->
+          <text x="70" y="105" font-family="Helvetica" font-size="4.2" font-weight="700" fill="#2b2117">BATHROOM</text>
+
+          <!-- KEYNOTE BUBBLES -->
+          <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle">
+            <circle cx="66" cy="42" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="66" y="42.7">3</text>
+            <circle cx="99.5" cy="46" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="99.5" y="46.7">4</text>
+            <circle cx="9" cy="72" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="9" y="72.7">5</text>
+            <circle cx="115.5" cy="40" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="115.5" y="40.7">6</text>
+            <circle cx="77" cy="171" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="77" y="171.7">9</text>
+            <circle cx="122" cy="12" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="122" y="12.7">10</text>
+          </g>
+
+          <!-- ============ DIMENSIONS ============ -->
+          <g font-family="Helvetica" font-size="2" fill="#2b2117">
+            <!-- overall E-W -->
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="0" y1="188" x2="155" y2="188"/>
+              <line x1="0" y1="184" x2="0" y2="192"/>
+              <line x1="155" y1="184" x2="155" y2="192"/>
+            </g>
+            <text x="77.5" y="195.5" text-anchor="middle">155" OVERALL (E–W)</text>
+
+            <!-- overall N-S -->
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="163" y1="0" x2="163" y2="180"/>
+              <line x1="159" y1="0" x2="167" y2="0"/>
+              <line x1="159" y1="180" x2="167" y2="180"/>
+            </g>
+            <text x="171" y="91" text-anchor="middle" transform="rotate(90 171,91)">180" OVERALL (N–S)</text>
+
+            <!-- north wall -->
+            <line x1="54" y1="-6" x2="155" y2="-6" stroke="#555" stroke-width="0.12"/>
+            <text x="104.5" y="-8.5" text-anchor="middle">101" NORTH WALL</text>
+
+            <!-- west wall south of cutout -->
+            <line x1="-6" y1="64" x2="-6" y2="180" stroke="#555" stroke-width="0.12"/>
+            <text x="-9.5" y="122" text-anchor="middle" transform="rotate(-90 -9.5,122)">116" WEST WALL</text>
+
+            <!-- wall west of shower (64") -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="44" y1="0" x2="44" y2="64"/>
+              <line x1="41" y1="0" x2="47" y2="0"/>
+              <line x1="41" y1="64" x2="47" y2="64"/>
+            </g>
+            <text x="38" y="32" text-anchor="middle" font-size="1.7" fill="#5c4020" transform="rotate(-90 38,32)">64" WALL W. OF SHOWER</text>
+
+            <!-- wall north of west vanity (54") -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="2" y1="50" x2="52" y2="50"/>
+              <line x1="2" y1="47" x2="2" y2="53"/>
+              <line x1="52" y1="47" x2="52" y2="53"/>
+            </g>
+            <text x="27" y="46" text-anchor="middle" font-size="1.7" fill="#5c4020">54" WALL N. OF WEST VANITY</text>
+
+            <!-- door: witness-line dimension anchored at the actual 32" opening (Y100-132), off the vanity -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="153" y1="100" x2="145" y2="100"/>
+              <line x1="153" y1="132" x2="145" y2="132"/>
+              <line x1="145" y1="100" x2="145" y2="132"/>
+              <line x1="142" y1="100" x2="148" y2="100"/>
+              <line x1="142" y1="132" x2="148" y2="132"/>
+            </g>
+            <text x="141" y="116" text-anchor="middle" fill="#5c4020" font-size="1.8" transform="rotate(-90 141,116)">32" DOOR OPENING</text>
+            <text x="137" y="116" text-anchor="middle" fill="#5c4020" font-size="1.5" transform="rotate(-90 137,116)">S. JAMB 48" FROM S. WALL</text>
+
+            <!-- east vanity -->
+            <text x="172" y="44" text-anchor="middle" fill="#333" transform="rotate(90 172,44)">84" x 21.5" DOUBLE VANITY</text>
+            <text x="142" y="42" text-anchor="middle" fill="#333" font-size="1.7">10 / 24 / 16 / 24 / 10</text>
+
+            <!-- shower -->
+            <text x="76" y="80" text-anchor="middle" fill="#333">40" x 64" SHOWER</text>
+            <text x="76" y="55" text-anchor="middle" fill="#333" font-size="1.6">6" SQ. DRAIN, CENTERED</text>
+
+            <!-- partition line -->
+            <g stroke="#999" stroke-width="0.1">
+              <line x1="-12" y1="138" x2="-12" y2="178"/>
+              <line x1="-15" y1="138" x2="-9" y2="138"/>
+              <line x1="-15" y1="178" x2="-9" y2="178"/>
+            </g>
+            <text x="-13.5" y="160" text-anchor="middle" fill="#555" font-size="1.7" transform="rotate(-90 -13.5,160)">40" N. OF SOUTH WALL</text>
+
+            <!-- wing-wall + screen dimension string: witness lines drop south off each element into the walk-in closet -->
+            <g stroke="#999" stroke-width="0.1">
+              <line x1="2" y1="142" x2="2" y2="152"/>
+              <line x1="23.5" y1="142" x2="23.5" y2="152"/>
+              <line x1="51.5" y1="144" x2="51.5" y2="152"/>
+              <line x1="103.5" y1="144" x2="103.5" y2="152"/>
+              <line x1="131.5" y1="142" x2="131.5" y2="152"/>
+              <line x1="153" y1="142" x2="153" y2="152"/>
+              <line x1="2" y1="152" x2="153" y2="152"/>
+            </g>
+            <text x="12.75" y="156.5" text-anchor="middle" fill="#5c4020" font-size="1.5">21.5" WING WALL</text>
+            <text x="37.5" y="156.5" text-anchor="middle" fill="#555" font-size="1.7">28" OPENING</text>
+            <text x="37.5" y="159" text-anchor="middle" fill="#8a5a3a" font-size="1.3">TILE / HARDWOOD TRANS.</text>
+            <text x="77.5" y="156.5" text-anchor="middle" fill="#555" font-size="1.7">52" SCREEN</text>
+            <text x="117.5" y="156.5" text-anchor="middle" fill="#555" font-size="1.7">28" OPENING</text>
+            <text x="117.5" y="159" text-anchor="middle" fill="#8a5a3a" font-size="1.3">TILE / HARDWOOD TRANS.</text>
+            <text x="142.25" y="156.5" text-anchor="middle" fill="#5c4020" font-size="1.5">21.5" WING WALL</text>
+
+            <!-- floor material transition symbol, right at each 28" opening threshold -->
+            <g stroke="#8a5a3a" stroke-width="0.3" stroke-dasharray="1,0.7">
+              <line x1="23.5" y1="143" x2="51.5" y2="143"/>
+              <line x1="103.5" y1="143" x2="131.5" y2="143"/>
+            </g>
+
+            <!-- south PAX -->
+            <text x="77.5" y="188" text-anchor="middle" fill="#333" font-size="1.7">SOUTH PAX RUN — 13.75" DEPTH</text>
+
+            <!-- east PAX return -->
+            <text x="172" y="160" text-anchor="middle" fill="#333" font-size="1.7" transform="rotate(90 172,160)">EAST PAX RETURN — 34.625" TOTAL</text>
+
+            <!-- west vanity -->
+            <text x="-6" y="102" text-anchor="middle" fill="#333" font-size="1.7" transform="rotate(-90 -6,102)">WEST VANITY — 21.5" DEPTH</text>
+
+            <!-- west vanity -->
+            <text x="11" y="120" text-anchor="middle" fill="#333" font-size="1.6">WEST VANITY — 72" RUN</text>
+            <text x="11" y="123.5" text-anchor="middle" fill="#333" font-size="1.6">MAKEUP COUNTERTOP + MIRROR, SEE A-104</text>
+
+            <!-- jog wall cabinetry -->
+            <text x="12.75" y="79" text-anchor="middle" fill="#333" font-size="1.4">OPEN SHELF</text>
+            <text x="12.75" y="81.5" text-anchor="middle" fill="#333" font-size="1.3">VANITY TOP TO CLG.</text>
+            <text x="34.25" y="79" text-anchor="middle" fill="#333" font-size="1.4">CABINET W/ DOOR</text>
+            <text x="34.25" y="81.5" text-anchor="middle" fill="#333" font-size="1.3">FLOATS 52" AFF</text>
+            <text x="34" y="94.8" text-anchor="middle" fill="#8a5a3a" font-size="1">TOWEL WARMER, SEE SCHED.</text>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 5: jog wall (open shelving + door cabinet + towel warmer), view direction points north (-y) toward the wall — restored 2026-07-17 (3rd correction), this wall/sheet is active again. Positioned at x=15 (west bay) to clear both the bay divider (x=23.5) and Marker 3 at (35,102) — caught via screenshot QA, an earlier x=32 placement collided directly with Marker 3 -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="15" cy="108" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="11.8" y1="108" x2="18.2" y2="108" stroke="#171310" stroke-width="0.15"/>
+            <text x="15" y="107.3" font-size="2">5</text>
+            <text x="15" y="110.4" font-size="1.4">A-106</text>
+            <path d="M15,104.8 L15,64 M15,64 L13,67 M15,64 L17,67" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 1: tags the east wall, view direction points east (+x) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="120" cy="90" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="116.8" y1="90" x2="123.2" y2="90" stroke="#171310" stroke-width="0.15"/>
+            <text x="120" y="89.3" font-size="2">1</text>
+            <text x="120" y="92.4" font-size="1.4">A-102</text>
+            <path d="M123.2,90 L128,90 M128,90 L125.4,88 M128,90 L125.4,92" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 2: shower, unfolded 3-wall view (west/north/east) -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="76" cy="34" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="72.8" y1="34" x2="79.2" y2="34" stroke="#171310" stroke-width="0.15"/>
+            <text x="76" y="33.3" font-size="2">2</text>
+            <text x="76" y="36.4" font-size="1.4">A-103</text>
+            <g stroke="#171310" stroke-width="0.2">
+              <line x1="72.8" y1="34" x2="60" y2="34"/>
+              <line x1="76" y1="30.8" x2="76" y2="18"/>
+              <line x1="79.2" y1="34" x2="90" y2="34"/>
+            </g>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 3: west vanity wall, view direction points west (-x) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="35" cy="102" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="31.8" y1="102" x2="38.2" y2="102" stroke="#171310" stroke-width="0.15"/>
+            <text x="35" y="101.3" font-size="2">3</text>
+            <text x="35" y="104.4" font-size="1.4">A-104</text>
+            <path d="M31.8,102 L25,102 M25,102 L27.6,100 M25,102 L27.6,104" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 4: south PAX wall, view direction points south (+y) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="77.5" cy="148" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="74.3" y1="148" x2="80.7" y2="148" stroke="#171310" stroke-width="0.15"/>
+            <text x="77.5" y="147.3" font-size="2">4</text>
+            <text x="77.5" y="150.4" font-size="1.4">A-105</text>
+            <path d="M77.5,151.2 L77.5,162 M77.5,162 L75.5,159 M77.5,162 L79.5,159" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0"</div>
+        <div class="north-mini">&#9650; NORTH UP</div>
+      </div>
+
+      <div class="keynotes">
+        <ol>
+          <li class="gen"><b>Verify all dimensions in field</b> prior to layout, framing, and material ordering. Notify designer of any discrepancy before proceeding.</li>
+          <li class="gen">Wall dimensions are to stud/centerline as drawn; finished dimensions will vary with tile, backer board, and trim buildout — confirm before ordering fixed-width items (vanities, glass).</li>
+          <li class="keyed">Provide continuous waterproof membrane (e.g., sheet or liquid membrane system) at entire shower enclosure per manufacturer spec; slope shower floor to drain min. 1/4" per ft.</li>
+          <li class="keyed">Shower glass runs floor-to-ceiling. Verify rough opening with glazier prior to framing the 4" return wall; confirm hardware finish with owner.</li>
+          <li class="keyed">Provide solid blocking in walls for: 84" east vanity, west vanity, wall-mounted faucets (if selected), towel bars/warmer, and the jog wall cabinetry (open shelf + door cabinet, floating at 52" AFF) — see Sheet A-106.</li>
+          <li class="keyed">Exhaust fan sized and vented to exterior per local mechanical code; coordinate exact location and switching with electrician.</li>
+          <li class="gen">All electrical (GFCI/AFCI receptacles, vanity and general lighting, exhaust fan) per NEC and local code; confirm final device layout with owner prior to rough-in.</li>
+          <li class="gen">Slatted screen (Andor Willow Wood Slat Room Divider, purchased/ordered — see Finish Schedule) and both short closet partitions are non-structural finish elements; confirm final quantity/finish with owner before ordering/fabrication.</li>
+          <li class="keyed">South &amp; east PAX wardrobe dimensions are nominal planning figures; verify actual unit/frame dimensions before ordering cabinetry.</li>
+          <li class="keyed">Toilet, vanity, and shower fixture rough-in locations shown are design intent only; plumber to confirm exact rough-in against selected fixture spec sheets.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RIGHT: SCHEDULES / LEGEND / NOTES -->
+    <div class="right-col">
+      <div class="col-heading">FINISH &amp; FIXTURE SCHEDULE — ALL SELECTIONS TBD</div>
+      <table class="sched">
+        <tr><th style="width:16%">Item</th><th style="width:18%">Location</th><th style="width:16%">Manufacturer</th><th style="width:14%">Model / SKU</th><th style="width:14%">Color / Finish</th><th>Notes</th></tr>
+        <tr><td>Floor tile</td><td>Bathroom floor only (N. of transition)</td><td>Bond Tile</td><td>Stonehenge 24x24 (listing titled "Rizzo" — confirm current name w/ retailer)</td><td>Earth / Matte / Terrazzo-look</td><td>Rectified porcelain, waterproof, slip-resistant, V3 shade variation. ~$9.19/sf (Wayfair, $106.79/case). Radiant heat below — see Ditra-Heat row</td></tr>
+        <tr><td>Closet floor — hardwood</td><td>Walk-in closet (S. of transition)</td><td>Stuga</td><td>Fika</td><td>European white oak, natural blonde, matte acrylic urethane</td><td>Engineered wide-plank, 7 3/8" W x 89 1/4" L planks, float/glue/staple. $10.39/sf. Radiant heat below — see Ditra-Heat row, confirm w/ Stuga before install</td></tr>
+        <tr><td>Radiant floor heating</td><td>Under tile &amp; hardwood, entire room EXCEPT shower</td><td>Schluter</td><td>DITRA-HEAT membrane + DITRA-HEAT-E-HK cable + DITRA-HEAT-E-RT thermostat</td><td>—</td><td>Uncoupling/waterproofing membrane w/ snap-in electric cable; programmable GFCI thermostat w/ floor sensor. Tile-rated system — confirm approved method/compatibility w/ Stuga before installing under engineered hardwood. Dedicated elec. circuit req'd, coordinate w/ electrician</td></tr>
+        <tr><td>Floor transition strip</td><td>Both 28" wing-wall openings</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td><b>Owner wants minimal-to-no visible transition/lip</b> (flush transition preferred over a raised reducer strip). See photos in Owner's Completed Remodel reference section for the look/detail to match. Coordinate method &amp; height buildout with installer</td></tr>
+        <tr><td>Shower floor tile</td><td>Shower pan</td><td>Merola Tile</td><td>Hudson Penny Round, 12"x13" sheet (10.5 sf/case), Model FKOMPRSN</td><td>Stormy Night</td><td>Small-format for slope to drain. Porcelain, frost-resistant, stain-resistant. $19.15/sf ($201.04/case). <b style="color:#a00000;">Slip rating not listed on retailer page — confirm DCOF/slip-resistance with owner/installer before ordering for shower-floor use.</b> No radiant heat in shower. <a href="https://www.homedepot.com/p/Merola-Tile-Hudson-Penny-Round-Stormy-Night-12-in-x-13-in-Porcelain-Floor-and-Wall-Mosaic-Tile-10-5-sq-ft-Case-FKOMPRSN/328231034">Product link</a></td></tr>
+        <tr><td>Shower niche tile</td><td>Shower niche</td><td>Merola Tile</td><td>Hudson Penny Round, 12"x13" sheet (10.5 sf/case), Model FKOMPRSN</td><td>Stormy Night</td><td>Same product as shower floor tile above, per owner. <a href="https://www.homedepot.com/p/Merola-Tile-Hudson-Penny-Round-Stormy-Night-12-in-x-13-in-Porcelain-Floor-and-Wall-Mosaic-Tile-10-5-sq-ft-Case-FKOMPRSN/328231034">Product link</a></td></tr>
+        <tr><td>Shower wall tile</td><td>Shower walls, floor-to-ceiling</td><td>Bond Tile</td><td>Stonehenge 24x24 Matte Porcelain Terrazzo-look (11.62 sf/case)</td><td>Earth</td><td>Same Stonehenge/Earth product line as the bathroom floor tile above (different case-size listing). $107.95/case, $8.83/sf at 69+sf. Slip-resistant, waterproof, rectified. <a href="https://www.wayfair.com/home-improvement/pdp/bond-tile-stonehenge-2354-in-x-2354-in-matte-porcelain-terrazzo-look-floor-and-wall-tile-1162-sq-ft-case-sost4902.html?piid=58623291">Product link</a></td></tr>
+        <tr><td>Shower glass</td><td>East return + panel</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Clear tempered / TBD hdwe</td><td>3/8" tempered min., see Note 4</td></tr>
+        <tr><td>East vanity countertop</td><td>East double vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td>Custom fabricated. Sinks (qty. 2) integrally poured as one monolithic countertop+sink unit — see Sinks row below</td></tr>
+        <tr><td>West vanity — makeup countertop</td><td>West vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td>No sink — named "makeup countertop" (2026-07-17) to distinguish from the East vanity's two-sink countertop. Floating slab. <b style="color:#a00000;">Confirmed 2026-07-17: no enclosed cabinet beneath — see Vanity cabinetry row.</b> Custom fabricated</td></tr>
+        <tr><td>Vanity cabinetry</td><td>East vanity only</td><td>DraytonWorks (Greg)</td><td>Custom</td><td>White Oak, floating vanity</td><td>Custom built. <b style="color:#a00000;">West vanity has NO enclosed cabinet</b> (confirmed 2026-07-17) — the west makeup countertop floats with nothing beneath it; see A-104 for the corrected elevation and confirm structural support method with fabricator.</td></tr>
+        <tr><td>Jog wall cabinetry</td><td>Jog wall (north of vanity nook, runs east-west, NOT the west wall — see CHANGELOG.md)</td><td class="tbd">TBD (tentatively DraytonWorks, to match vanity)</td><td class="tbd">TBD</td><td class="tbd">TBD (tentatively White Oak, to match vanity)</td><td><b style="color:#a00000;">CORRECTED 2026-07-17 (final, 3rd pass)</b> — confirmed via owner's own red-annotated markup of the original A-101 PDF. One 43" total run, two 21.5"x18" bays, side by side east-west, mounted on the jog wall (y=64 in plan, the short wall segment separating the vanity nook from the notch above it): west bay (over the vanity's north end) = open shelving, vanity-top to ceiling; east bay (extending past the vanity's own depth) = cabinet w/ door, floats at 52" AFF, with the towel warmer in the open zone below it. See Sheet A-106 (elevation of this wall) and Keynote 5. <b>This is NOT on the west wall</b> — two earlier attempts today put it there in error; see CHANGELOG.md for the full history if this gets questioned again.</td></tr>
+        <tr><td>PAX wardrobe cabinetry</td><td>South run + east return</td><td>IKEA</td><td>PAX / COMPLEMENT system</td><td>Dark Gray</td><td>Color confirmed by owner via IKEA planning rendering. Frame &amp; door style/hardware still TBD; interior configuration (shelves/drawers/rods) also still TBD per bay — see Note 9</td></tr>
+        <tr><td>Cabinet / door hardware</td><td>All cabinetry</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
+        <tr><td>Wall paint</td><td>All walls</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Eggshell</td><td>Bath-rated / moisture-resistant sheen recommended for this application — confirm exact product line (e.g. Aura Bath &amp; Spa or equiv.) with paint supplier</td></tr>
+        <tr><td>Ceiling paint</td><td>Ceiling</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Flat</td><td></td></tr>
+        <tr><td>Baseboards</td><td>All rooms</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Satin</td><td></td></tr>
+        <tr><td>Mirror — East</td><td>Above east vanity</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
+        <tr><td>Mirror — West</td><td>Above west vanity makeup countertop, full countertop span (see A-104)</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Size CONFIRMED by owner 2026-07-17: 46" tall x 72" wide, spans the full 72" makeup countertop/wall width. Assumed mounted directly above the countertop (34"-80" AFF) — see A-104 Dimensions to Verify.</td></tr>
+        <tr><td>West vanity wall tile</td><td>West wall: floor to makeup countertop underside (0"-32" AFF) &amp; above mirror to ceiling (80"-99" AFF)</td><td>Bond Tile</td><td>Stonehenge 24x24 Matte Porcelain Terrazzo-look, "Rizzo" listing (11.62 sf/case)</td><td>Earth</td><td>Same product as the bathroom FLOOR tile ("Rizzo" listing) and the shower wall tile above. $107.95/case, $8.83/sf at 69+sf. Slip-resistant, waterproof, rectified. Confirmed 2026-07-17: there is no enclosed cabinet on this wall — the west vanity is a floating makeup countertop only (Modern Concrete of Athens), so tile runs full-height floor to countertop underside. See A-104. <a href="https://www.wayfair.com/home-improvement/pdp/bond-tile-stonehenge-2354-in-x-2354-in-matte-porcelain-terrazzo-look-floor-and-wall-tile-1162-sq-ft-case-sost4902.html?piid=58623291">Product link</a></td></tr>
+        <tr><td>Vanity lighting — East</td><td>At east mirror</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
+        <tr><td>Vanity lighting — West</td><td>Ceiling-hung, offset toward south/left side of west vanity/mirror (see A-104)</td><td>Lilamps</td><td>Mchary Globe Shade Pendant Light 8" (qty. 2)</td><td>Lacquered Brass</td><td>$460 ea. ($920 total). 8"D x 11.5"H glass globe, hardwired, dimmable (E26, max 100W), min/max hang 14.5"/120". Two fixtures at staggered heights, offset left per owner's reference photo (photo was for placement only — exact heights/offset not yet finalized, see A-104 Dimensions to Verify). <a href="https://lilamps.com/products/mchary-globe-shade-bedroom-pendant-light-8-1">Product link</a></td></tr>
+        <tr><td>General / recessed lighting</td><td>Ceiling</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Confirm layout w/ electrician</td></tr>
+        <tr><td>Exhaust fan</td><td>Ceiling, see plan</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>See Note 6</td></tr>
+        <tr><td>Towel bars / heated warmer</td><td>Jog wall, below the floating door cabinet's east bay (NW corner)</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>See Note 5, Sheet A-106. (Location corrected 2026-07-17, 3rd pass — sits in the open space below the door cabinet, which floats at 52" AFF specifically to leave this space for the towel warmer. This is on the jog wall, not the west wall)</td></tr>
+        <tr><td>Toilet</td><td>North wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Confirm rough-in, see Note 10</td></tr>
+        <tr><td>Sinks (qty. 2)</td><td>East vanity</td><td>Modern Concrete of Athens</td><td>Custom — integral/monolithic concrete sink</td><td>Black Concrete</td><td>Integrated directly into the countertop pour (no separate undermount/drop-in sink) — same custom fabrication as East vanity countertop above, one unit</td></tr>
+        <tr><td>Faucets (qty. 2)</td><td>East vanity</td><td>Rejuvenation</td><td>Monterey Single Hole Vessel Bathroom Faucet, Concretti collection</td><td>Antique Brass</td><td>Deck-mount, single-hole vessel, lever handle. Mfr. price range $399-$479 across finishes — confirm exact price for Antique Brass. <a href="https://www.rejuvenation.com/products/monterey-bath-faucet-monohole-vessel-deck-lever-handle-concretti/">Product link</a></td></tr>
+        <tr><td>Shower valve / trim + head</td><td>Shower, north wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
+        <tr><td>Shower controls</td><td>Shower, west wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
+        <tr><td>Shower drain</td><td>Shower floor, centered</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>6" sq., confirm w/ waterproofing</td></tr>
+        <tr><td>Slatted screen</td><td>Between bath &amp; closet</td><td>Andor Willow</td><td>Wood Slat Room Divider — European Oak, 9' (106.3"), 4.7" slat width</td><td>European Oak (natural, 3-coat satin clear lacquer)</td><td>Off-the-shelf rotating slat divider, MDF core w/ real oak veneer, floor-to-ceiling, patent-pending rotating hardware kit. $649/box (4 slats/box) — confirm box qty. needed for full opening width. <a href="https://andorwillow.com/products/wood-slat-room-divider?variant=43342363263139">Product link</a>. See Note 8</td></tr>
+      </table>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">PLAN SYMBOLS &amp; WALL LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#171310;"></div>4" nominal wall (new/existing — field verify with GC)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-style:dashed;"></div>Dashed outline = overhead / floating element</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#d7e6ea;"></div>Pale blue = wet zone (shower floor)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-top:3px solid #000;"></div>Heavy solid line = tempered glass panel</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#dcdcdc;"></div>Light gray fill = built-in cabinetry</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:7pt;flex:none;">#</span>Numbered bubble = keyed note (see Keynotes list)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-top:3px dashed #8a5a3a;"></div>Dashed brown line = floor material transition (tile ↔ hardwood)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:6pt;flex:none;">1</span>Elevation marker = interior elevation tag, arrow(s) show view direction (see Sheets A-102 thru A-106)</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">GENERAL NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This sheet is a design-intent floor plan prepared by the owner using AI-assisted drafting. It has not been prepared or stamped by a licensed architect or engineer.</li>
+          <li>GC to field verify all existing conditions, framing, and structural elements prior to bid and prior to demolition/construction. Report conflicts to owner before proceeding.</li>
+          <li>GC to pull all required permits and confirm compliance with local building, plumbing, mechanical, and electrical codes, including egress, GFCI/AFCI, exhaust ventilation, and accessibility clearances.</li>
+          <li>Dimensions govern over scale. If a dimension is missing, request clarification — do not scale the drawing.</li>
+          <li>All finish, fixture, and hardware selections are marked TBD on the schedule at right and will be issued by the owner/designer prior to the relevant trade's rough-in or install.</li>
+          <li>Flooring transitions from porcelain tile (bathroom) to engineered hardwood (walk-in closet) at both 28" wing-wall openings flanking the slatted screen; provide a transition/reducer strip flush with adjacent finish heights. See Finish Schedule.</li>
+          <li>Schluter DITRA-HEAT radiant floor heating (membrane, cable &amp; thermostat) runs under all tile and hardwood flooring, excluding the shower. Requires a dedicated GFCI-protected electrical circuit — coordinate thermostat location and circuit sizing with electrician. DITRA-HEAT is a tile-rated system; confirm an approved installation method under engineered hardwood directly with Stuga before installing in the closet.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop" xlink:href="#sealArcTop" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom" xlink:href="#sealArcBottom" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">FLOOR PLAN,<br>DIMENSIONS &amp;<br>FINISH LEGEND</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.17.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, STRUCTURAL FRAMING, AND CODE COMPLIANCE (EGRESS, GFCI/AFCI, EXHAUST VENTILATION, WATERPROOFING, CLEARANCES) PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-101</div>
+      <div class="of">SHEET 2 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

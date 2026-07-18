@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>190 Ravenwood Ct — Remodel Sheet Index</title>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --bg-elev: #14171c;
+    --bg-card: #181c22;
+    --bg-card-hover: #1f2530;
+    --border: #262b33;
+    --border-hover: #3a4150;
+    --text: #e8e9ec;
+    --text-dim: #9099a6;
+    --text-faint: #5c6470;
+    --accent: #c9a227;
+    --accent-dim: #8a7020;
+    --accent-glow: rgba(201, 162, 39, 0.12);
+    --primary-tag: #7fa8c9;
+    --guest-tag: #c98a7f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1180px; margin: 0 auto; padding: 56px 32px 80px; }
+
+  .masthead { display: flex; width: 100%; height: 400px; }
+
+  .masthead-info {
+    flex: 1 1 auto; min-width: 0;
+    background: linear-gradient(135deg, var(--bg-elev) 0%, var(--bg) 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px 36px;
+  }
+  .masthead-brand { display: flex; align-items: center; gap: 14px; }
+  .masthead-brand svg { width: 70px; height: 70px; flex: none; }
+  .masthead-brand-text { line-height: 1.3; }
+  .masthead-brand-name { font-size: 14px; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); }
+  .masthead-brand-sub { font-size: 11px; letter-spacing: 1px; color: var(--text-dim); }
+  .masthead-caption {
+    margin-top: 18px; max-width: 420px;
+    font-size: 12px; font-style: italic; color: var(--text-faint); line-height: 1.6;
+  }
+
+  .masthead-image {
+    position: relative; flex: 0 0 400px; width: 400px; height: 100%; overflow: hidden;
+  }
+  .masthead-media {
+    position: absolute; inset: 0;
+    background-image: url('assets/pencil-sketch-guest-bath.png');
+    background-size: cover; background-position: center 22%;
+    filter: saturate(0.85);
+  }
+  .masthead-seam {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--bg) 0%, rgba(11,13,16,0) 12%);
+  }
+  .masthead-edge {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 70px;
+    background: linear-gradient(to bottom, rgba(11,13,16,0) 0%, var(--bg) 100%);
+  }
+
+  @media (max-width: 760px) {
+    .masthead { flex-direction: column; height: auto; }
+    .masthead-image { flex: none; width: 100%; height: 220px; order: -1; }
+    .masthead-seam { background: linear-gradient(to bottom, var(--bg) 0%, rgba(11,13,16,0) 14%); }
+    .masthead-info { padding: 22px 24px; }
+    .masthead-caption { display: none; }
+  }
+
+  header { margin-bottom: 48px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 34px; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 8px 0;
+    color: #fff;
+  }
+  .subtitle { font-size: 15px; color: var(--text-dim); margin: 0 0 4px 0; }
+  .meta-row {
+    display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap;
+    font-size: 12.5px; color: var(--text-faint);
+  }
+  .meta-row span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex: none; }
+
+  .section { margin-bottom: 52px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px;
+  }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); }
+  .section-count { font-size: 12px; color: var(--text-faint); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  a.card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  a.card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(120px 80px at 0% 0%, var(--accent-glow), transparent 70%);
+    opacity: 0; transition: opacity 0.2s ease;
+  }
+  a.card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+  }
+  a.card:hover::before { opacity: 1; }
+
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; position: relative; }
+  .sheet-num {
+    font-size: 20px; font-weight: 800; letter-spacing: -0.3px; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .tag {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 4px; color: #0b0d10;
+  }
+  .tag.primary { background: var(--primary-tag); }
+  .tag.guest { background: var(--guest-tag); }
+  .tag.cover { background: var(--accent); }
+  .tag.mep { background: #9bc99f; }
+
+  .card-title { font-size: 14.5px; font-weight: 600; line-height: 1.35; margin-bottom: 6px; color: var(--text); position: relative; }
+  .card-desc { font-size: 12px; line-height: 1.5; color: var(--text-dim); position: relative; }
+
+  .card-open {
+    margin-top: 12px; font-size: 11px; font-weight: 600; color: var(--text-faint);
+    display: flex; align-items: center; gap: 5px; position: relative;
+  }
+  a.card:hover .card-open { color: var(--accent); }
+  .arrow { transition: transform 0.15s ease; }
+  a.card:hover .arrow { transform: translateX(2px); }
+
+  .note {
+    margin-top: 6px; margin-bottom: 22px;
+    font-size: 12px; color: var(--text-faint); line-height: 1.6;
+    background: var(--bg-elev); border: 1px dashed var(--border-hover);
+    border-radius: 8px; padding: 12px 16px;
+  }
+  .note b { color: var(--text-dim); }
+
+  footer {
+    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+    font-size: 11.5px; color: var(--text-faint); line-height: 1.7;
+  }
+  footer a { color: var(--text-dim); }
+
+  @media (max-width: 560px) {
+    .page { padding: 32px 18px 56px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-info">
+    <div class="masthead-brand">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g fill="none" stroke="#c9a227">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTopIdx" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottomIdx" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#c9a227">
+          <textPath href="#sealArcTopIdx" xlink:href="#sealArcTopIdx" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#c9a227">
+          <textPath href="#sealArcBottomIdx" xlink:href="#sealArcBottomIdx" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#c9a227"/>
+        <circle cx="187" cy="100" r="2.2" fill="#c9a227"/>
+        <g stroke="#c9a227" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#c9a227" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#c9a227">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#c9a227">MMXXVI</text>
+      </svg>
+      <div class="masthead-brand-text">
+        <div class="masthead-brand-name">EDI DESIGN STUDIO</div>
+        <div class="masthead-brand-sub">AI-assisted drafting</div>
+      </div>
+    </div>
+    <div class="masthead-caption">Concept sketch — Guest Bath vanity &amp; open shelving, drawn for the cover sheet (T-001).</div>
+  </div>
+  <div class="masthead-image">
+    <div class="masthead-media"></div>
+    <div class="masthead-seam"></div>
+    <div class="masthead-edge"></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">190 Ravenwood Ct · Athens, GA</div>
+    <h1>Remodel Sheet Index</h1>
+    <p class="subtitle">Mike &amp; Aimee Cornelia — Primary Bath &amp; Walk-In Closet and Guest Bath remodels</p>
+    <div class="meta-row">
+      <span><span class="dot"></span>16 sheets, 2 projects</span>
+      <span>Last updated 07.18.2026</span>
+      <span>Drawn by EDI Design Studio (AI-assisted, preliminary)</span>
+    </div>
+  </header>
+
+  <div class="note">
+    <b>How to use this page:</b> click any card below to open that sheet. Each sheet is its own self-contained file — true to scale, printable, and works straight from this folder with no internet connection needed. Bookmark this page in your browser for quick access any time. If a sheet looks out of date, check <code>PDF-STATUS.md</code> and <code>CHANGELOG.md</code> in this folder — the HTML files are always the current, source-of-truth version.
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Cover</div>
+      <div class="section-count">1 sheet — T-001</div>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="Cornelia_Cover_Sheet_T-001.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">T-001</span><span class="tag cover">Cover</span></div>
+        <div class="card-title">Cover Sheet &amp; Sheet Index</div>
+        <div class="card-desc">Project title, sheet index, and concept artwork for the combined 16-sheet package.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="section-count">6 sheets — A-101 to A-106</div>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="Cornelia_Primary_Bath_A-101.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-101</span><span class="tag primary">Plan</span></div>
+        <div class="card-title">Floor Plan, Dimensions &amp; Finish Legend</div>
+        <div class="card-desc">Master plan, dimension strings, finish &amp; fixture schedule, keynotes, elevation markers 1–5.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Primary_Bath_A-102.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-102</span><span class="tag primary">Elev.</span></div>
+        <div class="card-title">Interior Elevations — East Wall</div>
+        <div class="card-desc">Vanity, door, and PAX return (elevation 1).</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Primary_Bath_A-103.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-103</span><span class="tag primary">Elev.</span></div>
+        <div class="card-title">Interior Elevations — Shower</div>
+        <div class="card-desc">Unfolded, 3 walls: west / north (back) / east return + glass (elevation 2).</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Primary_Bath_A-104.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-104</span><span class="tag primary">Elev.</span></div>
+        <div class="card-title">Interior Elevations — West Vanity Wall</div>
+        <div class="card-desc">Makeup countertop, full 72" run, mirror + 2 pendant lights (elevation 3).</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Primary_Bath_A-105.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-105</span><span class="tag primary">Elev.</span></div>
+        <div class="card-title">Interior Elevations — South PAX Wall</div>
+        <div class="card-desc">Wardrobe run, 6 bays (elevation 4).</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Primary_Bath_A-106.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-106</span><span class="tag primary">Elev.</span></div>
+        <div class="card-title">Interior Elevations — Jog Wall</div>
+        <div class="card-desc">Open shelving + cabinet w/ door, towel warmer below (elevation 5).</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Guest Bath Remodel</div>
+      <div class="section-count">9 sheets — A-201 to A-209</div>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="Cornelia_Guest_Bath_A-201.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-201</span><span class="tag guest">Plan</span></div>
+        <div class="card-title">Floor Plan, Dimensions &amp; Finish Legend</div>
+        <div class="card-desc">Room layout, shower/toilet/vanity, full finish &amp; fixture schedule.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-202.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-202</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">Interior Elevations — North Wall, Full</div>
+        <div class="card-desc">Shower zone + toilet area together.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-203.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-203</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">Interior Elevations — East Wall</div>
+        <div class="card-desc">Toilet paper holder, towel bar/hook.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-204.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-204</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">Interior Elevations — South Wall, Door</div>
+        <div class="card-desc">Entry door and adjacent wall tile.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-205.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-205</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">Interior Elevations — Shower Enclosure</div>
+        <div class="card-desc">Unfolded, 3 walls: divider (south) / west / north.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-206.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-206</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">West Wall/Vanity + Divider Shelving</div>
+        <div class="card-desc">Combined view, unfolded at the shared corner. Full design narrative lives here.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-207.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-207</span><span class="tag guest">Elev.</span></div>
+        <div class="card-title">West Wall/Vanity + Divider Shelving</div>
+        <div class="card-desc">Same two walls as A-206, drawn as two standalone views with full independent dimensions.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-208.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-208</span><span class="tag mep">Plumb.</span></div>
+        <div class="card-title">Plumbing Plan</div>
+        <div class="card-desc">Design-intent fixture rough-in locations — toilet, vanity sink, shower valve, shower drain. Not an engineered document.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+      <a class="card" href="Cornelia_Guest_Bath_A-209.html" target="_blank" rel="noopener">
+        <div class="card-top"><span class="sheet-num">A-209</span><span class="tag mep">Elec.</span></div>
+        <div class="card-title">Electrical &amp; Lighting Plan</div>
+        <div class="card-desc">Design-intent fixture, outlet &amp; switch locations — recessed cans, pendant, mirror rope light, vanity outlets. Not an engineered document.</div>
+        <div class="card-open">Open sheet <span class="arrow">→</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>
+    This is a plain navigation page — it links to files already in this folder and doesn't store or sync anything on its own. Regenerate/update it whenever a sheet is added, renamed, or retired (see <code>CLAUDE.md</code>). Every sheet is preliminary, design-intent-only, and AI-assisted — see each sheet's own title block for the full disclaimer.
+  </footer>
+
+</div>
+
+</body>
+</html>

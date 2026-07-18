@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>T-001 Cover Sheet &amp; Sheet Index - Ravenwood Remodel</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD (cover-sheet-specific layout) ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: flex; flex-direction: column;
+  }
+
+  .cover-header { flex: none; margin-bottom: 0.22in; }
+  .cover-eyebrow { font-size: 10pt; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 5px; }
+  .cover-title { font-size: 30pt; font-weight: 800; line-height: 1.15; color: #171310; }
+  .cover-subtitle { font-size: 14pt; color: #555; margin-top: 5px; font-weight: 400; }
+  .cover-rule { border-bottom: 0.03in solid #171310; margin-top: 0.16in; }
+
+  .cover-row { flex: 1; display: flex; gap: 0.4in; min-height: 0; }
+
+  .cover-art { width: 12.6in; flex: none; }
+  .art-frame { border: 0.02in solid #171310; padding: 0.08in; }
+  .art-frame img { display: block; width: 100%; height: auto; }
+  .art-caption { font-size: 9pt; color: #555; text-align: center; margin-top: 0.1in; font-style: italic; }
+
+  .cover-right { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .about-box { border: 0.02in solid #000; padding: 0.14in 0.18in; font-size: 9.5pt; line-height: 1.6; margin-bottom: 0.26in; }
+  .about-box ul { margin: 0; padding-left: 0.2in; }
+  .about-box li { margin-bottom: 6px; }
+
+  table.idx { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  table.idx th, table.idx td { border: 0.014in solid #888; padding: 5px 8px; text-align: left; vertical-align: top; }
+  table.idx th { background: #e4e4e4; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.idx tr:nth-child(even) td { background: #f7f7f7; }
+  table.idx td.sheetno { font-weight: 700; white-space: nowrap; }
+  table.idx tr.this-sheet td { background: #efe6c8; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <div class="cover-header">
+      <div class="cover-eyebrow">190 Ravenwood Ct — Athens, GA</div>
+      <div class="cover-title">Primary Bath &amp; Guest Bath Remodel</div>
+      <div class="cover-subtitle">Cover Sheet &amp; Sheet Index — Combined 16-Sheet Package</div>
+      <div class="cover-rule"></div>
+    </div>
+
+    <div class="cover-row">
+
+      <!-- LEFT: hero artwork -->
+      <div class="cover-art">
+        <div class="art-frame">
+          <img src="assets/pencil-sketch-guest-bath.png" alt="Pencil sketch of the Guest Bath vanity and open shelving">
+        </div>
+        <div class="art-caption">Concept sketch — Guest Bath vanity &amp; open shelving. Illustrative only, not to scale; see A-201–A-207 for construction geometry.</div>
+      </div>
+
+      <!-- RIGHT: about + sheet index -->
+      <div class="cover-right">
+        <div class="col-heading">ABOUT THIS SET</div>
+        <div class="about-box">
+          <ul>
+            <li>This 16-sheet package covers two separate remodel projects at 190 Ravenwood Ct — <b>Primary Bath &amp; Walk-In Closet</b> (A-101–A-106) and <b>Guest Bath</b> (A-201–A-209) — issued together as one combined set for printing/bidding convenience.</li>
+            <li>Each project keeps its own independent sheet-number series (A-1xx / A-2xx). Only the "Sheet X of 16" footer at bottom right of every sheet runs as one continuous sequence across both — see index at right.</li>
+            <li>All sheets are <b>Preliminary — Design Intent Only</b>, prepared by the owner using AI-assisted drafting. Not prepared or stamped by a licensed architect or engineer — see disclaimer, this sheet.</li>
+            <li>GC to field verify all dimensions, existing conditions, structural framing, and code compliance prior to bid, permit, or construction.</li>
+            <li>Cover artwork is a concept sketch of the Guest Bath vanity &amp; open shelving area, prepared for this issue — illustrative only, see the individual elevation sheets for actual construction geometry and dimensions.</li>
+          </ul>
+        </div>
+
+        <div class="col-heading">SHEET INDEX</div>
+        <table class="idx">
+          <tr><th style="width:14%">Sheet</th><th style="width:20%">Project</th><th>Title</th></tr>
+          <tr class="this-sheet"><td class="sheetno">T-001</td><td>Both</td><td>Cover Sheet &amp; Sheet Index</td></tr>
+          <tr><td class="sheetno">A-101</td><td>Primary Bath</td><td>Floor Plan, Dimensions &amp; Finish Legend</td></tr>
+          <tr><td class="sheetno">A-102</td><td>Primary Bath</td><td>Interior Elevations — East Wall</td></tr>
+          <tr><td class="sheetno">A-103</td><td>Primary Bath</td><td>Interior Elevations — Shower</td></tr>
+          <tr><td class="sheetno">A-104</td><td>Primary Bath</td><td>Interior Elevations — West Vanity</td></tr>
+          <tr><td class="sheetno">A-105</td><td>Primary Bath</td><td>Interior Elevations — South PAX</td></tr>
+          <tr><td class="sheetno">A-106</td><td>Primary Bath</td><td>Interior Elevations — Jog Wall Shelving &amp; Cabinet</td></tr>
+          <tr><td class="sheetno">A-201</td><td>Guest Bath</td><td>Floor Plan, Dimensions &amp; Finish Legend</td></tr>
+          <tr><td class="sheetno">A-202</td><td>Guest Bath</td><td>Interior Elevations — North Wall, Full</td></tr>
+          <tr><td class="sheetno">A-203</td><td>Guest Bath</td><td>Interior Elevations — East Wall</td></tr>
+          <tr><td class="sheetno">A-204</td><td>Guest Bath</td><td>Interior Elevations — South Wall, Door</td></tr>
+          <tr><td class="sheetno">A-205</td><td>Guest Bath</td><td>Interior Elevations — Shower Enclosure</td></tr>
+          <tr><td class="sheetno">A-206</td><td>Guest Bath</td><td>Interior Elevations — West Wall/Vanity + Divider Wall Shelving (Combined)</td></tr>
+          <tr><td class="sheetno">A-207</td><td>Guest Bath</td><td>Interior Elevations — West Wall/Vanity + Divider Wall Shelving (Standalone)</td></tr>
+          <tr><td class="sheetno">A-208</td><td>Guest Bath</td><td>Plumbing Plan</td></tr>
+          <tr><td class="sheetno">A-209</td><td>Guest Bath</td><td>Electrical &amp; Lighting Plan</td></tr>
+        </table>
+
+        <div class="col-heading" style="margin-top:0.12in;">FLOOR PLAN CONCEPT SKETCH</div>
+        <div class="art-frame" style="width:9in; margin:0 auto;">
+          <img src="assets/guest-bath-floorplan-pencil.png" alt="Pencil sketch of the Guest Bath floor plan, with rough dimensions">
+        </div>
+        <div class="art-caption">Concept sketch — Guest Bath floor plan. Illustrative only; see A-201 for confirmed dimensions &amp; finish legend.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop001" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom001" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop001" xlink:href="#sealArcTop001" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom001" xlink:href="#sealArcBottom001" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">COVER SHEET &amp;<br>SHEET INDEX</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">N/A</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.18.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.18.2026</td><td>Initial issue for Aimee review</td></tr>
+        <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, STRUCTURAL FRAMING, AND CODE COMPLIANCE (EGRESS, GFCI/AFCI, EXHAUST VENTILATION, WATERPROOFING, CLEARANCES) PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">T-001</div>
+      <div class="of">SHEET 1 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

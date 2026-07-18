@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-208 Guest Bath - Plumbing Plan</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 3px 5px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.6pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: PLAN -->
+    <div class="plan-wrap">
+      <div class="col-heading">PLUMBING PLAN — SCALE 3/4" = 1'-0"</div>
+
+      <div class="plan-svg-holder">
+        <svg width="8.125in" height="10.9375in" viewBox="-18 -12 130 175" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+          <!-- background -->
+          <rect x="-18" y="-12" width="130" height="175" fill="#ffffff"/>
+
+          <!-- FLOOR FILL -->
+          <rect x="0" y="0" width="69.25" height="137" fill="#f2e6cf" stroke="none"/>
+
+          <!-- SHOWER WET-ZONE FILL. Width REVISED 2026-07-18 34"→36" (reused from A-201's wall-flush fix, see A-201/CHANGELOG) -->
+          <rect x="2" y="2" width="36" height="58" fill="#d7e6ea"/>
+
+          <!-- WALLS: 4" nominal (base architecture reused from A-201, unchanged) -->
+          <rect x="0" y="0" width="69.25" height="137" fill="none" stroke="#171310" stroke-width="4"/>
+
+          <!-- DOOR -->
+          <line x1="33.25" y1="137" x2="61.25" y2="137" stroke="#f2e6cf" stroke-width="4.4"/>
+          <line x1="61.25" y1="137" x2="61.25" y2="109" stroke="#4a2f1f" stroke-width="0.3"/>
+          <path d="M33.25,137 A28,28 0 0,1 61.25,109" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+
+          <!-- DIVIDER WALL (6.5" thick, reused from A-201 — see A-201 for full revision history). West end REVISED 2026-07-18: shifted x=0→2 to sit flush at the west wall's interior face instead of overlapping its centerline (same wall-flush fix as A-201). -->
+          <rect x="2" y="57.5" width="36" height="6.5" fill="#a00000" fill-opacity="0.6"/>
+
+          <!-- SHOWER GLASS. REVISED 2026-07-18: shifted 2" east (x=36→38) to stay hinged at the divider wall's corrected east corner. -->
+          <line x1="38" y1="0" x2="38" y2="27.5" stroke="#a00000" stroke-width="0.5"/>
+          <line x1="38" y1="27.5" x2="38" y2="57.5" stroke="#000000" stroke-width="0.5"/>
+          <circle cx="38" cy="57.5" r="0.5" fill="#171310"/>
+          <path d="M38,27.5 A30,30 0 0,0 8,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+          <path d="M38,27.5 A30,30 0 0,1 68,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+
+          <!-- TOILET (base outline, reused from A-201) -->
+          <rect x="45" y="2" width="15" height="28" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <rect x="47.5" y="2" width="10" height="8" fill="none" stroke="#4a2f1f" stroke-width="0.18"/>
+          <ellipse cx="52.5" cy="20" rx="7.5" ry="10" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+
+          <!-- VANITY (base outline, reused from A-201 — depth/position corrected 2026-07-18, was 24" deep and flush to wall centerline; now 19.5"D countertop, inset 2" to the wall's interior face) -->
+          <rect x="2" y="64" width="19.5" height="36" fill="#e0e0e0" stroke="#171310" stroke-width="0.25"/>
+          <rect x="2" y="100" width="19.5" height="37" fill="none" stroke="#171310" stroke-width="0.25" stroke-dasharray="1.5,1"/>
+          <line x1="2" y1="100" x2="21.5" y2="100" stroke="#8a6a3a" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
+
+          <!-- NORTH ARROW -->
+          <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="95" y1="38" x2="95" y2="20"/>
+            <path d="M91.8,27.5 L95,20 L98.2,27.5"/>
+          </g>
+          <text x="95" y="16.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" font-weight="700" fill="#7a5230">N</text>
+
+          <!-- ROOM LABEL -->
+          <text x="45" y="90" text-anchor="middle" font-family="Helvetica" font-size="4" font-weight="700" fill="#2b2117">GUEST BATH</text>
+
+          <!-- ===================== PLUMBING SYMBOLS (blue = MEP-plumbing trade color) ===================== -->
+          <g stroke="#1a5276" fill="none">
+
+            <!-- 1: Toilet closet flange / rough-in (ASSUMED position — toilet zone confirmed, exact centerline not) -->
+            <circle cx="52.5" cy="7" r="1.3" stroke-width="0.25"/>
+            <line x1="51.2" y1="7" x2="53.8" y2="7" stroke-width="0.2"/>
+            <line x1="52.5" y1="5.7" x2="52.5" y2="8.3" stroke-width="0.2"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="52.5" cy="12" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="52.5" y="12.7">1</text>
+            </g>
+
+            <!-- 2: Vanity sink supply + drain (ASSUMED centered in cabinet run, re-centered 2026-07-18 for corrected 18.5"D cabinet) -->
+            <circle cx="9.75" cy="80" r="0.9" stroke-width="0.2"/>
+            <circle cx="13.75" cy="80" r="0.9" stroke-width="0.2"/>
+            <circle cx="11.75" cy="83.5" r="1.1" stroke-width="0.25"/>
+            <line x1="10.55" y1="83.5" x2="12.95" y2="83.5" stroke-width="0.15"/>
+            <line x1="11.75" y1="82.3" x2="11.75" y2="84.7" stroke-width="0.15"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="17" cy="80" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="17" y="80.7">2</text>
+            </g>
+
+            <!-- 3: Shower valve + head (WALL CONFIRMED — divider wall north/shower-facing side; exact position TBD). Nudged +1 (x=19→20) 2026-07-18 to track the divider wall's corrected 2" east shift (still a placeholder position). -->
+            <line x1="20" y1="57.5" x2="20" y2="54.5" stroke-width="0.4"/>
+            <circle cx="20" cy="53.7" r="0.9" stroke-width="0.3"/>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="25.5" cy="55" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="25.5" y="55.7">3</text>
+            </g>
+          </g>
+
+          <!-- 4: Shower drain (location CONFIRMED, size ASSUMED — reused from A-201) -->
+          <g stroke="#1a5276" fill="none">
+            <rect x="15" y="49" width="6" height="6" stroke-width="0.25"/>
+            <line x1="15" y1="49" x2="21" y2="55" stroke-width="0.15"/>
+            <line x1="21" y1="49" x2="15" y2="55" stroke-width="0.15"/>
+          </g>
+          <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle">
+            <circle cx="9.5" cy="52" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="9.5" y="52.7">4</text>
+          </g>
+
+          <!-- ============ REFERENCE DIMENSIONS (subset carried from A-201 for orientation only — full dimension set on A-201) ============ -->
+          <g font-family="Helvetica" font-size="2" fill="#2b2117">
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="0" y1="152" x2="69.25" y2="152"/>
+              <line x1="0" y1="149" x2="0" y2="155"/>
+              <line x1="69.25" y1="149" x2="69.25" y2="155"/>
+            </g>
+            <text x="34.625" y="159" text-anchor="middle">69 1/4" OVERALL (E–W)</text>
+
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="77.25" y1="0" x2="77.25" y2="137"/>
+              <line x1="73.25" y1="0" x2="81.25" y2="0"/>
+              <line x1="73.25" y1="137" x2="81.25" y2="137"/>
+            </g>
+            <text x="85.25" y="68.5" text-anchor="middle" transform="rotate(90 85.25,68.5)">137" OVERALL (N–S)</text>
+          </g>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0"</div>
+        <div class="north-mini">▲ NORTH UP</div>
+      </div>
+
+      <div class="verify-box" style="margin-top:0.14in;">
+        <div class="hdr">DESIGN-INTENT PLUMBING PLAN — NOT AN ENGINEERED DOCUMENT</div>
+        <p style="margin:0 0 8px 0;">This sheet shows fixture rough-in/connection LOCATIONS only, based on the confirmed fixture selections and wall assignments in the Finish &amp; Fixture Schedule on A-201. It does NOT show supply or DWV piping routing, pipe sizing, vent stack layout, or valve/shutoff placement — those are trade responsibilities. It has not been prepared or stamped by a licensed plumbing engineer or plumber.</p>
+        <ol>
+          <li><b>Toilet rough-in centerline (Keynote 1)</b> — ASSUMED, centered within the placeholder toilet zone shown on A-201. Toilet itself (Kuomih HD-US-1P-8029) requires a 12" rough-in from the finished wall. Confirm exact centerline with plumber before rough-in.</li>
+          <li><b>Vanity sink supply/drain (Keynote 2)</b> — ASSUMED, centered within the 36" Teodor cabinet footprint. Sink is integral/monolithic, poured with the countertop (Modern Concrete of Athens) — exact drain/supply position depends on the countertop shop drawings, not yet available.</li>
+          <li><b>Shower valve + head wall assignment (Keynote 3)</b> — CONFIRMED on the divider wall (shower's south wall); the divider wall was thickened to 6.5" specifically to house this plumbing (see A-201/CHANGELOG). Exact mounting height and horizontal position along the wall are NOT yet specified — confirm with plumber.</li>
+          <li><b>Shower drain (Keynote 4)</b> — location CONFIRMED (south side of shower floor); size shown as a 6" sq. placeholder, not yet specified. Confirm with waterproofing installer.</li>
+        </ol>
+      </div>
+
+      <div class="keynotes">
+        <ol>
+          <li class="gen"><b>This is a design-intent plumbing plan, not an engineered document.</b> GC/plumber to verify all rough-in dimensions, pipe sizing, venting, and code compliance (IPC/local plumbing code) prior to rough-in.</li>
+          <li class="keyed">Toilet rough-in — Kuomih HD-US-1P-8029, 12" rough-in dimension. Toilet position along the north wall is a placeholder carried from A-201; confirm exact centerline with plumber before rough-in.</li>
+          <li class="keyed">Vanity sink supply/drain — sink is integral/monolithic, poured with the concrete countertop (Modern Concrete of Athens); no separate sink product. Faucet is deck-mounted (Handle Shop Couture KANE Brass Mixer Tap). Position shown is assumed/centered — confirm with plumber once countertop shop drawings are available.</li>
+          <li class="keyed">Shower valve + showerhead — Handle Shop Couture LuminaStream Shower System, wall-mounted, confirmed on the divider wall (shower's south wall). Exact mounting heights not yet specified — confirm with plumber before rough-in.</li>
+          <li class="keyed">Shower drain — location confirmed (south side of shower floor); size shown as a 6" sq. placeholder matching the primary bath. Slope shower floor to drain per waterproofing manufacturer spec; provide continuous waterproof membrane at entire shower enclosure.</li>
+          <li class="gen">Supply and DWV piping routing within walls/floor is NOT shown on this sheet — this plan indicates design-intent fixture connection points only. GC/plumber to route piping per code and actual field/framing conditions.</li>
+          <li class="gen">Provide accessible shutoff valves at each fixture per code. Confirm existing water heater capacity is adequate for this room's fixtures.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RIGHT: SCHEDULE / LEGEND / NOTES -->
+    <div class="right-col">
+      <div class="col-heading">PLUMBING FIXTURE SCHEDULE — ROUGH-IN NOTES ONLY</div>
+      <p style="font-size:8pt; color:#555; margin:0 0 0.1in 0; font-style:italic;">Full product specs, manufacturers, and purchase links are on A-201's Finish &amp; Fixture Schedule. This table covers rough-in/connection status only — refer to A-201 for everything else.</p>
+      <table class="sched">
+        <tr><th style="width:20%">Item</th><th style="width:28%">Rough-In Location</th><th style="width:26%">Status</th><th>Notes</th></tr>
+        <tr><td>Toilet</td><td>North wall, east of divider</td><td>Wall/zone confirmed; centerline <span class="tbd">ASSUMED</span></td><td>Kuomih HD-US-1P-8029, 12" rough-in. See A-201 for full spec.</td></tr>
+        <tr><td>Vanity sink</td><td>Within 36" Teodor cabinet footprint (north end)</td><td>Zone confirmed; position <span class="tbd">ASSUMED</span> (centered)</td><td>Integral/monolithic, poured w/ countertop — no separate sink product.</td></tr>
+        <tr><td>Faucet</td><td>Deck-mounted at sink</td><td>Position <span class="tbd">ASSUMED</span> (centered)</td><td>Handle Shop Couture KANE Brass Mixer Tap. Confirm w/ plumber once countertop shop drawings ready.</td></tr>
+        <tr><td>Shower valve + head</td><td>Divider wall (shower's south wall)</td><td>Wall <b>CONFIRMED</b>; height/position <span class="tbd">TBD</span></td><td>Handle Shop Couture LuminaStream, wall-mounted. Divider wall thickened to 6.5" to house this plumbing.</td></tr>
+        <tr><td>Shower drain</td><td>South side of shower floor</td><td>Location <b>CONFIRMED</b>; size <span class="tbd">ASSUMED</span> (6" sq.)</td><td>Confirm w/ waterproofing installer.</td></tr>
+      </table>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">PLAN SYMBOLS &amp; LEGEND</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.22in;height:0.22in;border-radius:50%;border:2px solid #1a5276;flex:none;"></span>Steel blue = plumbing fixture connection point (supply/drain)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#d7e6ea;"></div>Pale blue fill = wet zone (shower floor)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#e0e0e0;"></div>Light gray fill = built-in cabinetry (vanity, base architecture for reference)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:7pt;flex:none;">#</span>Numbered bubble = keyed note (see Keynotes list)</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red = assumed, needs verification. Black = confirmed. (Applies to text/labels; blue is the plumbing trade color, not a status indicator.)</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">GENERAL NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This sheet is a design-intent plumbing plan prepared by the owner using AI-assisted drafting. It has not been prepared or stamped by a licensed plumbing engineer or plumber, and does not show pipe sizing, venting, or routing.</li>
+          <li>GC/plumber to field verify all existing conditions, rough-in dimensions, and framing prior to bid and prior to rough-in. Report conflicts to owner before proceeding.</li>
+          <li>GC/plumber to pull all required permits and confirm compliance with local plumbing code (IPC or as adopted locally).</li>
+          <li>Base wall/room/fixture-silhouette geometry on this sheet is reused from A-201 for reference only — A-201 remains the sheet of record for room dimensions, wall thickness, and fixture footprints. Any conflict between this sheet and A-201 should be resolved in favor of A-201 and flagged to the designer.</li>
+          <li>All plumbing fixture selections are documented in full on A-201's Finish &amp; Fixture Schedule, including manufacturer, model/SKU, and purchase links.</li>
+          <li>Provide accessible shutoffs at each fixture. Confirm existing supply line sizing and water heater capacity are adequate for this room prior to rough-in.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop208" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom208" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop208" xlink:href="#sealArcTop208" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom208" xlink:href="#sealArcBottom208" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">PLUMBING<br>PLAN</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.18.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.18.2026</td><td>Initial issue for GC review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      NOT AN ENGINEERED PLUMBING DOCUMENT — SHOWS FIXTURE ROUGH-IN LOCATIONS ONLY, NOT PIPE SIZING, VENTING, OR ROUTING. GC/PLUMBER TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, AND CODE COMPLIANCE PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-208</div>
+      <div class="of">SHEET 15 OF 16</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

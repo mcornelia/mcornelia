@@ -4,6 +4,7 @@
 User-agent: *
 Allow: /
 Disallow: /collection/
+Disallow: /EDI/
 
 # Sitemap location
 Sitemap: https://mcornelia.com/sitemap.xml
