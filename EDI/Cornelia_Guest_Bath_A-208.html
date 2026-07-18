@@ -113,11 +113,20 @@
     html, body { background: #fff; }
     .sheet { margin: 0; border: none; }
   }
+
+  /* DRAFT / WORK-IN-PROGRESS WATERMARK — added 2026-07-18 per owner: this sheet needs more design work before it's treated as final, even though it's live on the public website mirror alongside the more-finished sheets. Semi-transparent, non-printing-obstructive, sits above all content. */
+  .draft-watermark {
+    position: absolute; top: 50%; left: 41.5%; transform: translate(-50%, -50%) rotate(-35deg);
+    font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
+  }
 </style>
 </head>
 <body>
 
 <div class="sheet">
+
+  <div class="draft-watermark">DRAFT</div>
 
   <!-- ============================= MAIN FIELD ============================= -->
   <div class="main-field">
@@ -390,6 +399,7 @@
     </div>
 
     <div class="tb-stamp">
+      DRAFT — WORK IN PROGRESS. NOT YET READY FOR PRINT/GC PACKAGE.<br>
       PRELIMINARY — DESIGN INTENT ONLY.<br>
       NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
       NOT AN ENGINEERED PLUMBING DOCUMENT — SHOWS FIXTURE ROUGH-IN LOCATIONS ONLY, NOT PIPE SIZING, VENTING, OR ROUTING. GC/PLUMBER TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, AND CODE COMPLIANCE PRIOR TO BID, PERMIT, OR CONSTRUCTION.
