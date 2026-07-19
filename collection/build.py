@@ -353,20 +353,33 @@ def render_index(items):
 
 
 MATERIAL_TIERS = {
-    "Marine mammal material (whale tooth / walrus ivory or bone)": [
-        "RHC-001", "RHC-006", "RHC-007", "RHC-008", "RHC-010", "RHC-011",
-        "RHC-017", "RHC-019", "RHC-021", "RHC-022", "RHC-023", "RHC-024",
+    "Marine mammal material (sperm whale tooth / walrus ivory or bone)": [
+        "RHC-001", "RHC-005", "RHC-008", "RHC-009", "RHC-010", "RHC-011",
+        "RHC-012", "RHC-017", "RHC-019", "RHC-021", "RHC-022", "RHC-028",
+        "RHC-043",
     ],
-    "Likely mammoth ivory": ["RHC-014", "RHC-020", "RHC-043"],
+    "Confirmed elephant ivory": ["RHC-026", "RHC-054"],
+    "Confirmed or likely mammoth ivory": ["RHC-014", "RHC-020"],
+    "Presumed elephant ivory (per Richard H. Cornelia — not walrus, not bone)": [
+        "RHC-024",
+    ],
+    "Hippopotamus ivory — CITES Appendix II, not MMPA (per Richard H. Cornelia, corrected 2026-07-19)": [
+        "RHC-023",
+    ],
+    "Confirmed non-marine-mammal / unidentified canine tooth (per Richard H. Cornelia — too small for sperm whale)": [
+        "RHC-006", "RHC-007",
+    ],
     "Confirmed horn (not ivory)": ["RHC-002"],
-    "Unresolved — presumed ivory or bone, species not confirmed": [
-        "RHC-003", "RHC-004", "RHC-005", "RHC-009", "RHC-012", "RHC-013",
-        "RHC-015", "RHC-016", "RHC-018", "RHC-025", "RHC-026", "RHC-027",
-        "RHC-028", "RHC-029", "RHC-030", "RHC-031", "RHC-032", "RHC-033",
+    "Confirmed elk antler (not ivory or bone) — the only antler item in the collection": [
+        "RHC-027",
+    ],
+    "Unresolved — presumed ivory, species not confirmed": [
+        "RHC-003", "RHC-004", "RHC-013", "RHC-015", "RHC-016", "RHC-018",
+        "RHC-025", "RHC-029", "RHC-030", "RHC-031", "RHC-032", "RHC-033",
         "RHC-034", "RHC-035", "RHC-036", "RHC-037", "RHC-038", "RHC-039",
         "RHC-040", "RHC-041", "RHC-042", "RHC-044", "RHC-045", "RHC-046",
         "RHC-047", "RHC-048", "RHC-049", "RHC-050", "RHC-051", "RHC-052",
-        "RHC-053", "RHC-054", "RHC-055",
+        "RHC-053", "RHC-055",
     ],
 }
 
