@@ -141,7 +141,7 @@
           <!-- DOOR: east wall, 32" opening, hinge north jamb, swings in -->
           <line x1="155" y1="100" x2="155" y2="132" stroke="#f2e6cf" stroke-width="4.4"/>
           <line x1="155" y1="100" x2="123" y2="100" stroke="#4a2f1f" stroke-width="0.3"/>
-          <path d="M155,132 A32,32 0 0,0 123,100" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+          <path d="M155,132 A32,32 0 0,1 123,100" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
 
           <!-- SHOWER EAST RETURN WALL (solid, 4x24) -->
           <rect x="94" y="2" width="4" height="24" fill="#171310"/>
@@ -360,13 +360,13 @@
             <text x="34" y="94.8" text-anchor="middle" fill="#8a5a3a" font-size="1">TOWEL WARMER, SEE SCHED.</text>
           </g>
 
-          <!-- INTERIOR ELEVATION MARKER 5: jog wall (open shelving + door cabinet + towel warmer), view direction points north (-y) toward the wall — restored 2026-07-17 (3rd correction), this wall/sheet is active again. Positioned at x=15 (west bay) to clear both the bay divider (x=23.5) and Marker 3 at (35,102) — caught via screenshot QA, an earlier x=32 placement collided directly with Marker 3 -->
+          <!-- INTERIOR ELEVATION MARKER 5: jog wall (open shelving + door cabinet + towel warmer), view direction points north (-y) toward the wall — restored 2026-07-17 (3rd correction), this wall/sheet is active again. Positioned at x=15 (west bay) to clear both the bay divider (x=23.5) and Marker 3 at (35,102) — caught via screenshot QA, an earlier x=32 placement collided directly with Marker 3. Arrow shaft shortened 2026-07-18 (was 40.8 units, running all the way to the wall at y=64 — inconsistent with every other marker on this sheet, which use short 5-13 unit gesture arrows that stop well short of the wall they reference; see CHANGELOG) -->
           <g font-family="Helvetica" fill="#171310" text-anchor="middle">
             <circle cx="15" cy="108" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
             <line x1="11.8" y1="108" x2="18.2" y2="108" stroke="#171310" stroke-width="0.15"/>
             <text x="15" y="107.3" font-size="2">5</text>
             <text x="15" y="110.4" font-size="1.4">A-106</text>
-            <path d="M15,104.8 L15,64 M15,64 L13,67 M15,64 L17,67" fill="none" stroke="#171310" stroke-width="0.25"/>
+            <path d="M15,104.8 L15,94.8 M15,94.8 L13,97.8 M15,94.8 L17,97.8" fill="none" stroke="#171310" stroke-width="0.25"/>
           </g>
 
           <!-- INTERIOR ELEVATION MARKER 1: tags the east wall, view direction points east (+x) toward the wall -->
