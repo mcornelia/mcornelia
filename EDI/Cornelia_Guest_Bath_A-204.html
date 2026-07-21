@@ -152,7 +152,7 @@
           <rect x="0" y="50.8" width="8" height="0.4" fill="#1a1a1a" stroke="none"/>
           <rect x="36" y="50.8" width="33.25" height="0.4" fill="#1a1a1a" stroke="none"/>
 
-          <!-- DOOR: 28" opening, hinge EAST jamb (local_x=8, since facing south east=left), swings in (north/toward viewer). 80" AFF standard height ASSUMED. room x=33.25-61.25 -> local_x = 69.25-room_x -> 8 to 36 -->
+          <!-- DOOR: EXISTING DOOR — TO REMAIN, not a new fixture (confirmed by owner 2026-07-20: "the existing door is new/good, keep existing door and hardware"). 28" opening, hinge EAST jamb (local_x=8, since facing south east=left), swings in (north/toward viewer). 80" AFF height shown is a schematic placeholder — exact existing height not field-measured (no as-built survey exists for this project, same caveat as D-201). room x=33.25-61.25 -> local_x = 69.25-room_x -> 8 to 36 -->
           <rect x="8" y="19" width="28" height="80" fill="#e7ddc8" stroke="#4a2f1f" stroke-width="0.3"/>
           <line x1="8" y1="19" x2="36" y2="19" stroke="#4a2f1f" stroke-width="0.4"/>
           <!-- hinge jamb tick marks (east jamb, local_x=8) -->
@@ -161,10 +161,18 @@
             <line x1="8" y1="55" x2="6.6" y2="55"/>
             <line x1="8" y1="80" x2="6.6" y2="80"/>
           </g>
-          <!-- door knob/lever, opposite hinge side (west jamb area, ~3" in from edge, standard 36-38" AFF) -->
+          <!-- existing door knob/lever, opposite hinge side (west jamb area, ~3" in from edge, standard 36-38" AFF) — shown schematically; existing hardware to remain, not a new product -->
           <circle cx="33" cy="61" r="0.55" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
           <!-- door panel detail lines (simple flush/2-panel suggestion) -->
           <rect x="11" y="24" width="22" height="70" fill="none" stroke="#a8916d" stroke-width="0.1"/>
+
+          <!-- OUTLET — NEW 2026-07-20 per owner: mirrors the divider-wall/shelf-nook outlet on A-206/A-207, same 9.75" offset from the west wall's interior face and same 42" AFF height. Room-plan x=11.75 (2" west-wall inset + 9.75") -> this sheet's reversed local_x = 69.25-11.75 = 57.5, well clear of the door (local_x 8-36). -->
+          <rect x="56.3" y="55.8" width="2.4" height="2.4" rx="0.3" fill="#f3efe6" stroke="#171310" stroke-width="0.18"/>
+          <rect x="56.9" y="56.3" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="57.8" y="56.3" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="56.9" y="57.4" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="57.8" y="57.4" width="0.5" height="0.7" fill="#171310"/>
+          <text x="57.5" y="60.2" text-anchor="middle" font-family="Helvetica" font-size="1.1" fill="#333">OUTLET, SEE SCHED.</text>
 
           <!-- ================= AFF HEIGHT LADDER (right side) ================= -->
           <g font-family="Helvetica" font-size="1.9">
@@ -174,18 +182,20 @@
               <text x="80" y="0.8">99" CLG</text>
               <line x1="72" y1="51" x2="78" y2="51"/>
               <text x="80" y="51.8">48" TILE BAND SPLIT + TRIM</text>
+              <line x1="72" y1="57" x2="78" y2="57"/>
+              <text x="80" y="61.5">42" OUTLET</text>
               <line x1="72" y1="99" x2="78" y2="99"/>
               <text x="80" y="99.8">0" FLOOR</text>
             </g>
             <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
               <line x1="72" y1="19" x2="78" y2="19"/>
-              <text x="80" y="19.8">80" DOOR HEAD (ASSUMED)</text>
+              <text x="80" y="19.8">80" EXIST. DOOR HEAD (VERIFY)</text>
             </g>
           </g>
 
           <!-- ================= ZONE LABELS (below elevation) ================= -->
           <text x="34.6" y="107" text-anchor="middle" font-family="Helvetica" font-size="2" fill="#333">SOUTH WALL — 69.25" (FULL ROOM WIDTH)</text>
-          <text x="34.6" y="110.5" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#a00000">28" door opening, hinge east jamb, swings in — door/hardware product TBD</text>
+          <text x="34.6" y="110.5" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#2b2117">28" door opening, hinge east jamb, swings in — EXISTING DOOR &amp; HARDWARE, TO REMAIN</text>
 
           <!-- overall width dimension -->
           <g stroke="#555" stroke-width="0.12">
@@ -232,8 +242,8 @@
           <!-- south wall highlighted -->
           <line x1="1.5" y1="135.5" x2="67.75" y2="135.5" stroke="#a00000" stroke-width="4"/>
           <g stroke="#a00000" stroke-width="2" fill="none">
-            <line x1="34.6" y1="118" x2="34.6" y2="106"/>
-            <path d="M31.1,110 L34.6,106 L38.1,110"/>
+            <line x1="34.6" y1="106" x2="34.6" y2="118"/>
+            <path d="M31.1,114 L34.6,118 L38.1,114"/>
           </g>
           <circle cx="34.6" cy="94" r="8" fill="#fff" stroke="#171310" stroke-width="1.3"/>
           <line x1="27.6" y1="94" x2="41.6" y2="94" stroke="#171310" stroke-width="0.7"/>
@@ -244,13 +254,14 @@
 
       <div class="verify-box">
         <div class="hdr">DIMENSIONS TO VERIFY</div>
-        <p style="margin:0 0 8px 0;">This elevation is new (2026-07-17), drafted from A-201's Finish &amp; Fixture Schedule and Mike's tile-scope direction. Door position/hinge is confirmed; the door product itself and its exact height are not:</p>
+        <p style="margin:0 0 8px 0;">This elevation is new (2026-07-17), drafted from A-201's Finish &amp; Fixture Schedule and Mike's tile-scope direction. Door position/hinge is confirmed. <b>Door and hardware are EXISTING, confirmed 2026-07-20 by owner to remain</b> (not a new product to select) — only the exact existing height is unverified:</p>
         <ol>
-          <li><b>Door height</b> (assumed 80" AFF standard) — not specified in the source walkthrough.</li>
-          <li><b>Door + hardware product</b> — TBD, see A-201 Finish &amp; Fixture Schedule ("Door + hardware" row). Knob/lever shown schematically at 36"-38" AFF, standard placeholder height.</li>
+          <li><b>Door height</b> (shown at a schematic 80" AFF) — existing door, not yet field-measured. No as-built survey exists for this project (same caveat as D-201); confirm actual height in field before finalizing trim/tile layout above the door head.</li>
+          <li><b>Door + hardware</b> — EXISTING, TO REMAIN, confirmed 2026-07-20 ("the existing door is new/good, keep existing door and hardware"). See A-201 Finish &amp; Fixture Schedule ("Door + hardware" row). Knob/lever shown schematically at 36"-38" AFF, standard placeholder height — exact existing position not field-measured.</li>
           <li><b>Tile band split height</b> (48" AFF, 2 courses of 24" Stonehenge) — CONFIRMED per owner 2026-07-17.</li>
           <li><b>Wall tile transition trim</b> — CONFIRMED 2026-07-17 (Aimee): Schluter Quadec, Model Q100MGS, Matte Black, 3/8" profile, at the band split (outside the door footprint only). See A-201 schedule ("Wall tile transition trim" row) for full product detail.</li>
           <li><b>Door opening/hinge</b> (28" wide, hinge east jamb, swings in) — CONFIRMED by owner 2026-07-17, matches A-201 plan.</li>
+          <li><b>Outlet, west end of wall</b> (42" AFF) — NEW 2026-07-20 per owner: mirrors the shelf-nook outlet on A-206/A-207, same 9.75" offset from the west wall and same 42" AFF height. Originally directed to the vanity wall (A-206), then corrected to this wall (A-204) same day. Exact product per A-201's Finish & Fixture Schedule; exact mounting height shown is EDI's placeholder, not yet field-verified.</li>
         </ol>
       </div>
 
@@ -258,8 +269,9 @@
         <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Wall tile, lower band — Bond Tile Stonehenge 24x24, Silver (0"-48" AFF)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6;"></div>Wall tile, upper band — Bedrosians Sahara 1"x12" mosaic, White, vertical (48"-99" AFF)</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#e7ddc8;"></div>Door panel — product/finish TBD</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#e7ddc8;"></div>Door panel — EXISTING door, to remain (not a new product)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#1a1a1a;"></div>Schluter Quadec trim, Matte Black, 3/8" — at the band split, outside the door opening</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6; border:1px solid #171310;"></div>Duplex outlet, see Finish & Fixture Schedule (A-201) — exact product/height TBD</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
         <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
       </div>
@@ -269,8 +281,9 @@
         <ol>
           <li>This elevation is a companion to Sheet A-201 (Floor Plan). Refer to A-201 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule. <b>A-201 itself was not modified to produce this sheet.</b></li>
           <li>Elevation shown is the full south wall (69.25" wide, full room width), viewed looking south from inside the room. See Key Plan, this sheet.</li>
-          <li>Door: 28" opening, hinge at east jamb (local left side of this elevation), swings in/north — position and swing confirmed by owner 2026-07-17, matches A-201 plan. Door product, style, and hardware are TBD (see A-201 Finish &amp; Fixture Schedule). Door height shown at an assumed 80" AFF standard.</li>
+          <li>Door: 28" opening, hinge at east jamb (local left side of this elevation), swings in/north — position and swing confirmed by owner 2026-07-17, matches A-201 plan. <b>Door and hardware are EXISTING, confirmed 2026-07-20 by owner to remain</b> (see A-201 Finish &amp; Fixture Schedule) — not a new product to select. Door height shown at a schematic 80" AFF; exact existing height not yet field-measured.</li>
           <li>Tile scope confirmed by owner 2026-07-17: large-format Bond Tile Stonehenge (Silver, same as floor) from floor to 48" AFF (2 courses), transitioning to Bedrosians Sahara 1"x12" vertical mosaic (White) from 48" AFF to the ceiling (99" AFF), around the door opening, with a Schluter Quadec trim strip (Matte Black, 3/8") at the transition outside the door footprint — confirmed by Aimee 2026-07-17. This 2-band design applies to every wall in this room OUTSIDE the shower enclosure (see A-205 for the shower's own full-height single-tile scope).</li>
+          <li><b>Outlet added 2026-07-20</b> per owner: mirrors the shelf-nook outlet on A-206/A-207 (see Finish & Fixture Schedule, A-201) — same 9.75" offset from the west wall and 42" AFF height, positioned west of the door, clear of the door swing.</li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
       </div>
@@ -347,12 +360,12 @@
     <div class="tb-stamp">
       PRELIMINARY — DESIGN INTENT ONLY.<br>
       NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
-      DOOR HEIGHT AND HARDWARE ARE ASSUMED/TBD (SEE RED CALLOUTS) — CONFIRM BEFORE ORDERING.
+      DOOR AND HARDWARE ARE EXISTING, TO REMAIN — NOT A NEW PRODUCT. EXACT EXISTING HEIGHT SHOWN SCHEMATICALLY, NOT FIELD-MEASURED — VERIFY IN FIELD.
     </div>
 
     <div class="tb-sheetno">
       <div class="num">A-204</div>
-      <div class="of">SHEET 11 OF 16</div>
+      <div class="of">SHEET 12 OF 17</div>
     </div>
   </div>
 

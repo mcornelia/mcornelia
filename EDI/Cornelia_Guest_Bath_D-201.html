@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>D-201 Guest Bath - Demolition Plan</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #a00000; color: #a00000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 3px 5px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.6pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: PLAN -->
+    <div class="plan-wrap">
+      <div class="col-heading">DEMOLITION PLAN — SCALE 3/4" = 1'-0"</div>
+
+      <div class="plan-svg-holder">
+        <svg width="8.125in" height="10.9375in" viewBox="-18 -12 130 175" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+          <defs>
+            <clipPath id="clipExistWall"><rect x="2" y="58" width="63.25" height="6"/></clipPath>
+            <clipPath id="clipTub"><rect x="4" y="4" width="32" height="54" rx="3" ry="3"/></clipPath>
+            <clipPath id="clipVanity"><rect x="2" y="64" width="24" height="73"/></clipPath>
+          </defs>
+
+          <!-- background -->
+          <rect x="-18" y="-12" width="130" height="175" fill="#ffffff"/>
+
+          <!-- FLOOR FILL (simple rectangle, north at top) — room shell unchanged by this remodel; same 137"x69.25" footprint as A-201 -->
+          <rect x="0" y="0" width="69.25" height="137" fill="#f7f5f0" stroke="none"/>
+
+          <!-- PERIMETER WALLS: EXISTING, TO REMAIN. 4" nominal (ASSUMED thickness, matches A-201) -->
+          <rect x="0" y="0" width="69.25" height="137" fill="none" stroke="#171310" stroke-width="4"/>
+
+          <!-- SOUTH ENTRY DOOR: EXISTING, TO REMAIN — same opening as shown new on A-201 (28" opening, hinge east jamb, 8" from east wall). This is the room's exterior/hallway entry, not part of this demo scope. -->
+          <line x1="33.25" y1="137" x2="61.25" y2="137" stroke="#f7f5f0" stroke-width="4.4"/>
+          <line x1="61.25" y1="137" x2="61.25" y2="109" stroke="#4a2f1f" stroke-width="0.3"/>
+          <path d="M33.25,137 A28,28 0 0,1 61.25,109" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+          <text x="47.25" y="126" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#5c5c5c">ENTRY DOOR — EXISTING, TO REMAIN</text>
+
+          <!-- ================= DEMOLITION ITEMS ================= -->
+
+          <!-- 1. EXISTING INTERIOR PARTITION WALL W/ DOOR — TO BE REMOVED IN ENTIRETY. Per owner (2026-07-20): "The door in the middle of the room between the vanity area and the shower/toilet area -- that entire wall needs to be removed." Position/thickness SCHEMATIC ONLY — set at the same general latitude as the new divider wall shown on A-201 (y=57.5-64) for reference; this is NOT a survey of the actual existing wall. Spans the full room width, west wall to east wall. -->
+          <rect x="2" y="58" width="63.25" height="6" fill="#f2c9c9" stroke="#a00000" stroke-width="0.35"/>
+          <g stroke="#a00000" stroke-width="0.15" clip-path="url(#clipExistWall)">
+            <line x1="-10" y1="70" x2="10" y2="50"/>
+            <line x1="-6" y1="70" x2="14" y2="50"/>
+            <line x1="-2" y1="70" x2="18" y2="50"/>
+            <line x1="2" y1="70" x2="22" y2="50"/>
+            <line x1="6" y1="70" x2="26" y2="50"/>
+            <line x1="10" y1="70" x2="30" y2="50"/>
+            <line x1="14" y1="70" x2="34" y2="50"/>
+            <line x1="18" y1="70" x2="38" y2="50"/>
+            <line x1="22" y1="70" x2="42" y2="50"/>
+            <line x1="26" y1="70" x2="46" y2="50"/>
+            <line x1="30" y1="70" x2="50" y2="50"/>
+            <line x1="34" y1="70" x2="54" y2="50"/>
+            <line x1="38" y1="70" x2="58" y2="50"/>
+            <line x1="42" y1="70" x2="62" y2="50"/>
+            <line x1="46" y1="70" x2="66" y2="50"/>
+            <line x1="50" y1="70" x2="70" y2="50"/>
+            <line x1="54" y1="70" x2="74" y2="50"/>
+            <line x1="58" y1="70" x2="78" y2="50"/>
+            <line x1="62" y1="70" x2="82" y2="50"/>
+          </g>
+          <!-- Existing door opening within this wall — APPROXIMATE location only, east portion (between where the new divider wall's east edge lands and the east wall). Owner: "goes from the right edge of the divider wall to the east wall." No swing direction specified — omitted rather than guessed. -->
+          <rect x="40" y="58" width="25.25" height="6" fill="#ffffff" stroke="#a00000" stroke-width="0.25" stroke-dasharray="1,0.7"/>
+          <text x="52.6" y="61.8" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000">DOOR OPENING</text>
+          <line x1="52" y1="58" x2="52" y2="47" stroke="#a00000" stroke-width="0.1"/>
+          <text x="52" y="42" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000" font-weight="700">① EXISTING WALL + DOOR —</text>
+          <text x="52" y="45.5" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000" font-weight="700">REMOVE ENTIRE WALL (FULL WIDTH)</text>
+
+          <!-- 2. EXISTING TUB/SHOWER COMBO — TO BE REMOVED, incl. surround. Located where the new walk-in shower is going (NW zone). Size/position SCHEMATIC (typical 30"x54" alcove tub shown for reference) — not a survey. -->
+          <rect x="4" y="4" width="32" height="54" rx="3" ry="3" fill="#f2c9c9" stroke="#a00000" stroke-width="0.35"/>
+          <rect x="4" y="4" width="32" height="8" rx="3" ry="3" fill="#e6b3b3" stroke="#a00000" stroke-width="0.2"/>
+          <g stroke="#a00000" stroke-width="0.15" clip-path="url(#clipTub)">
+            <line x1="-10" y1="70" x2="10" y2="-10"/>
+            <line x1="-4" y1="70" x2="16" y2="-10"/>
+            <line x1="2" y1="70" x2="22" y2="-10"/>
+            <line x1="8" y1="70" x2="28" y2="-10"/>
+            <line x1="14" y1="70" x2="34" y2="-10"/>
+            <line x1="20" y1="70" x2="40" y2="-10"/>
+            <line x1="26" y1="70" x2="46" y2="-10"/>
+            <line x1="32" y1="70" x2="52" y2="-10"/>
+            <line x1="38" y1="70" x2="58" y2="-10"/>
+          </g>
+          <text x="20" y="32" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#a00000" font-weight="700" transform="rotate(-90 20,32)">② EXISTING TUB/SHOWER COMBO — REMOVE</text>
+
+          <!-- 3. EXISTING VANITY CABINETRY — TO BE REMOVED IN ENTIRETY, incl. countertop/sink/faucet. Located along the west wall where the new vanity is going. Extent SCHEMATIC (full-length run, 24" typical depth shown for reference) — not a survey. -->
+          <rect x="2" y="64" width="24" height="73" fill="#f2c9c9" stroke="#a00000" stroke-width="0.35"/>
+          <g stroke="#a00000" stroke-width="0.15" clip-path="url(#clipVanity)">
+            <line x1="-10" y1="70" x2="30" y2="30"/>
+            <line x1="-10" y1="80" x2="40" y2="30"/>
+            <line x1="-10" y1="90" x2="50" y2="30"/>
+            <line x1="-10" y1="100" x2="60" y2="30"/>
+            <line x1="-10" y1="110" x2="60" y2="40"/>
+            <line x1="-10" y1="120" x2="60" y2="50"/>
+            <line x1="-10" y1="130" x2="60" y2="60"/>
+            <line x1="-10" y1="140" x2="60" y2="70"/>
+            <line x1="-10" y1="150" x2="60" y2="80"/>
+            <line x1="-10" y1="160" x2="60" y2="90"/>
+            <line x1="0" y1="170" x2="60" y2="100"/>
+            <line x1="10" y1="170" x2="60" y2="110"/>
+          </g>
+          <text x="13" y="112" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000" font-weight="700" transform="rotate(-90 13,112)">③ VANITY CABINETRY — REMOVE</text>
+
+          <!-- 4. EXISTING SOFFIT ABOVE VANITY, W/ INTEGRATED LIGHT FIXTURES — TO BE REMOVED, ceiling made flush. Overhead item — shown dashed only (not floor-level hatch), same zone as the vanity cabinetry below it. Extent SCHEMATIC — not a survey. Label placed OUTSIDE the hatch (open floor area east of the soffit outline) with a leader line, to avoid colliding with the Item 3 vanity-cabinetry label directly below it. -->
+          <rect x="0" y="64" width="30" height="73" fill="none" stroke="#a00000" stroke-width="0.3" stroke-dasharray="1.5,1"/>
+          <line x1="30" y1="80" x2="40" y2="80" stroke="#a00000" stroke-width="0.1"/>
+          <text x="41" y="80.6" text-anchor="start" font-family="Helvetica" font-size="1.35" fill="#a00000" font-weight="700">④ SOFFIT ABOVE, W/ LIGHT</text>
+          <text x="41" y="83" text-anchor="start" font-family="Helvetica" font-size="1.35" fill="#a00000" font-weight="700">FIXTURES — REMOVE</text>
+          <text x="41" y="85.4" text-anchor="start" font-family="Helvetica" font-size="1.1" fill="#a00000">(SHOWN DASHED, OVERHEAD)</text>
+
+          <!-- NORTH ARROW -->
+          <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="95" y1="38" x2="95" y2="20"/>
+            <path d="M91.8,27.5 L95,20 L98.2,27.5"/>
+          </g>
+          <text x="95" y="16.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" font-weight="700" fill="#7a5230">N</text>
+
+          <!-- ROOM LABEL -->
+          <text x="45" y="90" text-anchor="middle" font-family="Helvetica" font-size="4" font-weight="700" fill="#8a8a8a">GUEST BATH — EXISTING</text>
+
+          <!-- Zone labels for orientation, matching Mike's own terms -->
+          <text x="52.5" y="30" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#5c5c5c">"SHOWER / TOILET AREA" (per owner)</text>
+          <text x="14" y="80" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#5c5c5c">"VANITY AREA" (per owner)</text>
+
+          <!-- ============ DIMENSIONS (shell only — same confirmed room shell as A-201) ============ -->
+          <g font-family="Helvetica" font-size="2" fill="#2b2117">
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="0" y1="152" x2="69.25" y2="152"/>
+              <line x1="0" y1="149" x2="0" y2="155"/>
+              <line x1="69.25" y1="149" x2="69.25" y2="155"/>
+            </g>
+            <text x="34.625" y="159" text-anchor="middle">69 1/4" OVERALL (E–W)</text>
+
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="77.25" y1="0" x2="77.25" y2="137"/>
+              <line x1="73.25" y1="0" x2="81.25" y2="0"/>
+              <line x1="73.25" y1="137" x2="81.25" y2="137"/>
+            </g>
+            <text x="85.25" y="68.5" text-anchor="middle" transform="rotate(90 85.25,68.5)">137" OVERALL (N–S)</text>
+          </g>
+
+        </svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0" (same scale as Sheet A-201)</div>
+        <div class="north-mini">▲ NORTH UP</div>
+      </div>
+
+      <div class="verify-box" style="margin-top:0.14in;">
+        <div class="hdr">EXISTING CONDITIONS — NOT SURVEYED</div>
+        <p style="margin:0 0 8px 0;">This project has no as-built/existing-conditions survey — every item on this sheet is drawn <b>schematically</b>, from the owner's verbal description, at the SAME room shell/shape used on A-201 (which is itself the post-remodel design, not an as-built). Positions, sizes, and thicknesses shown in red are placeholders only. <b>GC must field verify all existing conditions before demolition</b> — see General Notes.</p>
+        <ol>
+          <li><b>Existing interior wall + door</b> — owner: "The door in the middle of the room between the vanity area and the shower/toilet area -- that entire wall needs to be removed." Drawn at the same general latitude as the new divider wall on A-201 (y=57.5"-64" from north wall) purely for reference — this is NOT confirmation that the existing wall sits exactly there. Door's position within the wall (east portion) is approximate, per owner: "goes from the right edge of the divider wall to the east wall." Swing direction not specified — omitted rather than guessed.</li>
+          <li><b>Existing tub/shower combo</b> — owner: "There is a tub+shower surround combo where the shower will be going -- that tub+shower surround needs to be removed." Drawn as a generic 30"x54" alcove tub within the NW zone (where the new walk-in shower goes) for reference only — exact size/position/orientation not specified.</li>
+          <li><b>Existing vanity cabinetry</b> — owner: "All existing cabinetry in the existing vanity area." Drawn as a full-length run along the west wall (matching the new vanity's footprint) at a generic 24" depth — exact extent/configuration not specified.</li>
+          <li><b>Existing soffit + light fixtures</b> — owner: "There is a soffit above the vanity area that has light fixtures in it today -- that needs to be removed." Drawn as an overhead (dashed) zone matching the vanity cabinetry footprint below it — exact extent not specified.</li>
+          <li><b>Room shell (perimeter walls, ceiling height, south entry door)</b> is assumed UNCHANGED by this remodel — carried over from A-201's confirmed shell. If any perimeter wall or the entry door is also changing, this sheet needs an update — confirm with owner.</li>
+          <li><b>No other existing fixtures itemized.</b> Only the four items above were called out by the owner. If an existing toilet, additional cabinetry, or other fixture also needs removal, confirm scope and add to this sheet before issuing for demo.</li>
+        </ol>
+      </div>
+
+      <div class="keynotes">
+        <ol>
+          <li class="gen"><b>Verify all existing conditions in field</b> prior to bid and prior to any demolition. This sheet is schematic — see "Existing Conditions — Not Surveyed" box above.</li>
+          <li class="keyed">Existing interior partition wall, full room width, with existing door — remove entirely down to subfloor/framing. The new divider wall shown on A-201/A-206/A-207 is NEW construction, rebuilt after this demo, at a similar (not identical) location for part of this wall's run only — the remainder (east of the new divider wall) is NOT rebuilt; that area becomes open room per A-201.</li>
+          <li class="keyed">Existing tub/shower combo (surround, valve/trim, drain) — remove entirely, including waterproofing/backer down to framing, in preparation for the new walk-in shower shown on A-201/A-205.</li>
+          <li class="keyed">Existing vanity cabinetry — remove entirely, including countertop, sink, faucet, and any backsplash, in preparation for the new vanity shown on A-201/A-206/A-207.</li>
+          <li class="keyed">Existing soffit above the vanity area, with integrated light fixtures — remove entirely; patch/finish ceiling flush and smooth, matching the rest of the room's ceiling. Cap/relocate any electrical per code — coordinate with new lighting layout on A-201/A-209.</li>
+          <li class="gen">Cap, relocate, or extend any plumbing and electrical serving demolished items per the new layout on A-201/A-208/A-209 — coordinate with plumber/electrician before demo begins.</li>
+          <li class="gen">Protect all surfaces/fixtures to remain (perimeter walls, entry door, floor structure) during demolition. Confirm with owner before removing anything not explicitly called out on this sheet.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RIGHT: DEMOLITION ITEM LIST / LEGEND / NOTES -->
+    <div class="right-col">
+      <div class="col-heading">DEMOLITION ITEM LIST</div>
+      <table class="sched">
+        <tr><th style="width:8%">#</th><th style="width:24%">Item</th><th style="width:30%">Location</th><th>Scope / Notes</th></tr>
+        <tr><td>①</td><td>Interior partition wall + door</td><td>Full room width, separating existing vanity area from shower/toilet area</td><td>Remove wall AND door entirely, down to subfloor/framing. Position/thickness schematic — field verify. See Keynote 2.</td></tr>
+        <tr><td>②</td><td>Tub/shower combo</td><td>NW zone — where the new walk-in shower is going</td><td>Remove entirely, incl. surround, valve/trim, and drain. Size schematic — field verify. See Keynote 3.</td></tr>
+        <tr><td>③</td><td>Vanity cabinetry</td><td>West wall, existing vanity area</td><td>Remove entirely, incl. countertop, sink, faucet. Extent schematic — field verify. See Keynote 4.</td></tr>
+        <tr><td>④</td><td>Soffit + light fixtures</td><td>Above the existing vanity area</td><td>Remove entirely; ceiling patched flush. Extent schematic — field verify. See Keynote 5.</td></tr>
+      </table>
+
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">DEMOLITION LEGEND</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#171310;"></div>Existing wall/door — TO REMAIN (unchanged by this remodel)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f2c9c9; border-color:#a00000;"></div>Existing item — TO BE REMOVED (diagonal hatch = floor-level item; dashed only = overhead/ceiling item)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #a00000;color:#a00000;border-radius:50%;font-size:7pt;flex:none;font-weight:700;">#</span>Numbered bubble = keyed demolition note (see Keynotes list)</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>All red = schematic/assumed, not surveyed. This entire sheet is preliminary — see verify box.</div>
+      </div>
+
+      <div class="col-heading" style="font-size:11pt;">GENERAL NOTES</div>
+      <div class="gen-notes">
+        <ol>
+          <li>This sheet is a design-intent demolition plan prepared by the owner using AI-assisted drafting, based on the owner's verbal description of existing conditions — NOT an as-built survey. It has not been prepared or stamped by a licensed architect or engineer.</li>
+          <li>GC to field verify ALL existing conditions, framing, structural elements, and MEP routing prior to bid and prior to any demolition. Report conflicts or additional existing conditions not shown here to the owner before proceeding.</li>
+          <li>GC to pull all required permits and confirm compliance with local building, plumbing, mechanical, and electrical codes for demolition work, including any load-bearing determination for the interior wall being removed (Keynote 2) — confirm with a structural professional if there is any doubt about bearing/shear function before removing.</li>
+          <li>Dimensions govern over scale. This sheet's demolition items are schematic placeholders (see verify box) — do not scale for construction.</li>
+          <li>See Sheet A-201 for the full post-remodel floor plan, dimensions, and Finish &amp; Fixture Schedule. See A-206/A-207 for the new vanity/shelving elevations, A-202/A-205 for the new shower elevations, and A-208/A-209 for new plumbing/electrical — this demo plan only shows what's coming OUT, not what's going in.</li>
+          <li>Cap all plumbing and electrical serving demolished fixtures per code; do not leave abandoned lines live. Coordinate exact cap/relocate points with the new MEP layout before demo begins.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= TITLE BLOCK ============================= -->
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTopD201" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottomD201" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTopD201" xlink:href="#sealArcTopD201" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottomD201" xlink:href="#sealArcBottomD201" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Guest Bath Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">DEMOLITION<br>PLAN</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">07.20.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>07.20.2026</td><td>Initial issue — new sheet, for owner review</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      SCHEMATIC ONLY — NO EXISTING-CONDITIONS SURVEY EXISTS FOR THIS PROJECT. GC TO FIELD VERIFY ALL EXISTING CONDITIONS PRIOR TO BID, PERMIT, OR DEMOLITION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">D-201</div>
+      <div class="of">SHEET 9 OF 17</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -126,55 +126,57 @@
 
           <!-- local_x 0 = SOUTH end (left, near door), local_x 73 = NORTH end (right, at the divider-wall corner) — facing west, south=left/north=right, same convention as A-206 -->
 
-          <!-- Floor-to-underside tile, floating counter zone -->
-          <rect x="0" y="67" width="37" height="32" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <!-- Floor-to-underside tile, floating counter zone, 0"-34" AFF — REVISED 2026-07-20: counter raised 34"->36" AFF per owner/Aimee walk-off, underside now 34" (was 32") -->
+          <rect x="0" y="65" width="37" height="34" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
           <g stroke="#a8a196" stroke-width="0.08">
             <line x1="0" y1="75" x2="37" y2="75"/>
-            <line x1="24" y1="67" x2="24" y2="99"/>
+            <line x1="24" y1="65" x2="24" y2="99"/>
           </g>
 
-          <!-- Floor-to-underside tile, below floating cabinet -->
-          <rect x="37" y="87" width="36" height="12" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
-          <line x1="48" y1="87" x2="48" y2="99" stroke="#a8a196" stroke-width="0.08"/>
+          <!-- Floor-to-underside tile, below floating cabinet, 0"-14" AFF — REVISED 2026-07-20: cabinet shifted up 2" with the counter -->
+          <rect x="37" y="85" width="36" height="14" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <line x1="48" y1="85" x2="48" y2="99" stroke="#a8a196" stroke-width="0.08"/>
 
-          <!-- CABINET — Teodor Austin SLIM 36" Wall Mount, Walnut. Height/position ASSUMED (~20" tall, floating, 12"-32" AFF) -->
-          <rect x="37" y="67" width="36" height="20" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.25"/>
-          <line x1="55" y1="67" x2="55" y2="87" stroke="#2b1a10" stroke-width="0.15"/>
-          <rect x="52.7" y="74" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
-          <rect x="56.7" y="74" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
+          <!-- CABINET — Teodor Austin SLIM 36" Wall Mount, Walnut. Height/position ASSUMED (~20" tall, floating, 34"/14" AFF). REVISED 2026-07-20: shifted up 2" with the countertop (was 32"/12" AFF). -->
+          <rect x="37" y="65" width="36" height="20" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.25"/>
+          <line x1="55" y1="65" x2="55" y2="85" stroke="#2b1a10" stroke-width="0.15"/>
+          <rect x="52.7" y="72" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
+          <rect x="56.7" y="72" width="0.6" height="6" rx="0.3" fill="#c9a227" stroke="#8a6a1a" stroke-width="0.1"/>
 
-          <!-- COUNTERTOP — Black Concrete, 34" AFF top, ~2" overhang south end, full 73" run -->
-          <rect x="-2" y="65" width="75" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
+          <!-- COUNTERTOP — Black Concrete, 36" AFF top, full 73" run — REVISED 2026-07-20, raised 34"->36" AFF -->
+          <rect x="-2" y="63" width="75" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
 
-          <!-- BACKSPLASH — integral, 34"-38" AFF, 4" tall, full 73" run -->
-          <rect x="0" y="61" width="73" height="4" fill="#2b2b2b" stroke="#171310" stroke-width="0.15"/>
+          <!-- BACKSPLASH — REMOVED 2026-07-20 per owner/Aimee walk-off: replaced by the floor-tile fill zone below (36"-48" AFF), same Stonehenge product as the floor. -->
 
-          <!-- MIRROR — 71"w x 38"h (38"-76" AFF), sits directly on backsplash, left edge inset 2" from south wall, right edge flush to the corner/shelving unit (local_x=73) -->
-          <rect x="1.7" y="22.7" width="71.6" height="38.6" fill="none" stroke="#4a3a2a" stroke-width="0.3"/>
-          <rect x="2" y="23" width="71" height="38" fill="#b8c4c9" stroke="#171310" stroke-width="0.3"/>
-          <rect x="2.3" y="23.3" width="70.4" height="37.4" fill="none" stroke="#ffd98a" stroke-width="0.15" opacity="0.85"/>
+          <!-- TILE FILL, countertop to mirror bottom, 36"-48" AFF (12" tall) — NEW 2026-07-20, replaces backsplash -->
+          <rect x="0" y="51" width="73" height="12" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
 
-          <!-- SINK — integral/monolithic, ASSUMED centered in cabinet zone -->
-          <rect x="46" y="64.3" width="18" height="1.4" rx="0.5" fill="#3a3a3a" stroke="#171310" stroke-width="0.2"/>
+          <!-- MIRROR — 71"w x 34"h (48"-82" AFF) — REVISED 2026-07-20 (was 38"-76" AFF): bottom raised to 48" AFF, sits directly on the new tile-fill zone, no backsplash beneath it. Left edge inset 2" from south wall, right edge flush to corner/shelving unit, unchanged. -->
+          <rect x="1.7" y="16.7" width="71.6" height="34.6" fill="none" stroke="#4a3a2a" stroke-width="0.3"/>
+          <rect x="2" y="17" width="71" height="34" fill="#b8c4c9" stroke="#171310" stroke-width="0.3"/>
+          <rect x="2.3" y="17.3" width="70.4" height="33.4" fill="none" stroke="#ffd98a" stroke-width="0.15" opacity="0.85"/>
 
-          <!-- FAUCET — KANE, Matte Black, deck-mounted, ASSUMED position -->
+          <!-- SINK — integral/monolithic, ASSUMED centered in cabinet zone. REVISED 2026-07-20: shifted up 2" with the countertop. -->
+          <rect x="46" y="62.3" width="18" height="1.4" rx="0.5" fill="#3a3a3a" stroke="#171310" stroke-width="0.2"/>
+
+          <!-- FAUCET — KANE, Matte Black, deck-mounted, ASSUMED position. REVISED 2026-07-20: shifted up 2" with the countertop. -->
           <g stroke="#171310" stroke-width="0.3" fill="none">
-            <line x1="55" y1="65" x2="55" y2="56"/>
-            <path d="M55,56 Q58.5,54.3 58.5,59.5"/>
+            <line x1="55" y1="63" x2="55" y2="54"/>
+            <path d="M55,54 Q58.5,52.3 58.5,57.5"/>
           </g>
-          <circle cx="55" cy="65" r="0.5" fill="#171310"/>
+          <circle cx="55" cy="63" r="0.5" fill="#171310"/>
 
-          <!-- Tile above mirror — large-format Stonehenge exception, 76"-99" AFF -->
-          <rect x="0" y="0" width="73" height="23" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <!-- Tile above mirror — large-format Stonehenge exception, 82"-99" AFF — REVISED 2026-07-20 (was 76"-99") -->
+          <rect x="0" y="0" width="73" height="17" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
           <g stroke="#a8a196" stroke-width="0.08">
             <line x1="0" y1="3" x2="73" y2="3"/>
-            <line x1="24" y1="0" x2="24" y2="23"/>
-            <line x1="48" y1="0" x2="48" y2="23"/>
-            <line x1="72" y1="0" x2="72" y2="23"/>
+            <line x1="24" y1="0" x2="24" y2="17"/>
+            <line x1="48" y1="0" x2="48" y2="17"/>
+            <line x1="72" y1="0" x2="72" y2="17"/>
           </g>
 
-          <!-- Tile beside mirror's south edge, 2" sliver -->
-          <rect x="0" y="23" width="2" height="38" fill="#c9c4bb" stroke="#171310" stroke-width="0.2" stroke-dasharray="1,0.8"/>
+          <!-- Tile beside mirror's south edge, 2" sliver, 48"-82" AFF — REVISED 2026-07-20 to match new mirror height -->
+          <rect x="0" y="17" width="2" height="34" fill="#c9c4bb" stroke="#171310" stroke-width="0.2" stroke-dasharray="1,0.8"/>
 
           <!-- PENDANT — ET2 Reeds Mini Pendant, Gold, Item # ET22507011: actual fixture per A-201's Finish & Fixture Schedule is 17.75"H x 2.25" dia. (reeded glass tube, ribbed aluminum housing top, frosted diffuser), 4.75" dia. ceiling canopy, hanging length adjustable 23.25"-62.5". Drawn to actual product scale, matching A-206. Mounting height/hanging length still ASSUMED — EDI's pick; bottom held at 68" AFF, ceiling-to-bottom hanging length = 31". -->
           <ellipse cx="18.5" cy="0" rx="2.375" ry="0.4" fill="#8a6a1a" stroke="#171310" stroke-width="0.15"/>
@@ -192,26 +194,28 @@
           </g>
           <rect x="17.375" y="30.4" width="2.25" height="0.6" fill="#8a6a1a" stroke="#171310" stroke-width="0.15"/>
 
+          <!-- No outlet on the vanity/west wall — REMOVED 2026-07-20 per owner: "we do not want an outlet there." The mirrored outlet now lives on the SOUTH WALL (see A-204), not this wall. -->
+
           <!-- ================= AFF HEIGHT LADDER ================= -->
           <g font-family="Helvetica" font-size="1.9">
             <line x1="79" y1="0" x2="79" y2="99" stroke="#555" stroke-width="0.1"/>
             <g stroke="#171310" stroke-width="0.12" fill="#171310">
               <line x1="75" y1="0" x2="81" y2="0"/>
               <text x="83" y="0.8">99" CLG</text>
-              <line x1="75" y1="23" x2="81" y2="23"/>
-              <text x="83" y="23.8">76" MIRROR TOP</text>
-              <line x1="75" y1="61" x2="81" y2="61"/>
-              <text x="83" y="58.8">38" MIRROR BOT. / BACKSPLASH TOP</text>
-              <line x1="75" y1="65" x2="81" y2="65"/>
-              <text x="83" y="68">34" COUNTERTOP</text>
+              <line x1="75" y1="17" x2="81" y2="17"/>
+              <text x="83" y="17.8">82" MIRROR TOP</text>
+              <line x1="75" y1="51" x2="81" y2="51"/>
+              <text x="83" y="51.8">48" MIRROR BOT.</text>
+              <line x1="75" y1="63" x2="81" y2="63"/>
+              <text x="83" y="65.5">36" COUNTERTOP</text>
               <line x1="75" y1="99" x2="81" y2="99"/>
               <text x="83" y="99.8">0" FLOOR</text>
             </g>
             <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
-              <line x1="75" y1="67" x2="81" y2="67"/>
-              <text x="83" y="76">32" CABINET TOP (ASSUMED)</text>
-              <line x1="75" y1="87" x2="81" y2="87"/>
-              <text x="83" y="87.8">12" CABINET BOT. (ASSUMED, FLOATING)</text>
+              <line x1="75" y1="65" x2="81" y2="65"/>
+              <text x="83" y="72">34" CABINET TOP (ASSUMED)</text>
+              <line x1="75" y1="85" x2="81" y2="85"/>
+              <text x="83" y="85.8">14" CABINET BOT. (ASSUMED, FLOATING)</text>
               <line x1="75" y1="31" x2="81" y2="31"/>
               <text x="83" y="31.8">68" PENDANT BOT. (ASSUMED — EDI'S PICK)</text>
             </g>
@@ -262,32 +266,41 @@
 
           <!-- local_x 0 = WEST end (left, at the vanity-wall corner), local_x 36 = EAST end (right, toward shower glass) — facing north, west/corner=left, east/glass=right, same convention as A-206 -->
 
-          <!-- Wall tile behind/around the shelving box, Stonehenge, floor to box-top (0"-76" AFF). Width REVISED 2026-07-18, was 24" wide — see SHELF NOOK note below -->
-          <rect x="0" y="23" width="19.5" height="76" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
+          <!-- Wall tile, floor to first shelf, 0"-48" AFF — REVISED 2026-07-20 (round 3, per owner: nook is now walnut, no tile). Below the nook only. -->
+          <rect x="0" y="51" width="19.5" height="48" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
 
-          <!-- Tile ABOVE the top shelf, 76"-99" AFF, same Stonehenge finish. Width REVISED 2026-07-18, was 24" wide -->
-          <rect x="0" y="0" width="19.5" height="23" fill="#c9c4bb" stroke="#171310" stroke-width="0.25"/>
-          <line x1="0" y1="3" x2="19.5" y2="3" stroke="#a8a196" stroke-width="0.08"/>
+          <!-- WALNUT NOOK BACKING — NEW 2026-07-20 (round 3), per owner: "this will be made entirely of walnut by DraytonWorks. Back, sides, shelves -- all material walnut (no tile)." Walnut starts at the first shelf (48" AFF) and runs to the ceiling (99" AFF); tile continues below 48" AFF (see rect above). Replaces the old "wall tile behind shelving box" (48"-82" AFF) and "tile above top shelf" cap (82"-99" AFF) — now one continuous walnut back panel. Shelves KEPT at their existing 48"/65"/82" AFF positions per owner (not recomputed for the taller cavity) — 82"-99" AFF is open walnut-backed space above the top shelf. -->
+          <rect x="0" y="0" width="19.5" height="51" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.25"/>
 
-          <!-- SHELF NOOK — 19.5" wide (REVISED 2026-07-18, was 24" — matches the corrected 19.5"-deep vanity countertop/shelving on the adjacent wall; see A-201 and A-206 for the full correction history, owner-approved 2026-07-18). 2 real open shelves aligned to mirror mid/top height + a solid forward apron/lip at mirror-bottom height (not a shelf) — per owner's reference photo. Datums: lip 34"-38" AFF, mid shelf 57" AFF, top shelf 76" AFF. -->
+          <!-- SHELF NOOK — 19.5" wide, walnut millwork by DraytonWorks. Shelves remain at 48", 65", 82" AFF (unchanged from the 2026-07-20 round-2 rework). -->
 
-          <!-- Solid apron/lip, 34"-38" AFF: top flush with backsplash-top/mirror-bottom, bottom flush with countertop, 4" tall. REVISED 2026-07-18: west edge pulled back from x=-1 to x=0 (flush with the physical inside corner) — the old 1" west overhang visually crossed the corner into the vanity-wall elevation panel, not physically possible for a solid lip across a real 90° corner (flagged by owner: "shelf nook also goes into the wall visually"). East side keeps its 1" "proud" overhang, now to x=20.5. -->
-          <rect x="0" y="61" width="20.5" height="4" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.3"/>
+          <!-- Open zone, countertop-height to first shelf, 36"-48" AFF — tile only (below the walnut nook). Cubby side return at x=19.5. -->
+          <line x1="19.5" y1="51" x2="19.5" y2="63" stroke="#2b1a10" stroke-width="0.2"/>
 
-          <!-- Lower open cubby, 38"-57" AFF -->
-          <line x1="19.5" y1="42" x2="19.5" y2="61" stroke="#2b1a10" stroke-width="0.2"/>
+          <!-- Shelf 1 (bottom, NEW) — 48" AFF, replaces the old solid lip -->
+          <rect x="0" y="50.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
 
-          <!-- Shelf 1 (mid) — 57" AFF, aligns mirror mid-height -->
-          <rect x="0" y="41.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
+          <!-- Open cubby, 48"-65" AFF -->
+          <line x1="19.5" y1="34.5" x2="19.5" y2="50.5" stroke="#2b1a10" stroke-width="0.2"/>
 
-          <!-- Upper open cubby, 57"-76" AFF -->
-          <line x1="19.5" y1="23" x2="19.5" y2="41.5" stroke="#2b1a10" stroke-width="0.2"/>
+          <!-- Shelf 2 (mid) — 65" AFF, recomputed even spacing -->
+          <rect x="0" y="33.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
 
-          <!-- Shelf 2 (top / box cap) — 76" AFF, aligns mirror top, caps the nook box -->
-          <rect x="0" y="22.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
+          <!-- Open cubby, 65"-82" AFF -->
+          <line x1="19.5" y1="17.5" x2="19.5" y2="33.5" stroke="#2b1a10" stroke-width="0.2"/>
 
-          <!-- Backlit reveal at shelf-box top — PROPOSED, NOT yet confirmed by owner -->
-          <rect x="0.3" y="22.7" width="18.9" height="0.5" fill="none" stroke="#ffd98a" stroke-width="0.15" opacity="0.85" stroke-dasharray="1,0.6"/>
+          <!-- Shelf 3 (top / box cap) — 82" AFF, aligns new mirror top, caps the nook box -->
+          <rect x="0" y="16.5" width="19.5" height="1" fill="#6b4a30" stroke="#2b1a10" stroke-width="0.2"/>
+
+          <!-- Backlit reveal at shelf-box top — REMOVED 2026-07-20 (round 3): assumed a "box top" at 82" AFF, which no longer exists now that the walnut nook runs to the ceiling. Not re-proposed. -->
+
+          <!-- OUTLET — divider wall, in the tile-fill zone below the first shelf, above the countertop — NEW 2026-07-20 per owner/Aimee walk-off. Centered in the nook width (x=9.75), at 42" AFF. REPLACES the old "north-end outlet under shelving" note. -->
+          <rect x="8.55" y="55.8" width="2.4" height="2.4" rx="0.3" fill="#f3efe6" stroke="#171310" stroke-width="0.18"/>
+          <rect x="9.15" y="56.3" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="10.05" y="56.3" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="9.15" y="57.4" width="0.5" height="0.7" fill="#171310"/>
+          <rect x="10.05" y="57.4" width="0.5" height="0.7" fill="#171310"/>
+          <text x="9.75" y="60.2" text-anchor="middle" font-family="Helvetica" font-size="1.1" fill="#333">OUTLET, SEE SCHED.</text>
 
           <!-- Remaining divider-wall sliver east of the shelf nook, 16.5" wide (REVISED 2026-07-18, was 12" — grew as the shelf nook narrowed from 24" to 19.5"), toward shower glass — standard 2-band tile scheme, ASSUMED for this specific sliver -->
           <rect x="19.5" y="51" width="16.5" height="48" fill="#c9c4bb" stroke="#171310" stroke-width="0.2"/>
@@ -305,15 +318,18 @@
             <line x1="42" y1="0" x2="42" y2="99" stroke="#555" stroke-width="0.1"/>
             <g stroke="#171310" stroke-width="0.12" fill="#171310">
               <line x1="38" y1="0" x2="44" y2="0"/>
-              <text x="46" y="0.8">99" CLG</text>
-              <line x1="38" y1="23" x2="44" y2="23"/>
-              <text x="46" y="23.8">76" SHELF TOP</text>
-              <line x1="38" y1="42" x2="44" y2="42"/>
-              <text x="46" y="42.8">57" SHELF (MID)</text>
-              <line x1="38" y1="61" x2="44" y2="61"/>
-              <text x="46" y="58.8">38" LIP TOP</text>
+              <text x="46" y="0.8">99" CLG / NOOK TOP (WALNUT)</text>
+              <line x1="38" y1="17" x2="44" y2="17"/>
+              <text x="46" y="17.8">82" TOP SHELF</text>
+              <line x1="38" y1="34" x2="44" y2="34"/>
+              <text x="46" y="34.8">65" SHELF (MID)</text>
               <line x1="38" y1="51" x2="44" y2="51"/>
-              <text x="46" y="51.8">48" TILE BAND SPLIT + TRIM (SLIVER ONLY)</text>
+              <text x="46" y="51.8">48" SHELF BOT.</text>
+              <text x="46" y="54.3" font-size="1.4">WALNUT NOOK STARTS</text>
+              <line x1="38" y1="57" x2="44" y2="57"/>
+              <text x="46" y="61.5">42" OUTLET</text>
+              <line x1="38" y1="63" x2="44" y2="63"/>
+              <text x="46" y="65.5">36" COUNTERTOP</text>
               <line x1="38" y1="99" x2="44" y2="99"/>
               <text x="46" y="99.8">0" FLOOR</text>
             </g>
@@ -324,7 +340,7 @@
             <text x="18" y="106">DIVIDER WALL (SOUTH FACE) — 36"</text>
           </g>
           <g font-family="Helvetica" font-size="1.5" text-anchor="middle">
-            <text x="18" y="110.5" fill="#a00000">Shelf nook — 19.5" wide, 2 shelves + lip, per photo ref.</text>
+            <text x="18" y="110.5" fill="#a00000">Shelf nook — 19.5" wide, walnut (DraytonWorks), 3 shelves (48"/65"/82" AFF)</text>
             <text x="18" y="113.3" fill="#5c4020">Remaining 16.5" sliver: tile only, toward shower glass</text>
           </g>
 
@@ -400,32 +416,37 @@
 
       <div class="verify-box">
         <div class="hdr">DIMENSIONS TO VERIFY</div>
-        <p style="margin:0 0 8px 0;">Full design-decision history for this geometry is documented on Sheet A-206 (talked through with the owner before drafting, revised several times 2026-07-17) and in <code>CHANGELOG.md</code>. Summarized here; confirmed items (black) and assumed placeholders (red) in the drawings above:</p>
+        <p style="margin:0 0 8px 0;">Full design-decision history for this geometry is documented on Sheet A-206 (talked through with the owner before drafting, reworked most recently 2026-07-20 following a Mike/Aimee walk-off) and in <code>CHANGELOG.md</code>. Summarized here; confirmed items (black) and assumed placeholders (red) in the drawings above:</p>
         <ol>
+          <li><b>Countertop raised 34" → 36" AFF</b> — CONFIRMED by owner/Aimee 2026-07-20, direct walk-off direction.</li>
+          <li><b>Cabinet shifted up 2" with the countertop</b> (top 32"→34" AFF, bottom 12"→14" AFF) — owner's choice, preserves the original 2" reveal under the counter.</li>
+          <li><b>Backsplash removed entirely</b> — CONFIRMED 2026-07-20: replaced with a 12"-tall tile-fill zone (36"-48" AFF), same Stonehenge product as the floor, on both walls.</li>
+          <li><b>Mirror repositioned to 48"-82" AFF (34" tall)</b> — CONFIRMED 2026-07-20 (was 38"-76" AFF, 38" tall). Width (71") and side insets unchanged.</li>
+          <li><b>Shelf nook lip removed, bottom shelf now 48" AFF</b> — CONFIRMED 2026-07-20, replaced by the same tile-fill treatment as the vanity wall. Upper two shelves recomputed to even 17" spacing (48"/65"/82" AFF, nook top tracks the new mirror top).</li>
+          <li><b>Outlet, divider wall/shelf nook</b> — CONFIRMED 2026-07-20: centered in the tile-fill zone below the first shelf (42" AFF), replacing the old undrawn "north-end pop-out" note. <b>REVISED 2026-07-20 (second round):</b> the mirrored outlet does NOT belong on the vanity wall (View 6, this sheet) — owner clarified it belongs on the room's actual SOUTH WALL (A-204), at the same 9.75" offset from the west wall and the same 42" AFF height.</li>
+          <li><b>Grout coursing</b> — floor-referenced (24",48",72",96" AFF), consistent with A-202/A-205/A-206 — now a standing project-wide convention, see CLAUDE.md. The new 36"-48" AFF tile-fill zone is the visible top half of the existing 24"-48" course; no new grout line needed.</li>
           <li><b>Shelving stays on the divider wall</b> (not the vanity wall) — CONFIRMED by owner, matches A-201's plan.</li>
-          <li><b>Counter height, 34" AFF</b> — CONFIRMED (matches primary bath standard).</li>
-          <li><b>Shelf nook design</b> — CONFIRMED from owner's reference photo: 2 real open shelves aligned to mirror mid/top height, plus a solid forward-projecting apron/lip at mirror-bottom height (not a shelf). Exact depth/projection is schematic only.</li>
-          <li><b>Shelf nook width corrected 24" → 19.5", and apron/lip pulled back off the corner — REVISED 2026-07-18, owner-approved.</b> Matches A-201's corrected 19.5" vanity/shelving depth. The apron/lip's west edge had crossed the physical inside corner by 1" (owner: "shelf nook also goes into the wall visually") — pulled back flush with the corner; east side keeps its 1" proud overhang. Sliver grew from 12" to 16.5" to absorb the difference. See A-206 for full detail (identical fix applied to both sheets per the KEEP IN SYNC flag).</li>
-          <li><b>Mirror final position</b> — 38"-76" AFF, sits directly on a 4"-tall backsplash (no separate tile strip), inset 2" from the south wall, right edge flush to the corner/shelving unit (71" wide) — all CONFIRMED, final as of 2026-07-17.</li>
-          <li><b>Cabinet height/position</b> (~20" tall, floating, 12"-32" AFF) — ASSUMED, not specified in any source document.</li>
+          <li><b>Cabinet height/position</b> (~20" tall, floating) — ASSUMED, not specified in any source document.</li>
           <li><b>Cabinet door configuration, sink/faucet position</b> — ASSUMED (door count/hinge side, exact centering).</li>
-          <li><b>Pendant mounting height</b> (~68" AFF bottom) — ASSUMED, EDI's standard pick per owner ("let EDI pick").</li>
-          <li><b>Tile assignment on small slivers</b> (2" beside mirror's south edge; 12" on the divider wall toward the shower glass) — ASSUMED product, inferred for visual consistency.</li>
-          <li><b>Backlit reveal atop the shelf nook</b> — PROPOSED by EDI, NOT yet confirmed by the owner.</li>
-          <li><b>A-201 has THREE schedule rows not yet updated</b> to match this geometry (Open shelving, Mirror, Wall-tile-above-mirror EXCEPTION) — see A-206 and <code>OPEN-ITEMS-GUEST-BATH.md</code> for the full list; not repeated here. A-201 has intentionally NOT been touched, pending owner review.</li>
-          <li><b>Grout coursing</b> — floor-referenced (24",48",72",96" AFF), consistent with A-202/A-205/A-206.</li>
+          <li><b>Pendant mounting height</b> (~68" AFF bottom) — ASSUMED, EDI's standard pick per owner ("let EDI pick"). Unaffected by today's changes — independent fixture.</li>
+          <li><b>Tile assignment on small slivers</b> (2" beside mirror's south edge; 16.5" on the divider wall toward the shower glass) — ASSUMED product, inferred for visual consistency.</li>
+          <li><b>Backlit reveal atop the shelf nook</b> — REMOVED 2026-07-20 (round 3): assumed a "box top" at 82" AFF that no longer exists — see next item.</li>
+          <li><b>Shelf nook (View 7) is now solid walnut millwork by DraytonWorks — back, sides, and shelves, no tile</b> — CONFIRMED by owner 2026-07-20 (round 3): <i>"this will be made entirely of walnut by DraytonWorks. Back, sides, shelves -- all material walnut (no tile)."</i> Walnut runs from the first shelf (48" AFF) to the ceiling (99" AFF); tile below 48" AFF unchanged. Shelves stay at 48"/65"/82" AFF (owner confirmed not to recompute spacing) — 82"-99" AFF is open walnut-backed space above the top shelf. Distinct fabricator/legend entry from the Teodor cabinet on View 6.</li>
+          <li><b>A-201 updated in the same pass</b> to match this sheet's 2026-07-20 rework (all three rounds) — see CHANGELOG for full diff.</li>
         </ol>
       </div>
 
       <div class="legend-box">
         <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Bond Tile Stonehenge 24x24, Silver — floor-to-underside, above mirror, and shelf-nook zone</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Bond Tile Stonehenge 24x24, Silver — floor-to-underside, above mirror, and divider-wall base below the nook (0"-48" AFF)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6;"></div>Bedrosians Sahara 1"x12" mosaic, White — divider-wall sliver only (toward shower glass)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#1a1a1a;"></div>Schluter Quadec trim, Matte Black, 3/8" — divider-wall sliver only</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#2b2b2b;"></div>Black Concrete countertop + backsplash, Modern Concrete of Athens</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut — Teodor cabinet + open shelving/apron</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#2b2b2b;"></div>Black Concrete countertop, Modern Concrete of Athens (no integrated backsplash — see tile fill)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut — Teodor Austin SLIM cabinet, vanity wall only</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut — DraytonWorks custom millwork, shelf-nook back/sides/shelves, 48" AFF to ceiling (divider wall) — NEW 2026-07-20</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#b8c4c9;"></div>Mirror, LED perimeter shadow-gap lighting</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#c9a227;"></div>ET2 Reeds Mini Pendant, Gold — 17.75"H x 2.25" dia. reeded glass tube, drawn to actual product scale</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#f3efe6; border:1px solid #171310;"></div>Duplex outlet, see Finish & Fixture Schedule (A-201) — exact product/height TBD</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
         <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
       </div>
@@ -437,8 +458,9 @@
           <li>Drawn as two fully INDEPENDENT elevations, each with its own complete dimension set — unlike A-206, there is no shared inside-corner fold line here. View 6 (West Wall/Vanity) viewed facing west, south=left/north=right. View 7 (Divider Wall, south/room-facing side) viewed facing north, west/corner=left, east/glass=right — same facing conventions as A-206.</li>
           <li>The divider wall's OPPOSITE (shower-facing, north) side is shown separately on Sheet A-205 — a different face of the same physical wall.</li>
           <li>Sink is integral to the Black Concrete countertop, within the 36" Teodor cabinet's footprint (north end) — per A-201's Finish &amp; Fixture Schedule. No separate sink product.</li>
-          <li>Tile scope: the vanity wall's lower zone is covered by counter/cabinet/mirror, with a confirmed exception using large-format Stonehenge (not the Sahara mosaic) above the mirror, matching the shower tile. The divider wall's small remaining sliver (toward the shower glass) uses the room's standard 2-band scheme.</li>
-          <li>Grout coursing is floor-referenced (24", 48", 72", 96" AFF) throughout, consistent with Sheets A-202, A-205, and A-206.</li>
+          <li>Tile scope: the vanity wall's lower zone is covered by counter/cabinet/mirror, with a confirmed exception using large-format Stonehenge (not the Sahara mosaic) above the mirror and in the new 36"-48" AFF tile-fill zone (vanity wall) / 0"-48" AFF base (divider wall), matching the shower tile. The divider wall's small remaining sliver (toward the shower glass) uses the room's standard 2-band scheme. <b>The shelf nook itself (48" AFF to ceiling) is walnut millwork, not tile</b> — see verify-box.</li>
+          <li>Grout coursing is floor-referenced (24", 48", 72", 96" AFF) throughout, consistent with Sheets A-202, A-205, and A-206 — now a standing project-wide convention, see CLAUDE.md (added 2026-07-20). On the divider wall this grid now terminates at 48" AFF, since walnut covers everything above that.</li>
+          <li><b>2026-07-20 rework, from Mike/Aimee's on-site walk-off:</b> countertop raised to 36" AFF, cabinet shifted up 2" to match, integrated backsplash removed and replaced with floor-tile fill (36"-48" AFF, both walls), mirror repositioned to 48"-82" AFF, shelf-nook lip removed and bottom shelf set to 48" AFF with the two upper shelves recomputed to even 17" spacing (48"/65"/82" AFF), and a new outlet added on the divider wall (42" AFF). <b>Second round, same day:</b> owner clarified the mirrored outlet belongs on the SOUTH WALL (A-204), not the vanity wall — removed from View 6. <b>Third round, same day:</b> shelf nook (View 7) converted to solid walnut millwork by DraytonWorks (back, sides, shelves, 48" AFF to ceiling) — no tile above the first shelf; shelf positions and tile below 48" AFF unchanged. Identical changes applied to A-206 in the same pass — see CHANGELOG for full diff.</li>
           <li><b>See the flag box above — this sheet must be kept in sync with A-206 for any future revision.</b></li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
@@ -521,7 +543,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-207</div>
-      <div class="of">SHEET 14 OF 16</div>
+      <div class="of">SHEET 15 OF 17</div>
     </div>
   </div>
 

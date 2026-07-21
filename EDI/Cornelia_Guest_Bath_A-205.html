@@ -140,11 +140,29 @@
           </g>
 
           <!-- ============ PANEL 1: DIVIDER/SOUTH WALL (local_x 0-36, 36" — shower-facing north side of divider wall). REORDERED 2026-07-17 per Mike: south side now leftmost. local_x=0 is the divider's EAST end (glass/pivot-door side); local_x=36 is its WEST end (shared corner with west wall). ============ -->
-          <!-- shower valve/trim + head — Handle Shop Couture LuminaStream, wall-mounted, 10" head. Heights ASSUMED (TBD per OPEN-ITEMS-GUEST-BATH.md). Centered on this panel. -->
-          <line x1="18" y1="19" x2="18" y2="14" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="18" cy="19" r="1.3" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="18" cy="19" r="0.35" fill="#4a2f1f"/>
-          <circle cx="18" cy="51" r="0.9" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <!-- LUMINASTREAM SHOWER SYSTEM — Handle Shop Couture, Matte Black, wall-mounted, 25cm/10" head. REVISED 2026-07-20 per owner: replaced the single generic valve+head symbol with a visual representation of the product's 3 physical components (overhead rain head on a wall arm, 2 separate control knobs, handheld shower + wall holder), matching the owner-supplied product photo. All mounting heights are ASSUMED/EDI's placement judgment — the manufacturer's product page does not publish rough-in dimensions; confirm all heights with plumber before rough-in. -->
+
+          <!-- Overhead rain head + wall arm. REVISED 2026-07-20 per owner: rough-in height CONFIRMED at 86" AFF (was 82" ASSUMED) — arm wall-mount escutcheon/rough-in point now at 86" AFF (y=13); head ~87.6"-88.4" AFF (y=10.6-11.4), shown edge-on as a thin horizontal disc since the head faces straight down (true elevation — a face-on circle would incorrectly suggest a plan view). Arm reach (1.6" projection shown, same as before) unchanged, still ASSUMED for the horizontal centering — see A-201/A-208 plan for the head's plan position. Light dashed lines below suggest spray, decorative only. -->
+          <circle cx="18" cy="13" r="0.7" fill="none" stroke="#171310" stroke-width="0.25"/>
+          <line x1="18" y1="13" x2="18" y2="11.4" stroke="#171310" stroke-width="0.3"/>
+          <rect x="13" y="10.6" width="10" height="0.8" rx="0.4" fill="#171310"/>
+          <g stroke="#7d8fa0" stroke-width="0.15" stroke-dasharray="0.5,0.6">
+            <line x1="15" y1="11.4" x2="15" y2="15"/>
+            <line x1="18" y1="11.4" x2="18" y2="16"/>
+            <line x1="21" y1="11.4" x2="21" y2="15"/>
+          </g>
+
+          <!-- 2 separate control knobs (volume + diverter), side by side, ~44" AFF (y=55) -->
+          <circle cx="15" cy="55" r="1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="15" cy="55" r="0.3" fill="#4a2f1f"/>
+          <circle cx="21" cy="55" r="1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="21" cy="55" r="0.3" fill="#4a2f1f"/>
+
+          <!-- Handheld shower + wall holder, offset right of the knobs. Holder ~50" AFF (y=49); wand hangs in it. Hose bib (supply connection) near the knobs, ~44" AFF, flexible hose shown looping up to the wand. -->
+          <line x1="26.5" y1="49" x2="28" y2="49" stroke="#4a2f1f" stroke-width="0.3"/>
+          <rect x="26.8" y="42.5" width="1.6" height="7" rx="0.8" fill="none" stroke="#4a2f1f" stroke-width="0.25"/>
+          <circle cx="24" cy="55" r="0.5" fill="none" stroke="#4a2f1f" stroke-width="0.25"/>
+          <path d="M24,54.5 C25,52 26,51 27.2,49.5" fill="none" stroke="#7d8fa0" stroke-width="0.25"/>
 
           <!-- glass pivot door hinge point marker, LEFT edge (local_x=0) — divider wall's east end, where the 30" pivot door hinges -->
           <line x1="0" y1="1" x2="0" y2="98" stroke="#4a6a7a" stroke-width="0.45" stroke-dasharray="2,1.3"/>
@@ -177,15 +195,18 @@
               <text x="142" y="0.8">99" CLG (TILE TO CLG.)</text>
               <line x1="134" y1="99" x2="140" y2="99"/>
               <text x="142" y="99.8">0" FLOOR</text>
+              <line x1="134" y1="13" x2="140" y2="13"/>
+              <text x="142" y="11.8">86" RAIN HEAD ROUGH-IN</text>
+              <text x="142" y="14.4">(CONFIRMED, per Mike 2026-07-20)</text>
             </g>
             <!-- assumed: red, verify -->
             <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
-              <line x1="134" y1="19" x2="140" y2="19"/>
-              <text x="142" y="19.8">80" SHOWERHEAD (ASSUMED)</text>
-              <line x1="134" y1="51" x2="140" y2="51"/>
-              <text x="142" y="51.8">48" VALVE TRIM (ASSUMED)</text>
+              <line x1="134" y1="49" x2="140" y2="49"/>
+              <text x="142" y="48.8">50" HANDHELD HOLDER (ASSUMED)</text>
+              <line x1="134" y1="55" x2="140" y2="55"/>
+              <text x="142" y="57.4">44" CONTROLS + HOSE BIB (ASSUMED)</text>
               <line x1="134" y1="47" x2="140" y2="47"/>
-              <text x="142" y="44.8">52" NICHE TOP (ASSUMED)</text>
+              <text x="142" y="41.8">52" NICHE TOP (ASSUMED)</text>
               <line x1="134" y1="61" x2="140" y2="61"/>
               <text x="142" y="64.8">38" NICHE BOT. (ASSUMED)</text>
             </g>
@@ -194,7 +215,7 @@
           <!-- ============ ZONE LABELS (below elevation) ============ -->
           <g font-family="Helvetica" font-size="2" fill="#333" text-anchor="middle">
             <text x="18" y="107">DIVIDER/SOUTH WALL — 36"</text>
-            <text x="18" y="110.5" fill="#a00000" font-size="1.6">Valve/head heights ASSUMED — pivot door hinges at left edge</text>
+            <text x="18" y="110.5" fill="#a00000" font-size="1.6">Rain head rough-in CONFIRMED (86" AFF) — controls &amp; handheld heights still ASSUMED — pivot door hinges at left edge</text>
             <text x="64.75" y="107">WEST WALL — 57.5"</text>
             <text x="64.75" y="110.5" fill="#5c4020" font-size="1.6">Solid, no fixtures</text>
             <text x="111.5" y="107">NORTH (BACK) WALL — 36"</text>
@@ -260,8 +281,8 @@
         <div class="hdr">DIMENSIONS TO VERIFY</div>
         <p style="margin:0 0 8px 0;">This elevation is new (2026-07-17), drafted from A-201's Finish &amp; Fixture Schedule and Mike's tile-scope direction. The shower footprint (36"x57.5") and tile scope are confirmed; fixture mounting heights and the niche are not:</p>
         <ol>
-          <li><b>Showerhead / shower arm height</b> (assumed 80" AFF, centered on divider/south wall) — Handle Shop Couture LuminaStream system selected (A-201), exact mounting height not yet specified.</li>
-          <li><b>Valve trim height</b> (assumed 48" AFF) — same fixture, height not yet specified.</li>
+          <li><b>Rain head + wall arm height</b> — <b>CONFIRMED 2026-07-20 per Mike: rough-in at 86" AFF</b> (was 82" AFF, ASSUMED), centered on divider/south wall — Handle Shop Couture LuminaStream system (A-201). Shown as 3 distinct components matching the owner-supplied product photo (overhead rain head on a wall arm, 2 separate control knobs, handheld shower + wall holder), rather than a single generic valve+head symbol. The rain head rough-in height is now a confirmed owner decision; the arm's horizontal reach remains ASSUMED (product page doesn't publish that dimension). Matching change made to Sheet A-208 (Plumbing Plan) and A-201's schedule.</li>
+          <li><b>Controls + handheld height</b> (assumed 44" AFF for the 2 knobs and hose bib, 50" AFF for the handheld's wall holder) — same fixture, same caveat as above.</li>
           <li><b>Shower niche</b> — wall confirmed (north wall, opposite valve/head, ~57.5" away per A-201); size (shown 14"x14" placeholder), height (shown 38"-52" AFF placeholder), shelf count, and tile lining are all still TBD per <code>OPEN-ITEMS-GUEST-BATH.md</code>. Depth is 4" (owner's preference) but not visible in this elevation view — confirm insulation impact on this exterior wall before finalizing.</li>
           <li><b>Shower pan / floor tile</b> — NOT the same as the wall tile shown here. Per owner (2026-07-17): Aimee has a penny tile picked out for the shower pan, different from the rest of the floor. No specific product/SKU given yet — flagged as a new open item, not yet added to A-201's schedule (see Elevation Notes, this sheet).</li>
           <li><b>Shower glass</b> (27.5" fixed panel + 30" pivot door, hinged at the divider wall's east end) — layout confirmed on A-201; not drawn on this sheet since it's a 4th, non-coplanar side of the enclosure. Glass hardware/thickness/finish still TBD.</li>
@@ -274,6 +295,8 @@
         <div class="legend-row"><div class="legend-swatch" style="background:#c9c4bb;"></div>Wall tile — Bond Tile Stonehenge 24x24, Silver, full height floor-to-ceiling (same product as guest bath floor; NO 2-band split in the shower — see A-202/A-203/A-204 for the 2-band walls elsewhere in this room)</div>
         <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px dashed #8a6a3a;"></span>Inside corner (unfold fold line) — not a physical joint reveal</div>
         <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px dashed #7d8fa0;"></span>Glass (4th, open side) — shown on Key Plan only, not unfolded onto this elevation</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.3in;height:0.1in;background:#171310;border-radius:2px;flex:none;"></span>Rain head, shown edge-on (elevation), on wall arm — Handle Shop Couture LuminaStream, Matte Black. Rough-in CONFIRMED at 86" AFF (black = confirmed, per legend below)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1.5px solid #4a2f1f;border-radius:50%;flex:none;"></span>Control knob (2 total) / handheld hose bib — same product, Matte Black</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
         <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed selection</div>
       </div>
@@ -285,6 +308,7 @@
           <li>The 3 solid shower walls (west, north/back, divider/south) are shown unfolded/laid flat, hinged at the two inside corners, for clarity. See Key Plan, this sheet, for true plan orientation. The shower's 4th side (east) is glass, not a wall — it is not coplanar with these 3 panels and is not shown unfolded here; see A-201 plan for the glass layout (27.5" fixed panel + 30" pivot door).</li>
           <li>Tile scope confirmed by owner 2026-07-17: all 3 solid shower walls are Bond Tile Stonehenge (Silver), large-format, single product, floor to ceiling (99" AFF) — no upper mosaic band here, unlike the rest of the bathroom (see A-202/A-203/A-204).</li>
           <li><b>Shower pan/floor tile is a separate, different product from the wall tile shown on this sheet.</b> Per owner (2026-07-17): Aimee has picked a penny tile for the shower pan, distinct from the rest of the guest bath floor. No specific product has been named yet — this is a new open item, tracked in <code>OPEN-ITEMS-GUEST-BATH.md</code>, and has NOT been added to A-201's Finish &amp; Fixture Schedule since no SKU/link was provided.</li>
+          <li><b>Shower system, REVISED 2026-07-20</b> per owner (product photo supplied): Handle Shop Couture LuminaStream, Matte Black, Wall Mounted, 25cm/10" head — shown as 3 distinct components on the divider/south wall panel, matching the actual product rather than a single generic symbol: (1) overhead rain head on a wall arm, centered — rough-in height <b>CONFIRMED 2026-07-20 at 86" AFF</b> (was 82" ASSUMED); (2) 2 separate control knobs, ~44" AFF, still ASSUMED; (3) handheld shower on a wall holder (~50" AFF) with its own hose bib (~44" AFF), offset to the right of the knobs, still ASSUMED. Confirm remaining (non-rain-head) heights with plumber before rough-in. Matching rough-in points updated on Sheet A-208 (Plumbing Plan) and A-201's schedule.</li>
           <li>Provide continuous waterproof membrane at entire shower enclosure and slope floor to drain per A-201 Keynote 3. Drain location confirmed (south side of shower); size shown as a 6" sq. placeholder.</li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
@@ -367,7 +391,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-205</div>
-      <div class="of">SHEET 12 OF 16</div>
+      <div class="of">SHEET 13 OF 17</div>
     </div>
   </div>
 
