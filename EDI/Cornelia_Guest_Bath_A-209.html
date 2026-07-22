@@ -160,12 +160,10 @@
           <!-- DIVIDER WALL (6.5" thick, reused from A-201). West end REVISED 2026-07-18: shifted x=0→2 to sit flush at the west wall's interior face instead of overlapping its centerline (same wall-flush fix as A-201). -->
           <rect x="2" y="57.5" width="36" height="6.5" fill="#a00000" fill-opacity="0.6"/>
 
-          <!-- SHOWER GLASS. REVISED 2026-07-18: shifted 2" east (x=36→38) to stay hinged at the divider wall's corrected east corner. -->
+          <!-- SHOWER GLASS. REVISED 2026-07-18: shifted 2" east (x=36→38) to stay hinged at the divider wall's corrected east corner. Swing-arc paths REMOVED 2026-07-21 per owner ("let's take out the door swing 180º arc for the shower door / glass -- it's not needed here") — was visually competing with the new switch-leg dashed lines. A-201 remains the sheet of record and still shows the swing arcs (unconfirmed swing direction, still TBD there); this is an A-209-only simplification, glass panel/pivot line itself unchanged. -->
           <line x1="38" y1="0" x2="38" y2="27.5" stroke="#a00000" stroke-width="0.5"/>
           <line x1="38" y1="27.5" x2="38" y2="57.5" stroke="#000000" stroke-width="0.5"/>
           <circle cx="38" cy="57.5" r="0.5" fill="#171310"/>
-          <path d="M38,27.5 A30,30 0 0,0 8,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
-          <path d="M38,27.5 A30,30 0 0,1 68,57.5" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
 
           <!-- TOILET (base outline, reused from A-201) -->
           <rect x="45" y="2" width="15" height="28" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
@@ -187,6 +185,20 @@
           <!-- ROOM LABEL -->
           <text x="45" y="90" text-anchor="middle" font-family="Helvetica" font-size="4" font-weight="700" fill="#2b2117">GUEST BATH</text>
 
+          <!-- ===================== SWITCH-LEG LINES — added 2026-07-21 per owner ("let's try the curved dashed line - maybe make them red so they stand out"), CONFIRMED same day after review ("Excellent! Great work EDI!"). Ties each fixture to the switch gang that controls it. Curved (quadratic Bezier) dashed lines, drawn UNDER the electrical symbols/keynote bubbles so they don't obscure them. Color deliberately distinct from the project's #a00000 "assumed/unconfirmed" red (see CLAUDE.md convention) — using a brighter red here so it isn't mistaken for that; flagged to owner as a one-off exception limited to this linetype. Anchored at each switch gang's own "S" label position. The 3 general/wafer lights are drawn as ONE continuous daisy-chained run (switch -> light 1 -> light 2 -> light 3) rather than 3 separate home-run arcs, matching the owner's own reference wiring-plan markup — this is a schematic switch-tie, not a literal wire-run/circuiting diagram (electrically these are parallel-wired, not series — see General Notes). GANG ORDER REVISED 2026-07-21 (same day, later) per owner: "Let's put the wafer lights on the switch closest to the door, then the mirror light in the middle. Then the pendant last" — swapped gang 1 (pendant, was wafer chain) and gang 3 (wafer chain, was pendant); gang 2 (mirror) unchanged. East-wall gang order also swapped same round: "Fan+light combo south, shower light north" — gang 1/north (shower wafer, was fan) and gang 2/south (fan, was shower wafer). ===================== -->
+          <g fill="none" stroke="#e8342a" stroke-width="0.22" stroke-dasharray="1,0.7" opacity="0.75">
+            <!-- Door 3-gang (Keynote 7) gang 1 (x=27.35, west end, FARTHEST from door) -> vanity pendant (Keynote 4) -->
+            <path d="M27.35,134 Q16,131 8,118"/>
+            <!-- Door 3-gang gang 2 (x=29.05, middle) -> mirror LED rope light (Keynote 5) -->
+            <path d="M29.05,134 Q14,128 1,100"/>
+            <!-- Door 3-gang gang 3 (x=30.75, east end, CLOSEST to door) -> all 3 general/wafer lights (Keynote 2), daisy-chained run -->
+            <path d="M30.75,134 Q39,109 47.25,119 Q50,100 47.25,82 Q49,64 52.5,45.5"/>
+            <!-- East 2-gang (Keynote 8) gang 1 (y=51.1, north/top) -> shower wafer light (Keynote 1) -->
+            <path d="M65.3,51.1 Q42,56 20,31"/>
+            <!-- East 2-gang gang 2 (y=52.8, south/bottom) -> exhaust fan/light (Keynote 3) -->
+            <path d="M65.3,52.8 Q68,34 52.5,18"/>
+          </g>
+
           <!-- ===================== ELECTRICAL SYMBOLS (amber = MEP-electrical trade color) ===================== -->
           <g stroke="#b8860b" fill="none">
 
@@ -198,22 +210,24 @@
               <text x="25" y="26.7">1</text>
             </g>
 
-            <!-- 2: Recessed cans — vanity area, qty 2 -->
-            <circle cx="12" cy="80" r="1.4" stroke-width="0.25"/>
-            <text x="12" y="80.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
-            <circle cx="17" cy="122" r="1.4" stroke-width="0.25"/>
-            <text x="17" y="122.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <!-- 2: General/recessed wafer lights, qty 3, off the vanity — REVISED 2026-07-21 per owner: moved off the vanity centerline (was 2 lights directly over the vanity run, redundant with the mirror rope light + pendant already handling vanity task/accent lighting) and repositioned as general/ambient fill across the open floor, all CONFIRMED exact positions per owner's own dimensions (not ASSUMED). #1: center of the doorway (door opening x=33.25-61.25, center x=47.25 — 22" from the east wall, confirmed by calculation; owner's original estimate was ~20"), 18" north of the south wall (y=137-18=119). #2: same x=47.25 (same distance from east wall as #1, per owner — "somewhat symmetrical in the vanity area"), 18" south of the divider wall's south face (y=64+18=82). #3: x=52.5, in-line with the toilet/exhaust-fan centerline (toilet rect x=45-60, center x=52.5). REVISED 2026-07-21 (same day, later) per owner — flagged #3 as "too close to the toilet fan light" at its original 18" offset (y=39.5, only 21.5" from the fan at y=18); pushed 6" further south to 12" north of the divider wall's north face (y=57.5-12=45.5), now 27.5" from the fan. -->
+            <circle cx="47.25" cy="119" r="1.4" stroke-width="0.25"/>
+            <text x="47.25" y="119.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <circle cx="47.25" cy="82" r="1.4" stroke-width="0.25"/>
+            <text x="47.25" y="82.7" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
+            <circle cx="52.5" cy="45.5" r="1.4" stroke-width="0.25"/>
+            <text x="52.5" y="46.2" text-anchor="middle" font-family="Helvetica" font-size="1.6" fill="#b8860b" stroke="none">R</text>
             <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
-              <circle cx="6.5" cy="80" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
-              <text x="6.5" y="80.7">2</text>
+              <circle cx="44" cy="123" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="44" y="123.7">2</text>
             </g>
 
-            <!-- 3: Exhaust fan/light — above toilet -->
-            <circle cx="52.5" cy="15" r="1.6" stroke-width="0.3"/>
-            <path d="M51.1,15 L53.9,15 M52.5,13.6 L52.5,16.4 M51.5,13.9 L53.5,16.1 M53.5,13.9 L51.5,16.1" stroke-width="0.18"/>
+            <!-- 3: Exhaust fan/light — above toilet, in-line with toilet centerline (x=52.5, unchanged). REVISED 2026-07-21 per owner: moved from y=15 to y=18 — "18" from the north wall" (was an unspecified placeholder). -->
+            <circle cx="52.5" cy="18" r="1.6" stroke-width="0.3"/>
+            <path d="M51.1,18 L53.9,18 M52.5,16.6 L52.5,19.4 M51.5,16.9 L53.5,19.1 M53.5,16.9 L51.5,19.1" stroke-width="0.18"/>
             <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
-              <circle cx="58" cy="15" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
-              <text x="58" y="15.7">3</text>
+              <circle cx="58" cy="18" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="58" y="18.7">3</text>
             </g>
 
             <!-- 4: Vanity pendant — above floating counter -->
@@ -233,22 +247,34 @@
               <text x="4" y="100.7">5</text>
             </g>
 
-            <!-- 6: Outlets — south end GFCI (west wall interior face), north end pop-out (divider wall south face). Repositioned 2026-07-18 to sit flush against the corrected wall-interior-face vanity footprint (was drawn at/inside the wall centerline). -->
-            <rect x="2.2" y="126.5" width="1.6" height="2.6" stroke-width="0.2"/>
+            <!-- 6: Outlets — GFCI on the SOUTH wall (not the west/vanity wall), north end pop-out (divider wall south face). FIXED 2026-07-21 per owner ("The outlet near the (6) somehow migrated back to the west wall - that should be on the south wall, mirroring the outlet below the nook"). Root cause: on 2026-07-20 this outlet was corrected from the vanity/west wall to the south wall on A-201/A-204/A-206/A-207 (owner: "we do not want an outlet there," 9.75" from the west wall's interior face = room-plan x=11.75, 42" AFF), but that round never touched A-208/A-209 — so A-209 kept showing the old, pre-correction west-wall position rather than actually regressing. Now matches A-201/A-204: centered at x=11.75, flush against the south wall's interior face (y=137), mirroring the divider-wall outlet's same 9.75"-from-west-wall offset. -->
+            <rect x="10.45" y="135.4" width="2.6" height="1.6" stroke-width="0.2"/>
             <rect x="10.5" y="63.2" width="2.6" height="1.6" stroke-width="0.2"/>
             <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
-              <circle cx="5" cy="130" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
-              <text x="5" y="130.7">6</text>
+              <circle cx="6" cy="131" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="6" y="131.7">6</text>
             </g>
 
-            <!-- 7: Switches — 2-gang, south wall west of door (vanity area) -->
-            <rect x="27.5" y="134" width="3.4" height="2" stroke-width="0.2"/>
-            <line x1="29.2" y1="134" x2="29.2" y2="136" stroke-width="0.15"/>
-            <text x="28.35" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
-            <text x="30.05" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <!-- 7: Switches — 3-gang, south wall west of door (vanity area). REVISED 2026-07-21 per owner: expanded from 2-gang to 3-gang — general/wafer lights split off the shared pendant switch onto their own, so each of the 3 fixture groups controlled from this location now gets independent control. Left-to-right per owner's stated order: (1) all 3 general/wafer lights, (2) mirror rope light, (3) pendant. Box widened 3.4"->5.1" (3 x 1.7" gangs) and shifted 1" west (x=27.5->26.5) to keep clearance from the door's west jamb (x=33.25). -->
+            <rect x="26.5" y="134" width="5.1" height="2" stroke-width="0.2"/>
+            <line x1="28.2" y1="134" x2="28.2" y2="136" stroke-width="0.15"/>
+            <line x1="29.9" y1="134" x2="29.9" y2="136" stroke-width="0.15"/>
+            <text x="27.35" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <text x="29.05" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <text x="30.75" y="135.5" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
             <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
-              <circle cx="25" cy="132" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
-              <text x="25" y="132.7">7</text>
+              <circle cx="24" cy="132" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="24" y="132.7">7</text>
+            </g>
+
+            <!-- 8: Switches — NEW 2026-07-21 per owner, 2-gang, east wall, just as you enter the toilet/shower area. Vertical gang (stacked N-S) to sit flush against the east wall. Left-to-right per owner's stated order becomes top-to-bottom here: (1) exhaust fan/light combo, (2) shower wafer light (Keynote 1 fixture). -->
+            <rect x="65.3" y="50" width="2.2" height="3.4" stroke-width="0.2"/>
+            <line x1="65.3" y1="51.7" x2="67.5" y2="51.7" stroke-width="0.15"/>
+            <text x="66.4" y="51.1" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <text x="66.4" y="52.8" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#b8860b" stroke="none">S</text>
+            <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle" stroke="none">
+              <circle cx="63" cy="51.7" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+              <text x="63" y="52.4">8</text>
             </g>
           </g>
 
@@ -298,25 +324,25 @@
         <div class="hdr">DESIGN-INTENT ELECTRICAL PLAN — NOT AN ENGINEERED DOCUMENT</div>
         <p style="margin:0 0 8px 0;">This sheet shows fixture, outlet, and switch LOCATIONS only, based on the confirmed selections and wall assignments in the Finish &amp; Fixture Schedule on A-201. It does NOT show circuiting, wire runs, panel/breaker assignments, or box fill calculations — those are trade responsibilities. It has not been prepared or stamped by a licensed electrical engineer or electrician.</p>
         <ol>
-          <li><b>Recessed lighting positions (Keynotes 1–2)</b> — ceiling zones are CONFIRMED (1 over shower, 2 over vanity area), exact positions shown are ASSUMED/placeholder. Confirm with electrician.</li>
-          <li><b>Exhaust fan/light (Keynote 3)</b> — location CONFIRMED (above toilet). Manufacturer listing does not confirm wet-location rating — verify with electrician per NEC 410.10(D) before final install.</li>
+          <li><b>Recessed lighting positions (Keynotes 1–2)</b> — REVISED 2026-07-21 per owner: qty. increased 3→4 total (1 wet-rated over the shower, unchanged, plus 3 general/ambient wafer lights, up from 2). The 3 general lights are moved off the vanity centerline — mirror rope light + pendant already cover vanity task/accent lighting, so a wafer directly overhead there was redundant and risked downlight shadowing at the mirror. All 3 exact positions are now CONFIRMED per owner's own dimensions (not ASSUMED): #1 at the doorway center (22" from the east wall, 18" from the south wall); #2 same x as #1, 18" south of the divider wall; #3 in-line with the toilet/exhaust-fan centerline, 12" north of the divider wall (revised 2026-07-21, same day — owner flagged #3 as too close to the exhaust fan/light at its original 18" offset; pushed 6" south, now 27.5" from the fan, was 21.5").</li>
+          <li><b>Exhaust fan/light (Keynote 3)</b> — location CONFIRMED (above toilet, in-line with toilet centerline). REVISED 2026-07-21 per owner: exact position now CONFIRMED at 18" from the north wall (was an unspecified placeholder). Manufacturer listing does not confirm wet-location rating — verify with electrician per NEC 410.10(D) before final install.</li>
           <li><b>Vanity pendant (Keynote 4)</b> — zone CONFIRMED (above floating counter, south end); exact position and hang length (adjustable 23.25"–62.5") NOT yet specified.</li>
           <li><b>Mirror LED rope light (Keynote 5)</b> — concept CONFIRMED (full perimeter of mirror channel, dedicated switch); rope light product, color temp, lumens, and driver type still TBD.</li>
-          <li><b>Outlets (Keynote 6)</b> — both locations CONFIRMED by owner's own annotated markup (see A-201/CHANGELOG); exact mounting heights TBD.</li>
-          <li><b>Switches (Keynote 7)</b> — zone CONFIRMED (vanity area); exact gang/position shown is ASSUMED/placeholder, near the south wall west of the door, clear of the door's swing arc. Confirm with electrician.</li>
+          <li><b>Outlets (Keynote 6)</b> — both locations CONFIRMED by owner's own annotated markup (see A-201/CHANGELOG); exact mounting heights TBD. FIXED 2026-07-21: the south-end GFCI outlet, shown on the west/vanity wall, corrected to the south wall (9.75" from the west wall's interior face, mirroring the divider-wall/nook outlet) to match A-201/A-204's 2026-07-20 correction — that earlier round never propagated to this sheet.</li>
+          <li><b>Switches (Keynotes 7–8)</b> — REVISED 2026-07-21 per owner: both locations and all fixture assignments now CONFIRMED, including gang order. 3-gang at the south wall west of the door (vanity area), left to right: (1) pendant (farthest from door), (2) mirror rope light, (3) all 3 general/wafer lights (closest to door — see red switch-leg lines). NEW 2-gang on the east wall, just inside the door to the toilet/shower area, north to south: (1) shower wafer light, (2) exhaust fan/light combo. NuWatt wafers are dimmable; ET2 pendant is not; mirror rope light dimmer/driver compatibility still TBD. Confirm circuit assignment with electrician prior to rough-in.</li>
         </ol>
       </div>
 
       <div class="keynotes">
         <ol>
           <li class="gen"><b>This is a design-intent electrical/lighting plan, not an engineered document.</b> GC/electrician to verify all circuiting, wire sizing, box fill, and code compliance (NEC/local electrical code) prior to rough-in.</li>
-          <li class="keyed">General/recessed lighting — NuWatt 4" Square Canless LED Wafer Light, qty. 3: one over the shower (wet-rated, confirmed use), two centered over the vanity area. Ceiling positions shown are placeholders — confirm with electrician.</li>
-          <li class="keyed">Recessed lighting, vanity area — see note above; two fixtures shown spread across the 73" vanity run, exact spacing TBD.</li>
-          <li class="keyed">Exhaust fan/light — Akicon Bathroom Exhaust Fan with Light, placed above the toilet rather than the shower — listing does not confirm wet-location rating; verify with electrician per NEC 410.10(D) before final install.</li>
+          <li class="keyed">General/recessed lighting — NuWatt 4" Square Canless LED Wafer Light, qty. 4 total: one over the shower (wet-rated, confirmed use, position unchanged), plus 3 general/ambient fixtures moved off the vanity per owner 2026-07-21 (previously 2, centered over the vanity run — redundant with the mirror rope light + pendant already handling vanity task/accent lighting, and prone to downlight shadowing at the mirror). All 3 general positions CONFIRMED by owner's own dimensions: #1 centered on the doorway (door opening 33.25"–61.25" from the west wall, center 22" from the east wall), 18" north of the south wall. #2 same distance from the east wall as #1, 18" south of the divider wall — roughly symmetrical with #1 within the vanity-area's north-south run, but centered in the room's width rather than over the vanity itself. #3 in-line with the toilet/exhaust-fan centerline, 12" north of the divider wall (revised 2026-07-21, same day — was 18" north/39.5", moved 6" south after owner flagged it was too close to the exhaust fan; now 27.5" from the fan, was 21.5"). NuWatt wafers are dimmable.</li>
+          <li class="keyed">Exhaust fan/light — Akicon Bathroom Exhaust Fan with Light, above the toilet, in-line with the toilet's own centerline. Position CONFIRMED 2026-07-21 per owner: 18" from the north wall (was an unspecified placeholder). Listing does not confirm wet-location rating; verify with electrician per NEC 410.10(D) before final install.</li>
           <li class="keyed">Vanity pendant — ET2 Lighting Reeds Mini Pendant, above the floating (make-up) counter, south end. Not dimmable. Hang length adjustable 23.25"–62.5" — exact mounting height not yet specified.</li>
           <li class="keyed">Mirror LED rope light — full perimeter of the mirror's light channel (west/vanity wall), on its own dedicated switch, independent of general lighting, per owner's decision. Rope light product/color-temp/lumens/driver type still TBD — confirm driver compatibility with the proposed dimmer (see Switch schedule) before ordering.</li>
-          <li class="keyed">Outlets — two GFCI-circuit receptacles at the vanity: south end (Legrand adorne GFCI duplex, self-test, upstream device) and north end (Legrand adorne pop-out, non-GFCI, downstream of the south GFCI on the same circuit — confirm wiring order with electrician). Both fall within 6' of the sink per code.</li>
-          <li class="keyed">Switches — two switches shown grouped near the south wall, west of the door (vanity area), clear of the door's swing arc. One dedicated to the mirror rope light (dimmer — driver compatibility TBD); one shared for the pendant + 2 recessed lights (pendant not dimmable — owner to decide a plain shared on/off switch vs. splitting onto separate switches for independent recessed dimming). Exact gang/position TBD.</li>
+          <li class="keyed">Outlets — two GFCI-circuit receptacles: south wall near the door (Legrand adorne GFCI duplex, self-test, upstream device — 9.75" from the west wall's interior face, 42" AFF; FIXED 2026-07-21, was incorrectly shown on the west/vanity wall on this sheet, matching the 2026-07-20 correction already on A-201/A-204) and divider-wall/shelf-nook, north end (Legrand adorne pop-out, non-GFCI, downstream of the south GFCI on the same circuit — confirm wiring order with electrician). Both fall within 6' of the sink per NEC 210.52(D) — code requires at least one GFCI receptacle within 3' of the sink basin edge; it does not mandate outlets on any other specific wall.</li>
+          <li class="keyed">Switches — 3-gang, south wall west of the door (vanity area), clear of the door's swing arc. REVISED 2026-07-21 per owner: expanded from 2-gang to 3-gang, resolving the prior open question of whether the general/wafer lights should share a switch with the pendant — they do not. Gang order REVISED again 2026-07-21 (same day, later) per owner: "put the wafer lights on the switch closest to the door, then the mirror light in the middle, then the pendant last." Left to right: (1) vanity pendant (ET2 Reeds Mini, not dimmable — farthest from door); (2) mirror rope light (dimmer — driver compatibility TBD); (3) all 3 general/wafer lights (NuWatt, dimmable — closest to door). See the curved red switch-leg lines on the plan for the exact fixture ties (schematic switch ties, not literal wire runs — general/wafer lights are wired in parallel, not series, despite being drawn as one daisy-chained run). Box widened 3.4"→5.1" and shifted 1" west (x=27.5→26.5) for door-jamb clearance. Exact position and gang order CONFIRMED per owner 2026-07-21.</li>
+          <li class="keyed">Switches — NEW 2026-07-21 per owner, 2-gang, east wall, just inside the door where you enter the toilet/shower area. Vertical gang, flush to the east wall. REVISED same day, later, per owner: "Fan+light combo south, shower light north." Top to bottom (north to south): (1) shower wafer light (Keynote 1 fixture); (2) exhaust fan/light combo. Exact position and gang order CONFIRMED per owner 2026-07-21.</li>
           <li class="gen">All receptacles within 6' of the sink and all wet-location fixtures to be GFCI/AFCI protected per NEC and local code.</li>
         </ol>
       </div>
@@ -328,14 +354,17 @@
       <p style="font-size:8pt; color:#555; margin:0 0 0.1in 0; font-style:italic;">Full product specs, manufacturers, and purchase links are on A-201's Finish &amp; Fixture Schedule. This table covers location/circuiting status only — refer to A-201 for everything else.</p>
       <table class="sched">
         <tr><th style="width:22%">Item</th><th style="width:28%">Location</th><th style="width:24%">Status</th><th>Notes</th></tr>
-        <tr><td>Recessed lighting (qty. 3)</td><td>1 over shower, 2 over vanity area</td><td>Zone <b>CONFIRMED</b>; positions <span class="tbd">ASSUMED</span></td><td>NuWatt 4" wafer, wet-rated over shower. See A-201 for full spec.</td></tr>
-        <tr><td>Exhaust fan/light</td><td>Ceiling, above toilet</td><td>Location <b>CONFIRMED</b></td><td>Akicon combo unit. Verify wet-rating w/ electrician.</td></tr>
+        <tr><td>Recessed lighting (qty. 4)</td><td>1 over shower; 3 general — door-center, vanity-zone (room-centered), toilet-aligned</td><td>All positions <b>CONFIRMED</b></td><td>NuWatt 4" wafer, wet-rated over shower. Repositioned 2026-07-21 off the vanity centerline (was 2 over vanity) to serve as general/ambient light — vanity task/accent lighting is handled by the pendant + mirror rope light. Fixture #3 (toilet-aligned) nudged 6" further from the exhaust fan same day, now 27.5" apart (was 21.5"). See A-201 for full spec.</td></tr>
+        <tr><td>Exhaust fan/light</td><td>Ceiling, above toilet, in-line with toilet centerline</td><td>Location + position <b>CONFIRMED</b></td><td>Akicon combo unit. 18" from north wall, confirmed 2026-07-21. Verify wet-rating w/ electrician.</td></tr>
         <tr><td>Vanity pendant</td><td>Above floating counter, south end</td><td>Zone <b>CONFIRMED</b>; hang height <span class="tbd">TBD</span></td><td>ET2 Reeds Mini Pendant. Not dimmable; adjustable 23.25"–62.5".</td></tr>
         <tr><td>Mirror LED rope light</td><td>Full perimeter of mirror channel</td><td>Concept <b>CONFIRMED</b>; product <span class="tbd">TBD</span></td><td>Dedicated switch — see Switch rows below.</td></tr>
-        <tr><td>Outlet, south end</td><td>West/vanity wall, above floating counter</td><td><b>CONFIRMED</b></td><td>Legrand adorne GFCI duplex, self-test.</td></tr>
+        <tr><td>Outlet, near door</td><td>South wall, 9.75" from west wall interior face</td><td><b>CONFIRMED</b></td><td>Legrand adorne GFCI duplex, self-test. FIXED 2026-07-21 — was shown on the west/vanity wall on this sheet (stale, pre-2026-07-20-correction position); now matches A-201/A-204.</td></tr>
         <tr><td>Outlet, north end</td><td>Divider wall south face, under shelving</td><td><b>CONFIRMED</b></td><td>Legrand adorne pop-out, non-GFCI, downstream of south GFCI.</td></tr>
-        <tr><td>Switch — mirror light</td><td>Vanity area, south wall near door</td><td>Zone confirmed; position <span class="tbd">ASSUMED</span></td><td>Dimmer proposed (Legrand adorne ADPD153LW2) — driver compatibility TBD.</td></tr>
-        <tr><td>Switch — pendant + recessed</td><td>Vanity area, south wall near door</td><td>Zone confirmed; position <span class="tbd">ASSUMED</span></td><td>Shared switch — owner to decide dimming approach.</td></tr>
+        <tr><td>Switch — pendant (gang 1)</td><td>South wall, 3-gang box west of door, farthest from door</td><td><b>CONFIRMED</b></td><td>ET2 Reeds Mini Pendant. Not dimmable — plain on/off. Gang order revised 2026-07-21 per owner.</td></tr>
+        <tr><td>Switch — mirror light (gang 2)</td><td>South wall, 3-gang box west of door, middle</td><td><b>CONFIRMED</b></td><td>Dimmer proposed (Legrand adorne ADPD153LW2) — driver compatibility TBD.</td></tr>
+        <tr><td>Switch — general/wafer lights (gang 3)</td><td>South wall, 3-gang box west of door, closest to door</td><td><b>CONFIRMED</b></td><td>Controls all 3 general/ambient wafer lights (NuWatt, dimmable). Split off pendant switch 2026-07-21 per owner; gang order revised same day.</td></tr>
+        <tr><td>Switch — shower wafer light (gang 1)</td><td>East wall, 2-gang box, just inside door, north</td><td><b>CONFIRMED</b></td><td>NEW 2026-07-21 per owner. Controls the wet-rated wafer light over the shower (Keynote 1). Gang order revised same day ("shower light north").</td></tr>
+        <tr><td>Switch — exhaust fan/light (gang 2)</td><td>East wall, 2-gang box, just inside door, south</td><td><b>CONFIRMED</b></td><td>NEW 2026-07-21 per owner. Controls Akicon fan/light combo above toilet. Gang order revised same day ("fan+light combo south").</td></tr>
       </table>
 
       <div class="legend-box">
@@ -346,7 +375,8 @@
         <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.24in;height:0.16in;border:2px solid #b8860b;flex:none;"></span>Amber rectangle = duplex outlet (GFCI noted where applicable)</div>
         <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.16in;border:2px solid #b8860b; font-size:7pt; font-weight:700; color:#b8860b; flex:none;">S</span>Amber square = switch</div>
         <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:7pt;flex:none;">#</span>Numbered bubble = keyed note (see Keynotes list)</div>
-        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red = assumed, needs verification. Black = confirmed. (Applies to text/labels; amber is the electrical trade color, not a status indicator.)</div>
+        <div class="legend-row"><span style="display:inline-flex;align-items:center;width:0.3in;height:0.14in;border-top:2px dashed #e8342a;flex:none;"></span>Curved dashed bright-red line = switch leg — ties a fixture to the switch gang that controls it. TRIAL 2026-07-21, see Keynotes 7–8. Distinct from the status-red below.</div>
+        <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red (#a00000) = assumed, needs verification. Black = confirmed. (Applies to text/labels; amber is the electrical trade color, not a status indicator.)</div>
       </div>
 
       <div class="col-heading" style="font-size:11pt;">GENERAL NOTES</div>
@@ -357,7 +387,8 @@
           <li>GC/electrician to pull all required permits and confirm compliance with local electrical code (NEC as adopted locally), including GFCI/AFCI protection and wet-location ratings.</li>
           <li>Base wall/room/fixture-silhouette geometry on this sheet is reused from A-201 for reference only — A-201 remains the sheet of record for room dimensions, wall thickness, and fixture footprints. Any conflict between this sheet and A-201 should be resolved in favor of A-201 and flagged to the designer.</li>
           <li>All electrical fixture, switch, and outlet selections are documented in full on A-201's Finish &amp; Fixture Schedule, including manufacturer, model/SKU, and purchase links.</li>
-          <li>Switching plan is partially decided (see Keynotes 6–7) — final circuit assignment and dimmer compatibility to be confirmed with electrician prior to rough-in.</li>
+          <li>Switching plan is fully decided as to fixture groupings, gang locations, and gang order (see Keynotes 6–8) — final circuit assignment and dimmer compatibility to be confirmed with electrician prior to rough-in.</li>
+          <li>The curved red dashed lines tying fixtures to their switch (see Legend) are schematic switch-leg indicators only — they show which switch controls which fixture, not an actual wire-run or circuiting path. Where 3 fixtures on one switch are shown as a single daisy-chained line, this reflects a common loop-in wiring approach but does not preclude individual home runs — actual wire routing is the electrician's determination.</li>
         </ol>
       </div>
     </div>
