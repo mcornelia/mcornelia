@@ -97,11 +97,20 @@
     html, body { background: #fff; }
     .sheet { margin: 0; border: none; }
   }
+
+  /* DRAFT / WORK-IN-PROGRESS WATERMARK — added 2026-07-25 per owner: Primary Bath 100-series sheets not yet finalized, matching the same treatment already used on A-208/A-209. Semi-transparent, non-printing-obstructive, sits above all content. */
+  .draft-watermark {
+    position: absolute; top: 50%; left: 41.5%; transform: translate(-50%, -50%) rotate(-35deg);
+    font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
+  }
 </style>
 </head>
 <body>
 
 <div class="sheet">
+
+  <div class="draft-watermark">DRAFT</div>
 
   <!-- ============================= MAIN FIELD ============================= -->
   <div class="main-field">
@@ -351,6 +360,7 @@
     </div>
 
     <div class="tb-stamp">
+      DRAFT — WORK IN PROGRESS. NOT YET READY FOR PRINT/GC PACKAGE.<br>
       PRELIMINARY — DESIGN INTENT ONLY.<br>
       NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
       MOST VERTICAL DIMENSIONS ON THIS SHEET ARE ASSUMED (SEE RED CALLOUTS) — CONFIRM ALL HEIGHTS WITH FABRICATORS BEFORE FABRICATION OR INSTALL.
