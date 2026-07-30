@@ -6,6 +6,7 @@ Allow: /
 Disallow: /collection/
 Disallow: /EDI/
 Disallow: /always-you-8e4f/
+Disallow: /one-more-sleep-5b8d/
 
 # Sitemap location
 Sitemap: https://mcornelia.com/sitemap.xml
