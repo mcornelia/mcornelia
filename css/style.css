@@ -927,6 +927,96 @@ blockquote {
   }
 }
 
+/* Long-form field guides */
+.mc-post .mc-post-kicker {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.mc-post .mc-post-subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.mc-post .mc-post-dek {
+  color: var(--text-bright);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.mc-post .mc-post-figure {
+  margin: 2rem 0;
+}
+
+.mc-post .mc-post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.mc-post .mc-post-figure figcaption {
+  margin-top: 0.65rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.mc-post .mc-post-toc {
+  margin: 2rem 0;
+  padding: 1rem 1.2rem 1.1rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-cyan);
+  background: rgba(0, 217, 255, 0.03);
+}
+
+.mc-post .mc-post-toc-label {
+  margin-bottom: 0.65rem;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mc-post .mc-post-toc ul {
+  columns: 2;
+  column-gap: 2.25rem;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.mc-post .mc-post-toc li {
+  break-inside: avoid;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.mc-post .mc-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 600px) {
+  .mc-post .mc-post-toc ul {
+    columns: 1;
+  }
+}
+
 /* ============================================
    CONTACT PAGE
    ============================================ */
