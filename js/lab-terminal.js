@@ -9,6 +9,7 @@
     { label: 'The Daily Fetch', href: '/play/daily-fetch/' },
     { label: 'Home Maintenance Tracker', href: 'https://github.com/mcornelia/home-maintenance-tracker', external: true },
     { label: 'Mountain Mesh Setup Guide', href: 'https://mcornelia.github.io/mountain-mesh-node-guide', external: true },
+    { label: 'Creator Micro 2', href: 'https://worklouder.cc/creator-micro-2', external: true },
     { label: 'Family AI ChatBot', href: '/posts/family-ai-chatbot.html' }
   ];
 
@@ -41,13 +42,17 @@
 
   const commands = {
     help: () => makeResponse(
-      'Available commands: help, projects, games, radio, dogs, random, about, contact, clear. Arrow keys recall earlier commands.'
+      'Available commands: help, projects, games, radio, hardware, dogs, random, about, contact, clear. Arrow keys recall earlier commands.'
     ),
     projects: () => makeResponse('A few useful things currently escaping from the lab:', projectLinks),
     games: () => makeResponse('Choose your distraction:', gameLinks),
     radio: () => makeResponse(
       'Meshtastic uses small LoRa radios for long-range text messaging without cellular service or the internet.',
       [{ label: 'Open the Mountain Mesh guide', href: 'https://mcornelia.github.io/mountain-mesh-node-guide', external: true }]
+    ),
+    hardware: () => makeResponse(
+      'Creator Micro 2 is in transit. The plan: turn its agent-status keys, joystick, and dial into a tactile command center for parallel Codex work.',
+      [{ label: 'Meet Creator Micro 2', href: 'https://worklouder.cc/creator-micro-2', external: true }]
     ),
     dogs: () => makeResponse(dogReports[Math.floor(Math.random() * dogReports.length)]),
     random: () => {
