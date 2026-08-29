@@ -66,7 +66,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../css/style.css?v=terminal-green-1">
+  <link rel="stylesheet" href="../css/style.css?v=lab-bench-1">
 </head>
 <body>
 
@@ -92,16 +92,81 @@
       <p>Some become tools we use every day. Others simply teach me something new. I share the useful parts so other people can try them too.</p>
     </div>
 
+    <section class="mc-bench" aria-labelledby="mc-bench-title">
+      <div class="mc-bench-header">
+        <h2 id="mc-bench-title">// now on the bench</h2>
+        <p>Three projects in three different states of done.</p>
+      </div>
+
+      <div class="mc-bench-grid">
+        <a class="mc-bench-card" href="/play/daily-fetch/">
+          <span class="mc-bench-status"><span aria-hidden="true"></span>shipped</span>
+          <span class="mc-bench-kicker">daily puzzle</span>
+          <h3>The Daily Fetch</h3>
+          <p>Find eight words and the long word to help Olive catch her favorite ball. Huck supervises.</p>
+          <span class="mc-bench-action">play today&rsquo;s puzzle <span aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <a class="mc-bench-card" href="https://github.com/mcornelia/home-maintenance-tracker" target="_blank" rel="noopener">
+          <span class="mc-bench-status"><span aria-hidden="true"></span>running</span>
+          <span class="mc-bench-kicker">home systems</span>
+          <h3>Ravenwood</h3>
+          <p>A private whole-house maintenance tracker running on the Mac mini and used in real life.</p>
+          <span class="mc-bench-action">view the project <span aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <a class="mc-bench-card mc-bench-card--experiment" href="https://mcornelia.github.io/mountain-mesh-node-guide" target="_blank" rel="noopener">
+          <span class="mc-bench-status"><span aria-hidden="true"></span>experimenting</span>
+          <span class="mc-bench-kicker">small radios</span>
+          <h3>Meshtastic &amp; LoRa</h3>
+          <p>Long-range messaging experiments that work without cellular service or the internet.</p>
+          <span class="mc-bench-action">open the radio guide <span aria-hidden="true">&rarr;</span></span>
+        </a>
+      </div>
+    </section>
+
     <section class="mc-section">
-      <h2>// on the bench</h2>
+      <h2>// elsewhere in the lab</h2>
       <ul>
         <li><strong>AI agents</strong> &mdash; experiments built with both Codex and OpenClaw, from focused coding partners to always-on household assistants, family messaging, and model routing</li>
-        <li><strong>Home systems</strong> &mdash; a <a href="https://github.com/mcornelia/home-maintenance-tracker" target="_blank" rel="noopener">whole-house maintenance tracker</a>, morning briefs, reminders, and small automations running from a dedicated Mac mini</li>
-        <li><strong>Meshtastic &amp; LoRa</strong> &mdash; experiments with small radios, long-range messaging, and communication that doesn&rsquo;t depend on cellular service or the internet</li>
-        <li><strong><a href="/play/daily-fetch/">The Daily Fetch</a></strong> &mdash; a daily word puzzle made for Aimee, starring Olive and her orange-and-blue ball. Huck supervises.</li>
         <li><strong><a href="/play.html">Retro Arcade</a></strong> &mdash; browser-sized versions of Asteroids, Snake, Breakout, Pong, Frogger, and a data-center-themed Space Invaders</li>
         <li><strong>Useful little tools</strong> &mdash; a <a href="https://mcornelia.github.io/room-layout-tool" target="_blank" rel="noopener">room-layout planner</a>, setup guides, monitoring jobs, and whatever problem looks interesting next</li>
       </ul>
+    </section>
+
+    <section class="mc-terminal" aria-labelledby="mc-terminal-title">
+      <h2 id="mc-terminal-title">// terminal access</h2>
+
+      <div class="mc-terminal-window">
+        <div class="mc-terminal-bar" aria-hidden="true">
+          <span class="mc-terminal-dot"></span>
+          <span class="mc-terminal-dot"></span>
+          <span class="mc-terminal-dot"></span>
+          <span class="mc-terminal-title">lab-shell &mdash; guest</span>
+        </div>
+
+        <div class="mc-terminal-screen">
+          <div class="mc-terminal-output" id="mc-terminal-output" role="log" aria-live="polite" aria-relevant="additions text">
+            <p class="mc-terminal-system">Lab terminal ready. Type <button type="button" class="mc-terminal-inline-command" data-command="help">help</button> to see what it knows.</p>
+          </div>
+
+          <form class="mc-terminal-form" id="mc-terminal-form">
+            <label class="sr-only" for="mc-terminal-input">Enter a Lab terminal command</label>
+            <span class="mc-terminal-prompt" aria-hidden="true">visitor@lab:~$</span>
+            <input id="mc-terminal-input" name="command" type="text" maxlength="32" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="mc-terminal-hint">
+            <button type="submit">run</button>
+          </form>
+
+          <div class="mc-terminal-suggestions" id="mc-terminal-hint" aria-label="Suggested terminal commands">
+            <span>try:</span>
+            <button type="button" data-command="projects">projects</button>
+            <button type="button" data-command="games">games</button>
+            <button type="button" data-command="radio">radio</button>
+            <button type="button" data-command="dogs">dogs</button>
+            <button type="button" data-command="random">random</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="mc-section">
@@ -128,6 +193,7 @@
 
 </div>
 
+  <script src="/js/lab-terminal.js?v=lab-bench-1" defer></script>
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2b2752bd56614a1d98f09afcc8b3e8b0"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

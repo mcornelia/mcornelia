@@ -342,6 +342,18 @@ blockquote {
   font-style: italic;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ============================================
    HOME PAGE (mono throughout, terminal vibe)
    ============================================ */
@@ -401,6 +413,331 @@ blockquote {
 
 .mc-home .mc-hero p:last-child {
   margin-bottom: 0;
+}
+
+.mc-home .mc-bench {
+  margin-bottom: 2.5rem;
+}
+
+.mc-home .mc-bench-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.mc-home .mc-bench-header h2 {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-green);
+}
+
+.mc-home .mc-bench-header p {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.mc-home .mc-bench-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.mc-home .mc-bench-card {
+  --bench-status: var(--accent-green);
+  display: flex;
+  flex-direction: column;
+  min-height: 18rem;
+  padding: 1rem;
+  color: var(--text);
+  text-decoration: none;
+  background:
+    linear-gradient(180deg, rgba(var(--accent-green-rgb), 0.055), transparent 36%),
+    rgba(13, 17, 23, 0.58);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--bench-status);
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.mc-home .mc-bench-card--experiment {
+  --bench-status: var(--accent-amber);
+  background:
+    linear-gradient(180deg, rgba(255, 184, 0, 0.05), transparent 36%),
+    rgba(13, 17, 23, 0.58);
+}
+
+.mc-home .mc-bench-card:hover {
+  color: var(--text);
+  transform: translateY(-3px);
+  border-color: var(--bench-status);
+  background-color: rgba(22, 27, 34, 0.88);
+}
+
+.mc-home .mc-bench-card:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+
+.mc-home .mc-bench-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  margin-bottom: 1.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--bench-status);
+}
+
+.mc-home .mc-bench-status > span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--bench-status);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--bench-status) 65%, transparent);
+}
+
+.mc-home .mc-bench-kicker {
+  margin-bottom: 0.4rem;
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mc-home .mc-bench-card h3 {
+  min-height: 3.25rem;
+  margin-bottom: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--text-bright);
+}
+
+.mc-home .mc-bench-card p {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.mc-home .mc-bench-action {
+  margin-top: auto;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: var(--bench-status);
+}
+
+.mc-home .mc-terminal {
+  margin: 2.75rem 0;
+}
+
+.mc-home .mc-terminal > h2 {
+  margin-bottom: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-green);
+}
+
+.mc-home .mc-terminal-window {
+  overflow: hidden;
+  background: #080b0f;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.mc-home .mc-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2rem;
+  padding: 0.4rem 0.7rem;
+  background: var(--bg-solid);
+  border-bottom: 1px solid var(--border);
+}
+
+.mc-home .mc-terminal-dot {
+  width: 0.52rem;
+  height: 0.52rem;
+  border-radius: 50%;
+  background: var(--text-dim);
+}
+
+.mc-home .mc-terminal-dot:first-child {
+  background: var(--accent-magenta);
+}
+
+.mc-home .mc-terminal-dot:nth-child(2) {
+  background: var(--accent-amber);
+}
+
+.mc-home .mc-terminal-dot:nth-child(3) {
+  background: var(--accent-green);
+  box-shadow: 0 0 7px rgba(var(--accent-green-rgb), 0.35);
+}
+
+.mc-home .mc-terminal-title {
+  margin-left: 0.35rem;
+  font-size: 0.64rem;
+  color: var(--text-dim);
+}
+
+.mc-home .mc-terminal-screen {
+  padding: 1rem;
+}
+
+.mc-home .mc-terminal-output {
+  min-height: 8.5rem;
+  max-height: 19rem;
+  overflow-y: auto;
+  padding: 0.2rem 0.2rem 0.8rem;
+  scrollbar-color: var(--border) #080b0f;
+}
+
+.mc-home .mc-terminal-output p {
+  margin-bottom: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+.mc-home .mc-terminal-system {
+  color: var(--text-muted);
+}
+
+.mc-home .mc-terminal-inline-command {
+  padding: 0;
+  font: inherit;
+  color: var(--accent-green);
+  background: none;
+  border: 0;
+  border-bottom: 1px dotted var(--accent-green);
+  cursor: pointer;
+}
+
+.mc-home .mc-terminal-entry {
+  padding-top: 0.65rem;
+  margin-top: 0.65rem;
+  border-top: 1px solid rgba(48, 54, 61, 0.7);
+}
+
+.mc-home .mc-terminal-command {
+  color: var(--text-bright);
+}
+
+.mc-home .mc-terminal-command::before {
+  content: 'visitor@lab:~$ ';
+  color: var(--accent-green);
+}
+
+.mc-home .mc-terminal-response {
+  color: var(--text-muted);
+}
+
+.mc-home .mc-terminal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.85rem;
+  margin-top: 0.55rem;
+}
+
+.mc-home .mc-terminal-links a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+}
+
+.mc-home .mc-terminal-links a::before {
+  content: '> ';
+  color: var(--accent-green);
+}
+
+.mc-home .mc-terminal-form {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  background: rgba(var(--accent-green-rgb), 0.035);
+  border: 1px solid var(--border);
+}
+
+.mc-home .mc-terminal-form:focus-within {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 2px rgba(var(--accent-green-rgb), 0.08);
+}
+
+.mc-home .mc-terminal-prompt {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  color: var(--accent-green);
+}
+
+.mc-home .mc-terminal-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-bright);
+  caret-color: var(--accent-green);
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.mc-home .mc-terminal-form button {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--accent-green);
+  background: rgba(var(--accent-green-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-green-rgb), 0.45);
+  cursor: pointer;
+}
+
+.mc-home .mc-terminal-form button:hover,
+.mc-home .mc-terminal-form button:focus-visible {
+  background: rgba(var(--accent-green-rgb), 0.12);
+  border-color: var(--accent-green);
+}
+
+.mc-home .mc-terminal-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-dim);
+}
+
+.mc-home .mc-terminal-suggestions button {
+  padding: 0;
+  font: inherit;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dotted var(--text-dim);
+  cursor: pointer;
+}
+
+.mc-home .mc-terminal-suggestions button:hover,
+.mc-home .mc-terminal-suggestions button:focus-visible,
+.mc-home .mc-terminal-inline-command:hover,
+.mc-home .mc-terminal-inline-command:focus-visible {
+  color: var(--accent-green);
+  outline: none;
+  border-color: var(--accent-green);
 }
 
 .mc-home .mc-section {
@@ -1422,6 +1759,40 @@ blockquote {
 
   .mc-home h1 {
     font-size: 1.75rem;
+  }
+
+  .mc-home .mc-bench-header {
+    display: block;
+  }
+
+  .mc-home .mc-bench-header p {
+    margin-top: 0.3rem;
+    text-align: left;
+  }
+
+  .mc-home .mc-bench-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-home .mc-bench-card {
+    min-height: auto;
+  }
+
+  .mc-home .mc-bench-card h3 {
+    min-height: auto;
+  }
+
+  .mc-home .mc-terminal-screen {
+    padding: 0.85rem;
+  }
+
+  .mc-home .mc-terminal-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .mc-home .mc-terminal-prompt {
+    grid-column: 1 / -1;
   }
 
   h1 { font-size: 1.6rem; }
