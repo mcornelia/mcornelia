@@ -88,7 +88,7 @@
     <p class="mc-post-dek">A practical, security-first blueprint for a dedicated household Mac that automatically answers approved individual and group iMessage chats, while an administrator uses ChatGPT Remote and Tailscale to operate it from anywhere.</p>
 
     <div class="mc-callout">
-      <p><strong>THE SHORT VERSION.</strong> This setup turns a dedicated Mac into a household AI that automatically replies in approved iMessage chats. A small local Courier gives a bounded slice of recent conversation to an ephemeral, read-only Codex run authenticated with the household&rsquo;s ChatGPT account, then sends one reply through Messages. The Apple Messages plugin is useful for supervised administration. Google Voice remains a separate Google phone/SMS identity rather than an iMessage address.</p>
+      <p><strong>THE SHORT VERSION.</strong> This setup gives a dedicated Mac its own household identity and automatically replies in approved iMessage chats. A local Courier gives bounded same-chat context to an ephemeral, read-only Codex run authenticated with the agent&rsquo;s dedicated ChatGPT account, then sends one reply through Messages. A dedicated Google Account provides Gmail and an optional Google Voice line for calls, voicemail, and Voice SMS. Voice remains separate from the Apple Account and iMessage.</p>
     </div>
 
     <figure class="mc-post-figure">
@@ -177,7 +177,7 @@ Start by interviewing me. Ask one concise batch of questions covering:
 7. Administration: ChatGPT Remote, Tailscale, Screen Sharing, SSH, named administrators, backups, updates, monitoring, and physical recovery.
 
 Before changing anything:
-- Explain that Google Voice is a separate Voice phone/SMS identity and normally cannot be the sender for Apple iMessage. An iMessage identity must be an Apple Account address or a carrier phone number attached through an iPhone.
+- Explain that Google Voice can be the agent&rsquo;s separate family-facing line for calls, voicemail, and Voice SMS, but normally cannot be the sender for Apple iMessage. An iMessage identity must be an Apple Account address or a carrier phone number attached through an iPhone.
 - Inventory the Mac read-only and report macOS/hardware, disk space, power settings, FileVault, firewall, automatic login, update settings, relevant Login Items, ChatGPT version/settings, Messages sign-in state, and Tailscale state. Redact personal identifiers and secrets.
 - Produce a numbered architecture plan, a simple threat model, an exact change manifest, verification steps, and rollback steps. Wait for my approval before making changes.
 
@@ -305,9 +305,9 @@ Implementation rules:
         </tr></tbody>
       </table>
     </div>
-    <h3 id="the-google-voice-expectation">The Google Voice expectation</h3>
-    <p>Google Voice is useful for a dedicated household phone number, voicemail, calls, and Voice SMS in the Voice app or browser. <strong>It is not normally an iMessage sender.</strong> Apple Messages uses an Apple Account email address for iMessage, or a carrier phone number relayed from an iPhone signed into the same Apple Account.</p>
-    <div class="mc-callout"><p><strong>RECOMMENDED IDENTITY PLAN.</strong> Let family members save the bot&rsquo;s dedicated Apple Account email as the iMessage contact. Keep the Google Voice number on the same contact card for calls, voicemail, and Google Voice SMS. Label the two addresses clearly.</p></div>
+    <h3 id="the-google-voice-expectation">The household AI&rsquo;s identity</h3>
+    <p>Give the household AI its own macOS user and dedicated Apple, Google, and ChatGPT accounts rather than borrowing a family member&rsquo;s identity. Google Voice can be its family-facing line for calls, voicemail, and Voice SMS, but <strong>it is not normally an iMessage sender.</strong> Messages uses the dedicated Apple Account email or a carrier number relayed from an iPhone on that Apple Account.</p>
+    <div class="mc-callout"><p><strong>INDEPENDENT, NOT OWNERLESS.</strong> Put the Apple Account email and Voice number on one contact card. Name a human recovery administrator, store credentials in the family password manager, and label the two addresses.</p></div>
     <h3 id="credential-handling">Credential handling</h3>
     <ul>
       <li>Enter account passwords and MFA codes directly into System Settings, Messages, ChatGPT, Google, or Tailscale&mdash;not into a ChatGPT conversation.</li>
@@ -385,7 +385,7 @@ fdesetup status
       <li>In Messages settings, confirm &ldquo;You can be reached for messages at&rdquo; includes the dedicated Apple Account email.</li>
       <li>Send a manual iMessage from a family member to that address and reply manually. Confirm the bubble is blue and the sender is the expected bot contact.</li>
       <li>Create the intended group chat in Messages and obtain consent from every participant. Explain that messages may be sent to an OpenAI model for response generation.</li>
-      <li>Give the bot contact a clear name and avatar. Avoid presenting it as a human family member.</li>
+      <li>Give the agent contact a clear name and avatar so it reads as a distinct household identity; do not impersonate a human family member.</li>
       <li>If SMS/MMS/RCS forwarding is required, use a compatible iPhone with the same Apple Account. Google Voice does not replace that Apple relay.</li>
     </ol>
     <h3 id="permission-map">Permission map</h3>
@@ -472,9 +472,9 @@ fdesetup status
     </ul>
     <div class="mc-callout"><p><strong>ONE CONTACT, MANY VOICES.</strong> Persona routing can be automatic, but all replies still come from the same Apple Messages identity. Use labels when clarity matters; create separate Apple Accounts only when truly separate senders are necessary.</p></div>
     <h2 id="10-dedicated-google-services">10 &middot; Dedicated Google services</h2>
-    <p>Use the dedicated Google Account as a separate household identity for Gmail, Calendar, Drive, and Google Voice. Sign into it in its own browser profile. Share only the specific family calendar and Drive folders it needs.</p>
+    <p>Give the household AI its own Google Account for Gmail, Calendar, Drive, and optional Voice rather than borrowing a family member&rsquo;s. Use a separate browser profile, enable MFA, and share only the specific family resources it needs.</p>
     <ul>
-      <li>Google Voice: dedicated calls, voicemail, and Voice SMS. Keep it clearly separate from the iMessage address.</li>
+      <li>Google Voice: the no-charge U.S. personal tier can provide a cost-effective family-facing line for calls, voicemail, and Voice SMS; it requires a linked phone number. Paid standalone tiers are available. Keep Voice separate from Apple Account and iMessage.</li>
       <li>Gmail: use labels, filters, and delegated/shared workflows rather than forwarding every personal mailbox into the bot account.</li>
       <li>Calendar: create a family calendar and share that calendar, not every participant&rsquo;s entire calendar.</li>
       <li>Drive: create a family AI folder. Do not sync personal drives wholesale onto a full-disk-access automation host.</li>
@@ -703,14 +703,14 @@ tailscale serve --bg http://127.0.0.1:LOCAL_STATUS_PORT
       <li><strong><a href="https://support.apple.com/en-gb/guide/mac-help/mchle41a6ccd/mac" target="_blank" rel="noopener">Apple &mdash; Mac sleep and wake settings</a></strong> &mdash; preventing automatic sleep on power and wake for network access</li>
       <li><strong><a href="https://support.apple.com/en-us/102282" target="_blank" rel="noopener">Apple &mdash; Allow USB and other accessories to connect to your Mac</a></strong> &mdash; external display, keyboard, and mouse requirements for clamshell use</li>
       <li><strong><a href="https://support.apple.com/en-us/126322" target="_blank" rel="noopener">Apple &mdash; MacBook Neo technical specifications</a></strong> &mdash; ports, storage, and external-display capability</li>
-      <li><strong><a href="https://support.google.com/voice/answer/165221" target="_blank" rel="noopener">Google &mdash; Make calls with Google Voice</a></strong> &mdash; Voice as its own calling and messaging service</li>
+      <li><strong><a href="https://support.google.com/voice/answer/9249103?hl=en" target="_blank" rel="noopener">Google &mdash; Compare Google Voice subscription types</a></strong> &mdash; no-charge personal and paid standalone options</li>
       <li><strong><a href="https://tailscale.com/docs/install/mac" target="_blank" rel="noopener">Tailscale &mdash; Install on macOS</a></strong> &mdash; current macOS installation guidance</li>
       <li><strong><a href="https://tailscale.com/docs/features/tailscale-serve" target="_blank" rel="noopener">Tailscale &mdash; Serve</a></strong> &mdash; tailnet-private publication of localhost services</li>
       <li><strong><a href="https://tailscale.com/kb/1452/connect-to-devices" target="_blank" rel="noopener">Tailscale &mdash; Connect to devices</a></strong> &mdash; private device access patterns</li>
     </ul>
     <h2 id="final-recommendation">Final recommendation</h2>
-    <p><strong>Start with the Mac mini, dedicated accounts, FileVault, ChatGPT-authenticated Codex, a tiny allowlisted Courier, and Tailscale recovery. Prove the synthetic no-send path first; then one direct chat, one consented group, loop prevention, saved-cursor restart, and the emergency stop. Add personalities and administrator-only Google services only after the automatic reply loop is boringly reliable.</strong></p>
-    <div class="mc-callout"><p><strong>SUCCESS LOOKS BORING.</strong> One new message, one bounded model run, one reply in the correct chat, no replay, no loop, no public port, and a human who knows exactly how to stop it.</p></div>
+    <p><strong>Start with the Mac mini, dedicated accounts, FileVault, ChatGPT-authenticated Codex, an allowlisted Courier, and Tailscale recovery. Prove no-send, direct-chat, group-chat, cursor-recovery, loop-prevention, and emergency-stop paths. Add personalities and Google services only after automatic replies are reliable.</strong></p>
+    <div class="mc-callout"><p><strong>SUCCESS LOOKS BORING.</strong> One message, one model run, one reply, no loop, and a clear emergency stop.</p></div>
 
   </main>
 
