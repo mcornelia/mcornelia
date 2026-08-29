@@ -4,42 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build a Family AI ChatBot &mdash; ChatGPT + iMessage on a Mac Mini &mdash; Mike Cornelia</title>
-  <meta name="description" content="A security-first guide to building an automatic family AI on an always-on Mac mini with Codex, iMessage, ChatGPT Remote, and Tailscale&mdash;without OpenClaw.">
+  <meta name="description" content="A practical, security-first guide to building an automatic family AI in approved iMessage chats with ChatGPT, Codex, and an always-on Mac mini.">
   <meta name="author" content="Mike Cornelia">
-  <meta name="keywords" content="family AI chatbot, ChatGPT Remote, iMessage AI, Mac mini AI, Apple Messages plugin, home AI, Tailscale, dedicated Mac">
+  <meta name="keywords" content="family AI chatbot, iMessage AI, Codex, Mac mini AI, ChatGPT Remote, local Python service, dedicated Mac">
 
   <link rel="canonical" href="https://mcornelia.com/posts/family-ai-chatbot.html">
 
   <meta property="og:type" content="article">
   <meta property="og:title" content="Build a Family AI ChatBot">
-  <meta property="og:description" content="An automatic ChatGPT + iMessage family bot on an always-on Mac mini&mdash;without OpenClaw or a separate API key.">
+  <meta property="og:description" content="An automatic ChatGPT + iMessage family assistant on an always-on Mac mini, built around a narrow local Python service.">
   <meta property="og:url" content="https://mcornelia.com/posts/family-ai-chatbot.html">
   <meta property="og:image" content="https://mcornelia.com/og-images/family-ai-chatbot.png">
   <meta property="og:site_name" content="Mike Cornelia">
   <meta property="article:author" content="Mike Cornelia">
   <meta property="article:published_time" content="2026-08-28">
+  <meta property="article:modified_time" content="2026-08-29">
   <meta property="article:section" content="AI &amp; Productivity">
   <meta property="article:tag" content="ChatGPT">
   <meta property="article:tag" content="iMessage">
   <meta property="article:tag" content="Mac mini">
   <meta property="article:tag" content="Home AI">
-  <meta property="article:tag" content="Tailscale">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Build a Family AI ChatBot">
-  <meta name="twitter:description" content="An automatic ChatGPT + iMessage family bot on an always-on Mac mini&mdash;without OpenClaw.">
+  <meta name="twitter:description" content="An automatic ChatGPT + iMessage family assistant on an always-on Mac mini.">
   <meta name="twitter:image" content="https://mcornelia.com/og-images/family-ai-chatbot.png">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "TechArticle",
     "headline": "Build a Family AI ChatBot",
-    "description": "A security-first guide to building an automatic family AI on an always-on Mac mini with Codex, iMessage, ChatGPT Remote, and Tailscale.",
+    "description": "A practical, security-first guide to building an automatic family AI in approved iMessage chats with ChatGPT, Codex, and an always-on Mac mini.",
     "image": "https://mcornelia.com/og-images/family-ai-chatbot.png",
     "url": "https://mcornelia.com/posts/family-ai-chatbot.html",
     "datePublished": "2026-08-28",
     "dateModified": "2026-08-29",
+    "proficiencyLevel": "Intermediate",
     "author": {
       "@type": "Person",
       "name": "Mike Cornelia",
@@ -54,7 +55,7 @@
       "@type": "WebPage",
       "@id": "https://mcornelia.com/posts/family-ai-chatbot.html"
     },
-    "keywords": "family AI chatbot, ChatGPT Remote, iMessage AI, Mac mini AI, Apple Messages plugin, home AI, Tailscale"
+    "keywords": "family AI chatbot, iMessage AI, Codex, Mac mini AI, ChatGPT Remote, local Python service"
   }
   </script>
 
@@ -78,672 +79,254 @@
 
     <a href="/play.html" class="mc-post-back">&larr; Code</a>
 
-    <p class="mc-post-kicker">FIELD GUIDE  /  OPENAI-CENTERED HOME AI</p>
+    <p class="mc-post-kicker">FIELD GUIDE / OPENAI-CENTERED HOME AI</p>
 
     <div class="mc-post-header">
       <h1>Build a Family AI ChatBot</h1>
-      <p class="mc-post-subtitle">ChatGPT + Codex + iMessage on an always-on Mac mini &mdash; without OpenClaw</p>
+      <p class="mc-post-subtitle">ChatGPT + Codex + iMessage on an always-on Mac mini</p>
     </div>
 
-    <p class="mc-post-dek">A practical, security-first blueprint for a dedicated household Mac that automatically answers approved individual and group iMessage chats, while an administrator uses ChatGPT Remote and Tailscale to operate it from anywhere.</p>
+    <p class="mc-post-dek">A practical, security-first blueprint for a dedicated household Mac that automatically answers approved individual and group iMessage chats&mdash;without OpenClaw, a public webhook, or a separate API integration.</p>
 
     <div class="mc-callout">
-      <p><strong>WHAT FAMILY AI COURIER IS.</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> is custom Python software created with Codex for this project. It runs as a small background service on the family Mac and connects Apple Messages to Codex. When a new message arrives in an approved chat, it reads a limited slice of that chat, asks Codex to write one reply, sends the reply through Messages, and records that the message was handled so it cannot be replayed or trigger a loop. It is not the AI model, not a chat app, and not a built-in ChatGPT, OpenAI, or Apple product. The complete source code, configuration examples, installer, tests, and documentation are available on GitHub.</p>
+      <p><strong>THE SHORT VERSION.</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> is the custom local Python service written with Codex for this project. It watches only approved Apple Messages chats, gives a bounded slice of recent conversation to a ChatGPT-authenticated Codex run, and sends one reply back through Messages. It is not the AI model, a chat app, or an Apple or OpenAI product.</p>
     </div>
-    <p><strong>In plain English:</strong> Messages is the inbox and outbox, Codex is the writer, and this background service carries each approved message between them. The dedicated Mac and its accounts give the household AI a separate identity.</p>
+    <p><strong>In plain English:</strong> Messages is the inbox and outbox, Codex is the writer, and the local service carries each approved message between them. The complete code, installer, tests, and operating documentation are public on GitHub.</p>
 
-    <figure class="mc-post-figure">
-      <img src="../images/family-ai-architecture.png" alt="Flow diagram showing an approved family iMessage entering Messages, triggering a local Python watcher, receiving a reply from ChatGPT-authenticated Codex, and sending automatically through Messages.">
-      <figcaption>Recommended architecture: the local message service notices an approved incoming chat, Codex writes a bounded reply through the ChatGPT subscription, and Messages sends it automatically. Remote and Tailscale form the separate administration plane.</figcaption>
+    <figure class="mc-architecture" aria-labelledby="architecture-title architecture-caption">
+      <div class="mc-architecture-admin">
+        <div>
+          <strong id="architecture-title">Administration plane</strong>
+          <span>Supervised setup, approvals, maintenance, and recovery</span>
+        </div>
+        <div class="mc-architecture-tools">
+          <span>ChatGPT Remote</span>
+          <span>Optional Tailscale</span>
+        </div>
+      </div>
+      <div class="mc-architecture-lane" role="group" aria-label="Automatic message round trip">
+        <div class="mc-architecture-box mc-architecture-family">
+          <strong>Approved chat</strong>
+          <span>New direct or group iMessage</span>
+        </div>
+        <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
+        <div class="mc-architecture-box">
+          <strong>Apple Messages</strong>
+          <span><code>imsg watch</code> receives it</span>
+        </div>
+        <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
+        <div class="mc-architecture-box mc-architecture-service">
+          <strong>Local Python service</strong>
+          <span>Family AI Courier</span>
+        </div>
+        <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
+        <div class="mc-architecture-box mc-architecture-codex">
+          <strong>Codex</strong>
+          <span>Writes one bounded reply</span>
+        </div>
+      </div>
+      <div class="mc-architecture-return" aria-label="Return path">
+        <span class="mc-architecture-return-arrow" aria-hidden="true">&larr;</span>
+        <span>Codex returns text to the local service, which sends through Messages to the same approved chat.</span>
+      </div>
+      <figcaption id="architecture-caption">Two deliberately separate paths: an automatic message round trip and a supervised administration plane. The local service is the narrow bridge between Messages and Codex.</figcaption>
     </figure>
 
-    <nav class="mc-post-toc" aria-label="On this page">
-      <div class="mc-post-toc-label">On this page</div>
+    <nav class="mc-post-toc" aria-label="Core guide navigation">
+      <div class="mc-post-toc-label">Core guide</div>
       <ul>
         <li><a href="#quick-start">Quick start</a></li>
-        <li><a href="#1-what-this-guide-is-and-is-not">1 &middot; What this guide is&mdash;and is not</a></li>
-        <li><a href="#2-the-architecture">2 &middot; The architecture</a></li>
-        <li><a href="#3-accounts-and-ownership">3 &middot; Accounts and ownership</a></li>
-        <li><a href="#4-build-the-mac-mini-host">4 &middot; Build the Mac mini host</a></li>
-        <li><a href="#5-configure-chatgpt-as-the-administrator-workspace">5 &middot; Configure ChatGPT as the administrator workspace</a></li>
-        <li><a href="#6-configure-messages">6 &middot; Configure Messages</a></li>
-        <li><a href="#7-the-automatic-imessage-loop">7 &middot; The automatic iMessage loop</a></li>
-        <li><a href="#8-pilot-and-verification">8 &middot; Pilot and verification</a></li>
-        <li><a href="#9-personalities-and-routing">9 &middot; Personalities and routing</a></li>
-        <li><a href="#10-dedicated-google-services">10 &middot; Dedicated Google services</a></li>
-        <li><a href="#11-administration-with-tailscale">11 &middot; Administration with Tailscale</a></li>
-        <li><a href="#12-security-model">12 &middot; Security model</a></li>
-        <li><a href="#13-macbook-neo-alternative">13 &middot; MacBook Neo alternative</a></li>
-        <li><a href="#14-operator-runbook">14 &middot; Operator runbook</a></li>
-        <li><a href="#15-troubleshooting">15 &middot; Troubleshooting</a></li>
-        <li><a href="#16-advanced-and-optional-extensions">16 &middot; Advanced and optional extensions</a></li>
-        <li><a href="#sources-and-further-reading">Sources and further reading</a></li>
-        <li><a href="#final-recommendation">Final recommendation</a></li>
+        <li><a href="#understand">1 &middot; Understand the system</a></li>
+        <li><a href="#prepare">2 &middot; Prepare the Mac</a></li>
+        <li><a href="#install">3 &middot; Install and configure</a></li>
+        <li><a href="#test">4 &middot; Test and activate</a></li>
+        <li><a href="#operate">5 &middot; Operate and recover</a></li>
+        <li><a href="#security">6 &middot; Security and privacy</a></li>
+        <li><a href="#optional">7 &middot; Optional extensions</a></li>
       </ul>
     </nav>
 
     <h2 id="quick-start">Quick start</h2>
-    <p><strong>This guide builds the automatic version: a narrow local listener handles approved iMessage chats, while Codex uses the existing ChatGPT login for response generation. It needs neither OpenClaw nor a separate OpenAI API key.</strong></p>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Mode</strong></th>
-          <th><strong>What it does</strong></th>
-          <th><strong>Best use</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>A &middot; Watch</td>
-          <td>The local Python service opens one event-driven <code>imsg watch</code> stream for each explicitly approved chat. It ignores outgoing messages and baselines old history.</td>
-          <td>Detect new direct and group iMessages without polling.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>B &middot; Think</td>
-          <td>The service passes only bounded recent context to an ephemeral <code>codex exec</code> run authenticated through ChatGPT. The reply prompt forbids tools and consequential actions.</td>
-          <td>Generate a short, personality-aware response without an API key.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>C &middot; Reply and operate</td>
-          <td>The service sends once through Messages; <code>launchd</code> keeps it running. ChatGPT Remote, the Messages plugin, and Tailscale remain administrator tools.</td>
-          <td>Automatic family chat with a private recovery path.</td>
-        </tr></tbody>
-      </table>
+    <p><strong>If you already use Codex, this is the shortest practical path from a clean Mac to one verified automatic reply.</strong></p>
+    <ol class="mc-step-list">
+      <li><strong>Prepare the host.</strong> Use an always-on Mac with a standard daily-service account, a separate recovery administrator, FileVault, firewall, automatic security updates, and automatic login disabled.</li>
+      <li><strong>Connect Messages.</strong> Sign the service account into iMessage, install <code>imsg</code>, grant the required Full Disk Access and Automation permissions, and identify the numeric IDs of only the chats whose participants consent.</li>
+      <li><strong>Authenticate Codex.</strong> Install ChatGPT for macOS, sign in with the dedicated household ChatGPT account, and verify the bundled Codex CLI. ChatGPT subscription authentication is the default path; no separate API key is needed.</li>
+      <li><strong>Install the local service.</strong> Clone the repository, run its tests, run the installer, and replace the placeholders in the private configuration file. Leave <code>dry_run</code> set to <code>true</code>.</li>
+      <li><strong>Test before sending.</strong> Run the synthetic prompt test, then the service in the foreground. Send one harmless incoming message and inspect the reply without allowing it to send.</li>
+      <li><strong>Activate and verify.</strong> Turn off dry mode, activate the LaunchAgent, confirm exactly one direct-chat reply and one consented group reply, then restart the Mac and confirm that old messages are not replayed.</li>
+    </ol>
+
+    <div class="mc-callout">
+      <p><strong>SUCCESS LOOKS BORING.</strong> One approved incoming message, one ephemeral Codex run, one reply in the same chat, no loop, and an emergency stop you have already tested.</p>
     </div>
-    <h3 id="the-12-step-version">The 12-step version</h3>
+
+    <details class="mc-disclosure">
+      <summary>Advanced: let Codex guide the installation</summary>
+      <p>The repository includes a structured setup prompt that asks about hardware, accounts, consent, behavior, administration, and recovery before making changes. Use it in a new Codex task on the dedicated Mac.</p>
+      <p><a href="https://github.com/mcornelia/family-ai-chatbot/blob/main/docs/setup-prompt.md" target="_blank" rel="noopener"><strong>Open the copy/paste setup prompt on GitHub &rarr;</strong></a></p>
+      <p>Enter passwords, MFA codes, recovery codes, and tokens directly in their own applications&mdash;never in the Codex conversation.</p>
+    </details>
+
+    <h2 id="understand">1 &middot; Understand the system</h2>
+    <p>This is an OpenAI-centered automatic design. ChatGPT supplies the account and Codex entitlement. The local service supplies the event trigger, bounded context, routing, duplicate prevention, and delivery discipline. Apple Messages supplies the transport.</p>
+
+    <h3>Automatic message plane</h3>
+    <p>One event-driven <code>imsg watch</code> stream observes each allowlisted chat. A new incoming row causes the service to load only recent messages from that same chat, label group speakers, and invoke <code>codex exec</code>. After a successful model response, the service sends once through Messages, advances its cursor, and ignores the outgoing event it created.</p>
+
+    <h3>Administration plane</h3>
+    <p>ChatGPT Remote can provide supervised access to Codex tasks on the host. The optional Apple Messages plugin can help an administrator inspect or send messages during an approved task. Optional Tailscale access can provide private OS-level recovery. None of these is the automatic incoming-message trigger.</p>
+
+    <div class="mc-callout"><p><strong>MODEL-RUN BOUNDARY.</strong> Each automatic reply uses an ephemeral Codex run in an empty temporary directory, with the sandbox set to read-only and user configuration disabled. The prompt instructs Codex not to use tools, take outside actions, invent facts, or make consequential decisions. This is a constrained design, but it is not an enforced zero-tool runtime.</p></div>
+
+    <h3>What this design avoids</h3>
+    <ul>
+      <li>No public webhook, router port-forward, internet-facing dashboard, or broad agent bus.</li>
+      <li>No System Integrity Protection changes or private Messages-framework injection.</li>
+      <li>No access to every Messages conversation: only exact numeric chat IDs are allowlisted.</li>
+      <li>No silent enrollment. Every direct-chat participant and group-chat guest should consent.</li>
+      <li>No assumption that this is an emergency, medical, legal, financial, or account-recovery system.</li>
+    </ul>
+
+    <h2 id="prepare">2 &middot; Prepare the Mac</h2>
+    <h3>Hardware and accounts</h3>
+    <p>A base-model Mac mini is a good default: it can remain powered, wired, ventilated, and physically accessible without borrowing a family member&rsquo;s daily computer. Give the household AI its own standard macOS account, Apple Account/iMessage address, and ChatGPT account. Keep a separate administrator account for recovery.</p>
+    <p>A dedicated Google account is optional but useful for a separate Gmail address, recovery ownership, shared calendars or Drive folders, and a Google Voice line for ordinary calls, voicemail, and Voice SMS. Google Voice normally does not become an iMessage sender; that identity must come from the Apple Account or an eligible carrier number attached through an iPhone.</p>
+
+    <h3>Host baseline</h3>
     <ul class="mc-checklist">
-      <li><strong>Choose a base-model Mac mini for the most reliable always-on host; it should work fine for this setup. A MacBook Neo also works&mdash;see the clamshell section before buying adapters.</strong></li>
-      <li>Create two local accounts: a standard &ldquo;family AI&rdquo; account for daily operation and a separate administrator/recovery account.</li>
-      <li>Create dedicated Apple, Google, and ChatGPT identities. Turn on strong MFA and record recovery details offline.</li>
-      <li>Update macOS; enable FileVault, the firewall, automatic security updates, Wake for network access, and restart after power failure. Leave automatic login off.</li>
-      <li>Sign the family AI account into Messages. Confirm a real iMessage address before proceeding.</li>
-      <li>Install the ChatGPT desktop app and use <code>codex login</code> to authenticate the bundled Codex CLI with the dedicated ChatGPT subscription. No API key is required.</li>
-      <li>Install <code>imsg</code>, grant its process Full Disk Access, and identify the exact direct and group chats whose participants have consented.</li>
-      <li><strong>Ask Codex to audit and install the public <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier reference implementation</a>. It watches only those chat IDs, stores high-water cursors, ignores outgoing messages, and supplies no more than the needed recent context.</strong></li>
-      <li><strong>Run each reply through ephemeral, read-only <code>codex exec</code> in an empty temporary directory, with strict tone, privacy, no-tool, and human-handoff instructions.</strong></li>
-      <li><strong>Install the background service as a <code>launchd</code> agent, keeping configuration and state owner-only. Preserve a one-command emergency stop.</strong></li>
-      <li><strong>Test a synthetic no-send response, then one approved direct chat, one consented group, duplicate/loop prevention, restart recovery, ChatGPT Remote, and Tailscale.</strong></li>
-      <li><strong>Write the runbook: how to stop the service, inspect its logs, remove a chat, revoke ChatGPT sessions, sign out of Messages, and reach the Mac physically.</strong></li>
+      <li>Install current macOS updates and keep automatic security responses enabled.</li>
+      <li>Enable FileVault and the macOS firewall; leave System Integrity Protection enabled.</li>
+      <li>Disable automatic login. Store recovery information offline.</li>
+      <li>Prevent system sleep while on power; allow the display to sleep.</li>
+      <li>Enable wake for network access and restart after power failure where supported.</li>
+      <li>Use Ethernet and a UPS if practical; preserve physical keyboard/display access for recovery.</li>
     </ul>
-    <h3 id="copy-paste-setup-prompt-for-chatgpt">Copy/paste setup prompt for ChatGPT</h3>
-    <div class="mc-callout"><p><strong>HOW TO USE IT.</strong> Paste the prompt below into a new ChatGPT/Codex task on the dedicated Mac. It requires an interview, read-only discovery, a numbered plan, explicit approvals, and staged testing. Enter passwords and MFA codes directly in their own apps&mdash;never in the conversation.</p></div>
-    <div class="mc-prompt-block">
-      <div class="mc-prompt-label">Copy/paste setup prompt</div>
-      <pre>You are my security-conscious Mac automation architect. Help me build a dedicated family ChatGPT Mac without OpenClaw.
 
-Start by interviewing me. Ask one concise batch of questions covering:
-1. Hardware: Mac mini or MacBook Neo, available storage, display/keyboard availability, Ethernet/Wi-Fi, UPS, and physical location.
-2. Accounts: which dedicated macOS, Apple, Google, and ChatGPT accounts already exist; who owns recovery; and whether a separate recovery administrator is acceptable.
-3. Family use: which people consent, which individual and group chats are in scope, which iMessage email or carrier number the bot will use, minors or guests in any group, and whether &ldquo;Google Voice number&rdquo; is expected to be the iMessage sender.
-4. Behavior: which chats are in scope; automatic or mention-only replies; quiet hours; reply length and tone; attachments; retention; and emergency/sensitive-topic rules.
-5. Personalities: one default voice, per-chat personas, or an explicit selector such as @Sage or @Spark; whether replies must identify the active persona.
-6. Connected data: Gmail, Calendar, Drive, Contacts, or none; exactly which shared folders/calendars; and whether those tools should be excluded from automatic iMessage replies.
-7. Administration: ChatGPT Remote, Tailscale, Screen Sharing, SSH, named administrators, backups, updates, monitoring, and physical recovery.
+    <h3>Before installing</h3>
+    <p>Sign into Messages and exchange a real test iMessage. Install ChatGPT, sign into the dedicated ChatGPT account, and confirm the Codex CLI reports an authenticated session:</p>
+    <pre><code>/Applications/ChatGPT.app/Contents/Resources/codex login status</code></pre>
+    <p>Subscription authentication is the documented default. Codex also supports API-key authentication, but that is an optional alternative with separate credentials and billing&mdash;not part of this reference setup.</p>
 
-Before changing anything:
-- Explain that Google Voice can be the agent&rsquo;s separate family-facing line for calls, voicemail, and Voice SMS, but normally cannot be the sender for Apple iMessage. An iMessage identity must be an Apple Account address or a carrier phone number attached through an iPhone.
-- Inventory the Mac read-only and report macOS/hardware, disk space, power settings, FileVault, firewall, automatic login, update settings, relevant Login Items, ChatGPT version/settings, Messages sign-in state, and Tailscale state. Redact personal identifiers and secrets.
-- Produce a numbered architecture plan, a simple threat model, an exact change manifest, verification steps, and rollback steps. Wait for my approval before making changes.
+    <h2 id="install">3 &middot; Install and configure</h2>
+    <h3>Install <code>imsg</code></h3>
+    <pre><code>brew install steipete/tap/imsg
+imsg --version
+imsg chats --limit 3</code></pre>
+    <p>Follow the <a href="https://imsg.sh/quickstart.html" target="_blank" rel="noopener"><code>imsg</code> permission guide</a>. Reading Messages requires Full Disk Access; sending requires Automation permission. Do not enable optional private-framework features or disable System Integrity Protection for this project.</p>
 
-Implementation rules:
-- Prefer a standard &ldquo;family AI&rdquo; macOS user plus a separate recovery administrator. Keep FileVault, firewall, SIP, and automatic updates enabled. Do not enable automatic login.
-- Install the ChatGPT desktop app, sign the bundled Codex CLI into the dedicated ChatGPT account, and verify a non-interactive no-send response. Do not create an API key.
-- Use Tailscale for private remote administration; do not open router ports or expose Screen Sharing/SSH to the public internet.
-- Clone and audit the Family AI Courier reference implementation from https://github.com/mcornelia/family-ai-chatbot. It is a small local Python service around `imsg watch`, not an OpenAI or Apple product. Watch only explicitly approved chat IDs, baseline existing history on first start, store a per-chat high-water row ID atomically, ignore outgoing messages, and restart watchers with bounded backoff.
-- For each new incoming message, read at most ten recent messages from that same chat, label group speakers, and pass the prompt on standard input to `codex exec --ephemeral --ignore-user-config --sandbox read-only` in an empty temporary directory. Capture only the final reply.
-- The reply prompt must forbid tool use, outside actions, invented facts, promises, and consequential decisions. It must defer medical, legal, financial, safety, account-recovery, and high-conflict matters to a human owner.
-- Send through `imsg` only after a successful model response. Treat a successful send as the commit boundary; ignore the resulting outgoing event so the bot cannot reply to itself.
-- Install the service with `launchd`, owner-only configuration/state, concise logs without message bodies, and a documented rollback. Do not install OpenClaw, expose a webhook, disable SIP, or open a public network port.
-- Never ask me to paste passwords, passphrases, MFA codes, recovery codes, or ChatGPT tokens into chat. Tell me where to enter credentials directly.
-- Start with unit tests and a synthetic no-send prompt. Then verify exactly one direct-chat reply, one consented group reply, restart recovery, network recovery, duplicate prevention, and the emergency stop.
-- End with a one-page operator runbook, a monthly maintenance checklist, a permissions matrix, and a list of every file or setting changed.</pre>
-    </div>
-    <h2 id="1-what-this-guide-is-and-is-not">1 &middot; What this guide is&mdash;and is not</h2>
-    <p><strong>This is an OpenAI-centered automatic design. ChatGPT supplies the account and Codex entitlement; the local Python service supplies the event trigger and delivery discipline; Apple Messages supplies the transport. ChatGPT Remote, the official Messages plugin, and Tailscale are the administration plane.</strong></p>
-    <div class="mc-callout"><p><strong>IMPORTANT PRODUCT BOUNDARY.</strong> The Apple Messages plugin is not the automatic trigger. The background service independently watches approved local chats, invokes the ChatGPT-authenticated Codex CLI, and sends the result. Stopping it stops automatic replies without disabling ChatGPT or Messages.</p></div>
-    <h3 id="what-this-guide-deliberately-avoids">What this guide deliberately avoids</h3>
-    <ul>
-      <li>No OpenClaw, broad agent bus, public webhook, router port-forward, or internet-exposed admin dashboard.</li>
-      <li>No private Messages framework, injection, or System Integrity Protection changes; the narrow listener uses the local <code>imsg</code> command.</li>
-      <li>No OpenAI API project, API key, or separate usage-based API billing. Codex authenticates through the dedicated ChatGPT subscription.</li>
-      <li>No access to every Messages conversation. Only exact, consented chat IDs are placed on the allowlist.</li>
-      <li>No silent enrollment of family members or group-chat guests. Consent and a visible trigger rule are part of the setup.</li>
-    </ul>
-    <h3 id="reference-system-that-informed-this-guide">Reference system that informed this guide</h3>
-    <p>The household installation audited for this article is a dedicated Mac mini running continuously under a dedicated account. Snapshot: August 2026.</p>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Layer</strong></th>
-          <th><strong>Audited pattern</strong></th>
-          <th><strong>What to copy</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>Host</td>
-          <td>Dedicated Mac mini, current macOS, long uptime</td>
-          <td>A base model should work fine; prioritize storage headroom and Ethernet if practical.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Power</td>
-          <td>System sleep disabled; display sleeps; wake-on-network and restart-after-power-loss enabled</td>
-          <td>Optimize the host for unattended service, not desktop energy behavior.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Security</td>
-          <td>FileVault and macOS firewall enabled; automatic login disabled; update checks enabled</td>
-          <td>Keep the security boundary even though post-reboot unlock may require a person.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Administration</td>
-          <td>ChatGPT desktop with keep-awake controls; Tailscale; Screen Sharing and SSH</td>
-          <td>Separate ChatGPT task control from OS-level recovery access.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Messages</td>
-          <td>Event-driven local service, exact chat allowlist, bounded recent context, and automatic replies</td>
-          <td>Baseline old messages, ignore outgoing events, persist cursors, and keep an emergency stop.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Identity</td>
-          <td>Dedicated Apple and Google identities</td>
-          <td>Keep household automation separate from any person&rsquo;s primary account.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <div class="mc-callout"><p><strong>REFERENCE BUILD.</strong> The audited household system uses one <code>imsg watch</code> stream per approved chat, no model request while idle, ten-message maximum context, atomic high-water state, outgoing-message suppression, and <code>launchd</code> restart. The model backend is Codex signed in with ChatGPT.</p></div>
-    <h2 id="2-the-architecture">2 &middot; The architecture</h2>
-    <h3 id="control-plane-versus-message-plane">Control plane versus message plane</h3>
-    <p><strong>Control plane: </strong>ChatGPT Remote, the optional Apple Messages plugin, Tailscale, Screen Sharing, and optional SSH. These administrator tools inspect, update, test, stop, and recover the system.</p>
-    <p><strong>Automatic message plane: </strong>Apple Messages receives a text in an allowlisted chat. The service observes the new row, loads bounded context from that same chat, asks Codex for one short reply, sends it once, stores the new cursor, and ignores its own outgoing event.</p>
-    <div class="mc-callout"><p><strong>DESIGN PRINCIPLE.</strong> Automate the conversation, not the computer. The reply run gets an empty temporary workspace, a read-only sandbox, no durable session, and instructions not to use tools or take outside actions.</p></div>
-    <h3 id="one-bot-or-several-personalities">One bot or several personalities?</h3>
-    <p>One Messages identity can present several logical personalities, but it remains one contact/bubble.</p>
-    <ul>
-      <li>Per-chat mapping: the grandparents&rsquo; group uses &ldquo;Sage,&rdquo; the game-night group uses &ldquo;Spark,&rdquo; and direct chats use the default.</li>
-      <li>Explicit selector: a message begins &ldquo;@Sage &hellip;&rdquo; or &ldquo;@Spark &hellip;&rdquo;. The reply begins &ldquo;Sage:&rdquo; so nobody mistakes a simulation for a separate person.</li>
-      <li>Temporary mode: &ldquo;@Coach for this thread&rdquo; changes persona until a timeout or reset command.</li>
-    </ul>
-    <div class="mc-callout"><p><strong>IDENTITY REALITY.</strong> Separate Apple Accounts or separate devices/logins are required for truly separate iMessage senders. Prompts alone can change voice and behavior, not the sender identity.</p></div>
-    <h2 id="3-accounts-and-ownership">3 &middot; Accounts and ownership</h2>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Account</strong></th>
-          <th><strong>Recommended role</strong></th>
-          <th><strong>Rules</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>macOS family AI user</td>
-          <td>Runs Messages, ChatGPT/Codex, Tailscale, and the local message service</td>
-          <td>Standard user. Keep it logged in. No personal iCloud Drive or primary browser profile.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>macOS recovery admin</td>
-          <td>Updates, repairs, and unlocks the host</td>
-          <td>Different credentials; named owner; not used for daily chatbot work.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Dedicated Apple Account</td>
-          <td>iMessage identity and Messages sign-in</td>
-          <td>Strong MFA; recovery method controlled by the household owner; do not mix with a person&rsquo;s primary Messages history.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Dedicated Google Account</td>
-          <td>Gmail, Calendar, Drive, and Google Voice</td>
-          <td>Share only selected folders/calendars; review recovery phone/email; use its own browser profile.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Dedicated ChatGPT account/workspace</td>
-          <td>Desktop app, Codex subscription access, Remote host, plugins, and approvals</td>
-          <td>Same account/workspace on the host and administrator&rsquo;s mobile device. Enable MFA.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Codex CLI login</td>
-          <td>Non-interactive reply generation</td>
-          <td>Use <code>codex login</code> with the dedicated ChatGPT account. No API key is created.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Tailscale identity</td>
-          <td>Private network and device policy</td>
-          <td>Named admins; device approval/key expiry as appropriate; remove retired devices promptly.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <h3 id="the-google-voice-expectation">The household AI&rsquo;s identity</h3>
-    <p>Give the household AI its own macOS user and dedicated Apple, Google, and ChatGPT accounts rather than borrowing a family member&rsquo;s identity. Google Voice can be its family-facing line for calls, voicemail, and Voice SMS, but <strong>it is not normally an iMessage sender.</strong> Messages uses the dedicated Apple Account email or a carrier number relayed from an iPhone on that Apple Account.</p>
-    <div class="mc-callout"><p><strong>INDEPENDENT, NOT OWNERLESS.</strong> Put the Apple Account email and Voice number on one contact card. Name a human recovery administrator, store credentials in the family password manager, and label the two addresses.</p></div>
-    <h3 id="credential-handling">Credential handling</h3>
-    <ul>
-      <li>Enter account passwords and MFA codes directly into System Settings, Messages, ChatGPT, Google, or Tailscale&mdash;not into a ChatGPT conversation.</li>
-      <li>Store recovery codes offline in the family&rsquo;s password manager or secure physical record.</li>
-      <li>No OpenAI API key is required. Protect the dedicated ChatGPT account with MFA and review its signed-in devices and Remote hosts.</li>
-      <li>Review connected-app permissions quarterly and whenever a family member or administrator changes.</li>
-    </ul>
-    <h2 id="4-build-the-mac-mini-host">4 &middot; Build the Mac mini host</h2>
-    <h3 id="hardware-and-physical-setup">Hardware and physical setup</h3>
-    <ul>
-      <li>A base-model Mac mini should work fine for ChatGPT, Messages, browser administration, and Tailscale. Upgrade only if you plan to run substantial additional services.</li>
-      <li>Prefer Ethernet. Keep Wi-Fi configured as a fallback, but avoid placing the host on a client-isolated or captive-portal network.</li>
-      <li>Use a small UPS if short power interruptions are common. FileVault plus no automatic login means a full reboot may still require local unlock.</li>
-      <li>Leave service clearance around the Mac, label its power and network cable, and document where a keyboard/display can be connected for recovery.</li>
-      <li>Maintain generous free space. Messages attachments, logs, Drive/Dropbox caches, macOS updates, and local backups can consume a small SSD surprisingly quickly.</li>
-    </ul>
-    <h3 id="first-boot-and-account-creation">First boot and account creation</h3>
-    <ol>
-      <li>Connect a display and keyboard. Install all macOS updates before adding automation.</li>
-      <li>Create the recovery administrator first. Then create a separate standard user for the family AI service.</li>
-      <li>Sign in as the family AI user for the remaining app setup. Do not enable automatic login.</li>
-      <li>Give the Mac a recognizable, non-sensitive name such as &ldquo;Family-AI-Mac.&rdquo; Avoid a street address or full family name.</li>
-      <li>Set the correct time zone and enable automatic date/time. Remote access, security logs, calendar work, and scheduled maintenance depend on reliable time.</li>
-    </ol>
-    <h3 id="security-baseline">Security baseline</h3>
+    <h3>Clone, test, and install</h3>
+    <pre><code>git clone https://github.com/mcornelia/family-ai-chatbot.git
+cd family-ai-chatbot
+make check
+./install.sh</code></pre>
+    <p>The installer copies the runtime to <code>~/Applications/family-ai-chatbot</code>, creates owner-only support directories, installs a per-user LaunchAgent definition, and leaves the service stopped.</p>
+
+    <h3>Configure only approved chats</h3>
+    <pre><code>imsg chats --limit 20 --json</code></pre>
+    <p>Edit <code>~/Library/Application Support/Family AI Courier/config.json</code>. Replace every placeholder, include only consented numeric chat IDs, map group handles to friendly names, and keep <code>dry_run</code> set to <code>true</code>. Never commit the real configuration: chat identifiers are private even when no password is present.</p>
+
+    <h2 id="test">4 &middot; Test and activate</h2>
+    <h3>Test the model path without Messages</h3>
+    <pre><code>python3 courier.py \
+  --config "$HOME/Library/Application Support/Family AI Courier/config.json" \
+  test-prompt Alex "Hello from the setup test"</code></pre>
+
+    <h3>Test one incoming event without sending</h3>
+    <p>Run the service in the foreground while <code>dry_run</code> remains true. Send one harmless message to one allowlisted chat and confirm the log shows one generated response, no send, and no other chat activity.</p>
+    <pre><code>python3 courier.py \
+  --config "$HOME/Library/Application Support/Family AI Courier/config.json" \
+  --state "$HOME/Library/Application Support/Family AI Courier/state.json"</code></pre>
+
+    <h3>Activate carefully</h3>
+    <p>Stop the foreground process, change <code>dry_run</code> to <code>false</code>, and activate:</p>
+    <pre><code>./install.sh --activate</code></pre>
     <ul class="mc-checklist">
-      <li>Turn on FileVault and escrow the recovery key safely.</li>
-      <li>Turn on the macOS firewall. Do not add broad &ldquo;allow all incoming&rdquo; exceptions.</li>
-      <li>Keep System Integrity Protection enabled.</li>
-      <li>Enable automatic update checks and rapid security responses. Schedule a monthly maintenance window for restarts and app updates.</li>
-      <li>Leave Guest User, remote Apple Events, and internet sharing off unless there is a documented need.</li>
-      <li>Restrict Screen Sharing and Remote Login to named administrators. Reach them over Tailscale, never public router ports.</li>
+      <li>One new direct message produces exactly one reply in the same chat.</li>
+      <li>One message in a consented group produces one reply with correct speaker labels.</li>
+      <li>The outgoing reply never triggers another reply.</li>
+      <li>A service or Mac restart does not replay old messages.</li>
+      <li>An unapproved chat produces no model request and no reply.</li>
+      <li>The emergency-stop command halts automatic replies immediately.</li>
     </ul>
-    <h3 id="power-and-unattended-behavior">Power and unattended behavior</h3>
-    <p>In System Settings &rarr; Energy, configure the Mac mini to stay awake when the display is off, wake for network access, and restart after power failure. The display may sleep normally. In ChatGPT &rarr; Settings &rarr; Connections &rarr; Control this Mac or PC, enable the host keep-awake option while plugged in.</p>
-    <div class="mc-prompt-block">
-      <div class="mc-prompt-label">Command or configuration</div>
-      <pre># Optional verification only; review the output rather than copying it blindly
-pmset -g custom
-fdesetup status
-/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate</pre>
-    </div>
-    <div class="mc-callout"><p><strong>AVAILABILITY TRADE-OFF.</strong> FileVault and no automatic login are the right default. After some reboots, someone may have to unlock the Mac locally before Messages or ChatGPT can run. Solve that with a UPS, planned restarts, and a recovery contact&mdash;not by weakening disk security.</p></div>
-    <h2 id="5-configure-chatgpt-as-the-administrator-workspace">5 &middot; Configure ChatGPT as the administrator workspace</h2>
-    <h3 id="install-and-sign-in">Install and sign in</h3>
-    <ol>
-      <li>Install the current ChatGPT desktop app for macOS on Apple silicon.</li>
-      <li>Sign in with the dedicated ChatGPT account/workspace. Turn on MFA before enabling remote control.</li>
-      <li>Add ChatGPT to Login Items for the family AI user and verify that it launches after a normal login.</li>
-      <li>Create a dedicated project or task for setup notes. Keep secrets out of the task; link to a password-manager entry instead.</li>
-    </ol>
-    <h3 id="enable-the-official-apple-messages-plugin">Optionally enable the Apple Messages plugin</h3>
-    <ol>
-      <li>Open ChatGPT desktop &rarr; Plugins.</li>
-      <li>Find Apple Messages and select the plus button to enable it.</li>
-      <li>Start a new Codex or ChatGPT Work task and ask for a harmless read-only search first.</li>
-      <li>Grant macOS permissions only when prompted. Review exactly which app is requesting Full Disk Access or Automation.</li>
-      <li>Keep per-send approval enabled for administrator-initiated plugin sends. This approval setting is separate from the automatic reply path.</li>
-    </ol>
-    <div class="mc-callout"><p><strong>USE IT FOR ADMINISTRATION.</strong> The plugin is ideal for &ldquo;find the last message from Dad,&rdquo; &ldquo;draft a special reply,&rdquo; or &ldquo;send this approved text.&rdquo; The background service handles ordinary automatic replies; the plugin does not need to remain involved in that loop.</p></div>
-    <h3 id="set-up-chatgpt-remote">Set up ChatGPT Remote</h3>
-    <ol>
-      <li>On the host, install the latest ChatGPT desktop app and leave the Mac awake and online.</li>
-      <li>On the administrator&rsquo;s phone, install the latest ChatGPT mobile app and sign into the same ChatGPT account and workspace.</li>
-      <li>On the host, open ChatGPT &rarr; Settings &rarr; Connections &rarr; Control this Mac or PC &rarr; Set up or Add.</li>
-      <li>Scan the QR code with the phone and complete MFA.</li>
-      <li>On the phone, open the sidebar &rarr; Remote and select the host.</li>
-      <li>On the host, review Remote settings: Keep Mac awake, Computer Use, and the Chrome extension. Enable only what the administrator needs.</li>
-      <li>Test a read-only task, then a task that requires an approval. Confirm that approval appears on the phone and that choosing Sleep actually makes the host unavailable.</li>
-    </ol>
-    <div class="mc-callout"><p><strong>WHAT REMOTE CHANGES.</strong> Remote exposes the selected host&rsquo;s files, plugins, credentials, permissions, and tools through OpenAI&rsquo;s relay. It does not require a public inbound port. Treat Remote access like sitting at that Mac: protect the ChatGPT account and phone accordingly.</p></div>
-    <h2 id="6-configure-messages">6 &middot; Configure Messages</h2>
-    <ol>
-      <li>Sign the dedicated Apple Account into Messages. Do not import a person&rsquo;s personal Messages history.</li>
-      <li>In Messages settings, confirm &ldquo;You can be reached for messages at&rdquo; includes the dedicated Apple Account email.</li>
-      <li>Send a manual iMessage from a family member to that address and reply manually. Confirm the bubble is blue and the sender is the expected bot contact.</li>
-      <li>Create the intended group chat in Messages and obtain consent from every participant. Explain that messages may be sent to an OpenAI model for response generation.</li>
-      <li>Give the agent contact a clear name and avatar so it reads as a distinct household identity; do not impersonate a human family member.</li>
-      <li>If SMS/MMS/RCS forwarding is required, use a compatible iPhone with the same Apple Account. Google Voice does not replace that Apple relay.</li>
-    </ol>
-    <h3 id="permission-map">Permission map</h3>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Permission</strong></th>
-          <th><strong>Who needs it</strong></th>
-          <th><strong>Why</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>Full Disk Access</td>
-          <td>The exact <code>imsg</code>/Python service process; ChatGPT too if the optional plugin is used</td>
-          <td>Watch approved chats and read bounded history from ~/Library/Messages/chat.db.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Automation / Apple Events</td>
-          <td>The sending process controlling Messages</td>
-          <td>Send a message through the Messages app.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Screen Recording / Accessibility</td>
-          <td>Only if ChatGPT Remote Computer Use is enabled</td>
-          <td>See and operate app UI. Not required for the command-line message loop.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Files and folders</td>
-          <td>Only the apps that truly need them</td>
-          <td>Do not grant unnecessary disk locations or full access to unrelated apps.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Notifications</td>
-          <td>ChatGPT, Messages, and monitoring as desired</td>
-          <td>Approvals and operational alerts.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <div class="mc-callout"><p><strong>NEVER DISABLE SIP FOR THIS DESIGN.</strong> The service uses ordinary user-space commands and normal macOS privacy permissions. Private-framework injection and SIP changes are unnecessary and materially weaken the host.</p></div>
-    <h2 id="7-the-automatic-imessage-loop">7 &middot; The automatic iMessage loop</h2>
-    <h3 id="what-works">What happens after setup</h3>
-    <ol>
-      <li>A family member sends an individual or group iMessage to the dedicated Apple Account.</li>
-      <li>The always-on service receives the event only if that exact chat ID is on its allowlist. Old messages are baselined on first launch and are never replayed.</li>
-      <li>It reads a small, fixed amount of recent history from that same chat and labels group speakers before constructing the reply prompt.</li>
-      <li>Codex runs non-interactively with the cached ChatGPT login, an empty temporary working directory, an ephemeral session, and a read-only sandbox.</li>
-      <li>The service sends the final short response through Messages and records its new high-water cursor. Outgoing events are ignored, preventing self-reply loops.</li>
-    </ol>
-    <h3 id="what-does-not-work">Intentional limits</h3>
-    <ul>
-      <li>Chats that are not explicitly allowlisted receive no automatic response.</li>
-      <li>Attachments may be acknowledged and handed to a human rather than interpreted automatically.</li>
-      <li>The reply run may converse, but it must not purchase, schedule, change files, browse private services, or make consequential decisions.</li>
-      <li>A successful iMessage response is not proof that ChatGPT Remote, Tailscale, or the optional Messages plugin is healthy; monitor those components separately.</li>
-    </ul>
-    <h3 id="why-not-just-the-plugin">Why is the local service necessary?</h3>
-    <p>The Messages plugin is an excellent administrator tool, but it does not provide the unattended event loop described here. The local service runs continuously under <code>launchd</code>, opens an <code>imsg watch</code> stream only for allowlisted chats, keeps a saved high-water cursor so old messages are not replayed, limits context to the triggering chat, invokes <code>codex exec</code>, sends once, and ignores its own outgoing event. Codex writes the response; the service handles the event, state, safety boundaries, and delivery.</p>
-    <h2 id="8-pilot-and-verification">8 &middot; Pilot and verification</h2>
-    <h3 id="test-the-automatic-workflow">Test the automatic workflow</h3>
-    <ul>
-      <li>Send a harmless iMessage to the dedicated Apple Account from one family member.</li>
-      <li>Before enabling live sends, run the service&rsquo;s synthetic test command and confirm Codex returns only a short reply.</li>
-      <li>Start it in dry-run mode and send one harmless message from an allowlisted family member. Confirm the log records a proposed reply but sends nothing.</li>
-      <li>Enable live mode, send one new direct message, and verify exactly one response appears in the correct chat.</li>
-      <li>Repeat with one consented group chat. Confirm the latest speaker is identified correctly and only that group receives the reply.</li>
-      <li>Send a message from the bot account and confirm the outgoing event is ignored.</li>
-      <li>Restart the service, then restart and unlock the Mac. Verify saved cursors prevent old-message replay and <code>launchd</code> returns it to running state.</li>
-    </ul>
-    <h3 id="acceptance-criteria">Acceptance criteria</h3>
-    <ul>
-      <li>A new message in an allowlisted chat receives one automatic reply without an administrator starting a task.</li>
-      <li>An administrator can reach the Mac through ChatGPT Remote and can recover the desktop through Tailscale.</li>
-      <li>The model sees only bounded context from the triggering chat and does not use tools or take outside actions.</li>
-      <li>Outgoing messages, old history, and chats outside the allowlist do not trigger replies.</li>
-      <li>Stopping the LaunchAgent immediately stops automatic replies while leaving Messages usable.</li>
-      <li>The household understands that this is an automatic conversational assistant with explicit safety and human-handoff limits.</li>
-    </ul>
-    <h2 id="9-personalities-and-routing">9 &middot; Personalities and routing</h2>
-    <p><a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> supports several logical personalities behind one Messages identity. A participant puts one exact selector at the start of a message&mdash;for example, <code>@Sage</code> for a calm practical voice or <code>@Spark</code> for a playful creative voice. The local service, not iMessage or Codex, parses that first token and chooses an owner-configured personality description.</p>
-    <h3 id="configure-personalities">Configure personalities</h3>
-    <ol>
-      <li>Add a <code>personas</code> map to the service&rsquo;s owner-only <code>config.json</code>. Each entry has a selector key, display name, short description, and optional reply-label or signature setting.</li>
-      <li>Optionally set a global or per-chat default personality. Without a default or selector, the service uses its ordinary assistant name and description.</li>
-      <li>Use <code>@help</code> to list the configured choices. Unknown, empty, or multiple selectors receive a deterministic local help response without invoking Codex.</li>
-      <li>A recognized selector is removed from the newest message before the bounded transcript is sent to Codex. Matching is exact and case-insensitive; the rest of the message remains ordinary conversation.</li>
-      <li>By default the outgoing reply begins with the active display label, such as <code>Sage:</code>, because all personalities still appear in the same Apple Messages contact bubble.</li>
-    </ol>
-    <p>Start with the repository&rsquo;s example <code>Sage</code> and <code>Spark</code> entries, then edit their names and descriptions. Run <code>make check</code>, keep <code>dry_run</code> enabled, and test the default route, each selector, <code>@help</code>, an unknown selector, and a consented group chat before enabling live sends.</p>
-    <div class="mc-callout"><p><strong>PERSONALITY IS NOT PERMISSION.</strong> Every personality inherits the same allowlist, bounded same-chat context, tool-free Codex run, safety rules, human handoffs, and emergency stop. A message cannot use an <code>@name</code> to gain tools or reach another chat. If a logical agent truly needs broader capabilities, make it a separate administrator-started workflow.</p></div>
-    <div class="mc-callout"><p><strong>ONE CONTACT, MANY VOICES.</strong> These are routed personalities, not separate Apple identities. Create separate Apple Accounts only when truly separate senders are necessary.</p></div>
-    <h2 id="10-dedicated-google-services">10 &middot; Dedicated Google services</h2>
-    <p>Give the household AI its own Google Account for Gmail, Calendar, Drive, and optional Voice rather than borrowing a family member&rsquo;s. Use a separate browser profile, enable MFA, and share only the specific family resources it needs.</p>
-    <ul>
-      <li>Google Voice: the no-charge U.S. personal tier can provide a cost-effective family-facing line for calls, voicemail, and Voice SMS; it requires a linked phone number. Paid standalone tiers are available. Keep Voice separate from Apple Account and iMessage.</li>
-      <li>Gmail: use labels, filters, and delegated/shared workflows rather than forwarding every personal mailbox into the bot account.</li>
-      <li>Calendar: create a family calendar and share that calendar, not every participant&rsquo;s entire calendar.</li>
-      <li>Drive: create a family AI folder. Do not sync personal drives wholesale onto a full-disk-access automation host.</li>
-      <li>ChatGPT Google plugins: connect the dedicated account with OAuth and confirm the account shown in the consent screen. Start read-only where possible.</li>
-    </ul>
-    <div class="mc-callout"><p><strong>SEPARATION RULE.</strong> Keep the automatic iMessage reply run conversational and tool-free. Use separate, administrator-started ChatGPT tasks for Gmail, Calendar, Drive, Contacts, or Google Voice actions.</p></div>
-    <h2 id="11-administration-with-tailscale">11 &middot; Administration with Tailscale</h2>
-    <h3 id="why-use-both-tailscale-and-chatgpt-remote">Why use both Tailscale and ChatGPT Remote?</h3>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Tool</strong></th>
-          <th><strong>Use it for</strong></th>
-          <th><strong>Do not treat it as</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>ChatGPT Remote</td>
-          <td>Continuing ChatGPT tasks, viewing progress, and handling approvals on the host</td>
-          <td>A general OS rescue console when ChatGPT is stopped or signed out.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Tailscale + Screen Sharing</td>
-          <td>Private full-desktop recovery, Messages sign-in, permission dialogs, and app updates</td>
-          <td>A reason to expose VNC publicly.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Tailscale + SSH</td>
-          <td>Logs, launchd status, disk checks, and controlled command-line maintenance</td>
-          <td>An always-on public SSH service or password-only admin path.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Tailscale Serve</td>
-          <td>Publishing a localhost-only status page to the tailnet</td>
-          <td>A public website. Avoid Funnel for an admin dashboard.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <h3 id="tailscale-setup">Tailscale setup</h3>
-    <ol>
-      <li>Install Tailscale on the host using the current recommended macOS distribution and sign in with the chosen tailnet identity.</li>
-      <li>Install Tailscale on each administrator device. Approve only named devices and remove retired devices.</li>
-      <li>Give the host a stable, non-sensitive device name. Enable MagicDNS if it fits the household&rsquo;s tailnet policy.</li>
-      <li>Turn on macOS Screen Sharing and allow access only for the recovery administrator. Test over the Tailscale address or MagicDNS name from outside the home network.</li>
-      <li>If SSH is needed, use keys and restrict the allowed account. Disable password login when the household can support key recovery.</li>
-      <li>Use tailnet policy/ACLs or grants so only administrators can reach Screen Sharing, SSH, or any status page.</li>
-      <li>Do not forward router ports. Bind any status service to localhost, then use Tailscale Serve to expose it only inside the tailnet.</li>
-    </ol>
-    <div class="mc-prompt-block">
-      <div class="mc-prompt-label">Command or configuration</div>
-      <pre># Examples to adapt&mdash;verify your current Tailscale version and policy
-tailscale status
-tailscale ip -4
-tailscale serve --bg http://127.0.0.1:LOCAL_STATUS_PORT
-# The message service stays local; use SSH or Screen Sharing over Tailscale for checks</pre>
-    </div>
-    <h2 id="12-security-model">12 &middot; Security model</h2>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Risk</strong></th>
-          <th><strong>Primary control</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>Wrong chat or participant</td>
-          <td>Allowlist exact chat IDs and participant mappings; never route from a fuzzy contact-name match.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Prompt injection in messages</td>
-          <td>Treat chat text, links, quoted content, and attachments as untrusted data. The reply prompt forbids tools, outside actions, and instruction overrides.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Private-history leakage</td>
-          <td>Read only the triggering chat and cap recent context. Do not persist full transcripts in service state or logs.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Over-broad automatic scope</td>
-          <td>Enroll chats individually, obtain participant consent, and make removing an allowlist entry part of the runbook.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Mistaken or repeated send</td>
-          <td>Ignore outgoing events, persist high-water cursors before processing, treat a successful send as committed, and never retry solely because history is slow to refresh.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Compromised ChatGPT account</td>
-          <td>MFA, signed-in-device review, Remote host review, session revocation, and narrow plugin permissions.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Compromised administrator phone</td>
-          <td>Strong device lock, MFA, remote wipe where available, and immediate ChatGPT session review.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Host theft</td>
-          <td>FileVault, no auto login, strong recovery admin, remote account/device revocation.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>macOS update breaks permissions</td>
-          <td>Stage maintenance; test <code>imsg</code> history/watch/send, Codex login, the message-service LaunchAgent, and Remote after every significant update.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Family misunderstands the workflow</td>
-          <td>Use a clear AI contact name, obtain consent, and explain that allowlisted chats receive automatic AI replies.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <h3 id="data-minimization-and-retention">Data minimization and retention</h3>
-    <ul>
-      <li>Store configuration, cursors, delivery receipts, and health metadata. Avoid durable full-text transcripts unless the family explicitly chooses them.</li>
-      <li>If short-term debug text is necessary, redact it, encrypt the storage, set a deletion schedule, and disable debug logging after the pilot.</li>
-      <li>Do not copy or back up the entire Messages database for this project. Back up only the non-secret setup notes, persona prompts, sharing map, and runbook.</li>
-      <li>Review ChatGPT data controls and household consent before asking ChatGPT to process private family conversations.</li>
-    </ul>
-    <h3 id="sensitive-topic-handoff">Sensitive-topic handoff</h3>
-    <p>An automatic reply must not independently decide or act on medical, legal, financial, safety, account-recovery, child-welfare, or high-conflict family matters. It should acknowledge the message, defer to a human owner, and direct immediate danger to local emergency services or a trusted person.</p>
-    <h2 id="13-macbook-neo-alternative">13 &middot; MacBook Neo alternative</h2>
-    <p>A MacBook Neo can run this cloud-centered stack because ChatGPT runs in the desktop app and the model runs in OpenAI&rsquo;s cloud. Its entry configuration is suitable for ChatGPT, Messages, and Tailscale. It is less ideal than a Mac mini for 24/7 service because ports, battery health, thermals, and closed-lid behavior add operational complexity.</p>
-    <h3 id="port-and-display-planning">Port and display planning</h3>
-    <ul>
-      <li>MacBook Neo has two USB-C ports, but only the USB 3 port carries DisplayPort video. Reserve that port for the external display or a carefully tested headless-display adapter.</li>
-      <li>Use the other USB-C port for power. Add a reputable powered hub only if Ethernet or more peripherals are required.</li>
-      <li>The built-in battery acts like a small UPS, but continuous charging and heat still deserve monitoring. Keep the laptop on a ventilated surface.</li>
-      <li>Watch free disk space closely on the 256 GB model; Messages attachments and sync caches should not be allowed to grow without review.</li>
-    </ul>
-    <h3 id="keeping-it-awake-with-the-lid-closed">Keeping it awake with the lid closed</h3>
-    <div class="mc-callout"><p><strong>OFFICIAL REQUIREMENT.</strong> For reliable closed-lid operation, connect power, an external display, and previously connected keyboard and mouse. OpenAI&rsquo;s Remote guidance likewise says a Mac laptop must remain open and powered, or use an external display when the lid is closed.</p></div>
-    <ol>
-      <li>While the lid is open, connect power and the external display to the correct USB-C/DisplayPort port.</li>
-      <li>Pair or connect the keyboard and mouse, and confirm the external display is authorized and working.</li>
-      <li>In System Settings &rarr; Battery &rarr; Options, enable &ldquo;Prevent automatic sleeping on power adapter when the display is off&rdquo; and &ldquo;Wake for network access&rdquo; as appropriate.</li>
-      <li>In ChatGPT &rarr; Settings &rarr; Connections &rarr; Control this Mac or PC, enable &ldquo;Keep this Mac awake&rdquo; while plugged in.</li>
-      <li>Close the lid and test Screen Sharing, Tailscale SSH, ChatGPT Remote, Messages, the message-service LaunchAgent, and one automatic reply for at least an hour.</li>
-      <li>Reopen the lid for macOS updates, permission dialogs, FileVault unlock, or any sign-in repair.</li>
-    </ol>
-    <div class="mc-callout"><p><strong>HEADLESS ADAPTER CAVEAT.</strong> A display-emulator/dummy adapter may satisfy clamshell mode without a real monitor, but that is a practical workaround rather than Apple&rsquo;s documented configuration. Use a reputable adapter, test wake/restart behavior, and keep a real display available for recovery.</p></div>
-    <div class="mc-callout"><p><strong>ABOUT CAFFEINATE.</strong> caffeinate is useful for temporary open-lid maintenance sessions, but do not rely on it to defeat lid-close sleep. Closed-clamshell service should meet Apple&rsquo;s power/display requirements and pass a real restart-and-wake test.</p></div>
-    <h2 id="14-operator-runbook">14 &middot; Operator runbook</h2>
-    <h3 id="emergency-stop">Emergency stop</h3>
-    <ul>
-      <li>Stop or unload the message-service LaunchAgent to stop all automatic replies immediately. Confirm its state is no longer running.</li>
-      <li>Remove a chat from the service allowlist when only one conversation should stop.</li>
-      <li>Quit ChatGPT/Codex or run <code>codex logout</code> if the model session itself is in question.</li>
-      <li>Use Tailscale Screen Sharing to sign out of Messages or ChatGPT if an account may be compromised.</li>
-      <li>Revoke affected Apple, Google, ChatGPT, or Tailscale sessions from a trusted device when account security is involved.</li>
-    </ul>
-    <h3 id="weekly-checks">Weekly checks</h3>
-    <ul>
-      <li>ChatGPT Remote shows the host online.</li>
-      <li>Tailscale is connected and private administrative access works.</li>
-      <li>Messages remains signed into the dedicated Apple Account.</li>
-      <li>The service is running, its error log is quiet, the configured backend is Codex, and a synthetic no-send response works.</li>
-      <li>Disk space remains comfortable and macOS shows no unexpected privacy-permission prompts.</li>
-    </ul>
-    <h3 id="monthly-maintenance">Monthly maintenance</h3>
-    <ul>
-      <li>Install staged macOS, ChatGPT, Tailscale, and browser updates.</li>
-      <li>After restart and local unlock, test ChatGPT Remote, Tailscale, <code>imsg</code> history/watch/send, Codex login, and one automatic reply.</li>
-      <li>Review the chat allowlist, participant labels, administrators, tailnet devices, Google sharing, plugins, and Remote hosts.</li>
-      <li>Confirm the FileVault recovery process, account-recovery information, and physical-access plan are still current.</li>
-    </ul>
-    <h2 id="15-troubleshooting">15 &middot; Troubleshooting</h2>
-    <div class="mc-table-scroll">
-      <table>
-        <thead><tr>
-          <th><strong>Symptom</strong></th>
-          <th><strong>Likely cause</strong></th>
-          <th><strong>First checks</strong></th>
-        </tr></thead>
-        <tbody><tr>
-          <td>Service cannot read or watch Messages</td>
-          <td>Full Disk Access for the actual Python/<code>imsg</code> process is missing or stale</td>
-          <td>Run a read-only <code>imsg history</code> check from the same executable path, then review Full Disk Access and restart the service.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>History/watch works but send fails</td>
-          <td>Automation permission or Messages sign-in</td>
-          <td>Open Messages, send manually, review Privacy &amp; Security &rarr; Automation.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Incoming text gets no automatic reply</td>
-          <td>Chat is not allowlisted, watcher stopped, Codex login expired, or model run failed</td>
-          <td>Check the exact chat ID, LaunchAgent state, service/error logs, <code>codex login status</code>, and the synthetic no-send command.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Old messages receive replies after restart</td>
-          <td>State cursor was removed, corrupt, or initialized before history was baselined</td>
-          <td>Stop the service, inspect owner-only state, re-baseline each chat at its current high-water row, then restart.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Wrong group or speaker label</td>
-          <td>Incorrect chat ID or participant-handle mapping</td>
-          <td>Stop the service; verify the exact group ID and participant map before re-enabling it.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Remote host is offline</td>
-          <td>Mac slept, ChatGPT quit, account/workspace mismatch, or network loss</td>
-          <td>Check power/display rules, Login Items, same account/workspace, then Tailscale.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Works with lid open only</td>
-          <td>MacBook clamshell requirements not met</td>
-          <td>Power, authorized external display on DisplayPort-capable port, keyboard/mouse, sleep options.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>After update, nothing works</td>
-          <td>Privacy approval reset, Codex binary path changed, login expired, or LaunchAgent failed</td>
-          <td>Verify exact binary paths, <code>codex login status</code>, <code>imsg history</code>, LaunchAgent state, Full Disk Access, and Automation.</td>
-        </tr></tbody>
-        <tbody><tr>
-          <td>Unexpected OpenAI API charge</td>
-          <td>This build should not use an API key</td>
-          <td>Confirm that no API project or key was created for this guide, then review OpenAI account activity.</td>
-        </tr></tbody>
-      </table>
-    </div>
-    <h2 id="16-advanced-and-optional-extensions">16 &middot; Advanced and optional extensions</h2>
-    <p>Once the automatic reply loop is quiet, predictable, and easy to stop, the same household Mac can support useful companion services. Keep each extension separately configurable, backed up, and recoverable.</p>
 
-    <h3 id="add-a-home-maintenance-tracker">Add a home maintenance tracker</h3>
-    <p><strong><a href="https://github.com/mcornelia/home-maintenance-tracker" target="_blank" rel="noopener">Home Maintenance Tracker</a></strong> is a private-by-default, self-hosted application for remembering how an entire property is cared for. A household can add plants, appliances, mechanical systems, safety equipment, and exterior structures; attach recurring, seasonal, one-time, paused, or unscheduled maintenance plans; log completed work; and see what is overdue or due soon. It also supports maintenance history, photos, outdoor weather, email digests, and nightly SQLite backups.</p>
-    <p>The tracker is a companion application, not part of the iMessage reply loop. Install it on the same always-on Mac or another trusted host, keep its database and photos outside the source repository, and back it up independently.</p>
-    <h4>Docker Compose quick start</h4>
-    <div class="mc-prompt-block">
-      <div class="mc-prompt-label">Run from a clone of the repository</div>
-      <pre>cp .env.example .env
-mkdir -p local-data local-backups
-docker compose up --detach --build</pre>
+    <h2 id="operate">5 &middot; Operate and recover</h2>
+    <div class="mc-table-scroll">
+      <table>
+        <thead><tr><th>Task</th><th>Command or action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Status</strong></td><td><code>launchctl print "gui/$(id -u)/com.family-ai.courier"</code></td></tr>
+          <tr><td><strong>Emergency stop</strong></td><td><code>launchctl bootout "gui/$(id -u)/com.family-ai.courier"</code></td></tr>
+          <tr><td><strong>Logs</strong></td><td><code>tail -f "$HOME/Library/Logs/Family AI Courier/courier.log"</code></td></tr>
+          <tr><td><strong>Remove a chat</strong></td><td>Stop the service, delete that chat&rsquo;s entry from the private configuration, validate the JSON, then reactivate.</td></tr>
+          <tr><td><strong>Update</strong></td><td>Pull the repository, rerun tests, rerun the installer to refresh the installed copy, and repeat the dry-run check.</td></tr>
+          <tr><td><strong>Full removal</strong></td><td>Follow the repository&rsquo;s uninstall instructions to unload the LaunchAgent and remove the installed runtime. Preserve or delete private configuration and state deliberately.</td></tr>
+        </tbody>
+      </table>
     </div>
-    <p>Open <code>http://localhost:4173</code>, create the shared household passphrase, choose the household name under Settings, and configure <code>/backups</code> as the Docker backup destination. Other devices on the trusted LAN can use the host&rsquo;s <code>.local</code> name or LAN IP.</p>
-    <h4>Native macOS quick start</h4>
-    <p>The native path requires Node.js 22 or newer and pnpm 11. It installs a per-user <code>launchd</code> service that runs the compiled Node server and SQLite without leaving Docker, Vite, or the package manager resident.</p>
-    <div class="mc-prompt-block">
-      <div class="mc-prompt-label">Run from a clone of the repository</div>
-      <pre>cp .env.example .env
-chmod 600 .env
-# Set an absolute private YARD_TRACKER_DATA_DIR in .env
-pnpm macos:install
-pnpm macos:status</pre>
-    </div>
-    <p>Before relying on either path, configure a dedicated backup location, create a manual backup, and test a restore. The repository&rsquo;s Docker and native-Mac runbooks cover updates, rollback, LAN access, and recovery.</p>
+    <p>Check weekly that Messages remains signed in, Codex authentication is valid, logs show no restart loop, and disk space is healthy. After macOS, ChatGPT, Codex, Python, or <code>imsg</code> updates, repeat a dry-run and one-chat test.</p>
 
-    <h2 id="sources-and-further-reading">Sources and further reading</h2>
-    <p>Primary documentation used for product behavior and setup.</p>
+    <h3>Fast troubleshooting order</h3>
+    <ol>
+      <li>Confirm the service is loaded and inspect its latest log entries.</li>
+      <li>Run <code>imsg chats</code> from the same account and process context to verify Messages database access.</li>
+      <li>Confirm the exact numeric chat ID is still allowlisted.</li>
+      <li>Check Codex login status and run the synthetic prompt test.</li>
+      <li>Stop automatic replies before changing permissions, configuration, or state.</li>
+    </ol>
+    <p>The repository&rsquo;s <a href="https://github.com/mcornelia/family-ai-chatbot/blob/main/docs/troubleshooting.md" target="_blank" rel="noopener">troubleshooting guide</a> covers permission failures, authentication, duplicate prevention, and recovery in more detail.</p>
+
+    <h2 id="security">6 &middot; Security and privacy</h2>
+    <p>This service can read private conversations and send messages automatically. Its safety comes from narrow scope, predictable delivery rules, explicit consent, and a tested human stop&mdash;not from treating a household bot as harmless.</p>
+    <div class="mc-table-scroll">
+      <table>
+        <thead><tr><th>Risk</th><th>Control</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Reading unrelated conversations</strong></td><td>Exact numeric chat allowlist; one watcher per approved chat.</td></tr>
+          <tr><td><strong>Replaying history</strong></td><td>Baseline existing rows on first start and persist a per-chat high-water cursor.</td></tr>
+          <tr><td><strong>Self-reply loop</strong></td><td>Ignore outgoing events and advance state before generating a response.</td></tr>
+          <tr><td><strong>Too much context</strong></td><td>Bound recent context to the triggering chat; attachments are not interpreted.</td></tr>
+          <tr><td><strong>Unexpected action</strong></td><td>Empty temporary directory, ephemeral run, read-only sandbox, disabled user config, and explicit no-action instructions.</td></tr>
+          <tr><td><strong>Sensitive advice</strong></td><td>Defer medical, legal, financial, safety, account-recovery, and high-conflict matters to a human.</td></tr>
+          <tr><td><strong>Compromised host</strong></td><td>Dedicated account, FileVault, firewall, updates, private file modes, no public ports, and physical recovery.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Chat context placed in a prompt is sent to the OpenAI service associated with the Codex sign-in. Review the applicable ChatGPT workspace and data controls. Keep logs concise, avoid message bodies by default, and define a retention period for delivered scheduled-message records.</p>
+    <div class="mc-callout"><p><strong>HUMAN HANDOFF.</strong> If the service cannot interpret an attachment or safely answer a consequential question, it should say so and ask the participant to contact the household administrator directly. It should never promise that someone has been notified unless an actual notification path exists.</p></div>
+
+    <h2 id="optional">7 &middot; Optional extensions</h2>
+    <p>Build these only after the basic reply loop and recovery path are reliable.</p>
+    <div class="mc-table-scroll">
+      <table>
+        <thead><tr><th>Extension</th><th>What it adds</th><th>Important boundary</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Personalities</strong></td><td>Exact leading selectors such as <code>@Sage</code> or <code>@Spark</code>, plus an owner-selected default voice.</td><td>Personality changes voice, not permissions, chat scope, data access, or safety rules.</td></tr>
+          <tr><td><strong>ChatGPT Remote</strong></td><td>Supervised Codex work from another signed-in device.</td><td>The host must remain awake, online, signed in, and paired to the same account and workspace.</td></tr>
+          <tr><td><strong>Tailscale</strong></td><td>Private Screen Sharing, SSH, or local-service recovery without public router ports.</td><td>Restrict users and devices; it is administrative access, not the automatic trigger.</td></tr>
+          <tr><td><strong>Google identity</strong></td><td>A separate Gmail account, shared Drive/Calendar resources, and an optional Google Voice family line.</td><td>Keep connected data out of automatic replies unless separately designed and consented.</td></tr>
+          <tr><td><strong>Mac laptop host</strong></td><td>A MacBook can run the same service.</td><td>Closed-lid operation normally requires power and suitable external display/input planning; a stationary Mac mini is simpler.</td></tr>
+          <tr><td><strong>Companion applications</strong></td><td>Private household tools such as the <a href="https://github.com/mcornelia/home-maintenance-tracker" target="_blank" rel="noopener">Home Maintenance Tracker</a>.</td><td>Give each application its own access, backup, retention, and recovery design.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The personality implementation and its configuration are documented in the <a href="https://github.com/mcornelia/family-ai-chatbot/blob/main/docs/configuration.md#optional-persona-routing" target="_blank" rel="noopener">public configuration guide</a>. An unknown or ambiguous selector should return local help rather than invoke Codex.</p>
+
+    <h2 id="sources">Sources and implementation</h2>
+    <p>The public repository is the implementation reference; primary product documentation supports account, host, permission, and administration behavior.</p>
     <ul>
-      <li><strong><a href="https://learn.chatgpt.com/docs/auth" target="_blank" rel="noopener">OpenAI &mdash; Authentication</a></strong> &mdash; ChatGPT subscription login for Codex clients, credential caching, and login status</li>
-      <li><strong><a href="https://learn.chatgpt.com/docs/developer-commands?surface=cli" target="_blank" rel="noopener">OpenAI &mdash; Codex developer commands</a></strong> &mdash; stable non-interactive <code>codex exec</code>, ephemeral runs, sandbox selection, and final-message output</li>
-      <li><strong><a href="https://learn.chatgpt.com/docs/plugins" target="_blank" rel="noopener">OpenAI &mdash; Plugins</a></strong> &mdash; optional plugin availability across ChatGPT and Codex surfaces</li>
-      <li><strong><a href="https://learn.chatgpt.com/docs/remote" target="_blank" rel="noopener">OpenAI &mdash; Remote</a></strong> &mdash; host requirements, same-account pairing, mobile access, and laptop lid behavior</li>
-      <li><strong><a href="https://learn.chatgpt.com/docs/remote-connections" target="_blank" rel="noopener">OpenAI &mdash; Remote connections</a></strong> &mdash; secure relay, approvals, host settings, and exposed host capabilities</li>
-      <li><strong><a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">GitHub &mdash; Family AI ChatBot</a></strong> &mdash; sanitized Python message service, installer, example configuration, tests, security notes, and operating documentation</li>
-    </ul>
-    <ul>
-      <li><strong><a href="https://support.apple.com/en-gb/guide/messages/ichte16154fb/mac" target="_blank" rel="noopener">Apple &mdash; Set up Messages on Mac</a></strong> &mdash; iMessage sign-in and iPhone-based SMS/MMS/RCS forwarding</li>
+      <li><strong><a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">GitHub &mdash; Family AI ChatBot</a></strong> &mdash; Python service, installer, example configuration, tests, security notes, setup prompt, and operating documentation</li>
+      <li><strong><a href="https://learn.chatgpt.com/docs/auth" target="_blank" rel="noopener">OpenAI &mdash; Authentication</a></strong> &mdash; ChatGPT subscription and optional API-key login for Codex clients</li>
+      <li><strong><a href="https://learn.chatgpt.com/docs/non-interactive-mode" target="_blank" rel="noopener">OpenAI &mdash; Non-interactive mode</a></strong> &mdash; <code>codex exec</code>, ephemeral runs, sandbox behavior, and final-message output</li>
+      <li><strong><a href="https://learn.chatgpt.com/docs/remote" target="_blank" rel="noopener">OpenAI &mdash; Remote</a></strong> and <strong><a href="https://learn.chatgpt.com/docs/remote-connections" target="_blank" rel="noopener">Remote connections</a></strong> &mdash; pairing, host requirements, and exposed host capabilities</li>
+      <li><strong><a href="https://support.apple.com/en-gb/guide/messages/ichte16154fb/mac" target="_blank" rel="noopener">Apple &mdash; Set up Messages on Mac</a></strong> &mdash; iMessage sign-in and iPhone-based message forwarding</li>
       <li><strong><a href="https://support.apple.com/en-mide/guide/security/secddd1d86a6/web" target="_blank" rel="noopener">Apple &mdash; Privacy protections and app access</a></strong> &mdash; Full Disk Access and Automation context</li>
-      <li><strong><a href="https://support.apple.com/en-gb/guide/mac-help/mchle41a6ccd/mac" target="_blank" rel="noopener">Apple &mdash; Mac sleep and wake settings</a></strong> &mdash; preventing automatic sleep on power and wake for network access</li>
-      <li><strong><a href="https://support.apple.com/en-us/102282" target="_blank" rel="noopener">Apple &mdash; Allow USB and other accessories to connect to your Mac</a></strong> &mdash; external display, keyboard, and mouse requirements for clamshell use</li>
-      <li><strong><a href="https://support.apple.com/en-us/126322" target="_blank" rel="noopener">Apple &mdash; MacBook Neo technical specifications</a></strong> &mdash; ports, storage, and external-display capability</li>
-      <li><strong><a href="https://support.google.com/voice/answer/9249103?hl=en" target="_blank" rel="noopener">Google &mdash; Compare Google Voice subscription types</a></strong> &mdash; no-charge personal and paid standalone options</li>
-      <li><strong><a href="https://tailscale.com/docs/install/mac" target="_blank" rel="noopener">Tailscale &mdash; Install on macOS</a></strong> &mdash; current macOS installation guidance</li>
-      <li><strong><a href="https://tailscale.com/docs/features/tailscale-serve" target="_blank" rel="noopener">Tailscale &mdash; Serve</a></strong> &mdash; tailnet-private publication of localhost services</li>
-      <li><strong><a href="https://tailscale.com/kb/1452/connect-to-devices" target="_blank" rel="noopener">Tailscale &mdash; Connect to devices</a></strong> &mdash; private device access patterns</li>
+      <li><strong><a href="https://support.apple.com/en-gb/guide/mac-help/mchle41a6ccd/mac" target="_blank" rel="noopener">Apple &mdash; Mac sleep and wake settings</a></strong> &mdash; unattended host power behavior</li>
+      <li><strong><a href="https://support.google.com/voice/answer/9249103?hl=en" target="_blank" rel="noopener">Google &mdash; Google Voice options</a></strong> &mdash; personal and paid Voice services</li>
+      <li><strong><a href="https://tailscale.com/docs/install/mac" target="_blank" rel="noopener">Tailscale &mdash; Install on macOS</a></strong> &mdash; optional private administration</li>
     </ul>
-    <h2 id="final-recommendation">Final recommendation</h2>
-    <p><strong>Start with the Mac mini, dedicated accounts, FileVault, ChatGPT-authenticated Codex, an allowlisted local message service, and Tailscale recovery. Prove no-send, direct-chat, group-chat, cursor-recovery, loop-prevention, and emergency-stop paths. Add personalities, Google services, and companion applications only after automatic replies are reliable.</strong></p>
-    <div class="mc-callout"><p><strong>SUCCESS LOOKS BORING.</strong> One message, one model run, one reply, no loop, and a clear emergency stop.</p></div>
+
+    <div class="mc-callout"><p><strong>FINAL RECOMMENDATION.</strong> Start with dedicated accounts, a hardened Mac mini, ChatGPT-authenticated Codex, one approved direct chat, and a tested emergency stop. Add group chats, personalities, remote administration, and connected household services one layer at a time.</p></div>
 
   </main>
 

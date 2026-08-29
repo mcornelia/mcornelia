@@ -1,49 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="520" viewBox="0 0 1800 520" role="img" aria-labelledby="title desc">
-  <title id="title">Automatic family AI architecture</title>
-  <desc id="desc">Approved family iMessages flow through Apple Messages, a local allowlisted Courier, and a ChatGPT-authenticated Codex run before an automatic reply returns to the same chat. ChatGPT Remote and Tailscale form a separate administration plane.</desc>
-  <rect width="1800" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Family AI ChatBot architecture</title>
+  <desc id="desc">A separate administration plane sits above an automatic round trip. An approved iMessage enters Apple Messages, passes through the local Python service called Family AI Courier, and reaches Codex. Codex returns reply text to the local service, which sends it through Apple Messages to the same approved chat.</desc>
+  <rect width="1800" height="1000" fill="#ffffff"/>
+  <g font-family="Verdana, sans-serif">
+    <text x="76" y="78" font-size="27" font-weight="700" letter-spacing="4" fill="#008caf">SUPERVISED ADMINISTRATION PLANE</text>
+    <rect x="70" y="110" width="1660" height="156" rx="22" fill="#eaf8fc" stroke="#009fc4" stroke-width="4"/>
+    <text x="112" y="169" font-size="36" font-weight="700" fill="#123f6c">SET UP, APPROVE, MAINTAIN, AND RECOVER</text>
+    <text x="112" y="222" font-size="27" fill="#4a596b">ChatGPT Remote for supervised Codex tasks  •  Optional Tailscale for private OS access</text>
 
-  <rect x="56" y="40" width="1688" height="70" rx="18" fill="#eaf8fc" stroke="#009fc4" stroke-width="3"/>
-  <text x="90" y="88" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#123f6c">ADMIN PLANE</text>
-  <text x="370" y="82" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#4a596b">ChatGPT Remote for tasks and approvals  •  Tailscale for private OS access</text>
+    <text x="76" y="344" font-size="27" font-weight="700" letter-spacing="4" fill="#197f67">AUTOMATIC MESSAGE PLANE</text>
 
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="56" y="190" width="294" height="218" rx="20" fill="#eaf8fc" stroke="#009fc4" stroke-width="3"/>
-    <text x="203" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">FAMILY</text>
-    <text x="203" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Approved direct</text>
-    <text x="203" y="344" text-anchor="middle" font-size="23" fill="#4a596b">or group iMessage</text>
+    <rect x="70" y="382" width="330" height="244" rx="22" fill="#eaf8fc" stroke="#009fc4" stroke-width="4"/>
+    <text x="235" y="451" text-anchor="middle" font-size="32" font-weight="700" fill="#123f6c">APPROVED CHAT</text>
+    <text x="235" y="514" text-anchor="middle" font-size="25" fill="#4a596b">New direct or</text>
+    <text x="235" y="553" text-anchor="middle" font-size="25" fill="#4a596b">group iMessage</text>
 
-    <rect x="416" y="190" width="294" height="218" rx="20" fill="#f3f5f8" stroke="#123f6c" stroke-width="3"/>
-    <text x="563" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">MESSAGES</text>
-    <text x="563" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Dedicated Apple</text>
-    <text x="563" y="344" text-anchor="middle" font-size="23" fill="#4a596b">Account inbox</text>
+    <rect x="500" y="382" width="330" height="244" rx="22" fill="#f3f5f8" stroke="#123f6c" stroke-width="4"/>
+    <text x="665" y="451" text-anchor="middle" font-size="32" font-weight="700" fill="#123f6c">MESSAGES</text>
+    <text x="665" y="514" text-anchor="middle" font-size="25" fill="#4a596b">imsg watch</text>
+    <text x="665" y="553" text-anchor="middle" font-size="25" fill="#4a596b">receives the event</text>
 
-    <rect x="776" y="190" width="294" height="218" rx="20" fill="#fff7e7" stroke="#be7417" stroke-width="3"/>
-    <text x="923" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">COURIER</text>
-    <text x="923" y="300" text-anchor="middle" font-size="22" fill="#4a596b">Allowlisted watch</text>
-    <text x="923" y="336" text-anchor="middle" font-size="22" fill="#4a596b">bounded context</text>
-    <text x="923" y="372" text-anchor="middle" font-size="22" fill="#4a596b">send-once cursor</text>
+    <rect x="930" y="382" width="370" height="244" rx="22" fill="#fff7e7" stroke="#be7417" stroke-width="4"/>
+    <text x="1115" y="447" text-anchor="middle" font-size="31" font-weight="700" fill="#123f6c">LOCAL PYTHON SERVICE</text>
+    <text x="1115" y="493" text-anchor="middle" font-size="24" font-weight="700" fill="#be7417">FAMILY AI COURIER</text>
+    <text x="1115" y="545" text-anchor="middle" font-size="23" fill="#4a596b">Allowlist • bounded context</text>
+    <text x="1115" y="580" text-anchor="middle" font-size="23" fill="#4a596b">routing • send-once state</text>
 
-    <rect x="1136" y="190" width="294" height="218" rx="20" fill="#fceef6" stroke="#bd2d83" stroke-width="3"/>
-    <text x="1283" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">CODEX</text>
-    <text x="1283" y="300" text-anchor="middle" font-size="22" fill="#4a596b">ChatGPT login</text>
-    <text x="1283" y="336" text-anchor="middle" font-size="22" fill="#4a596b">ephemeral run</text>
-    <text x="1283" y="372" text-anchor="middle" font-size="22" fill="#4a596b">read-only sandbox</text>
-
-    <rect x="1496" y="190" width="248" height="218" rx="20" fill="#edf9f4" stroke="#197f67" stroke-width="3"/>
-    <text x="1620" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">REPLY</text>
-    <text x="1620" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Automatic text</text>
-    <text x="1620" y="344" text-anchor="middle" font-size="23" fill="#4a596b">to the same chat</text>
+    <rect x="1400" y="382" width="330" height="244" rx="22" fill="#fceef6" stroke="#bd2d83" stroke-width="4"/>
+    <text x="1565" y="451" text-anchor="middle" font-size="32" font-weight="700" fill="#123f6c">CODEX</text>
+    <text x="1565" y="514" text-anchor="middle" font-size="25" fill="#4a596b">Ephemeral run</text>
+    <text x="1565" y="553" text-anchor="middle" font-size="25" fill="#4a596b">writes one reply</text>
 
     <g fill="#00a4c7">
-      <path d="M362 289h40v-12l26 22-26 22v-12h-40z"/>
-      <path d="M722 289h40v-12l26 22-26 22v-12h-40z"/>
-      <path d="M1082 289h40v-12l26 22-26 22v-12h-40z"/>
-      <path d="M1442 289h40v-12l26 22-26 22v-12h-40z"/>
+      <path d="M418 486h56v-17l32 35-32 35v-17h-56z"/>
+      <path d="M848 486h56v-17l32 35-32 35v-17h-56z"/>
+      <path d="M1318 486h56v-17l32 35-32 35v-17h-56z"/>
     </g>
 
-    <rect x="56" y="450" width="1688" height="48" rx="12" fill="#edf9f4"/>
-    <rect x="56" y="450" width="6" height="48" fill="#197f67"/>
-    <text x="82" y="482" font-size="21" fill="#315449"><tspan font-weight="700">AUTOMATIC MESSAGE PLANE:</tspan> a new allowlisted iMessage triggers one bounded Codex reply.</text>
+    <path d="M1565 650v89H665" fill="none" stroke="#197f67" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M665 739H235v-89" fill="none" stroke="#197f67" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M235 650l-20 34h40z" fill="#197f67"/>
+    <rect x="425" y="688" width="1160" height="102" rx="18" fill="#edf9f4" stroke="#197f67" stroke-width="3"/>
+    <text x="1005" y="731" text-anchor="middle" font-size="27" font-weight="700" fill="#315449">RETURN PATH</text>
+    <text x="1005" y="768" text-anchor="middle" font-size="23" fill="#315449">Codex to local service to Messages to the same approved chat</text>
+
+    <rect x="70" y="862" width="1660" height="80" rx="16" fill="#f3f5f8"/>
+    <rect x="70" y="862" width="8" height="80" rx="4" fill="#be7417"/>
+    <text x="108" y="899" font-size="24" font-weight="700" fill="#123f6c">ONE MESSAGE, ONE RUN, ONE REPLY.</text>
+    <text x="108" y="929" font-size="21" fill="#4a596b">The administration path never becomes the incoming-message trigger.</text>
   </g>
 </svg>

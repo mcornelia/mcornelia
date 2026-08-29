@@ -972,6 +972,173 @@ blockquote {
   line-height: 1.55;
 }
 
+/* Family AI architecture: semantic HTML remains readable when the lane stacks. */
+.mc-post .mc-architecture {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: rgba(13, 17, 23, 0.48);
+}
+
+.mc-post .mc-architecture-admin {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(0, 217, 255, 0.32);
+  border-left: 3px solid var(--accent-cyan);
+  background: rgba(0, 217, 255, 0.05);
+}
+
+.mc-post .mc-architecture-admin strong,
+.mc-post .mc-architecture-box strong {
+  display: block;
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mc-post .mc-architecture-admin span,
+.mc-post .mc-architecture-box span {
+  display: block;
+  margin-top: 0.22rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.mc-post .mc-architecture-tools {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mc-post .mc-architecture-tools span {
+  margin: 0;
+  padding: 0.32rem 0.55rem;
+  border: 1px solid var(--border);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.mc-post .mc-architecture-lane {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1.2fr) auto minmax(0, 1fr);
+  gap: 0.45rem;
+  align-items: stretch;
+  margin-top: 0.9rem;
+}
+
+.mc-post .mc-architecture-box {
+  display: flex;
+  min-height: 6.2rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 1px solid var(--border-bright);
+  background: var(--bg-solid);
+}
+
+.mc-post .mc-architecture-family {
+  border-color: rgba(0, 217, 255, 0.5);
+}
+
+.mc-post .mc-architecture-service {
+  border-color: rgba(255, 184, 0, 0.6);
+  background: rgba(255, 184, 0, 0.04);
+}
+
+.mc-post .mc-architecture-codex {
+  border-color: rgba(255, 92, 242, 0.5);
+}
+
+.mc-post .mc-architecture-arrow {
+  align-self: center;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+}
+
+.mc-post .mc-architecture-return {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 3px solid var(--accent-green);
+  background: rgba(51, 214, 159, 0.05);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.mc-post .mc-architecture-return-arrow {
+  flex: 0 0 auto;
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+}
+
+.mc-post .mc-architecture figcaption {
+  margin-top: 0.75rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.mc-post .mc-step-list {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.mc-post .mc-step-list li {
+  margin-bottom: 0.9rem;
+  padding-left: 0.35rem;
+  line-height: 1.65;
+}
+
+.mc-post .mc-step-list li::marker {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.mc-post .mc-disclosure {
+  margin: 1.75rem 0;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-magenta);
+  background: rgba(255, 92, 242, 0.03);
+}
+
+.mc-post .mc-disclosure summary {
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  color: var(--accent-magenta);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.mc-post .mc-disclosure[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.mc-post .mc-disclosure p {
+  margin: 0;
+  padding: 0.8rem 1rem 0;
+}
+
+.mc-post .mc-disclosure p:last-child {
+  padding-bottom: 1rem;
+}
+
 .mc-post .mc-post-toc {
   margin: 2rem 0;
   padding: 1rem 1.2rem 1.1rem;
@@ -1014,6 +1181,47 @@ blockquote {
 @media (max-width: 600px) {
   .mc-post .mc-post-toc ul {
     columns: 1;
+  }
+
+  .mc-post .mc-architecture {
+    padding: 0.75rem;
+  }
+
+  .mc-post .mc-architecture-admin {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mc-post .mc-architecture-tools {
+    justify-content: flex-start;
+  }
+
+  .mc-post .mc-architecture-lane {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-post .mc-architecture-box {
+    min-height: 0;
+  }
+
+  .mc-post .mc-architecture-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+    line-height: 0.8;
+  }
+
+  .mc-post .mc-post-toc {
+    padding-bottom: 0.8rem;
+  }
+
+  .mc-post .mc-post-toc ul {
+    display: flex;
+    gap: 0.35rem 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .mc-post .mc-post-toc li {
+    margin-bottom: 0.15rem;
   }
 }
 
