@@ -1018,62 +1018,6 @@ blockquote {
 }
 
 /* ============================================
-   WRITING PAGE
-   DEPRECATED: Writing page removed 2026-05-01.
-   Classes below are unused dead code, kept to avoid touch surface.
-   Safe to remove in a future cleanup pass.
-   ============================================ */
-
-.mc-writing .mc-writing-intro {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-
-.mc-writing .mc-post-list {
-  list-style: none;
-  padding: 0;
-}
-
-.mc-writing .mc-post-item {
-  padding: 1.25rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent-magenta);
-  background: rgba(13, 17, 23, 0.4);
-  transition: all 0.2s ease;
-}
-
-.mc-writing .mc-post-item:hover {
-  border-left-color: var(--accent-cyan);
-  background: rgba(0, 217, 255, 0.04);
-}
-
-.mc-writing .mc-post-title {
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-}
-
-.mc-writing .mc-post-title a {
-  color: var(--text-bright);
-  border-bottom: none;
-}
-
-.mc-writing .mc-post-title a:hover {
-  color: var(--accent-cyan);
-}
-
-.mc-writing .mc-post-excerpt {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  margin-bottom: 0;
-}
-
-/* ============================================
    BLOG POSTS
    ============================================ */
 
@@ -1769,6 +1713,17 @@ blockquote {
 .mc-contact .mc-contact-sep {
   margin: 0 0.5rem;
   color: var(--text-dim);
+}
+
+.mc-page-context {
+  margin: -0.35rem 0 1.75rem;
+  padding: 0.8rem 1rem;
+  border-left: 2px solid var(--border-bright);
+  color: var(--text-muted);
+  background: rgba(111, 255, 163, 0.035);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
 }
 
 /* ============================================
