@@ -831,6 +831,110 @@ blockquote {
   background: var(--border-bright);
 }
 
+/* Clearly labeled Terminal commands with one-click copy controls */
+.mc-post .mc-terminal-note {
+  margin: 1.25rem 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(0, 217, 255, 0.28);
+  border-left: 3px solid var(--accent-cyan);
+  background: rgba(0, 217, 255, 0.045);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.mc-post .mc-terminal-note strong {
+  color: var(--accent-cyan);
+}
+
+.mc-post .mc-command-block {
+  margin: 1.25rem 0;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-cyan);
+  background: var(--bg-solid);
+}
+
+.mc-post .mc-command-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.7rem;
+  padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 217, 255, 0.045);
+}
+
+.mc-post .mc-command-label,
+.mc-post .mc-inline-command-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.mc-post .mc-copy-button {
+  flex: 0 0 auto;
+  min-height: 2.15rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(0, 217, 255, 0.35);
+  background: rgba(0, 217, 255, 0.07);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.mc-post .mc-copy-button:hover,
+.mc-post .mc-copy-button:focus-visible {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 217, 255, 0.14);
+  outline: none;
+}
+
+.mc-post .mc-copy-button.is-copied {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(78, 255, 168, 0.08);
+}
+
+.mc-post .mc-command-block pre {
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+
+.mc-post .mc-command-block pre code {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  white-space: pre;
+}
+
+.mc-post .mc-inline-command {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  min-width: 17rem;
+}
+
+.mc-post .mc-inline-command-label {
+  grid-column: 1 / -1;
+}
+
+.mc-post .mc-inline-command code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 /* Checklists (use <ul class="mc-checklist"> and prefix items with [ ]) */
 .mc-post .mc-checklist {
   list-style: none;
@@ -1222,6 +1326,14 @@ blockquote {
 
   .mc-post .mc-post-toc li {
     margin-bottom: 0.15rem;
+  }
+
+  .mc-post .mc-command-toolbar {
+    align-items: stretch;
+  }
+
+  .mc-post .mc-copy-button {
+    min-height: 2.5rem;
   }
 }
 

@@ -156,6 +156,7 @@
       <li><strong>Test before sending.</strong> Run the synthetic prompt test, then the service in the foreground. Send one harmless incoming message and inspect the reply without allowing it to send.</li>
       <li><strong>Activate and verify.</strong> Turn off dry mode, activate the LaunchAgent, confirm exactly one direct-chat reply and one consented group reply, then restart the Mac and confirm that old messages are not replayed.</li>
     </ol>
+    <div class="mc-terminal-note" role="note"><strong>How to use the detailed steps below.</strong> Anything labeled <strong>Terminal &mdash; copy and paste</strong> is a command to run in the Mac&rsquo;s Terminal app. Click <strong>Copy</strong>, paste with Command-V, and press Return. For a multi-line box, paste the complete block and run the commands in order.</div>
 
     <div class="mc-callout">
       <p><strong>SUCCESS LOOKS BORING.</strong> One approved incoming message, one ephemeral Codex run, one reply in the same chat, no loop, and an emergency stop you have already tested.</p>
@@ -205,42 +206,42 @@
 
     <h3>Before installing</h3>
     <p>Sign into Messages and exchange a real test iMessage. Install ChatGPT, sign into the dedicated ChatGPT account, and confirm the Codex CLI reports an authenticated session:</p>
-    <pre><code>/Applications/ChatGPT.app/Contents/Resources/codex login status</code></pre>
+    <pre class="mc-terminal-command"><code>/Applications/ChatGPT.app/Contents/Resources/codex login status</code></pre>
     <p>Subscription authentication is the documented default. Codex also supports API-key authentication, but that is an optional alternative with separate credentials and billing&mdash;not part of this reference setup.</p>
 
     <h2 id="install">3 &middot; Install and configure</h2>
     <h3>Install <code>imsg</code></h3>
-    <pre><code>brew install steipete/tap/imsg
+    <pre class="mc-terminal-command"><code>brew install steipete/tap/imsg
 imsg --version
 imsg chats --limit 3</code></pre>
     <p>Follow the <a href="https://imsg.sh/quickstart.html" target="_blank" rel="noopener"><code>imsg</code> permission guide</a>. Reading Messages requires Full Disk Access; sending requires Automation permission. Do not enable optional private-framework features or disable System Integrity Protection for this project.</p>
 
     <h3>Clone, test, and install</h3>
-    <pre><code>git clone https://github.com/mcornelia/family-ai-chatbot.git
+    <pre class="mc-terminal-command"><code>git clone https://github.com/mcornelia/family-ai-chatbot.git
 cd family-ai-chatbot
 make check
 ./install.sh</code></pre>
     <p>The installer copies the runtime to <code>~/Applications/family-ai-chatbot</code>, creates owner-only support directories, installs a per-user LaunchAgent definition, and leaves the service stopped.</p>
 
     <h3>Configure only approved chats</h3>
-    <pre><code>imsg chats --limit 20 --json</code></pre>
+    <pre class="mc-terminal-command"><code>imsg chats --limit 20 --json</code></pre>
     <p>Edit <code>~/Library/Application Support/Family AI Courier/config.json</code>. Replace every placeholder, include only consented numeric chat IDs, map group handles to friendly names, and keep <code>dry_run</code> set to <code>true</code>. Never commit the real configuration: chat identifiers are private even when no password is present.</p>
 
     <h2 id="test">4 &middot; Test and activate</h2>
     <h3>Test the model path without Messages</h3>
-    <pre><code>python3 courier.py \
+    <pre class="mc-terminal-command"><code>python3 courier.py \
   --config "$HOME/Library/Application Support/Family AI Courier/config.json" \
   test-prompt Alex "Hello from the setup test"</code></pre>
 
     <h3>Test one incoming event without sending</h3>
     <p>Run the service in the foreground while <code>dry_run</code> remains true. Send one harmless message to one allowlisted chat and confirm the log shows one generated response, no send, and no other chat activity.</p>
-    <pre><code>python3 courier.py \
+    <pre class="mc-terminal-command"><code>python3 courier.py \
   --config "$HOME/Library/Application Support/Family AI Courier/config.json" \
   --state "$HOME/Library/Application Support/Family AI Courier/state.json"</code></pre>
 
     <h3>Activate carefully</h3>
     <p>Stop the foreground process, change <code>dry_run</code> to <code>false</code>, and activate:</p>
-    <pre><code>./install.sh --activate</code></pre>
+    <pre class="mc-terminal-command"><code>./install.sh --activate</code></pre>
     <ul class="mc-checklist">
       <li>One new direct message produces exactly one reply in the same chat.</li>
       <li>One message in a consented group produces one reply with correct speaker labels.</li>
@@ -255,9 +256,9 @@ make check
       <table>
         <thead><tr><th>Task</th><th>Command or action</th></tr></thead>
         <tbody>
-          <tr><td><strong>Status</strong></td><td><code>launchctl print "gui/$(id -u)/com.family-ai.courier"</code></td></tr>
-          <tr><td><strong>Emergency stop</strong></td><td><code>launchctl bootout "gui/$(id -u)/com.family-ai.courier"</code></td></tr>
-          <tr><td><strong>Logs</strong></td><td><code>tail -f "$HOME/Library/Logs/Family AI Courier/courier.log"</code></td></tr>
+          <tr><td><strong>Status</strong></td><td><div class="mc-inline-command" data-copy-source><span class="mc-inline-command-label">Terminal command</span><code>launchctl print "gui/$(id -u)/com.family-ai.courier"</code><button type="button" class="mc-copy-button" data-copy-command aria-label="Copy status command" aria-live="polite">Copy</button></div></td></tr>
+          <tr><td><strong>Emergency stop</strong></td><td><div class="mc-inline-command" data-copy-source><span class="mc-inline-command-label">Terminal command</span><code>launchctl bootout "gui/$(id -u)/com.family-ai.courier"</code><button type="button" class="mc-copy-button" data-copy-command aria-label="Copy emergency stop command" aria-live="polite">Copy</button></div></td></tr>
+          <tr><td><strong>Logs</strong></td><td><div class="mc-inline-command" data-copy-source><span class="mc-inline-command-label">Terminal command</span><code>tail -f "$HOME/Library/Logs/Family AI Courier/courier.log"</code><button type="button" class="mc-copy-button" data-copy-command aria-label="Copy logs command" aria-live="polite">Copy</button></div></td></tr>
           <tr><td><strong>Remove a chat</strong></td><td>Stop the service, delete that chat&rsquo;s entry from the private configuration, validate the JSON, then reactivate.</td></tr>
           <tr><td><strong>Update</strong></td><td>Pull the repository, rerun tests, rerun the installer to refresh the installed copy, and repeat the dry-run check.</td></tr>
           <tr><td><strong>Full removal</strong></td><td>Follow the repository&rsquo;s uninstall instructions to unload the LaunchAgent and remove the installed runtime. Preserve or delete private configuration and state deliberately.</td></tr>
@@ -335,6 +336,77 @@ make check
   </footer>
 
 </div>
+
+  <script>
+    (() => {
+      const commandBlocks = document.querySelectorAll('.mc-terminal-command');
+
+      commandBlocks.forEach((pre) => {
+        const block = document.createElement('div');
+        block.className = 'mc-command-block';
+        block.setAttribute('data-copy-source', '');
+
+        const toolbar = document.createElement('div');
+        toolbar.className = 'mc-command-toolbar';
+
+        const label = document.createElement('span');
+        label.className = 'mc-command-label';
+        label.textContent = 'Terminal — copy and paste';
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'mc-copy-button';
+        button.setAttribute('data-copy-command', '');
+        button.setAttribute('aria-label', 'Copy Terminal command');
+        button.setAttribute('aria-live', 'polite');
+        button.textContent = 'Copy';
+
+        toolbar.append(label, button);
+        pre.before(block);
+        block.append(toolbar, pre);
+      });
+
+      const copyText = async (text) => {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const fallback = document.createElement('textarea');
+        fallback.value = text;
+        fallback.setAttribute('readonly', '');
+        fallback.style.position = 'fixed';
+        fallback.style.opacity = '0';
+        document.body.append(fallback);
+        fallback.select();
+        const copied = document.execCommand('copy');
+        fallback.remove();
+        if (!copied) throw new Error('Copy failed');
+      };
+
+      document.querySelectorAll('[data-copy-command]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const source = button.closest('[data-copy-source]');
+          const code = source && source.querySelector('code');
+          if (!code) return;
+
+          const originalLabel = button.textContent;
+          try {
+            await copyText(code.textContent.replace(/\n$/, ''));
+            button.textContent = 'Copied!';
+            button.classList.add('is-copied');
+          } catch (_error) {
+            button.textContent = 'Copy failed';
+          }
+
+          window.setTimeout(() => {
+            button.textContent = originalLabel;
+            button.classList.remove('is-copied');
+          }, 1800);
+        });
+      });
+    })();
+  </script>
 
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2b2752bd56614a1d98f09afcc8b3e8b0"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
