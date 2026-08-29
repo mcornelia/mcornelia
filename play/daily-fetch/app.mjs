@@ -77,16 +77,18 @@ const elements = {
 };
 
 function freshStore() {
-  return { tutorialSeen: false, soundEnabled: false, days: {} };
+  return { tutorialSeen: false, soundEnabled: true, soundPreferenceSet: false, days: {} };
 }
 
 function loadStore() {
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!stored || typeof stored !== "object") return freshStore();
+    const soundPreferenceSet = stored.soundPreferenceSet === true;
     return {
       tutorialSeen: Boolean(stored.tutorialSeen),
-      soundEnabled: Boolean(stored.soundEnabled),
+      soundEnabled: soundPreferenceSet ? Boolean(stored.soundEnabled) : true,
+      soundPreferenceSet,
       days: stored.days && typeof stored.days === "object" ? stored.days : {},
     };
   } catch {
@@ -571,6 +573,7 @@ elements.hintButton.addEventListener("click", () => {
 });
 elements.soundButton.addEventListener("click", () => {
   store.soundEnabled = !store.soundEnabled;
+  store.soundPreferenceSet = true;
   saveStore();
   renderSoundPreference();
   if (store.soundEnabled) {
