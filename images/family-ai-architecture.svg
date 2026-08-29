@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="520" viewBox="0 0 1800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Automatic family AI architecture</title>
+  <desc id="desc">Approved family iMessages flow through Apple Messages, a local allowlisted Courier, and a ChatGPT-authenticated Codex run before an automatic reply returns to the same chat. ChatGPT Remote and Tailscale form a separate administration plane.</desc>
+  <rect width="1800" height="520" fill="#ffffff"/>
+
+  <rect x="56" y="40" width="1688" height="70" rx="18" fill="#eaf8fc" stroke="#009fc4" stroke-width="3"/>
+  <text x="90" y="88" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#123f6c">ADMIN PLANE</text>
+  <text x="370" y="82" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#4a596b">ChatGPT Remote for tasks and approvals  •  Tailscale for private OS access</text>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="56" y="190" width="294" height="218" rx="20" fill="#eaf8fc" stroke="#009fc4" stroke-width="3"/>
+    <text x="203" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">FAMILY</text>
+    <text x="203" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Approved direct</text>
+    <text x="203" y="344" text-anchor="middle" font-size="23" fill="#4a596b">or group iMessage</text>
+
+    <rect x="416" y="190" width="294" height="218" rx="20" fill="#f3f5f8" stroke="#123f6c" stroke-width="3"/>
+    <text x="563" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">MESSAGES</text>
+    <text x="563" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Dedicated Apple</text>
+    <text x="563" y="344" text-anchor="middle" font-size="23" fill="#4a596b">Account inbox</text>
+
+    <rect x="776" y="190" width="294" height="218" rx="20" fill="#fff7e7" stroke="#be7417" stroke-width="3"/>
+    <text x="923" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">COURIER</text>
+    <text x="923" y="300" text-anchor="middle" font-size="22" fill="#4a596b">Allowlisted watch</text>
+    <text x="923" y="336" text-anchor="middle" font-size="22" fill="#4a596b">bounded context</text>
+    <text x="923" y="372" text-anchor="middle" font-size="22" fill="#4a596b">send-once cursor</text>
+
+    <rect x="1136" y="190" width="294" height="218" rx="20" fill="#fceef6" stroke="#bd2d83" stroke-width="3"/>
+    <text x="1283" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">CODEX</text>
+    <text x="1283" y="300" text-anchor="middle" font-size="22" fill="#4a596b">ChatGPT login</text>
+    <text x="1283" y="336" text-anchor="middle" font-size="22" fill="#4a596b">ephemeral run</text>
+    <text x="1283" y="372" text-anchor="middle" font-size="22" fill="#4a596b">read-only sandbox</text>
+
+    <rect x="1496" y="190" width="248" height="218" rx="20" fill="#edf9f4" stroke="#197f67" stroke-width="3"/>
+    <text x="1620" y="246" text-anchor="middle" font-size="30" font-weight="700" fill="#123f6c">REPLY</text>
+    <text x="1620" y="308" text-anchor="middle" font-size="23" fill="#4a596b">Automatic text</text>
+    <text x="1620" y="344" text-anchor="middle" font-size="23" fill="#4a596b">to the same chat</text>
+
+    <g fill="#00a4c7">
+      <path d="M362 289h40v-12l26 22-26 22v-12h-40z"/>
+      <path d="M722 289h40v-12l26 22-26 22v-12h-40z"/>
+      <path d="M1082 289h40v-12l26 22-26 22v-12h-40z"/>
+      <path d="M1442 289h40v-12l26 22-26 22v-12h-40z"/>
+    </g>
+
+    <rect x="56" y="450" width="1688" height="48" rx="12" fill="#edf9f4"/>
+    <rect x="56" y="450" width="6" height="48" fill="#197f67"/>
+    <text x="82" y="482" font-size="21" fill="#315449"><tspan font-weight="700">AUTOMATIC MESSAGE PLANE:</tspan> a new allowlisted iMessage triggers one bounded Codex reply.</text>
+  </g>
+</svg>
