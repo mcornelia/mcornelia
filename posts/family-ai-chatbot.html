@@ -77,32 +77,32 @@
 
     <a href="/play.html" class="mc-post-back">&larr; Code</a>
 
-    <p class="mc-post-kicker">FIELD GUIDE / OPENAI-CENTERED HOME AI</p>
+    <p class="mc-post-kicker">PROJECT GUIDE / FAMILY AI ON A MAC MINI</p>
 
     <div class="mc-post-header">
       <h1>Build a Family AI ChatBot</h1>
       <p class="mc-post-subtitle">ChatGPT + Codex + iMessage on an always-on Mac mini</p>
     </div>
 
-    <p class="mc-post-dek">A practical, security-first blueprint for a dedicated household Mac that automatically answers approved individual and group iMessage chats&mdash;without OpenClaw, a public webhook, or a separate API integration.</p>
+    <p class="mc-post-dek">This guide shows how to turn a dedicated Mac mini into a family AI that can reply in approved individual and group iMessage chats.</p>
 
     <div class="mc-callout">
-      <p><strong>THE SHORT VERSION.</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> is the custom local Python service written with Codex for this project. It watches only approved Apple Messages chats, gives a bounded slice of recent conversation to a ChatGPT-authenticated Codex run, and sends one reply back through Messages. It is not the AI model, a chat app, or an Apple or OpenAI product.</p>
+      <p><strong>THE SHORT VERSION.</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> is a small Python program Codex and I wrote for this project. It watches only the iMessage chats you approve. When a new message arrives, it gives Codex a little recent context, gets one reply, and sends it back to the same chat. It runs on your Mac and uses the ChatGPT account already signed in there.</p>
     </div>
-    <p><strong>In plain English:</strong> Messages is the inbox and outbox, Codex is the writer, and the local service carries each approved message between them. The complete code, installer, tests, and operating documentation are public on GitHub.</p>
+    <p>Messages handles the texting. Codex writes the answer. Courier connects the two and keeps the system from replying twice or answering itself. The complete code, installer, tests, and setup notes are public on GitHub.</p>
 
     <figure class="mc-architecture" aria-labelledby="architecture-title architecture-caption">
       <div class="mc-architecture-admin">
         <div>
-          <strong id="architecture-title">Administration plane</strong>
-          <span>Supervised setup, approvals, maintenance, and recovery</span>
+          <strong id="architecture-title">When you need to work on it</strong>
+          <span>Setup, maintenance, and recovery happen only when you start them</span>
         </div>
         <div class="mc-architecture-tools">
           <span>ChatGPT Remote</span>
           <span>Optional Tailscale</span>
         </div>
       </div>
-      <div class="mc-architecture-lane" role="group" aria-label="Automatic message round trip">
+      <div class="mc-architecture-lane" role="group" aria-label="What happens when a message comes in">
         <div class="mc-architecture-box mc-architecture-family">
           <strong>Approved chat</strong>
           <span>New direct or group iMessage</span>
@@ -110,31 +110,31 @@
         <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
         <div class="mc-architecture-box">
           <strong>Apple Messages</strong>
-          <span><code>imsg watch</code> receives it</span>
+          <span>Notices the new message</span>
         </div>
         <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
         <div class="mc-architecture-box mc-architecture-service">
-          <strong>Local Python service</strong>
-          <span>Family AI Courier</span>
+          <strong>Courier</strong>
+          <span>The small Python program</span>
         </div>
         <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
         <div class="mc-architecture-box mc-architecture-codex">
           <strong>Codex</strong>
-          <span>Writes one bounded reply</span>
+          <span>Writes one answer</span>
         </div>
       </div>
       <div class="mc-architecture-return" aria-label="Return path">
         <span class="mc-architecture-return-arrow" aria-hidden="true">&larr;</span>
-        <span>Codex returns text to the local service, which sends through Messages to the same approved chat.</span>
+        <span>Courier sends the answer through Messages to the same approved chat.</span>
       </div>
-      <figcaption id="architecture-caption">Two deliberately separate paths: an automatic message round trip and a supervised administration plane. The local service is the narrow bridge between Messages and Codex.</figcaption>
+      <figcaption id="architecture-caption">Someone texts an approved chat. Courier passes a little recent context to Codex, then sends the answer back through Messages. Setup and maintenance stay separate and supervised.</figcaption>
     </figure>
 
     <nav class="mc-post-toc" aria-label="Core guide navigation">
       <div class="mc-post-toc-label">Core guide</div>
       <ul>
         <li><a href="#quick-start">Quick start</a></li>
-        <li><a href="#understand">1 &middot; Understand the system</a></li>
+        <li><a href="#understand">1 &middot; How it works</a></li>
         <li><a href="#prepare">2 &middot; Prepare the Mac</a></li>
         <li><a href="#install">3 &middot; Install and configure</a></li>
         <li><a href="#test">4 &middot; Test and activate</a></li>
@@ -157,7 +157,7 @@
     <div class="mc-terminal-note" role="note"><strong>How to use the detailed steps below.</strong> Anything labeled <strong>Terminal &mdash; copy and paste</strong> is a command to run in the Mac&rsquo;s Terminal app. Click <strong>Copy</strong>, paste with Command-V, and press Return. For a multi-line box, paste the complete block and run the commands in order.</div>
 
     <div class="mc-callout">
-      <p><strong>SUCCESS LOOKS BORING.</strong> One approved incoming message, one ephemeral Codex run, one reply in the same chat, no loop, and an emergency stop you have already tested.</p>
+      <p><strong>SUCCESS LOOKS BORING.</strong> One approved incoming message, one fresh Codex run, one reply in the same chat, no loop, and an emergency stop you have already tested.</p>
     </div>
 
     <details class="mc-disclosure">
@@ -167,24 +167,24 @@
       <p>Enter passwords, MFA codes, recovery codes, and tokens directly in their own applications&mdash;never in the Codex conversation.</p>
     </details>
 
-    <h2 id="understand">1 &middot; Understand the system</h2>
-    <p>This is an OpenAI-centered automatic design. ChatGPT supplies the account and Codex entitlement. The local service supplies the event trigger, bounded context, routing, duplicate prevention, and delivery discipline. Apple Messages supplies the transport.</p>
+    <h2 id="understand">1 &middot; How it works</h2>
+    <p>The setup is pretty simple: Messages receives a text, Courier notices it, Codex writes an answer, and Messages sends that answer back. The signed-in ChatGPT account gives Codex access, so the standard setup does not need a separate API key.</p>
 
-    <h3>Automatic message plane</h3>
-    <p>One event-driven <code>imsg watch</code> stream observes each allowlisted chat. A new incoming row causes the service to load only recent messages from that same chat, label group speakers, and invoke <code>codex exec</code>. After a successful model response, the service sends once through Messages, advances its cursor, and ignores the outgoing event it created.</p>
+    <h3>When a message comes in</h3>
+    <p>Courier watches only the chats you put on its approved list. When a new message arrives, it loads a small number of recent messages from that chat so Codex has enough context to answer. Then it asks Codex for one reply and sends it back. Courier keeps track of what it has handled and ignores its own outgoing messages, which prevents duplicates and reply loops.</p>
 
-    <h3>Administration plane</h3>
-    <p>ChatGPT Remote can provide supervised access to Codex tasks on the host. The optional Apple Messages plugin can help an administrator inspect or send messages during an approved task. Optional Tailscale access can provide private OS-level recovery. None of these is the automatic incoming-message trigger.</p>
+    <h3>When you need to work on it</h3>
+    <p>ChatGPT Remote lets you open a Codex task on the Mac mini to check the service, make a change, or fix a problem. Tailscale is optional if you want private access to the Mac while you are away. The Apple Messages plugin can also help while you are actively supervising a task. These are maintenance tools; Courier is still the part that notices incoming messages automatically.</p>
 
-    <div class="mc-callout"><p><strong>MODEL-RUN BOUNDARY.</strong> Each automatic reply uses an ephemeral Codex run in an empty temporary directory, with the sandbox set to read-only and user configuration disabled. The prompt instructs Codex not to use tools, take outside actions, invent facts, or make consequential decisions. This is a constrained design, but it is not an enforced zero-tool runtime.</p></div>
+    <div class="mc-callout"><p><strong>EACH REPLY STARTS CLEAN.</strong> Courier starts a fresh Codex run for every incoming message. It uses an empty temporary folder, read-only access, and none of your normal Codex settings. It also tells Codex to answer the message without using tools, taking outside actions, inventing facts, or making consequential decisions. Those are meaningful guardrails, but they are not a guarantee that tools are technically impossible.</p></div>
 
-    <h3>What this design avoids</h3>
+    <h3>What it does not do</h3>
     <ul>
-      <li>No public webhook, router port-forward, internet-facing dashboard, or broad agent bus.</li>
-      <li>No System Integrity Protection changes or private Messages-framework injection.</li>
-      <li>No access to every Messages conversation: only exact numeric chat IDs are allowlisted.</li>
-      <li>No silent enrollment. Every direct-chat participant and group-chat guest should consent.</li>
-      <li>No assumption that this is an emergency, medical, legal, financial, or account-recovery system.</li>
+      <li>It does not open a public webhook, forward a router port, or put a control panel on the internet.</li>
+      <li>It does not require turning off System Integrity Protection or modifying Apple&rsquo;s private Messages framework.</li>
+      <li>It does not read every Messages conversation. It watches only the exact chats you approve.</li>
+      <li>It does not quietly add people. Everyone in an approved direct or group chat should know what it is and agree to use it.</li>
+      <li>It is not an emergency, medical, legal, financial, or account-recovery service.</li>
     </ul>
 
     <h2 id="prepare">2 &middot; Prepare the Mac</h2>
