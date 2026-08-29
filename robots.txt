@@ -1,13 +1,10 @@
 # robots.txt for mcornelia.com
-# Allow all well-behaved crawlers to index everything.
+# Public pages are crawlable. Pages that should stay out of search results use
+# an explicit noindex directive in their HTML.
 
 User-agent: *
 Allow: /
-Disallow: /collection/
 Disallow: /EDI/
-Disallow: /always-you-8e4f/
-Disallow: /one-more-sleep-5b8d/
-Disallow: /texas-safety-briefing-9c4e/
 
 # Sitemap location
 Sitemap: https://mcornelia.com/sitemap.xml
