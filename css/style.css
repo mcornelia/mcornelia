@@ -620,6 +620,24 @@ blockquote {
   margin-bottom: 0.35rem;
 }
 
+.mc-cv .mc-cv-about-link {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.mc-cv .mc-cv-about-link p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.mc-cv .mc-cv-about-link strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
 .mc-cv .mc-education strong {
   color: var(--accent-amber);
 }
