@@ -25,6 +25,7 @@
   --accent-magenta:#ff5cf2;
   --accent-violet: #b388ff;
   --accent-green:  #39ff14;
+  --accent-green-rgb: 57, 255, 20;
   --accent-amber:  #ffb800;
   --border:        #30363d;
   --border-bright: #58a6ff;
@@ -80,9 +81,9 @@ body::before {
       rgba(255, 92, 242, 0.14) 49%,
       rgba(255, 92, 242, 0.03) 50%,
       transparent 51%, transparent 76%,
-      rgba(57, 255, 20, 0.025) 77%,
-      rgba(57, 255, 20, 0.10) 78%,
-      rgba(57, 255, 20, 0.025) 79%,
+      rgba(var(--accent-green-rgb), 0.025) 77%,
+      rgba(var(--accent-green-rgb), 0.10) 78%,
+      rgba(var(--accent-green-rgb), 0.025) 79%,
       transparent 80%, transparent 100%);
   animation: drift-a 36s linear infinite;
 }
@@ -361,7 +362,8 @@ blockquote {
   display: inline-block;
   width: 0.5rem;
   height: 1.6rem;
-  background: var(--accent-cyan);
+  background: var(--accent-green);
+  box-shadow: 0 0 10px rgba(var(--accent-green-rgb), 0.35);
   margin-right: 0.5rem;
   vertical-align: -0.2rem;
   animation: blink 1.2s steps(2, start) infinite;
@@ -374,7 +376,8 @@ blockquote {
 .mc-home .mc-tagline {
   font-family: var(--font-mono);
   font-size: 1rem;
-  color: var(--accent-cyan);
+  color: var(--accent-green);
+  text-shadow: 0 0 10px rgba(var(--accent-green-rgb), 0.2);
   font-weight: 500;
   margin-bottom: 2rem;
   letter-spacing: 0.01em;
@@ -919,7 +922,7 @@ blockquote {
 .mc-post .mc-copy-button.is-copied {
   border-color: var(--accent-green);
   color: var(--accent-green);
-  background: rgba(78, 255, 168, 0.08);
+  background: rgba(var(--accent-green-rgb), 0.08);
 }
 
 .mc-post .mc-command-block pre {
@@ -1193,7 +1196,7 @@ blockquote {
   margin-top: 0.6rem;
   padding: 0.65rem 0.85rem;
   border-left: 3px solid var(--accent-green);
-  background: rgba(51, 214, 159, 0.05);
+  background: rgba(var(--accent-green-rgb), 0.05);
   color: var(--text-muted);
   font-size: 0.78rem;
   line-height: 1.45;
