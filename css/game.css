@@ -74,6 +74,20 @@
   line-height: 1.5;
 }
 
+.game-card-status {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 /* ============================================
    VIBE CODING — Section
    ============================================ */
