@@ -1255,6 +1255,15 @@ blockquote {
   white-space: pre;
 }
 
+.mc-post .mc-disclosure .mc-codex-prompt {
+  margin: 1rem;
+}
+
+.mc-post .mc-codex-prompt pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .mc-post .mc-inline-command {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
