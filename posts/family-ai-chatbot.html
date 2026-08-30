@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64">
+  <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build a Family AI ChatBot &mdash; ChatGPT + iMessage on a Mac Mini &mdash; Mike Cornelia</title>
   <meta name="description" content="A practical, security-first guide to building an automatic family AI in approved iMessage chats with ChatGPT, Codex, and an always-on Mac mini.">
@@ -18,7 +22,7 @@
   <meta property="og:site_name" content="Mike Cornelia">
   <meta property="article:author" content="Mike Cornelia">
   <meta property="article:published_time" content="2026-08-28">
-  <meta property="article:modified_time" content="2026-08-29">
+  <meta property="article:modified_time" content="2026-08-30">
   <meta property="article:section" content="AI &amp; Productivity">
   <meta property="article:tag" content="ChatGPT">
   <meta property="article:tag" content="iMessage">
@@ -39,7 +43,7 @@
     "image": "https://mcornelia.com/og-images/family-ai-chatbot.png",
     "url": "https://mcornelia.com/posts/family-ai-chatbot.html",
     "datePublished": "2026-08-28",
-    "dateModified": "2026-08-29",
+    "dateModified": "2026-08-30",
     "proficiencyLevel": "Intermediate",
     "author": {
       "@type": "Person",
@@ -59,7 +63,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="../css/style.css?v=terminal-green-1">
+  <link rel="stylesheet" href="../css/style.css?v=family-ai-layout-2">
 </head>
 <body>
 
@@ -84,24 +88,15 @@
       <p class="mc-post-subtitle">ChatGPT + Codex + iMessage on an always-on Mac mini</p>
     </div>
 
-    <p class="mc-post-dek">This guide shows how to turn a dedicated Mac mini into a family AI that can reply in approved individual and group iMessage chats.</p>
+    <p class="mc-post-dek">This guide shows how to turn a dedicated Mac mini (or MacBook Neo) and a standard ChatGPT account with Codex access into a family AI chatbot you can talk with in individual and group iMessage chats.</p>
+    <p>Give it a name and a sense of humor, then invite it into the family chat for dinner ideas, road-trip games, and the occasional very important debate about what the dogs are thinking.</p>
 
     <div class="mc-callout">
-      <p><strong>THE SHORT VERSION.</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> is a small Python program Codex and I wrote for this project. It watches only the iMessage chats you approve. When a new message arrives, it gives Codex a little recent context, gets one reply, and sends it back to the same chat. It runs on your Mac and uses the ChatGPT account already signed in there.</p>
+      <p><strong>TL;DR:</strong> Messages handles the texting. ChatGPT writes the answer. Connecting the two is Family AI Courier, a small Python program Codex and I wrote for this project. The complete code, installer, tests, and setup notes are <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">public on GitHub</a>.</p>
     </div>
-    <p>Messages handles the texting. Codex writes the answer. Courier connects the two and keeps the system from replying twice or answering itself. The complete code, installer, tests, and setup notes are public on GitHub.</p>
+    <p><strong>The code:</strong> <a href="https://github.com/mcornelia/family-ai-chatbot" target="_blank" rel="noopener">Family AI Courier</a> watches only the iMessage chats you approve. When a new message arrives, it passes a little recent context to ChatGPT through Codex, gets one reply, and sends it back to the same chat. The program runs on your Mac and uses Codex signed in with a ChatGPT account&mdash;no separate API key or API billing.</p>
 
-    <figure class="mc-architecture" aria-labelledby="architecture-title architecture-caption">
-      <div class="mc-architecture-admin">
-        <div>
-          <strong id="architecture-title">When you need to work on it</strong>
-          <span>Setup, maintenance, and recovery happen only when you start them</span>
-        </div>
-        <div class="mc-architecture-tools">
-          <span>ChatGPT Remote</span>
-          <span>Optional Tailscale</span>
-        </div>
-      </div>
+    <figure class="mc-architecture" aria-label="Family AI message flow and remote administration" aria-describedby="architecture-caption">
       <div class="mc-architecture-lane" role="group" aria-label="What happens when a message comes in">
         <div class="mc-architecture-box mc-architecture-family">
           <strong>Approved chat</strong>
@@ -119,7 +114,7 @@
         </div>
         <span class="mc-architecture-arrow" aria-hidden="true">&rarr;</span>
         <div class="mc-architecture-box mc-architecture-codex">
-          <strong>Codex</strong>
+          <strong>ChatGPT</strong>
           <span>Writes one answer</span>
         </div>
       </div>
@@ -127,7 +122,17 @@
         <span class="mc-architecture-return-arrow" aria-hidden="true">&larr;</span>
         <span>Courier sends the answer through Messages to the same approved chat.</span>
       </div>
-      <figcaption id="architecture-caption">Someone texts an approved chat. Courier passes a little recent context to Codex, then sends the answer back through Messages. Setup and maintenance stay separate and supervised.</figcaption>
+      <div class="mc-architecture-admin" role="group" aria-labelledby="architecture-admin-title">
+        <div>
+          <strong id="architecture-admin-title">Remote administration</strong>
+          <span>Setup, maintenance, and recovery happen only when you start them</span>
+        </div>
+        <div class="mc-architecture-tools">
+          <span>ChatGPT Remote</span>
+          <span>Optional Tailscale</span>
+        </div>
+      </div>
+      <figcaption id="architecture-caption">Someone texts an approved chat. Courier passes a little recent context to ChatGPT through Codex, then sends the answer back through Messages. Remote administration stays separate and supervised.</figcaption>
     </figure>
 
     <nav class="mc-post-toc" aria-label="Core guide navigation">
@@ -141,24 +146,22 @@
         <li><a href="#operate">5 &middot; Operate and recover</a></li>
         <li><a href="#security">6 &middot; Security and privacy</a></li>
         <li><a href="#optional">7 &middot; Optional extensions</a></li>
+        <li><a href="#next-projects">8 &middot; What else could this Mac do?</a></li>
       </ul>
     </nav>
 
     <h2 id="quick-start">Quick start</h2>
     <p><strong>If you already use Codex, this is the shortest practical path from a clean Mac to one verified automatic reply.</strong></p>
-    <ol class="mc-step-list">
-      <li><strong>Prepare the host.</strong> Use an always-on Mac with a standard daily-service account, a separate recovery administrator, FileVault, firewall, automatic security updates, and automatic login disabled.</li>
-      <li><strong>Connect Messages.</strong> Sign the service account into iMessage, install <code>imsg</code>, grant the required Full Disk Access and Automation permissions, and identify the numeric IDs of only the chats whose participants consent.</li>
-      <li><strong>Authenticate Codex.</strong> Install ChatGPT for macOS, sign in with the dedicated household ChatGPT account, and verify the bundled Codex CLI. ChatGPT subscription authentication is the default path; no separate API key is needed.</li>
+    <p>Start by giving the chatbot an identity of its own: a name, a personality, and a dedicated Apple Account for iMessage. Add its own Google account for Gmail and optional extras, and you can give it its own ChatGPT account, too. Separate accounts help keep a family member&rsquo;s personal messages and files out of the setup and give you clearer control over what the chatbot can access. Think of it as a little agency of its own, with you still in charge of permissions and recovery.</p>
+    <ol class="mc-step-list" start="0">
+      <li><strong>Create the chatbot&rsquo;s Mac login.</strong> On an always-on Mac, create a dedicated macOS user account just for the chatbot. Choose <strong>Standard</strong> (not Administrator), and keep a separate administrator account for setup and recovery. Enable FileVault, the firewall, and automatic security updates; leave automatic login off.</li>
+      <li><strong>Connect Messages.</strong> From that Mac login, sign into Messages with the chatbot&rsquo;s own Apple Account. Install <code>imsg</code>, grant the required Full Disk Access and Automation permissions, and identify the numeric IDs of only the chats whose participants consent.</li>
+      <li><strong>Sign Codex in.</strong> Install ChatGPT for macOS, sign in with the ChatGPT account you&rsquo;ve chosen for the chatbot, and verify the bundled Codex CLI. Your ChatGPT plan&rsquo;s Codex access and usage limits apply; no separate API key is needed.</li>
       <li><strong>Install the local service.</strong> Clone the repository, run its tests, run the installer, and replace the placeholders in the private configuration file. Leave <code>dry_run</code> set to <code>true</code>.</li>
       <li><strong>Test before sending.</strong> Run the synthetic prompt test, then the service in the foreground. Send one harmless incoming message and inspect the reply without allowing it to send.</li>
       <li><strong>Activate and verify.</strong> Turn off dry mode, activate the LaunchAgent, confirm exactly one direct-chat reply and one consented group reply, then restart the Mac and confirm that old messages are not replayed.</li>
     </ol>
     <div class="mc-terminal-note" role="note"><strong>How to use the detailed steps below.</strong> Anything labeled <strong>Terminal &mdash; copy and paste</strong> is a command to run in the Mac&rsquo;s Terminal app. Click <strong>Copy</strong>, paste with Command-V, and press Return. For a multi-line box, paste the complete block and run the commands in order.</div>
-
-    <div class="mc-callout">
-      <p><strong>SUCCESS LOOKS BORING.</strong> One approved incoming message, one fresh Codex run, one reply in the same chat, no loop, and an emergency stop you have already tested.</p>
-    </div>
 
     <details class="mc-disclosure">
       <summary>Advanced: let Codex guide the installation</summary>
@@ -189,7 +192,7 @@
 
     <h2 id="prepare">2 &middot; Prepare the Mac</h2>
     <h3>Hardware and accounts</h3>
-    <p>A base-model Mac mini is a good default: it can remain powered, wired, ventilated, and physically accessible without borrowing a family member&rsquo;s daily computer. Give the household AI its own standard macOS account, Apple Account/iMessage address, and ChatGPT account. Keep a separate administrator account for recovery.</p>
+    <p>A base-model Mac mini is a good default: it can remain powered, wired, ventilated, and physically accessible without borrowing a family member&rsquo;s daily computer. A dedicated MacBook Neo is another option if it stays powered and awake. Give the chatbot its own standard (non-administrator) macOS login and Apple Account for iMessage. Choose a ChatGPT account with Codex access; a dedicated one keeps the project separate from your personal account. Keep a separate Mac administrator account for setup and recovery.</p>
     <p>A dedicated Google account is optional but useful for a separate Gmail address, recovery ownership, shared calendars or Drive folders, and a Google Voice line for ordinary calls, voicemail, and Voice SMS. Google Voice normally does not become an iMessage sender; that identity must come from the Apple Account or an eligible carrier number attached through an iPhone.</p>
 
     <h3>Host baseline</h3>
@@ -203,7 +206,7 @@
     </ul>
 
     <h3>Before installing</h3>
-    <p>Sign into Messages and exchange a real test iMessage. Install ChatGPT, sign into the dedicated ChatGPT account, and confirm the Codex CLI reports an authenticated session:</p>
+    <p>Sign into Messages and exchange a real test iMessage. Install ChatGPT, sign into the account you&rsquo;ve chosen for the chatbot, and confirm the Codex CLI reports an authenticated session:</p>
     <p><strong>Open Terminal first:</strong> Press <strong>Command-Space</strong> to open Spotlight, type <strong>Terminal</strong>, and press <strong>Return</strong>. A Terminal window will open; paste the command below into it and press Return.</p>
     <pre class="mc-terminal-command"><code>/Applications/ChatGPT.app/Contents/Resources/codex login status</code></pre>
     <p>Subscription authentication is the documented default. Codex also supports API-key authentication, but that is an optional alternative with separate credentials and billing&mdash;not part of this reference setup.</p>
@@ -326,7 +329,23 @@ make check
       <li><strong><a href="https://tailscale.com/docs/install/mac" target="_blank" rel="noopener">Tailscale &mdash; Install on macOS</a></strong> &mdash; optional private administration</li>
     </ul>
 
-    <div class="mc-callout"><p><strong>FINAL RECOMMENDATION.</strong> Start with dedicated accounts, a hardened Mac mini, ChatGPT-authenticated Codex, one approved direct chat, and a tested emergency stop. Add group chats, personalities, remote administration, and connected household services one layer at a time.</p></div>
+    <h2 id="next-projects">8 &middot; What else could this Mac do?</h2>
+    <p>Once there&rsquo;s an always-on Mac in the house, the chatbot doesn&rsquo;t have to be the only thing it does. You also have a home for the little tools you wish your family had. A few ideas:</p>
+
+    <h3>Keep up with the house and grounds</h3>
+    <p>My <a href="https://github.com/mcornelia/home-maintenance-tracker" target="_blank" rel="noopener">Home Maintenance Tracker</a> is one place to keep track of all the things that need care. <strong>TL;DR:</strong> Add your appliances, plants, and other household items, give them maintenance schedules, log the work, and see what&rsquo;s overdue or coming up. It keeps instructions, photos, and a maintenance history, and can send email summaries once email delivery is configured. The repository includes a <a href="https://github.com/mcornelia/home-maintenance-tracker/blob/main/docs/macos-native-install.md" target="_blank" rel="noopener">Mac installation guide</a>.</p>
+
+    <h3>Give your little web apps a home</h3>
+    <p>Use Codex to build a word game, a recipe picker, a family scoreboard, or something delightfully specific to your household. Host it on the Mac so everyone at home can open it in a browser. My <a href="/play/daily-fetch/">Daily Fetch word game</a> is one example of the kind of small, personal app you can build.</p>
+
+    <h3>Put the family calendar somewhere everyone can see it</h3>
+    <p>Build a calendar page hosted on the Mac that pulls upcoming events from the calendars your family chooses to share, using the <a href="https://developers.google.com/workspace/calendar/api/quickstart/python" target="_blank" rel="noopener">Google Calendar API</a>. Open it on a kitchen tablet or bookmark it on everyone&rsquo;s phone. Start with read-only access: everyone keeps editing their calendars in Google, while the household page brings the week together.</p>
+
+    <h3>Send a morning email from the house</h3>
+    <p>Have the Mac send a short email from the chatbot&rsquo;s own address each morning: today&rsquo;s plans, a look at the next seven days, and a heads-up about busy days or household jobs coming due. Keep it short enough to read over coffee. Start with a straightforward calendar summary; add an AI-written introduction if it makes the brief more fun.</p>
+
+    <p>These are separate projects you can add, not features the chatbot installer switches on. Keep personal apps on your home network, give each project only the access it needs, and agree on which calendars and details belong in shared emails. Google Calendar and email still use their online services, even when the app runs on your Mac.</p>
+    <p>Start with one thing your household would actually enjoy. The best next project might be the little inconvenience you keep saying someone should fix.</p>
 
   </main>
 
