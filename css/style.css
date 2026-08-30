@@ -1426,6 +1426,7 @@ blockquote {
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+  margin-top: 0.9rem;
   padding: 0.85rem 1rem;
   border: 1px solid rgba(0, 217, 255, 0.32);
   border-left: 3px solid var(--accent-cyan);
@@ -1472,7 +1473,6 @@ blockquote {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1.2fr) auto minmax(0, 1fr);
   gap: 0.45rem;
   align-items: stretch;
-  margin-top: 0.9rem;
 }
 
 .mc-post .mc-architecture-box {
