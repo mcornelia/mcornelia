@@ -82,7 +82,7 @@
     cv: () => makeResponse('The résumé is off the main navigation, but not off the record.', [{ label: 'Open the CV', href: '/cv.html' }]),
     olive: () => makeResponse(oliveReports[Math.floor(Math.random() * oliveReports.length)], [{ label: 'Help Olive find her ball', href: '/play/daily-fetch/' }]),
     huck: () => makeResponse(huckReports[Math.floor(Math.random() * huckReports.length)]),
-    aimee: () => makeResponse('Aimee is Mike\'s partner, The Daily Fetch\'s first player, and keeper of the Lab\'s A+ quality bar.'),
+    aimee: () => makeResponse('Aimee is Mike\'s LOML, The Daily Fetch\'s first player, and keeper of the Lab\'s A+ quality bar.'),
     woof: () => makeResponse(woofReports[Math.floor(Math.random() * woofReports.length)]),
     ball: () => makeResponse('Orange-and-blue target acquired. Olive is ready for deployment.', [{ label: 'Launch The Daily Fetch', href: '/play/daily-fetch/' }]),
     treat: () => makeResponse('Treat request queued. Priority: critical. Approvers: Olive and Huck.'),
