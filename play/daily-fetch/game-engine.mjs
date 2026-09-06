@@ -123,5 +123,5 @@ export function createShareText({ dayNumber, foundWords, secret, completed, stre
     .map((done) => (done ? "🐾" : "▫️"))
     .join("");
   const status = completed ? "Ball found!" : `${objectives.wordCount}/${WORD_GOAL} words`;
-  return `The Daily Fetch #${dayNumber}\n${paws} ${status}\n🔥 ${streak} day streak\nhttps://mcornelia.com/play/daily-fetch/`;
+  return `The Daily Fetch #${dayNumber}\n${paws} ${status}\n${scoreWords(foundWords)} points · ${foundWords.length} words\n🔥 ${streak} day streak\nhttps://mcornelia.com/play/daily-fetch/`;
 }

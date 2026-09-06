@@ -11,7 +11,7 @@ import {
   puzzleIndexForDate,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs";
+} from "./game-engine.mjs?v=20260906-results";
 
 const STORAGE_KEY = "ravenwood.dailyFetch.v1";
 const DEFAULT_CATCH_DELAY_MS = 2350;
@@ -44,6 +44,9 @@ const elements = {
   wordMessage: document.querySelector("#word-message"),
   ribbon: document.querySelector(".word-ribbon"),
   score: document.querySelector("#score"),
+  completedResults: document.querySelector("#completed-results"),
+  resultsButton: document.querySelector("#results-button"),
+  resultsSummary: document.querySelector("#results-summary"),
   dateLabel: document.querySelector("#date-label"),
   puzzleLabel: document.querySelector("#puzzle-label"),
   wordCount: document.querySelector("#word-count"),
@@ -386,6 +389,8 @@ function renderProgress() {
   elements.hintButton.textContent = hintRevealed ? "Hide hint" : "Show hint";
   elements.hintButton.setAttribute("aria-expanded", String(hintRevealed));
   document.body.classList.toggle("fetch-complete", objectives.complete);
+  elements.completedResults.hidden = !objectives.complete;
+  elements.resultsSummary.textContent = `${scoreWords(dayState.foundWords)} points · ${dayState.foundWords.length} words. Every new find counts.`;
 
   elements.foundWords.innerHTML = "";
   if (!dayState.foundWords.length) {
@@ -409,6 +414,8 @@ function renderStats() {
   document.querySelector("#stat-completed").textContent = String(stats.completed);
   document.querySelector("#stat-streak").textContent = String(stats.currentStreak);
   document.querySelector("#stat-best").textContent = String(stats.longestStreak);
+  document.querySelector("#stat-today-score").textContent = String(scoreWords(dayState.foundWords));
+  document.querySelector("#stat-today-words").textContent = String(dayState.foundWords.length);
   elements.celebrationScore.textContent = String(scoreWords(dayState.foundWords));
   elements.celebrationWords.textContent = String(dayState.foundWords.length);
   elements.celebrationStreak.textContent = String(stats.currentStreak);
@@ -591,6 +598,11 @@ elements.helpButton.addEventListener("click", () => elements.helpDialog.showModa
 elements.statsButton.addEventListener("click", () => { renderStats(); elements.statsDialog.showModal(); });
 elements.statsShare.addEventListener("click", shareToday);
 elements.celebrationShare.addEventListener("click", shareToday);
+elements.resultsButton.addEventListener("click", () => {
+  if (!getObjectives(dayState.foundWords, puzzle.secret).complete) return;
+  if (store.soundEnabled) void resumeAudio();
+  celebrate({ markSeen: true });
+});
 elements.celebrationReplay.addEventListener("click", () => {
   if (store.soundEnabled) void resumeAudio();
   celebrate();
