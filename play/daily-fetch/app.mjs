@@ -398,7 +398,7 @@ function renderStats() {
   document.querySelector("#stat-played").textContent = String(stats.played);
   document.querySelector("#stat-record-points").textContent = String(stats.bestPoints);
   document.querySelector("#stat-record-words").textContent = String(stats.bestWords);
-  document.querySelector("#stat-hints").textContent = `Hints used on ${stats.hintDays} of ${stats.hintTrackedDays} days played.`;
+  document.querySelector("#stat-hints").textContent = `Hints used on ${stats.hintDays} of ${stats.hintTrackedDays} ${stats.hintTrackedDays === 1 ? "day" : "days"} played.`;
   const unknownDays = stats.played - stats.hintTrackedDays;
   document.querySelector("#hint-history-note").textContent = unknownDays
     ? `Counts only days with known hint history. ${unknownDays} earlier played ${unknownDays === 1 ? 'day has' : 'days have'} unknown hint use and ${unknownDays === 1 ? 'is' : 'are'} excluded.`
