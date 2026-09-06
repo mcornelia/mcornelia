@@ -29,7 +29,7 @@
   <meta name="twitter:description" content="Trace words through neighboring letters and help Olive recover her favorite ball. Huck is supervising.">
   <meta name="twitter:image" content="https://mcornelia.com/og-images/daily-fetch.png">
 
-  <link rel="stylesheet" href="./styles.css?v=20260828a">
+  <link rel="stylesheet" href="./styles.css?v=20260906-results">
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -112,6 +112,11 @@
             <p id="date-label">Tuesday, August 18</p>
           </div>
           <div class="score"><span id="score">0</span><small>points</small></div>
+        </div>
+
+        <div class="completed-results" id="completed-results" hidden>
+          <button class="primary-button" id="results-button" type="button" aria-haspopup="dialog" aria-controls="celebration-dialog">View today’s results</button>
+          <p id="results-summary"></p>
         </div>
 
         <div class="word-ribbon" aria-live="polite">
@@ -212,6 +217,10 @@
     <button class="dialog-close" type="button" data-close aria-label="Close">×</button>
     <span class="dialog-kicker">The record book</span>
     <h2>Your fetches</h2>
+    <div class="stats-grid today-stats" aria-label="Today’s score">
+      <div><strong id="stat-today-score">0</strong><span>Today’s points</span></div>
+      <div><strong id="stat-today-words">0</strong><span>Today’s words</span></div>
+    </div>
     <div class="stats-grid">
       <div><strong id="stat-played">0</strong><span>Played</span></div>
       <div><strong id="stat-completed">0</strong><span>Finished</span></div>
@@ -245,6 +254,7 @@
         <div><strong id="celebration-words">8</strong><span>Words</span></div>
         <div><strong id="celebration-streak">1</strong><span>Day streak</span></div>
       </div>
+      <p class="results-note">Keep finding words—your daily score updates with every new find. Reopen today’s results anytime.</p>
       <button class="primary-button" id="celebration-share" type="button">Share the good news</button>
       <button class="quiet-button" id="celebration-replay" type="button">Replay Olive’s catch</button>
       <button class="quiet-button celebration-close" type="button" data-close>Back to today’s words</button>
@@ -254,6 +264,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
 
-  <script type="module" src="./app.mjs?v=20260829a"></script>
+  <script type="module" src="./app.mjs?v=20260906-results"></script>
 </body>
 </html>
