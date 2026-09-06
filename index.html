@@ -71,6 +71,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/style.css?v=lab-bench-2">
+  <link rel="stylesheet" href="/css/office-media.css?v=1">
 </head>
 <body>
 
@@ -126,16 +127,24 @@
           <span class="mc-bench-action">open the radio guide <span aria-hidden="true">&rarr;</span></span>
         </a>
 
-        <a class="mc-bench-card mc-bench-card--coming" href="/posts/agent-office.html">
-          <div class="mc-bench-coming-copy">
+        <article class="mc-bench-card mc-bench-card--coming mc-bench-card--video" aria-labelledby="agent-office-card-title">
+          <a class="mc-bench-coming-copy" href="/posts/agent-office.html">
             <span class="mc-bench-status"><span aria-hidden="true"></span>shipped</span>
             <span class="mc-bench-kicker">agent office</span>
-            <h3>I Gave My AI Agents an Office</h3>
+            <h3 id="agent-office-card-title">I Gave My AI Agents an Office</h3>
             <p>Six buttons, six agents, and a manager named Scout. See how a control deck grew into a live animated office for pinned Codex tasks.</p>
             <span class="mc-bench-action">read the build notes <span aria-hidden="true">&rarr;</span></span>
+          </a>
+          <div class="mc-office-preview" data-office-preview>
+            <video id="agent-office-preview" controls muted playsinline loop preload="none" width="444" height="960" poster="/images/agent-office-card-poster.jpg" aria-label="Silent preview of Scout making rounds between six agents' desks">
+              <source src="/media/agent-office-card.mp4" type="video/mp4">
+              <a href="/media/agent-office-card.mp4">Watch the Agent Office preview</a>.
+            </video>
+            <img class="mc-office-preview-still" src="/images/agent-office-card-poster.jpg" width="444" height="960" alt="Six agents in their office, with the neon OPEN sign lit" loading="lazy" hidden>
+            <button class="mc-office-preview-toggle" type="button" aria-controls="agent-office-preview" hidden>Play preview</button>
+            <p class="mc-office-preview-status" role="status" hidden></p>
           </div>
-          <img src="/images/agent-office.png" alt="Agent Office showing six named AI agents at their desks" loading="lazy" decoding="async">
-        </a>
+        </article>
       </div>
     </section>
 
@@ -207,6 +216,7 @@
 </div>
 
   <script src="/js/lab-terminal.js?v=terminal-aimee-loml-1" defer></script>
+  <script type="module" src="/js/office-preview.mjs?v=1"></script>
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2b2752bd56614a1d98f09afcc8b3e8b0"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

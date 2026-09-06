@@ -1,0 +1,76 @@
+/* Keep the portrait recording intact and the controls separate from article links. */
+.mc-home .mc-bench-card--video:hover { transform: none; }
+.mc-home .mc-bench-card--video .mc-bench-coming-copy {
+  color: inherit;
+  text-decoration: none;
+  border: 0;
+}
+.mc-home .mc-bench-card--video .mc-bench-coming-copy:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: -4px;
+}
+.mc-office-preview {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: .65rem;
+  padding: .8rem;
+  background: #0d1715;
+  border-left: 1px solid var(--border);
+}
+.mc-office-preview video,
+.mc-home .mc-bench-card--video .mc-office-preview-still {
+  display: block;
+  width: 100%;
+  height: 320px;
+  min-height: 0;
+  object-fit: contain;
+  border: 0;
+  filter: none;
+  transform: none;
+}
+.mc-office-preview-toggle {
+  min-height: 44px;
+  padding: .55rem .9rem;
+  border: 1px solid var(--accent-green);
+  border-radius: 5px;
+  background: #13271e;
+  color: var(--accent-green);
+  font: 600 .85rem/1.4 var(--font-mono);
+  cursor: pointer;
+}
+.mc-office-preview-toggle:hover { background: #1c3529; }
+.mc-office-preview-toggle:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+.mc-home .mc-bench-card--video .mc-office-preview-status {
+  margin: 0;
+  font-size: .8rem;
+  text-align: center;
+}
+.mc-office-preview [hidden] { display: none !important; }
+.office-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: contain;
+  background: #0d1715;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.office-figure.office-video figcaption a { display: inline; }
+@media (max-width: 600px) {
+  .mc-office-preview {
+    grid-row: 1;
+    border-left: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mc-office-preview video,
+  .mc-home .mc-bench-card--video .mc-office-preview-still {
+    height: 400px;
+    max-height: 60svh;
+  }
+}
