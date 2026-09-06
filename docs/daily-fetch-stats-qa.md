@@ -55,3 +55,14 @@ Public checkout `/Users/glyph/Library/CloudStorage/Dropbox/Codex/mcornelia-site`
 Matching source edits in `/Users/glyph/Library/CloudStorage/Dropbox/Codex/ravenwood-games` (not a Git checkout): the same five game files under `public/games/daily-fetch/`, new `tests/daily-fetch-stats.test.mjs`, and existing `tests/game-engine.test.mjs` updated for played-day streak expectations. Source-specific sound default and public favicon differences are preserved.
 
 Public GitHub Pages and the installed LAN copy under `/Users/glyph/Applications/ravenwood-games` remain unchanged. No push, PR, merge, deployment or service restart was performed. Agent Office was untouched.
+
+## Scout-requested readability polish
+
+Implementation commit: `879b8e1` (on top of `e194ea1`). Scoped to the stats dialog tile labels and singular hint wording; equivalent source companion files updated. No outgoing Scout message retried.
+
+- All seven tile labels now measure **14px**, `rgb(174, 180, 169)` (`--muted`) at desktop 1280×720 and mobile 375×667.
+- Measured tile background: `rgba(255,255,255,0.024)` over dialog `rgb(32,44,38)`. Composited contrast is approximately **6.36:1** using sRGB relative luminance.
+- At 375px, all three history labels wrap to two lines (39px tall, 78px wide). Their scroll widths equal their client widths; modal content/client width both 335px; page width remains 375px. Desktop labels remain on one line. Screenshots visually checked at both sizes.
+- Hint summary verified in the legacy fixture: “Hints used on 1 of 1 day played.” Zero/multiple tracked days continue to use “days.”
+- Public tests 11/11 and source tests 23/23 pass again; diff whitespace check passes.
+- Existing 4331 fixtures regenerated from the final code. Browser viewport restored after QA. Nothing pushed, merged, published, installed, or changed in real game saves.
