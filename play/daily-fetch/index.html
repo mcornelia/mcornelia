@@ -29,7 +29,7 @@
   <meta name="twitter:description" content="Trace words through neighboring letters and help Olive recover her favorite ball. Huck is supervising.">
   <meta name="twitter:image" content="https://mcornelia.com/og-images/daily-fetch.png">
 
-  <link rel="stylesheet" href="./styles.css?v=20260906-results">
+  <link rel="stylesheet" href="./styles.css?v=20260906-stats">
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -113,6 +113,9 @@
           </div>
           <div class="score"><span id="score">0</span><small>points</small></div>
         </div>
+
+        <button class="your-stats-button" id="your-stats-button" type="button" aria-haspopup="dialog" aria-controls="stats-dialog">Your Stats <span aria-hidden="true">↗</span></button>
+        <p class="storage-notice" id="storage-notice" role="status" hidden></p>
 
         <div class="completed-results" id="completed-results" hidden>
           <button class="primary-button" id="results-button" type="button" aria-haspopup="dialog" aria-controls="celebration-dialog">View today’s results</button>
@@ -213,20 +216,28 @@
     <button class="primary-button" type="button" data-close>Let’s fetch</button>
   </dialog>
 
-  <dialog id="stats-dialog">
+  <dialog id="stats-dialog" aria-labelledby="stats-title">
     <button class="dialog-close" type="button" data-close aria-label="Close">×</button>
     <span class="dialog-kicker">The record book</span>
-    <h2>Your fetches</h2>
+    <h2 id="stats-title">Your Stats</h2>
     <div class="stats-grid today-stats" aria-label="Today’s score">
       <div><strong id="stat-today-score">0</strong><span>Today’s points</span></div>
       <div><strong id="stat-today-words">0</strong><span>Today’s words</span></div>
     </div>
-    <div class="stats-grid">
-      <div><strong id="stat-played">0</strong><span>Played</span></div>
-      <div><strong id="stat-completed">0</strong><span>Finished</span></div>
-      <div><strong id="stat-streak">0</strong><span>Streak</span></div>
-      <div><strong id="stat-best">0</strong><span>Best</span></div>
+    <h3 class="stats-section-title">All-time records</h3>
+    <div class="stats-grid record-stats">
+      <div><strong id="stat-record-points">0</strong><span>Best points</span></div>
+      <div><strong id="stat-record-words">0</strong><span>Best words</span></div>
     </div>
+    <div class="stats-grid history-stats">
+      <div><strong id="stat-played">0</strong><span>Days played</span></div>
+      <div><strong id="stat-streak">0</strong><span>Current streak</span></div>
+      <div><strong id="stat-best">0</strong><span>Longest streak</span></div>
+    </div>
+    <p class="stats-hints" id="stat-hints"></p>
+    <p class="fine-print" id="hint-history-note"></p>
+    <p class="fine-print">Find at least one valid word to count a played day. Streaks follow consecutive local calendar days; yesterday’s streak stays active while you start today.</p>
+    <p class="fine-print">Records use the history saved in this browser, including extra words after Olive’s catch. Previously cleared history cannot be recovered.</p>
     <button class="primary-button" id="stats-share" type="button">Share today’s fetch</button>
     <button class="quiet-button" id="reset-button" type="button">Start today over</button>
   </dialog>
@@ -264,6 +275,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
 
-  <script type="module" src="./app.mjs?v=20260906-results"></script>
+  <script type="module" src="./app.mjs?v=20260906-stats"></script>
 </body>
 </html>

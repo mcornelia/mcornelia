@@ -83,16 +83,19 @@ function addDays(date, amount) {
 }
 
 export function calculateStats(days, today = new Date()) {
-  const completedKeys = Object.entries(days)
-    .filter(([, day]) => Boolean(day.completedAt))
-    .map(([key]) => key)
-    .sort();
-  const completed = new Set(completedKeys);
+  const retainedDays = Object.entries(days).filter(([key, day]) =>
+    /^\d{4}-\d{2}-\d{2}$/.test(key) && dateKey(parseDateKey(key)) === key &&
+    day && typeof day === "object" && key <= dateKey(today));
+  const completedKeys = retainedDays.filter(([, day]) => Boolean(day.completedAt)).map(([key]) => key);
+  const playedDays = retainedDays.filter(([, day]) =>
+    Boolean(day.playedAt || day.completedAt) || (Array.isArray(day.foundWords) && day.foundWords.length > 0));
+  const playedKeys = playedDays.map(([key]) => key).sort();
+  const played = new Set(playedKeys);
   let longestStreak = 0;
   let running = 0;
   let previous = null;
 
-  for (const key of completedKeys) {
+  for (const key of playedKeys) {
     const current = parseDateKey(key);
     const consecutive = previous && dateKey(addDays(previous, 1)) === key;
     running = consecutive ? running + 1 : 1;
@@ -102,15 +105,23 @@ export function calculateStats(days, today = new Date()) {
 
   const todayKey = dateKey(today);
   const yesterdayKey = dateKey(addDays(today, -1));
-  let cursor = completed.has(todayKey) ? parseDateKey(todayKey) : completed.has(yesterdayKey) ? parseDateKey(yesterdayKey) : null;
+  let cursor = played.has(todayKey) ? parseDateKey(todayKey) : played.has(yesterdayKey) ? parseDateKey(yesterdayKey) : null;
   let currentStreak = 0;
-  while (cursor && completed.has(dateKey(cursor))) {
+  while (cursor && played.has(dateKey(cursor))) {
     currentStreak += 1;
     cursor = addDays(cursor, -1);
   }
 
   return {
-    played: Object.values(days).filter((day) => Boolean(day.completedAt) || (day.foundWords?.length ?? 0) > 0).length,
+    played: playedDays.length,
+    bestPoints: Math.max(0, ...playedDays.map(([, day]) => Math.max(
+      Number.isFinite(day.bestPoints) ? day.bestPoints : 0,
+      scoreWords(Array.isArray(day.foundWords) ? day.foundWords.filter(word => typeof word === "string") : [])))),
+    bestWords: Math.max(0, ...playedDays.map(([, day]) => Math.max(
+      Number.isFinite(day.bestWords) ? day.bestWords : 0,
+      Array.isArray(day.foundWords) ? day.foundWords.filter(word => typeof word === "string").length : 0))),
+    hintDays: playedDays.filter(([, day]) => day.hintUsed === true || day.hintRevealed === true).length,
+    hintTrackedDays: playedDays.filter(([, day]) => day.hintHistoryKnown === true || day.hintUsed === true || day.hintRevealed === true).length,
     completed: completedKeys.length,
     currentStreak,
     longestStreak,

@@ -11,9 +11,9 @@ import {
   puzzleIndexForDate,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs?v=20260906-results";
+} from "./game-engine.mjs?v=20260906-stats";
 
-const STORAGE_KEY = "ravenwood.dailyFetch.v1";
+import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20260906-stats';
 const DEFAULT_CATCH_DELAY_MS = 2350;
 const CELEBRATION_MESSAGES = [
   { lead: "Olive knew you could do it.", tag: "Huck would like the record to show that he supervised." },
@@ -79,34 +79,17 @@ const elements = {
   confetti: document.querySelector("#confetti"),
 };
 
-function freshStore() {
-  return { tutorialSeen: false, soundEnabled: true, soundPreferenceSet: false, days: {} };
-}
+const persistence = openStore(() => localStorage, today);
+let store = persistence.store;
+store.soundEnabled = store.soundPreferenceSet === true ? Boolean(store.soundEnabled) : true;
+let dayState = prepareDay(store, todayKey, puzzle);
 
-function loadStore() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!stored || typeof stored !== "object") return freshStore();
-    const soundPreferenceSet = stored.soundPreferenceSet === true;
-    return {
-      tutorialSeen: Boolean(stored.tutorialSeen),
-      soundEnabled: soundPreferenceSet ? Boolean(stored.soundEnabled) : true,
-      soundPreferenceSet,
-      days: stored.days && typeof stored.days === "object" ? stored.days : {},
-    };
-  } catch {
-    return freshStore();
-  }
+function refreshForNewDay() {
+  if (dateKey() === todayKey) return false;
+  if (!saveStore()) return true;
+  window.location.reload();
+  return true;
 }
-
-let store = loadStore();
-const savedDayState = store.days[todayKey];
-let dayState = savedDayState?.puzzleId === puzzle.letters
-  ? savedDayState
-  : { puzzleId: puzzle.letters, foundWords: [], startedAt: new Date().toISOString(), completedAt: null };
-dayState.foundWords = [...new Set((dayState.foundWords ?? []).filter((word) => puzzle.words.includes(word)))];
-dayState.puzzleId = puzzle.letters;
-store.days[todayKey] = dayState;
 let selectedPath = [];
 let dragState = null;
 let messageTimer = null;
@@ -238,11 +221,12 @@ function playCelebrationSound(context, delayMs) {
 }
 
 function saveStore() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-  } catch {
-    showToast("Progress could not be saved in this browser.");
-  }
+  updateDayRecord(dayState, todayKey);
+  const saved = persistence.save();
+  const notice = document.querySelector('#storage-notice');
+  notice.hidden = !persistence.warning;
+  notice.textContent = persistence.warning;
+  return saved;
 }
 
 function showToast(message) {
@@ -332,6 +316,7 @@ function handleTap(index) {
 }
 
 function submitPath() {
+  if (refreshForNewDay()) return;
   const word = wordFromPath(selectedPath, letters);
   if (!word) {
     setTrailMessage("Pick a letter to start searching.", "alert");
@@ -411,7 +396,13 @@ function renderProgress() {
 function renderStats() {
   const stats = calculateStats(store.days, today);
   document.querySelector("#stat-played").textContent = String(stats.played);
-  document.querySelector("#stat-completed").textContent = String(stats.completed);
+  document.querySelector("#stat-record-points").textContent = String(stats.bestPoints);
+  document.querySelector("#stat-record-words").textContent = String(stats.bestWords);
+  document.querySelector("#stat-hints").textContent = `Hints used on ${stats.hintDays} of ${stats.hintTrackedDays} ${stats.hintTrackedDays === 1 ? "day" : "days"} played.`;
+  const unknownDays = stats.played - stats.hintTrackedDays;
+  document.querySelector("#hint-history-note").textContent = unknownDays
+    ? `Counts only days with known hint history. ${unknownDays} earlier played ${unknownDays === 1 ? 'day has' : 'days have'} unknown hint use and ${unknownDays === 1 ? 'is' : 'are'} excluded.`
+    : 'Counts each played day once, even if you reveal a hint more than once.';
   document.querySelector("#stat-streak").textContent = String(stats.currentStreak);
   document.querySelector("#stat-best").textContent = String(stats.longestStreak);
   document.querySelector("#stat-today-score").textContent = String(scoreWords(dayState.foundWords));
@@ -496,6 +487,7 @@ function stageFirstCelebration() {
 }
 
 async function shareToday() {
+  if (refreshForNewDay()) return;
   const stats = calculateStats(store.days, today);
   const text = createShareText({
     dayNumber: puzzleNumber,
@@ -574,7 +566,9 @@ elements.board.addEventListener("click", (event) => {
 elements.clearButton.addEventListener("click", clearPath);
 elements.submitButton.addEventListener("click", submitPath);
 elements.hintButton.addEventListener("click", () => {
+  if (refreshForNewDay()) return;
   dayState.hintRevealed = !dayState.hintRevealed;
+  if (dayState.hintRevealed) recordHint(dayState);
   saveStore();
   renderProgress();
 });
@@ -595,22 +589,30 @@ elements.soundButton.addEventListener("click", () => {
   }
 });
 elements.helpButton.addEventListener("click", () => elements.helpDialog.showModal());
-elements.statsButton.addEventListener("click", () => { renderStats(); elements.statsDialog.showModal(); });
+function openStats() {
+  if (refreshForNewDay()) return;
+  renderStats();
+  elements.statsDialog.showModal();
+}
+elements.statsButton.addEventListener("click", openStats);
+document.querySelector('#your-stats-button').addEventListener('click', openStats);
 elements.statsShare.addEventListener("click", shareToday);
 elements.celebrationShare.addEventListener("click", shareToday);
 elements.resultsButton.addEventListener("click", () => {
+  if (refreshForNewDay()) return;
   if (!getObjectives(dayState.foundWords, puzzle.secret).complete) return;
   if (store.soundEnabled) void resumeAudio();
   celebrate({ markSeen: true });
 });
 elements.celebrationReplay.addEventListener("click", () => {
+  if (refreshForNewDay()) return;
   if (store.soundEnabled) void resumeAudio();
   celebrate();
 });
 elements.resetButton.addEventListener("click", () => {
-  if (!confirm("Start today’s fetch over? This removes today’s words and completion.")) return;
-  store.days[todayKey] = { puzzleId: puzzle.letters, foundWords: [], startedAt: new Date().toISOString(), completedAt: null };
-  dayState = store.days[todayKey];
+  if (refreshForNewDay()) return;
+  if (!confirm("Start today’s search over? Your records, played day, and hint history will be kept.")) return;
+  dayState = restartDay(store, todayKey, puzzle);
   saveStore();
   elements.statsDialog.close();
   clearPath();
@@ -662,3 +664,12 @@ if (!store.tutorialSeen) {
   saveStore();
   setTimeout(() => elements.helpDialog.showModal(), 450);
 }
+
+// Re-evaluate the local calendar date after sleep, midnight, or timezone changes.
+window.addEventListener('focus', refreshForNewDay);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refreshForNewDay();
+});
+setInterval(() => {
+  if (document.visibilityState === 'visible') refreshForNewDay();
+}, 30_000);
