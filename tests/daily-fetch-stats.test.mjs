@@ -149,3 +149,16 @@ test('malformed day fields do not crash and original values remain recoverable',
   assert.equal(scoreWords(prepareDay(store,key,puzzle).foundWords),1);
   assert.equal(calculateStats(store.days,today).played,1);
 });
+
+
+test('longest word is a letter count retained across extra finds, restart and reload', () => {
+  const store = migrateStore({days:{[key]:{puzzleId:puzzle.letters,foundWords:['cat'],archivedAttempts:[{foundWords:['orange']}]}}},today);
+  assert.equal(calculateStats(store.days,today).longestWord,6);
+  const day=prepareDay(store,key,puzzle);
+  day.foundWords.push('playtime'); updateDayRecord(day,key);
+  assert.equal(calculateStats(store.days,today).longestWord,8);
+  restartDay(store,key,puzzle);
+  const restored=migrateStore(JSON.parse(JSON.stringify(store)),today);
+  assert.equal(calculateStats(restored.days,today).longestWord,8);
+  assert.equal(calculateStats({},today).longestWord,0);
+});
