@@ -82,6 +82,15 @@ function addDays(date, amount) {
   return result;
 }
 
+export function longestWordLength(day) {
+  if (!day || typeof day !== "object") return 0;
+  const words = Array.isArray(day.foundWords) ? day.foundWords : [];
+  const attempts = Array.isArray(day.archivedAttempts) ? day.archivedAttempts : [];
+  return Math.max(0, Number.isFinite(day.longestWord) ? day.longestWord : 0,
+    ...words.filter(word => typeof word === "string").map(word => word.length),
+    ...attempts.map(longestWordLength));
+}
+
 export function calculateStats(days, today = new Date()) {
   const retainedDays = Object.entries(days).filter(([key, day]) =>
     /^\d{4}-\d{2}-\d{2}$/.test(key) && dateKey(parseDateKey(key)) === key &&
@@ -120,6 +129,7 @@ export function calculateStats(days, today = new Date()) {
     bestWords: Math.max(0, ...playedDays.map(([, day]) => Math.max(
       Number.isFinite(day.bestWords) ? day.bestWords : 0,
       Array.isArray(day.foundWords) ? day.foundWords.filter(word => typeof word === "string").length : 0))),
+    longestWord: Math.max(0, ...playedDays.map(([, day]) => longestWordLength(day))),
     hintDays: playedDays.filter(([, day]) => day.hintUsed === true || day.hintRevealed === true).length,
     hintTrackedDays: playedDays.filter(([, day]) => day.hintHistoryKnown === true || day.hintUsed === true || day.hintRevealed === true).length,
     completed: completedKeys.length,

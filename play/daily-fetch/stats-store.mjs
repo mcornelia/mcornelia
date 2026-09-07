@@ -1,4 +1,4 @@
-import { dateKey, scoreWords } from './game-engine.mjs?v=20260906-stats';
+import { dateKey, scoreWords, longestWordLength } from './game-engine.mjs?v=20260907-longest-word';
 
 export const STORAGE_KEY = 'ravenwood.dailyFetch.v1';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -32,6 +32,7 @@ export function updateDayRecord(day, key) {
   if (day.foundWords.length > 0 || day.completedAt) day.playedAt ||= key;
   day.bestPoints = Math.max(nonnegative(day.bestPoints), scoreWords(day.foundWords));
   day.bestWords = Math.max(nonnegative(day.bestWords), day.foundWords.length);
+  day.longestWord = longestWordLength(day);
 }
 
 export function prepareDay(store, key, puzzle) {

@@ -11,9 +11,9 @@ import {
   puzzleIndexForDate,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs?v=20260906-stats";
+} from "./game-engine.mjs?v=20260907-longest-word";
 
-import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20260906-stats';
+import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20260907-longest-word';
 const DEFAULT_CATCH_DELAY_MS = 2350;
 const CELEBRATION_MESSAGES = [
   { lead: "Olive knew you could do it.", tag: "Huck would like the record to show that he supervised." },
@@ -404,7 +404,7 @@ function renderStats() {
     ? `Counts only days with known hint history. ${unknownDays} earlier played ${unknownDays === 1 ? 'day has' : 'days have'} unknown hint use and ${unknownDays === 1 ? 'is' : 'are'} excluded.`
     : 'Counts each played day once, even if you reveal a hint more than once.';
   document.querySelector("#stat-streak").textContent = String(stats.currentStreak);
-  document.querySelector("#stat-best").textContent = String(stats.longestStreak);
+  document.querySelector("#stat-longest-word").textContent = String(stats.longestWord);
   document.querySelector("#stat-today-score").textContent = String(scoreWords(dayState.foundWords));
   document.querySelector("#stat-today-words").textContent = String(dayState.foundWords.length);
   elements.celebrationScore.textContent = String(scoreWords(dayState.foundWords));
