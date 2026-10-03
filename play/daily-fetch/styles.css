@@ -120,6 +120,7 @@ h1 em { color: var(--orange-soft); font-weight: 500; }
 
 .board-heading, .found-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
 .board-heading p { margin: 0; color: var(--muted); font-family: var(--serif); font-size: 1.2rem; }
+.board-word-count { margin: 12px 0 16px; color: var(--cream); font-size: .9rem; font-weight: 600; font-variant-numeric: tabular-nums; }
 .score { display: grid; justify-items: end; }
 .score span { font-family: var(--serif); font-size: 2.4rem; line-height: .8; }
 .score small { margin-top: 7px; color: var(--faint); font-size: .55rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
