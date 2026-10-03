@@ -6,6 +6,11 @@ does not return for 1,297 days (about 3.5 years). Ordinary bonus words can still
 appear on multiple boards. Every hidden word is at least six letters and still
 satisfies the long-throw objective; Olive's theme and the eight-word goal remain.
 
+Above the board, “Words found: X of Y” shows progress through the complete list
+of accepted words for that board. The total comes directly from the puzzle's
+word list and the count updates after each find, including after completing the
+eight-word goal. This also works on legacy boards.
+
 ## Selection and existing saves
 
 `puzzle-schedule.mjs` uses the player's local calendar date, with a fixed start
@@ -54,7 +59,10 @@ a versioned pack and a deliberate transition, rather than overwriting this one.
   hidden-word objectives, five-point score, reload persistence, and updated help.
   The normal pointer click did not activate the preview hint in the browser tool;
   keyboard activation succeeded. No pointer-handling code changed.
-- Public browser saves were not accessed. Publishing remains pending approval.
+- Browser QA confirmed the counter displays “Words found: 1 of 183” on the
+  isolated preview. All 17 tests passed after adding the counter.
+- Public browser saves were not accessed. The user authorized publishing both
+  changes on October 3, 2026.
 
 The larger pack is about 1.33 MB before HTTP compression. The old pack is retained
 for compatibility, so this release increases the initial download size.
