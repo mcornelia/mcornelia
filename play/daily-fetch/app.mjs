@@ -45,6 +45,7 @@ const elements = {
   wordMessage: document.querySelector("#word-message"),
   ribbon: document.querySelector(".word-ribbon"),
   score: document.querySelector("#score"),
+  boardWordCount: document.querySelector("#board-word-count"),
   completedResults: document.querySelector("#completed-results"),
   resultsButton: document.querySelector("#results-button"),
   resultsSummary: document.querySelector("#results-summary"),
@@ -359,6 +360,7 @@ function submitPath() {
 function renderProgress() {
   const objectives = getObjectives(dayState.foundWords, puzzle.secret);
   elements.score.textContent = String(scoreWords(dayState.foundWords));
+  elements.boardWordCount.textContent = `Words found: ${dayState.foundWords.length} of ${puzzle.words.length}`;
   elements.wordCount.textContent = String(Math.min(objectives.wordCount, WORD_GOAL));
   elements.wordGoal.classList.toggle("done", objectives.wordGoal);
   elements.longGoal.classList.toggle("done", objectives.longGoal);

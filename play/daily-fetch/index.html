@@ -29,7 +29,7 @@
   <meta name="twitter:description" content="Trace words through neighboring letters and help Olive recover her favorite ball. Huck is supervising.">
   <meta name="twitter:image" content="https://mcornelia.com/og-images/daily-fetch.png">
 
-  <link rel="stylesheet" href="./styles.css?v=20260907-longest-word">
+  <link rel="stylesheet" href="./styles.css?v=20261003-word-count">
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -114,6 +114,7 @@
           <div class="score"><span id="score">0</span><small>points</small></div>
         </div>
 
+        <p class="board-word-count" id="board-word-count" aria-live="polite"></p>
         <button class="your-stats-button" id="your-stats-button" type="button" aria-haspopup="dialog" aria-controls="stats-dialog">Your Stats <span aria-hidden="true">↗</span></button>
         <p class="storage-notice" id="storage-notice" role="status" hidden></p>
 
@@ -275,6 +276,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
 
-  <script type="module" src="./app.mjs?v=20261003-variety"></script>
+  <script type="module" src="./app.mjs?v=20261003-word-count"></script>
 </body>
 </html>
