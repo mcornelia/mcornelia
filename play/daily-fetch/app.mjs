@@ -1,4 +1,4 @@
-import { PUZZLES } from "./puzzles.mjs";
+import { puzzleForDate } from "./puzzle-schedule.mjs?v=20261003-variety";
 import {
   WORD_GOAL,
   calculateStats,
@@ -8,7 +8,6 @@ import {
   evaluateWord,
   getObjectives,
   pointsForWord,
-  puzzleIndexForDate,
   scoreWords,
   wordFromPath,
 } from "./game-engine.mjs?v=20260907-longest-word";
@@ -31,7 +30,9 @@ const CELEBRATION_MESSAGES = [
 ];
 const today = new Date();
 const todayKey = dateKey(today);
-const puzzle = PUZZLES[puzzleIndexForDate(today, PUZZLES.length)];
+const persistence = openStore(() => localStorage, today);
+let store = persistence.store;
+const puzzle = puzzleForDate(today, store.days[todayKey]);
 const letters = puzzle.letters.split("");
 const firstPuzzleDate = new Date(2026, 0, 1);
 const puzzleNumber = Math.max(1, Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(firstPuzzleDate.getFullYear(), firstPuzzleDate.getMonth(), firstPuzzleDate.getDate())) / 86_400_000) + 1);
@@ -79,8 +80,6 @@ const elements = {
   confetti: document.querySelector("#confetti"),
 };
 
-const persistence = openStore(() => localStorage, today);
-let store = persistence.store;
 store.soundEnabled = store.soundPreferenceSet === true ? Boolean(store.soundEnabled) : true;
 let dayState = prepareDay(store, todayKey, puzzle);
 

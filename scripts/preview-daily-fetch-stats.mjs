@@ -4,13 +4,13 @@ import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PUZZLES } from '../play/daily-fetch/puzzles.mjs';
-import { dateKey, puzzleIndexForDate } from '../play/daily-fetch/game-engine.mjs';
+import { puzzleForDate } from '../play/daily-fetch/puzzle-schedule.mjs';
+import { dateKey } from '../play/daily-fetch/game-engine.mjs';
 const root = join(tmpdir(), 'daily-fetch-stats-preview');
 const source = fileURLToPath(new URL('../play/daily-fetch/', import.meta.url));
 const today = new Date();
 const key = dateKey(today);
-const puzzle = PUZZLES[puzzleIndexForDate(today,PUZZLES.length)];
+const puzzle = puzzleForDate(today);
 const words = [puzzle.secret, ...puzzle.words.filter(w=>w!==puzzle.secret)].slice(0,8);
 const fixture = {tutorialSeen:true, soundEnabled:false, soundPreferenceSet:true, days:{}};
 for(let offset=1;offset<=4;offset++) {
