@@ -1,6 +1,6 @@
 import { PUZZLES as LEGACY_PUZZLES } from './puzzles.mjs';
 import { VARIETY_PUZZLES } from './puzzles-variety.mjs?v=20261003-variety';
-import { puzzleIndexForDate } from './game-engine.mjs?v=20260907-longest-word';
+import { puzzleIndexForDate } from './game-engine.mjs?v=20261004-four-letters';
 
 // Local calendar dates select the same puzzle on every device. Keep earlier
 // boards stable, including the day this change was prepared.

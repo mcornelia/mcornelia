@@ -1,4 +1,4 @@
-import { dateKey, scoreWords, longestWordLength } from './game-engine.mjs?v=20260907-longest-word';
+import { dateKey, scoreWords, longestWordLength } from './game-engine.mjs?v=20261004-four-letters';
 
 export const STORAGE_KEY = 'ravenwood.dailyFetch.v1';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
