@@ -1,5 +1,6 @@
 export const BOARD_SIZE = 4;
 export const WORD_GOAL = 8;
+export const MIN_WORD_LENGTH = 4;
 export const LONG_WORD_LENGTH = 6;
 
 export function dateKey(date = new Date()) {
@@ -43,9 +44,14 @@ export function pointsForWord(word) {
   return 10 + (length - 8) * 2;
 }
 
+// Retain legacy scoring for words already saved; only new submissions use the minimum.
+export function eligibleWords(words) {
+  return words.filter(word => word.length >= MIN_WORD_LENGTH);
+}
+
 export function evaluateWord({ word, foundWords, acceptedWords }) {
   const normalized = word.toLowerCase();
-  if (normalized.length < 3) return { accepted: false, reason: "short", word: normalized };
+  if (normalized.length < MIN_WORD_LENGTH) return { accepted: false, reason: "short", word: normalized };
   if (foundWords.includes(normalized)) return { accepted: false, reason: "duplicate", word: normalized };
   if (!acceptedWords.includes(normalized)) return { accepted: false, reason: "invalid", word: normalized };
   return { accepted: true, reason: "accepted", word: normalized, points: pointsForWord(normalized) };

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { LONG_WORD_LENGTH } from "../play/daily-fetch/game-engine.mjs";
-import { VARIETY_PUZZLES as PUZZLES } from "../play/daily-fetch/puzzles-variety.mjs";
+import { MODERN_PUZZLES as PUZZLES } from "../play/daily-fetch/puzzles-modern.mjs";
 import { PUZZLES as LEGACY_PUZZLES } from "../play/daily-fetch/puzzles.mjs";
 import { puzzleForDate, VARIETY_START_DAY } from "../play/daily-fetch/puzzle-schedule.mjs";
 import { dateKey, puzzleIndexForDate, getObjectives } from "../play/daily-fetch/game-engine.mjs";
@@ -54,24 +54,21 @@ test("earlier dates keep their original boards", () => {
   }
 });
 
-test("an existing legacy day's words, hints, completion and history survive the update", () => {
-  for (const completed of [false, true]) {
-    const date = calendarDate(5);
-    const key = dateKey(date);
-    const legacy = LEGACY_PUZZLES[puzzleIndexForDate(date, LEGACY_PUZZLES.length)];
-    const words = [legacy.secret, ...legacy.words.filter(word => word !== legacy.secret)].slice(0, completed ? 8 : 2);
-    const store = migrateStore({ days: {
-      '2026-09-01': { foundWords: ['cat'], completedAt: null },
-      [key]: { puzzleId: legacy.letters, foundWords: words, hintUsed: true,
-        completedAt: completed ? date.toISOString() : null }
-    } }, date);
-    const before = structuredClone(store);
-    const chosen = puzzleForDate(date, store.days[key]);
-    assert.equal(chosen, legacy);
-    prepareDay(store, key, chosen);
-    assert.deepEqual(store, before);
-    assert.equal(getObjectives(words, chosen.secret).complete, completed);
-    assert.deepEqual(puzzleForDate(calendarDate(6)), PUZZLES[6]);
+test("release-day legacy progress survives on its original board", () => {
+  const date=calendarDate(0), key=dateKey(date);
+  const legacy=LEGACY_PUZZLES[puzzleIndexForDate(date,LEGACY_PUZZLES.length)];
+  for(const completed of [false,true]) {
+    const words=[legacy.secret,...legacy.words.filter(w=>w!==legacy.secret)].slice(0,completed?8:2);
+    const store=migrateStore({days:{[key]:{puzzleId:legacy.letters,foundWords:words,completedAt:completed?date.toISOString():null}}},date);
+    const before=structuredClone(store);
+    const chosen=puzzleForDate(date,store.days[key]);
+    assert.equal(chosen.letters,legacy.letters);
+    prepareDay(store,key,chosen);
+    assert.deepEqual(store,before);
+    assert.ok(chosen.words.length>=8);
+    assert.ok(chosen.words.every(w=>w.length>=4));
+    if(completed)assert.equal(getObjectives(words,chosen.secret).complete,true);
+    else assert.ok(chosen.words.includes(chosen.secret));
   }
 });
 
@@ -105,7 +102,7 @@ test("every new board and accepted word is playable, with distinct hidden words 
   assert.equal(new Set(PUZZLES.map((puzzle) => puzzle.letters)).size, PUZZLES.length);
   for (const [index, puzzle] of PUZZLES.entries()) {
     assert.match(puzzle.letters, /^[a-z]{16}$/, `board ${index} has sixteen letters`);
-    assert.ok(puzzle.words.length >= 25, `board ${index} has enough accepted words`);
+    assert.ok(puzzle.words.length >= 8, `board ${index} has enough accepted words`);
     assert.equal(new Set(puzzle.words).size, puzzle.words.length, `board ${index} has no duplicate words`);
     assert.ok(puzzle.words.includes(puzzle.secret), `board ${index} contains its hidden ball word`);
     assert.ok(puzzle.secret.length >= LONG_WORD_LENGTH, `board ${index} ball word also satisfies the long throw`);

@@ -1,0 +1,14 @@
+# Family-game exclusions and informal spelling variants.
+cunt
+cunts
+fuck
+fucks
+fucked
+fucking
+shit
+shits
+shitty
+thru
+gotta
+gonna
+wanna

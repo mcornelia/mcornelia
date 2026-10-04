@@ -1,6 +1,7 @@
-import { puzzleForDate } from "./puzzle-schedule.mjs?v=20261003-variety";
+import { puzzleForDate } from "./puzzle-schedule.mjs?v=20261004-modern";
 import {
   WORD_GOAL,
+  eligibleWords,
   calculateStats,
   canAddToPath,
   createShareText,
@@ -10,9 +11,9 @@ import {
   pointsForWord,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs?v=20260907-longest-word";
+} from "./game-engine.mjs?v=20261004-four-letters";
 
-import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20260907-longest-word';
+import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20261004-modern';
 const DEFAULT_CATCH_DELAY_MS = 2350;
 const CELEBRATION_MESSAGES = [
   { lead: "Olive knew you could do it.", tag: "Huck would like the record to show that he supervised." },
@@ -325,7 +326,7 @@ function submitPath() {
   const result = evaluateWord({ word, foundWords: dayState.foundWords, acceptedWords: puzzle.words });
   if (!result.accepted) {
     const messages = {
-      short: "Olive needs at least 3 letters to follow that scent.",
+      short: "Olive needs at least 4 letters to follow that scent.",
       duplicate: "Olive already searched that spot.",
       invalid: "Huck sniffed it out. Not in today’s word guide.",
     };
@@ -360,7 +361,10 @@ function submitPath() {
 function renderProgress() {
   const objectives = getObjectives(dayState.foundWords, puzzle.secret);
   elements.score.textContent = String(scoreWords(dayState.foundWords));
-  elements.boardWordCount.textContent = `Words found: ${dayState.foundWords.length} of ${puzzle.words.length}`;
+  const currentWordCount = dayState.foundWords.filter(word => puzzle.words.includes(word)).length;
+  const earlierWordCount = dayState.foundWords.length - currentWordCount;
+  elements.boardWordCount.textContent = `Words found: ${currentWordCount} of ${eligibleWords(puzzle.words).length}`
+    + (earlierWordCount ? ` · ${earlierWordCount} earlier ${earlierWordCount === 1 ? 'word' : 'words'} saved` : '');
   elements.wordCount.textContent = String(Math.min(objectives.wordCount, WORD_GOAL));
   elements.wordGoal.classList.toggle("done", objectives.wordGoal);
   elements.longGoal.classList.toggle("done", objectives.longGoal);
