@@ -1,5 +1,5 @@
+import { MODERN_PUZZLES, RELEASE_LEGACY_PUZZLE } from './puzzles-modern.mjs?v=20261004-modern';
 import { PUZZLES as LEGACY_PUZZLES } from './puzzles.mjs';
-import { VARIETY_PUZZLES } from './puzzles-variety.mjs?v=20261003-variety';
 import { puzzleIndexForDate } from './game-engine.mjs?v=20261004-four-letters';
 
 // Local calendar dates select the same puzzle on every device. Keep earlier
@@ -11,9 +11,14 @@ export function puzzleForDate(date, savedDay) {
   const legacy = LEGACY_PUZZLES[puzzleIndexForDate(date, LEGACY_PUZZLES.length)];
   if (day < VARIETY_START_DAY) return legacy;
 
-  // An older tab may already have started today's old board before updating.
-  // Finish that board without clearing its words, hints, or completed result.
-  // Only honor the legacy board for THIS date, not a previous day's save.
-  if (savedDay?.puzzleId === legacy.letters) return legacy;
-  return VARIETY_PUZZLES[(day - VARIETY_START_DAY) % VARIETY_PUZZLES.length];
+  if (day >= VARIETY_START_DAY) {
+    if (day === VARIETY_START_DAY && savedDay?.puzzleId === RELEASE_LEGACY_PUZZLE.letters) {
+      // Keep a completed legacy catch replayable; new submissions still use the curated list.
+      return savedDay.completedAt
+        ? { ...RELEASE_LEGACY_PUZZLE, secret: legacy.secret }
+        : RELEASE_LEGACY_PUZZLE;
+    }
+    return MODERN_PUZZLES[(day - VARIETY_START_DAY) % MODERN_PUZZLES.length];
+  }
+
 }
