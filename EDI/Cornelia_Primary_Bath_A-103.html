@@ -135,32 +135,74 @@
           <line x1="0" y1="99" x2="168" y2="99" stroke="#171310" stroke-width="0.6"/>
           <line x1="0" y1="0" x2="168" y2="0" stroke="#171310" stroke-width="0.6"/>
 
+          <defs>
+            <pattern id="pennyRound3" x="0" y="0" width="6.4" height="2.772" patternUnits="userSpaceOnUse">
+              <rect width="6.4" height="2.772" fill="#2f2f2c"/>
+              <circle cx="0.8" cy="0.693" r="0.7" fill="#3c4842"/><circle cx="2.4" cy="0.693" r="0.7" fill="#5c5241"/>
+              <circle cx="4.0" cy="0.693" r="0.7" fill="#262c2e"/><circle cx="5.6" cy="0.693" r="0.7" fill="#4f5c56"/>
+              <circle cx="0" cy="2.079" r="0.7" fill="#6a5d47"/><circle cx="1.6" cy="2.079" r="0.7" fill="#2a3134"/>
+              <circle cx="3.2" cy="2.079" r="0.7" fill="#475249"/><circle cx="4.8" cy="2.079" r="0.7" fill="#3a3f42"/>
+              <circle cx="6.4" cy="2.079" r="0.7" fill="#6a5d47"/>
+            </pattern>
+          </defs>
+
+          <!-- REV 3 (2026-10-06): all three shower walls = Bond Tile Stonehenge 24x24, Earth, floor to ceiling. Horizontal joints at 24/48/72/96" AFF (partial row at ceiling). Back wall layout centered (8" | 24" | 8"). -->
+          <rect x="0" y="0" width="128" height="99" fill="#cdb99a"/>
+          <g stroke="#a8916d" stroke-width="0.14">
+            <line x1="0" y1="75" x2="128" y2="75"/><line x1="0" y1="51" x2="128" y2="51"/>
+            <line x1="0" y1="27" x2="128" y2="27"/><line x1="0" y1="3" x2="128" y2="3"/>
+            <line x1="24" y1="0" x2="24" y2="99"/><line x1="48" y1="0" x2="48" y2="99"/>
+            <line x1="72" y1="0" x2="72" y2="99"/><line x1="96" y1="0" x2="96" y2="99"/>
+          </g>
+
           <!-- ============ PANEL 1: WEST WALL (local_x 0-64, 64" — plan y66 to y2) ============ -->
-          <!-- shower controls (2 handles), plan (58,56) &amp; (58,60) -> ASSUMED 44" AFF -->
-          <circle cx="10" cy="55" r="1.1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="6" cy="55" r="1.1" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <!-- shower controls (2 handles), ASSUMED 44" AFF -->
+          <circle cx="10" cy="55" r="1.1" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="6" cy="55" r="1.1" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
           <circle cx="10" cy="55" r="0.3" fill="#4a2f1f"/>
           <circle cx="6" cy="55" r="0.3" fill="#4a2f1f"/>
 
           <!-- ============ FOLD LINE 1 (west/north inside corner), local_x 64 ============ -->
-          <line x1="64" y1="0" x2="64" y2="99" stroke="#8a6a3a" stroke-width="0.25" stroke-dasharray="1.4,1"/>
+          <line x1="64" y1="0" x2="64" y2="99" stroke="#5c4020" stroke-width="0.25" stroke-dasharray="1.4,1"/>
           <text x="64" y="-3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">INSIDE CORNER</text>
 
-          <!-- ============ PANEL 2: NORTH (BACK) WALL (local_x 64-104, 40" — plan x56 to x96) ============ -->
-          <!-- showerhead, plan (76,6) -> ASSUMED 80" AFF, centered on back wall -->
+          <!-- ============ PANEL 2: NORTH (BACK) WALL (local_x 64-104, 40") ============ -->
+          <!-- FULL-WIDTH NICHE — penny round (Merola Hudson Penny Round, Stormy Night), 40" wide x 12" tall, ASSUMED 56"–68" AFF (between valve and showerhead). LED strip at niche top. Same grout + edge treatment as the makeup-wall mirror frame (A-104). -->
+          <rect x="64" y="31" width="40" height="12" fill="url(#pennyRound3)" stroke="#171310" stroke-width="0.35"/>
+          <line x1="64.6" y1="31.6" x2="103.4" y2="31.6" stroke="#f2c94c" stroke-width="0.5"/>
+          <line x1="64" y1="43" x2="104" y2="43" stroke="#171310" stroke-width="0.5"/>
+          <!-- showerhead, ASSUMED 80" AFF, centered on back wall -->
           <line x1="84" y1="19" x2="84" y2="14" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="84" cy="19" r="1.3" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="84" cy="19" r="1.3" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
           <circle cx="84" cy="19" r="0.35" fill="#4a2f1f"/>
           <!-- valve trim, ASSUMED 48" AFF -->
-          <circle cx="84" cy="51" r="0.9" fill="none" stroke="#4a2f1f" stroke-width="0.3"/>
+          <circle cx="84" cy="51" r="0.9" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
+          <!-- LINEAR DRAIN along the back wall (replaces 6" sq. centered drain). Floor slopes in one plane to this wall. -->
+          <rect x="64.5" y="97.6" width="39" height="1.4" fill="#3a3a3a" stroke="#171310" stroke-width="0.15"/>
+          <g stroke="#9a9a9a" stroke-width="0.08">
+            <line x1="66" y1="98.3" x2="102" y2="98.3"/>
+          </g>
 
           <!-- ============ FOLD LINE 2 (north/east inside corner), local_x 104 ============ -->
-          <line x1="104" y1="0" x2="104" y2="99" stroke="#8a6a3a" stroke-width="0.25" stroke-dasharray="1.4,1"/>
+          <line x1="104" y1="0" x2="104" y2="99" stroke="#5c4020" stroke-width="0.25" stroke-dasharray="1.4,1"/>
           <text x="104" y="-3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">INSIDE CORNER</text>
 
-          <!-- ============ PANEL 3: EAST WALL — RETURN (104-128, 24" solid) + GLASS (128-168, 40") ============ -->
+          <!-- ============ PANEL 3: EAST WALL — RETURN (104-128, 24" tiled) + GLASS (128-168, 40") ============ -->
           <line x1="128" y1="0" x2="128" y2="99" stroke="#171310" stroke-width="0.4"/>
           <rect x="128" y="0" width="40" height="99" fill="#d7e6ea" fill-opacity="0.55" stroke="#000000" stroke-width="0.5"/>
+
+          <!-- SHOWER FLOOR (shown as a band below the elevation): Bedrosians Sahara 4x4 Dark mosaic -->
+          <rect x="0" y="99" width="128" height="2.4" fill="#4e443c" stroke="#171310" stroke-width="0.2"/>
+          <g stroke="#3d342d" stroke-width="0.08">
+            <line x1="0" y1="100.2" x2="128" y2="100.2"/>
+          </g>
+          <!-- callouts -->
+          <g font-family="Helvetica" font-size="1.6" fill="#171310">
+            <text x="84" y="29.6" text-anchor="middle">FULL-WIDTH NICHE — PENNY ROUND + LED STRIP</text>
+            <text x="84" y="96.6" text-anchor="middle">LINEAR DRAIN @ BACK WALL</text>
+            <text x="32" y="12" text-anchor="middle">STONEHENGE EARTH 24x24</text>
+            <text x="32" y="14.2" text-anchor="middle">FLOOR TO CEILING (ALL 3 WALLS)</text>
+          </g>
 
           <!-- ============ AFF HEIGHT LADDER (right side) ============ -->
           <g font-family="Helvetica" font-size="1.9">
@@ -180,6 +222,10 @@
               <text x="179" y="51.8">48" VALVE TRIM</text>
               <line x1="171" y1="55" x2="177" y2="55"/>
               <text x="179" y="58.5">44" CONTROLS</text>
+              <line x1="171" y1="31" x2="177" y2="31"/>
+              <text x="179" y="31.8">68" NICHE TOP (LED)</text>
+              <line x1="171" y1="43" x2="177" y2="43"/>
+              <text x="179" y="43.8">56" NICHE BOTTOM</text>
             </g>
           </g>
 
@@ -189,6 +235,7 @@
             <text x="32" y="110.5" fill="#a00000" font-size="1.8">CONTROLS — TBD FIXTURE</text>
             <text x="84" y="107">NORTH (BACK) WALL — 40"</text>
             <text x="84" y="110.5" fill="#a00000" font-size="1.8">SHOWERHEAD + VALVE — TBD FIXTURE</text>
+            <text x="64" y="114.5" fill="#333" font-size="1.8">SHOWER FLOOR: BEDROSIANS SAHARA 4x4 DARK MOSAIC · SINGLE-PLANE SLOPE TO LINEAR DRAIN</text>
             <text x="136" y="107">EAST WALL — RETURN 24" + GLASS 40"</text>
             <text x="136" y="110.5" fill="#a00000" font-size="1.8">FIXED GLASS PANEL — TBD GLAZIER</text>
           </g>
@@ -248,19 +295,25 @@
 
       <div class="verify-box">
         <div class="hdr">DIMENSIONS TO VERIFY</div>
-        <p style="margin:0 0 8px 0;">The original design brief specified the shower footprint (40" x 64", 6" sq. drain) but did not specify any fixture mounting heights. The heights below are reasonable industry-standard assumptions used to draft this elevation — <b>none are confirmed selections.</b> Confirm each with the plumber/fixture supplier before rough-in:</p>
+        <p style="margin:0 0 8px 0;">The original design brief specified the shower footprint (40" x 64"; drain revised to linear, rev 3) but did not specify any fixture mounting heights. The heights below are reasonable industry-standard assumptions used to draft this elevation — <b>none are confirmed selections.</b> Confirm each with the plumber/fixture supplier before rough-in:</p>
         <ol>
           <li><b>Showerhead / shower arm height</b> (assumed 80" AFF, centered on back wall) — fixture not yet selected, see Finish Schedule (A-101).</li>
           <li><b>Valve trim height</b> (assumed 48" AFF) — fixture not yet selected.</li>
           <li><b>Control handle height</b> (assumed 44" AFF, west wall near entry) — fixture not yet selected.</li>
-          <li><b>Shower tile</b> (floor &amp; wall, both TBD) — full height to ceiling per Keynote 4 (A-101); confirm layout/pattern before ordering.</li>
+          <li><b>Shower wall tile</b> — CONFIRMED 2026-10-06: Bond Tile Stonehenge 24x24, Earth, floor to ceiling on all 3 walls. Center the layout on the back wall; put any partial row at the ceiling.</li>
+          <li><b>Shower floor tile</b> — CONFIRMED 2026-10-06: Bedrosians Sahara 4"x4" matte mosaic, Dark (item 100001057). Confirm wet DCOF ≥ 0.42 with Bedrosians. Terrazzo → Sahara floor change lands exactly at the shower edge, in line with the glass panel. Hudson Penny Round is NOT a floor tile (DCOF 0.21).</li>
+          <li><b>Drain</b> — CHANGED 2026-10-06: linear drain along the back (north) wall, full 40" width; single-plane slope (min. 1/4" per ft.). Tile-insert vs. visible grate (e.g., brass) TBD.</li>
+          <li><b>Niche</b> — full-width (40") on the back wall, lined with Merola Hudson Penny Round, Stormy Night; LED strip at top. Location on the back wall and the 56"–68" AFF height are ASSUMED; confirm with owner and plumber (valve/showerhead rough-in). Same grout and edge treatment as the makeup-wall penny round (A-104).</li>
           <li><b>Glass panel hardware &amp; rough opening</b> — confirm with glazier per Keynote 4 (A-101) prior to framing the 4" return wall.</li>
         </ol>
       </div>
 
       <div class="legend-box">
         <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#faf6ee;"></div>Tiled wall (TBD selection) — full height to ceiling</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#cdb99a; border-color:#a8916d;"></div>Wall tile — Bond Tile Stonehenge 24x24, Earth, floor to ceiling</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:radial-gradient(circle,#4f5c56 40%,#2f2f2c 45%); background-size:5px 5px;"></div>Niche — Merola Hudson Penny Round, Stormy Night (glossy) + LED strip</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#4e443c;"></div>Shower floor — Bedrosians Sahara 4x4 Dark mosaic (shown as band below elevation)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#3a3a3a;"></div>Linear drain — along back wall</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#d7e6ea;"></div>Fixed tempered glass panel (heavy line = glass edge)</div>
         <div class="legend-row"><span style="display:inline-block;width:0.36in;border-top:2px dashed #8a6a3a;"></span>Inside corner (unfold fold line) — not a physical joint reveal</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
@@ -273,7 +326,7 @@
           <li>This elevation is a companion to Sheet A-101 (Floor Plan). Refer to A-101 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule.</li>
           <li>The 3 shower walls (west, north/back, east return+glass) are shown unfolded/laid flat, hinged at the two inside corners, for clarity. See Key Plan, this sheet, for true plan orientation.</li>
           <li>Shower entry is open at the south end (no door) — glass panel is a fixed panel continuing the return wall plane, per A-101 Keynote 4.</li>
-          <li>Provide continuous waterproof membrane at entire shower enclosure and slope floor to drain min. 1/4" per ft. per A-101 Keynote 3. No radiant floor heating in shower — see Finish Schedule (A-101).</li>
+          <li>Provide continuous waterproof membrane at entire shower enclosure and slope floor in a single plane to the linear drain at the back wall, min. 1/4" per ft. (rev 3). No radiant floor heating in shower — see Finish Schedule (A-101).</li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
       </div>
@@ -342,7 +395,7 @@
         <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
         <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
-        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>3</td><td>10.06.2026</td><td>Wall/floor tile, penny niche, linear drain</td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
       </table>
     </div>

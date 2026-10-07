@@ -134,16 +134,38 @@
 
           <!-- Viewer faces NORTH (into this wall) — per project convention, facing north = west on left, east on right. local_x 0 = WEST end (left, at the corner shared with A-104's west wall), increasing local_x = eastward (right) -->
 
-          <!-- WEST bay, local_x 2-23.5 (21.5" wide): OPEN SHELVING, directly above the west vanity's north end (A-104). Vanity-top (34" AFF) to ceiling (99" AFF). Floating/overhead — dashed. -->
-          <rect x="2" y="0" width="21.5" height="65" fill="none" stroke="#171310" stroke-width="0.3" stroke-dasharray="1.2,0.9"/>
-          <line x1="2" y1="16.25" x2="23.5" y2="16.25" stroke="#171310" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
-          <line x1="2" y1="32.5" x2="23.5" y2="32.5" stroke="#171310" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
-          <line x1="2" y1="48.75" x2="23.5" y2="48.75" stroke="#171310" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
+          <defs>
+            <pattern id="kitkat6" x="0" y="52" width="3" height="12" patternUnits="userSpaceOnUse">
+              <rect width="3" height="12" fill="#5e5249"/>
+              <line x1="0" y1="0" x2="0" y2="12" stroke="#4a4039" stroke-width="0.12"/>
+              <line x1="0" y1="0" x2="3" y2="0" stroke="#4a4039" stroke-width="0.12"/>
+            </pattern>
+            <pattern id="walnut6" x="0" y="0" width="12" height="4" patternUnits="userSpaceOnUse">
+              <rect width="12" height="4" fill="#6b4a30"/>
+              <path d="M0,1.2 Q3,0.8 6,1.3 T12,1.1 M0,2.9 Q4,2.5 8,3.1 T12,2.8" stroke="#563a24" stroke-width="0.12" fill="none"/>
+            </pattern>
+          </defs>
+          <!-- REV 3 (2026-10-06): jog wall tiled like the rest of the bath — Stonehenge Earth wainscot 0–47" AFF (2 tiles), Sahara 3x12 Dark kit-kat 47" to ceiling. -->
+          <rect x="0" y="52" width="50" height="47" fill="#cdb99a"/>
+          <g stroke="#a8916d" stroke-width="0.12"><line x1="0" y1="75.5" x2="50" y2="75.5"/><line x1="24" y1="52" x2="24" y2="99"/><line x1="48" y1="52" x2="48" y2="99"/></g>
+          <rect x="0" y="0" width="50" height="52" fill="url(#kitkat6)"/>
+          <line x1="0" y1="52" x2="50" y2="52" stroke="#171310" stroke-width="0.2"/>
+          <rect x="0" y="0" width="50" height="99" fill="none" stroke="#171310" stroke-width="0.5"/>
 
-          <!-- EAST bay, local_x 23.5-45 (21.5" wide): CABINET W/ DOOR, ceiling (99" AFF, top) down to 52" AFF (bottom), floating with open wall below (towel warmer sits there). Built cabinet — solid fill. -->
-          <rect x="23.5" y="0" width="21.5" height="47" fill="#e0e0e0" stroke="#171310" stroke-width="0.4"/>
-          <line x1="23.5" y1="47" x2="45" y2="47" stroke="#8a6a3a" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
-          <circle cx="41" cy="23.5" r="0.4" fill="#171310"/>
+          <!-- WEST bay, local_x 2-23.5 (21.5" wide): OPEN SHELVING in WALNUT, directly above the west makeup countertop's north end (A-104). REV 3: starts at the makeup countertop, now 30" AFF (was 34"), to ceiling. Wall tile shows behind the open shelves. -->
+          <g fill="url(#walnut6)" stroke="#2e1f14" stroke-width="0.15">
+            <rect x="2" y="0" width="1" height="69"/>
+            <rect x="22.5" y="0" width="1" height="69"/>
+            <rect x="2" y="16.25" width="21.5" height="1"/>
+            <rect x="2" y="33.25" width="21.5" height="1"/>
+            <rect x="2" y="50.25" width="21.5" height="1"/>
+            <rect x="2" y="68" width="21.5" height="1"/>
+          </g>
+
+          <!-- EAST bay, local_x 23.5-45 (21.5" wide): WALNUT CABINET W/ DOOR, ceiling down to 52" AFF, floating with open wall below (towel warmer). -->
+          <rect x="23.5" y="0" width="21.5" height="47" fill="url(#walnut6)" stroke="#171310" stroke-width="0.4"/>
+          <rect x="25" y="1.5" width="18.5" height="44" fill="none" stroke="#2e1f14" stroke-width="0.15"/>
+          <circle cx="41" cy="23.5" r="0.45" fill="#a8843a"/>
 
           <!-- TOWEL WARMER / BARS, open zone below the door cabinet (52" AFF down to floor) — this is why the cabinet floats. Product/height TBD, see A-101 Schedule -->
           <g stroke="#8a5a3a" stroke-width="0.2">
@@ -168,22 +190,24 @@
             <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
               <line x1="53" y1="47" x2="59" y2="47"/>
               <text x="61" y="47.8">52" CABINET BOT.</text>
-              <line x1="53" y1="65" x2="59" y2="65"/>
-              <text x="61" y="65.8">34" SHELVING BOT.</text>
+              <line x1="53" y1="69" x2="59" y2="69"/>
+              <text x="61" y="69.8">30" SHELVING BOT.</text>
+              <line x1="53" y1="52" x2="59" y2="52"/>
+              <text x="61" y="55.4">47" WAINSCOT TOP</text>
             </g>
           </g>
 
           <!-- ================= ZONE LABELS (below elevation) ================= -->
           <text x="12.75" y="107" text-anchor="middle" font-family="Helvetica" font-size="1.9" fill="#333">OPEN SHELVING</text>
           <text x="12.75" y="110.8" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#333">21.5" x 18"</text>
-          <text x="12.75" y="114" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#333">Vanity top to clg.</text>
-          <text x="12.75" y="117" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000">Fabricator TBD</text>
+          <text x="12.75" y="114" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#333">Makeup ctr. (30") to clg.</text>
+          <text x="12.75" y="117" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#333">WALNUT — DraytonWorks (tent.)</text>
           <text x="12.75" y="119.8" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000">shelf count ASSUMED</text>
 
           <text x="34.25" y="107" text-anchor="middle" font-family="Helvetica" font-size="1.9" fill="#333">CABINET W/ DOOR</text>
           <text x="34.25" y="110.8" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#333">21.5" x 18"</text>
           <text x="34.25" y="114" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#333">Floats 52" AFF</text>
-          <text x="34.25" y="117" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000">Fabricator TBD</text>
+          <text x="34.25" y="117" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#333">WALNUT — DraytonWorks (tent.)</text>
           <text x="34.25" y="119.8" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#a00000">see A-101 Schedule</text>
 
           <!-- overall width dimension: the 43" cabinet run within the 50" shown -->
@@ -251,17 +275,19 @@
         <div class="hdr">DIMENSIONS TO VERIFY</div>
         <p style="margin:0 0 8px 0;"><b>Heights and footprint are owner-confirmed</b> (via red-annotated markup of the original A-101 PDF, 2026-07-17) — not assumed. What's still open:</p>
         <ol>
-          <li><b>Open shelving</b> — shelf count/spacing (shown at 3, evenly spaced) is a placeholder; fabricator, material, and finish not yet selected (tentatively DraytonWorks/White Oak to match vanity).</li>
-          <li><b>Cabinet w/ door</b> — door style, hardware, and fabricator not yet selected (tentatively DraytonWorks/White Oak to match vanity). See A-101 Finish &amp; Fixture Schedule.</li>
+          <li><b>Open shelving</b> — shelf count/spacing (shown at 3, evenly spaced) is a placeholder; fabricator, material, and finish not yet selected (tentatively DraytonWorks; <b>walnut</b> to match the east vanity, rev 3).</li>
+          <li><b>Cabinet w/ door</b> — door style, hardware, and fabricator not yet selected (tentatively DraytonWorks; <b>walnut</b> to match the east vanity, rev 3). See A-101 Finish &amp; Fixture Schedule.</li>
           <li><b>Towel warmer / bars</b> — product, exact mounting height within the 0"-52" AFF open zone, and finish are all TBD. See A-101 Schedule.</li>
+          <li><b>Rev 3 (2026-10-06)</b>: both bays are <b>walnut</b>. The open shelving now starts at the makeup countertop's new 30" AFF height (was 34"). Wall behind/around is tiled: Stonehenge wainscot to 47", Sahara Dark kit-kat above. At the inside corner with the west makeup wall, the jog wall's 47" wainscot line meets the west wall's penny round (which starts at the 30" counter): installer to finish that corner cleanly; the open shelving side panel covers most of it.</li>
           <li><b>Depth</b> (both bays, 18" projecting south from this wall into the room) — confirm with fabricator; matches the footprint shown on A-101's plan.</li>
         </ol>
       </div>
 
       <div class="legend-box">
         <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-style:dashed;"></div>Dashed outline = open shelving (floating/overhead, no doors)</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#e0e0e0;"></div>Light gray fill = built cabinetry (cabinet w/ door)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut — open shelving (west bay) + cabinet w/ door (east bay)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#cdb99a; border-color:#a8916d;"></div>Wainscot — Bond Tile Stonehenge 24x24, Earth (0–47" AFF)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:repeating-linear-gradient(90deg,#5e5249 0 3px,#4a4039 3px 4px);"></div>Kit-kat — Bedrosians Sahara 3x12 Dark, vertical stack (47" AFF to ceiling)</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = owner-confirmed height (see flag above — not an "assumed/verify" red in this case, just the project's standard callout color)</div>
         <div class="legend-row"><span style="color:#171310; font-weight:700; font-size:10pt;">—</span>Black dimension = confirmed (ceiling height, from design brief)</div>
       </div>
@@ -343,6 +369,7 @@
         <tr><td>2</td><td>07.17.2026</td><td>Retired/void in error — content mistakenly moved to A-104</td></tr>
         <tr><td>3</td><td>07.17.2026</td><td>Restored &amp; corrected — open shelving + cabinet w/ door + towel warmer, per owner's red-annotated markup</td></tr>
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
+        <tr><td>4</td><td>10.06.2026</td><td>Walnut, shelving bottom 30", wainscot + kit-kat</td></tr>
       </table>
     </div>
 

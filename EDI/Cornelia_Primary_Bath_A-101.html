@@ -141,8 +141,12 @@
           <!-- FLOOR FILL (L-shaped polygon: bathroom + closet), north at top -->
           <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="#f2e6cf" stroke="none"/>
 
-          <!-- SHOWER FLOOR (pale blue-gray) -->
-          <rect x="56" y="2" width="40" height="64" fill="#d7e6ea"/>
+          <!-- SHOWER FLOOR — rev 3: Bedrosians Sahara 4x4 Dark mosaic (taupe tint so labels stay legible) -->
+          <rect x="56" y="2" width="40" height="64" fill="#b3a596"/>
+          <g stroke="#9d8f80" stroke-width="0.06">
+            <line x1="56" y1="10" x2="96" y2="10"/><line x1="56" y1="18" x2="96" y2="18"/><line x1="56" y1="26" x2="96" y2="26"/><line x1="56" y1="34" x2="96" y2="34"/><line x1="56" y1="42" x2="96" y2="42"/><line x1="56" y1="50" x2="96" y2="50"/><line x1="56" y1="58" x2="96" y2="58"/>
+            <line x1="64" y1="2" x2="64" y2="66"/><line x1="72" y1="2" x2="72" y2="66"/><line x1="80" y1="2" x2="80" y2="66"/><line x1="88" y1="2" x2="88" y2="66"/>
+          </g>
 
           <!-- WALLS: exterior + closet-return, 4" nominal -->
           <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="none" stroke="#171310" stroke-width="4" stroke-linejoin="miter"/>
@@ -163,10 +167,10 @@
           <!-- SHOWER CONTROLS (west wall, near open south end) -->
           <circle cx="58" cy="56" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
           <circle cx="58" cy="60" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
-          <!-- SHOWER DRAIN: 6" sq, centered on 40x64 footprint -->
-          <rect x="73" y="31" width="6" height="6" fill="none" stroke="#7d8fa0" stroke-width="0.2"/>
-          <line x1="73" y1="31" x2="79" y2="37" stroke="#7d8fa0" stroke-width="0.12"/>
-          <line x1="79" y1="31" x2="73" y2="37" stroke="#7d8fa0" stroke-width="0.12"/>
+          <!-- SHOWER DRAIN — rev 3: LINEAR drain along the back (north) wall, full width; floor slopes in one plane to it -->
+          <rect x="57" y="3.2" width="38" height="1.6" fill="#3a3a3a" stroke="#171310" stroke-width="0.12"/>
+          <!-- SHOWER NICHE — rev 3: full-width penny round niche in the back (north) wall (dashed = in-wall recess) -->
+          <rect x="56.5" y="0.4" width="39" height="1.4" fill="#3c4842" stroke="#171310" stroke-width="0.1" stroke-dasharray="0.6,0.4"/>
 
           <!-- CEILING EXHAUST FAN (dashed = overhead) -->
           <circle cx="110" cy="40" r="2" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.6,0.4"/>
@@ -179,7 +183,7 @@
           <ellipse cx="108.8" cy="20" rx="7.5" ry="10" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
 
           <!-- EAST DOUBLE VANITY -->
-          <rect x="131.5" y="2" width="21.5" height="84" fill="#e0e0e0" stroke="#171310" stroke-width="0.25"/>
+          <rect x="131.5" y="2" width="21.5" height="84" fill="#c9a98a" stroke="#171310" stroke-width="0.25"/>
           <rect x="133.25" y="12" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
           <rect x="133.25" y="52" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
           <circle cx="152" cy="24" r="0.4" fill="#171310"/>
@@ -228,6 +232,11 @@
             <line x1="25" y1="89.4" x2="43" y2="89.4"/>
             <line x1="25" y1="91.8" x2="43" y2="91.8"/>
           </g>
+
+          <!-- MAKEUP FILL LIGHT — rev 3: recessed gimbal in ceiling, ~12" off west wall, ~9" north of mirror centerline (mirror centered at y=102) -->
+          <circle cx="12" cy="93" r="1.3" fill="#fff" stroke="#171310" stroke-width="0.2" stroke-dasharray="0.5,0.35"/>
+          <circle cx="12" cy="93" r="0.45" fill="#171310"/>
+          <text x="12" y="96.6" text-anchor="middle" font-family="Helvetica" font-size="1.2" fill="#171310">GIMBAL</text>
 
           <!-- NORTH ARROW: straight shaft, arrowhead pointing north (up) -->
           <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -314,7 +323,9 @@
 
             <!-- shower -->
             <text x="76" y="80" text-anchor="middle" fill="#333">40" x 64" SHOWER</text>
-            <text x="76" y="55" text-anchor="middle" fill="#333" font-size="1.6">6" SQ. DRAIN, CENTERED</text>
+            <text x="76" y="12" text-anchor="middle" fill="#171310" font-size="1.4">LINEAR DRAIN + PENNY NICHE @ BACK WALL</text>
+            <text x="76" y="55" text-anchor="middle" fill="#171310" font-size="1.5">SAHARA DARK 4x4 FLOOR</text>
+            <text x="76" y="57.2" text-anchor="middle" fill="#171310" font-size="1.3">SLOPES TO BACK WALL</text>
 
             <!-- partition line -->
             <g stroke="#999" stroke-width="0.1">
@@ -460,40 +471,43 @@
 
     <!-- RIGHT: SCHEDULES / LEGEND / NOTES -->
     <div class="right-col">
-      <div class="col-heading">FINISH &amp; FIXTURE SCHEDULE — ALL SELECTIONS TBD</div>
+      <div class="col-heading">FINISH &amp; FIXTURE SCHEDULE</div>
       <table class="sched">
         <tr><th style="width:16%">Item</th><th style="width:18%">Location</th><th style="width:16%">Manufacturer</th><th style="width:14%">Model / SKU</th><th style="width:14%">Color / Finish</th><th>Notes</th></tr>
         <tr><td>Floor tile</td><td>Bathroom floor only (N. of transition)</td><td>Bond Tile</td><td>Stonehenge 24x24 (listing titled "Rizzo" — confirm current name w/ retailer)</td><td>Earth / Matte / Terrazzo-look</td><td>Rectified porcelain, waterproof, slip-resistant, V3 shade variation. ~$9.19/sf (Wayfair, $106.79/case). Radiant heat below — see Ditra-Heat row</td></tr>
         <tr><td>Closet floor — hardwood</td><td>Walk-in closet (S. of transition)</td><td>Stuga</td><td>Fika</td><td>European white oak, natural blonde, matte acrylic urethane</td><td>Engineered wide-plank, 7 3/8" W x 89 1/4" L planks, float/glue/staple. $10.39/sf. Radiant heat below — see Ditra-Heat row, confirm w/ Stuga before install</td></tr>
         <tr><td>Radiant floor heating</td><td>Under tile &amp; hardwood, entire room EXCEPT shower</td><td>Schluter</td><td>DITRA-HEAT membrane + DITRA-HEAT-E-HK cable + DITRA-HEAT-E-RT thermostat</td><td>—</td><td>Uncoupling/waterproofing membrane w/ snap-in electric cable; programmable GFCI thermostat w/ floor sensor. Tile-rated system — confirm approved method/compatibility w/ Stuga before installing under engineered hardwood. Dedicated elec. circuit req'd, coordinate w/ electrician</td></tr>
         <tr><td>Floor transition strip</td><td>Both 28" wing-wall openings</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td><b>Owner wants minimal-to-no visible transition/lip</b> (flush transition preferred over a raised reducer strip). See photos in Owner's Completed Remodel reference section for the look/detail to match. Coordinate method &amp; height buildout with installer</td></tr>
-        <tr><td>Shower floor tile</td><td>Shower pan</td><td>Merola Tile</td><td>Hudson Penny Round, 12"x13" sheet (10.5 sf/case), Model FKOMPRSN</td><td>Stormy Night</td><td>Small-format for slope to drain. Porcelain, frost-resistant, stain-resistant. $19.15/sf ($201.04/case). <b style="color:#a00000;">Slip rating not listed on retailer page — confirm DCOF/slip-resistance with owner/installer before ordering for shower-floor use.</b> No radiant heat in shower. <a href="https://www.homedepot.com/p/Merola-Tile-Hudson-Penny-Round-Stormy-Night-12-in-x-13-in-Porcelain-Floor-and-Wall-Mosaic-Tile-10-5-sq-ft-Case-FKOMPRSN/328231034">Product link</a></td></tr>
-        <tr><td>Shower niche tile</td><td>Shower niche</td><td>Merola Tile</td><td>Hudson Penny Round, 12"x13" sheet (10.5 sf/case), Model FKOMPRSN</td><td>Stormy Night</td><td>Same product as shower floor tile above, per owner. <a href="https://www.homedepot.com/p/Merola-Tile-Hudson-Penny-Round-Stormy-Night-12-in-x-13-in-Porcelain-Floor-and-Wall-Mosaic-Tile-10-5-sq-ft-Case-FKOMPRSN/328231034">Product link</a></td></tr>
+        <tr><td>Shower floor tile</td><td>Shower floor</td><td>Bedrosians</td><td>Sahara 4"x4" Matte Porcelain Mosaic, item 100001057</td><td>Dark</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Replaces Hudson Penny Round (DCOF 0.21, not wet-rated). Small format for grip; slopes in one plane to the linear drain. Confirm wet DCOF ≥ 0.42. Floor change from terrazzo lands exactly at the shower edge, in line with the glass. No radiant heat in shower.</td></tr>
+        <tr><td>Shower niche tile</td><td>Full-width niche, shower back (north) wall — see A-103</td><td>Merola Tile</td><td>Hudson Penny Round, 12"x13" sheet, FKOMPRSN</td><td>Stormy Night (glossy)</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Penny round used in exactly two places: this niche and the west makeup wall (A-104). Same dark charcoal grout and edge treatment in both. LED strip at niche top. <b>Never on a floor.</b> <a href="https://merolatile.com/product/hudson-penny-round-stormy-night-11-7-8-in-x-12-5-8-in-porcelain-mosaic-tile/">Product link</a></td></tr>
         <tr><td>Shower wall tile</td><td>Shower walls, floor-to-ceiling</td><td>Bond Tile</td><td>Stonehenge 24x24 Matte Porcelain Terrazzo-look (11.62 sf/case)</td><td>Earth</td><td>Same Stonehenge/Earth product line as the bathroom floor tile above (different case-size listing). $107.95/case, $8.83/sf at 69+sf. Slip-resistant, waterproof, rectified. <a href="https://www.wayfair.com/home-improvement/pdp/bond-tile-stonehenge-2354-in-x-2354-in-matte-porcelain-terrazzo-look-floor-and-wall-tile-1162-sq-ft-case-sost4902.html?piid=58623291">Product link</a></td></tr>
+        <tr><td>Wainscot tile</td><td>All bath walls outside the shower &amp; west makeup wall (east, north, jog, wing walls), 0–47" AFF</td><td>Bond Tile</td><td>Stonehenge 24x24 (same as floor)</td><td>Earth</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Two full tiles high (~47" incl. grout, no cut at top). Serves as the backsplash behind the east vanity. Flush transition to kit-kat above, no trim.</td></tr>
+        <tr><td>Wall tile above wainscot ("kit-kat")</td><td>Same walls, 47" AFF to ceiling</td><td>Bedrosians</td><td>Sahara 3"x12" Matte Porcelain, item 100001024</td><td>Dark</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Vertical stack, grout matched to tile; a nod to the house's original wood paneling (guest bath uses the same pairing in light). Partial row at the ceiling.</td></tr>
         <tr><td>Shower glass</td><td>East return + panel</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Clear tempered / TBD hdwe</td><td>3/8" tempered min., see Note 4</td></tr>
-        <tr><td>East vanity countertop</td><td>East double vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td>Custom fabricated. Sinks (qty. 2) integrally poured as one monolithic countertop+sink unit — see Sinks row below</td></tr>
-        <tr><td>West vanity — makeup countertop</td><td>West vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td>No sink — named "makeup countertop" (2026-07-17) to distinguish from the East vanity's two-sink countertop. Floating slab. <b style="color:#a00000;">Confirmed 2026-07-17: no enclosed cabinet beneath — see Vanity cabinetry row.</b> Custom fabricated</td></tr>
-        <tr><td>Vanity cabinetry</td><td>East vanity only</td><td>DraytonWorks (Greg)</td><td>Custom</td><td>White Oak, floating vanity</td><td>Custom built. <b style="color:#a00000;">West vanity has NO enclosed cabinet</b> (confirmed 2026-07-17) — the west makeup countertop floats with nothing beneath it; see A-104 for the corrected elevation and confirm structural support method with fabricator.</td></tr>
-        <tr><td>Jog wall cabinetry</td><td>Jog wall (north of vanity nook, runs east-west, NOT the west wall — see CHANGELOG.md)</td><td class="tbd">TBD (tentatively DraytonWorks, to match vanity)</td><td class="tbd">TBD</td><td class="tbd">TBD (tentatively White Oak, to match vanity)</td><td><b style="color:#a00000;">CORRECTED 2026-07-17 (final, 3rd pass)</b> — confirmed via owner's own red-annotated markup of the original A-101 PDF. One 43" total run, two 21.5"x18" bays, side by side east-west, mounted on the jog wall (y=64 in plan, the short wall segment separating the vanity nook from the notch above it): west bay (over the vanity's north end) = open shelving, vanity-top to ceiling; east bay (extending past the vanity's own depth) = cabinet w/ door, floats at 52" AFF, with the towel warmer in the open zone below it. See Sheet A-106 (elevation of this wall) and Keynote 5. <b>This is NOT on the west wall</b> — two earlier attempts today put it there in error; see CHANGELOG.md for the full history if this gets questioned again.</td></tr>
+        <tr><td>East vanity countertop</td><td>East double vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>No backsplash</b>; slab meets the Stonehenge wainscot directly (color-matched silicone joint). Sinks (qty. 2) integrally poured — see Sinks row.</td></tr>
+        <tr><td>West vanity — makeup countertop</td><td>West vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>Seated makeup station, top at 30" AFF</b> (was 34"); stool w/ ~18" seat. Floating slab, no sink, no cabinet, <b>no backsplash</b>. Confirm support method w/ fabricator. See A-104.</td></tr>
+        <tr><td>Vanity cabinetry</td><td>East vanity only</td><td>DraytonWorks (Greg)</td><td>Custom</td><td><b>Walnut</b>, floating vanity</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Walnut replaces white oak. Water-resistant topcoat required. West vanity has NO cabinet (A-104).</td></tr>
+        <tr><td>Jog wall cabinetry</td><td>Jog wall (north of vanity nook, runs east-west — NOT the west wall; see CHANGELOG.md)</td><td>DraytonWorks (Greg), tentative</td><td>Custom</td><td><b>Walnut</b></td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Walnut to match the east vanity. Two 21.5"x18" bays: west = open shelving from the 30" makeup countertop to ceiling; east = cabinet w/ door floating at 52" AFF, towel warmer below. See A-106.</td></tr>
         <tr><td>PAX wardrobe cabinetry</td><td>South run + east return</td><td>IKEA</td><td>PAX / COMPLEMENT system</td><td>Dark Gray</td><td>Color confirmed by owner via IKEA planning rendering. Frame &amp; door style/hardware still TBD; interior configuration (shelves/drawers/rods) also still TBD per bay — see Note 9</td></tr>
         <tr><td>Cabinet / door hardware</td><td>All cabinetry</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
-        <tr><td>Wall paint</td><td>All walls</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Eggshell</td><td>Bath-rated / moisture-resistant sheen recommended for this application — confirm exact product line (e.g. Aura Bath &amp; Spa or equiv.) with paint supplier</td></tr>
+        <tr><td>Wall paint</td><td>Closet walls (bath walls are tiled — rev 3)</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Eggshell</td><td>Bath-rated / moisture-resistant sheen recommended for this application — confirm exact product line (e.g. Aura Bath &amp; Spa or equiv.) with paint supplier</td></tr>
         <tr><td>Ceiling paint</td><td>Ceiling</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Flat</td><td></td></tr>
         <tr><td>Baseboards</td><td>All rooms</td><td>Benjamin Moore</td><td>Simply White (OC-117)</td><td>Satin</td><td></td></tr>
-        <tr><td>Mirror — East</td><td>Above east vanity, full 84" width</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>REVISED 2026-08-08 (Aimee): one continuous mirror spanning the full 84" vanity width (was two separate 20"W mirrors). Assumed 84"W x 32"H, mounted 46"-78" AFF, 2" gap above the 44"-AFF backsplash — see A-102 Dimensions to Verify. Product not yet selected.</td></tr>
-        <tr><td>Mirror — West</td><td>Above west vanity makeup countertop, full countertop span (see A-104)</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Size CONFIRMED by owner 2026-07-17: 46" tall x 72" wide, spans the full 72" makeup countertop/wall width. Assumed mounted directly above the countertop (34"-80" AFF) — see A-104 Dimensions to Verify.</td></tr>
-        <tr><td>West vanity wall tile</td><td>West wall: floor to makeup countertop underside (0"-32" AFF) &amp; above mirror to ceiling (80"-99" AFF)</td><td>Bond Tile</td><td>Stonehenge 24x24 Matte Porcelain Terrazzo-look, "Rizzo" listing (11.62 sf/case)</td><td>Earth</td><td>Same product as the bathroom FLOOR tile ("Rizzo" listing) and the shower wall tile above. $107.95/case, $8.83/sf at 69+sf. Slip-resistant, waterproof, rectified. Confirmed 2026-07-17: there is no enclosed cabinet on this wall — the west vanity is a floating makeup countertop only (Modern Concrete of Athens), so tile runs full-height floor to countertop underside. See A-104. <a href="https://www.wayfair.com/home-improvement/pdp/bond-tile-stonehenge-2354-in-x-2354-in-matte-porcelain-terrazzo-look-floor-and-wall-tile-1162-sq-ft-case-sost4902.html?piid=58623291">Product link</a></td></tr>
+        <tr><td>Mirror — East (medicine cabinets)</td><td>Above east vanity, 84" total width</td><td>Kohler</td><td>TBD — 2 mirrored medicine cabinets, side by side</td><td>TBD</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Two units side by side for a seamless look; drawn as 2 x ~42"W x 32"H, 49"–81" AFF (2" above the 47" wainscot line). <b>Decide recessed vs. surface-mount before framing.</b> See A-102.</td></tr>
+        <tr><td>Mirror — West</td><td>Centered above makeup countertop, framed by penny round (see A-104)</td><td>TBD</td><td>TBD</td><td>TBD (brass frame preferred)</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>48"W x 30"H</b> (golden ratio), 42½"–72½" AFF. Order after tile is installed. Edge/frame treatment must match the shower niche.</td></tr>
+        <tr><td>West vanity wall tile</td><td>West wall: floor to countertop underside (0–28" AFF) = Stonehenge; countertop to ceiling = penny round around the mirror</td><td>Bond Tile / Merola Tile</td><td>Stonehenge 24x24 / Hudson Penny Round FKOMPRSN</td><td>Earth / Stormy Night</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Penny round: 1 sheet (~12½") below the mirror, 1 sheet (12") each side, ~2 sheets above. Plan in whole sheets; partial row at ceiling. See A-104.</td></tr>
         <tr><td>Vanity lighting — East</td><td>At east mirror</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
-        <tr><td>Vanity lighting — West</td><td>Ceiling-hung, offset toward south/left side of west vanity/mirror (see A-104)</td><td>Lilamps</td><td>Mchary Globe Shade Pendant Light 8" (qty. 2)</td><td>Lacquered Brass</td><td>$460 ea. ($920 total). 8"D x 11.5"H glass globe, hardwired, dimmable (E26, max 100W), min/max hang 14.5"/120". Two fixtures at staggered heights, offset left per owner's reference photo (photo was for placement only — exact heights/offset not yet finalized, see A-104 Dimensions to Verify). <a href="https://lilamps.com/products/mchary-globe-shade-bedroom-pendant-light-8-1">Product link</a></td></tr>
-        <tr><td>General / recessed lighting</td><td>Ceiling</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Confirm layout w/ electrician</td></tr>
+        <tr><td>Vanity lighting — West</td><td>Ceiling-hung over the left (south) penny band, beside the mirror (see A-104)</td><td>Lilamps</td><td>Mchary Globe Shade Pendant Light 8" (qty. 2)</td><td>Lacquered Brass</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Re-hung for seated use: <b>46" and 54" AFF</b> to globe bottom, ~8–10" off the wall. Bulbs 2700–3000K, CRI 90+, dimmable. $460 ea. <a href="https://lilamps.com/products/mchary-globe-shade-bedroom-pendant-light-8-1">Product link</a></td></tr>
+        <tr><td>General / recessed lighting</td><td>Ceiling — bath &amp; closet</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Owner wants <b>generous recessed lighting</b> (white ceilings) to balance the darker tile palette. All on dimmers; 2700–3000K throughout to match the vanity lighting. Confirm layout w/ electrician</tr>
+        <tr><td>Makeup fill light (gimbal)</td><td>Ceiling, ~12" off west wall, ~9" north of mirror centerline (see plan + A-104)</td><td>TBD</td><td>Recessed adjustable gimbal, 2–3" aperture</td><td>Black or brass trim</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Aimed ~15–20° toward the seated face; ~40° beam, 2700–3000K, CRI 90+, own dimmer. Electrician to confirm joists.</td></tr>
         <tr><td>Exhaust fan</td><td>Ceiling, see plan</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>See Note 6</td></tr>
         <tr><td>Towel bars / heated warmer</td><td>Jog wall, below the floating door cabinet's east bay (NW corner)</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>See Note 5, Sheet A-106. (Location corrected 2026-07-17, 3rd pass — sits in the open space below the door cabinet, which floats at 52" AFF specifically to leave this space for the towel warmer. This is on the jog wall, not the west wall)</td></tr>
         <tr><td>Toilet</td><td>North wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>Confirm rough-in, see Note 10</td></tr>
         <tr><td>Sinks (qty. 2)</td><td>East vanity</td><td>Modern Concrete of Athens</td><td>Custom — integral/monolithic concrete sink</td><td>Black Concrete</td><td>Integrated directly into the countertop pour (no separate undermount/drop-in sink) — same custom fabrication as East vanity countertop above, one unit</td></tr>
-        <tr><td>Faucets (qty. 2)</td><td>East vanity</td><td>Rejuvenation</td><td>Monterey Single Hole Vessel Bathroom Faucet, Concretti collection</td><td>Antique Brass</td><td>Deck-mount, single-hole vessel, lever handle. Mfr. price range $399-$479 across finishes — confirm exact price for Antique Brass. <a href="https://www.rejuvenation.com/products/monterey-bath-faucet-monohole-vessel-deck-lever-handle-concretti/">Product link</a></td></tr>
+        <tr><td>Faucets (qty. 2)</td><td>East vanity</td><td>Rejuvenation</td><td>Monterey Single Hole Bathroom Faucet, Concretti collection</td><td>Antique Brass</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>Confirmed</b> — same faucet already works well with an integrated concrete sink in the guest suite. Match the guest bath faucet-to-wall setback. <a href="https://www.rejuvenation.com/products/monterey-bath-faucet-monohole-vessel-deck-lever-handle-concretti/">Product link</a></td></tr>
         <tr><td>Shower valve / trim + head</td><td>Shower, north wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
         <tr><td>Shower controls</td><td>Shower, west wall</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td></td></tr>
-        <tr><td>Shower drain</td><td>Shower floor, centered</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td class="tbd">TBD</td><td>6" sq., confirm w/ waterproofing</td></tr>
+        <tr><td>Shower drain</td><td>Shower floor, along back (north) wall</td><td>TBD</td><td>Linear drain, ~40" (full width)</td><td>TBD (tile-insert or brass grate)</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Replaces the 6" sq. centered drain. Single-plane slope to the back wall, min. 1/4" per ft. Coordinate w/ waterproofing.</td></tr>
         <tr><td>Slatted screen</td><td>Between bath &amp; closet</td><td>Andor Willow</td><td>Wood Slat Room Divider — European Oak, 9' (106.3"), 4.7" slat width</td><td>European Oak (natural, 3-coat satin clear lacquer)</td><td>Off-the-shelf rotating slat divider, MDF core w/ real oak veneer, floor-to-ceiling, patent-pending rotating hardware kit. $649/box (4 slats/box) — confirm box qty. needed for full opening width. <a href="https://andorwillow.com/products/wood-slat-room-divider?variant=43342363263139">Product link</a>. See Note 8</td></tr>
       </table>
 
@@ -501,9 +515,11 @@
         <div style="font-weight:700; margin-bottom:6px;">PLAN SYMBOLS &amp; WALL LEGEND</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#171310;"></div>4" nominal wall (new/existing — field verify with GC)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-style:dashed;"></div>Dashed outline = overhead / floating element</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#d7e6ea;"></div>Pale blue = wet zone (shower floor)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#b3a596;"></div>Taupe grid = shower floor, Sahara Dark 4x4 (wet zone); dark bar = linear drain</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-radius:50%; width:0.16in; border-style:dashed;"></div>Dashed circle w/ dot = recessed gimbal (makeup fill light)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-top:3px solid #000;"></div>Heavy solid line = tempered glass panel</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#dcdcdc;"></div>Light gray fill = built-in cabinetry</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#dcdcdc;"></div>Light gray fill = built-in cabinetry (PAX)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#c9a98a;"></div>Tan fill = walnut vanity (DraytonWorks)</div>
         <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:7pt;flex:none;">#</span>Numbered bubble = keyed note (see Keynotes list)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#fff; border-top:3px dashed #8a5a3a;"></div>Dashed brown line = floor material transition (tile ↔ hardwood)</div>
         <div class="legend-row"><span style="display:inline-flex;align-items:center;justify-content:center;width:0.2in;height:0.2in;border:1px solid #000;border-radius:50%;font-size:6pt;flex:none;">1</span>Elevation marker = interior elevation tag, arrow(s) show view direction (see Sheets A-102 thru A-106)</div>
@@ -586,7 +602,7 @@
         <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
         <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
-        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>3</td><td>10.06.2026</td><td>Tile, linear drain, walnut, no backsplashes, seated makeup ctr., lighting, med. cabinets</td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
       </table>
     </div>
