@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Gave My AI Agents an Office &mdash; Agent Office &mdash; Mike Cornelia</title>
+  <meta name="description" content="Six Codex agents, clear roles, shared AGENTS.md instructions, and an office dog. How a Chief of Staff and a lightweight coordinator keep the work moving.">
+  <meta name="author" content="Mike Cornelia">
+  <link rel="canonical" href="https://mcornelia.com/posts/agent-office.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="I Gave My AI Agents an Office">
+  <meta property="og:description" content="Avina leads, Echo coordinates, and Scout is the dog. Six Codex agents with clear jobs, shared instructions, and a little office on the Mac.">
+  <meta property="og:url" content="https://mcornelia.com/posts/agent-office.html">
+  <meta property="og:image" content="https://mcornelia.com/images/agent-office.png">
+  <meta property="og:image:alt" content="Agent Office showing a whiteboard, six robot characters at desks matching a six-key control pad, a coffee machine, a live job board, an approval tray, and a results shelf.">
+  <meta property="og:site_name" content="Mike Cornelia">
+  <meta property="article:author" content="Mike Cornelia">
+  <meta property="article:published_time" content="2026-09-05">
+  <meta property="article:modified_time" content="2026-09-08">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I Gave My AI Agents an Office">
+  <meta name="twitter:description" content="Avina leads, Echo coordinates, and Scout is the dog. Six Codex agents with clear jobs, shared instructions, and a little office on the Mac.">
+  <meta name="twitter:image" content="https://mcornelia.com/images/agent-office.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "I Gave My AI Agents an Office",
+    "description": "The story and setup behind Agent Office: six pinned Codex tasks, separate lead and coordinator roles, and shared AGENTS.md instructions.",
+    "image": "https://mcornelia.com/images/agent-office.png",
+    "datePublished": "2026-09-05",
+    "dateModified": "2026-09-08",
+    "author": {"@type": "Person", "name": "Mike Cornelia", "url": "https://mcornelia.com"},
+    "mainEntityOfPage": "https://mcornelia.com/posts/agent-office.html"
+  }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=family-ai-codex-prompts-1">
+  <link rel="stylesheet" href="/css/office-media.css?v=1">
+  <style>
+    .office-intro { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.85fr); gap:2rem; align-items:start; margin:1.75rem 0; }
+    .office-figure { margin:0; }
+    .office-figure a { display:block; border:0; }
+    .office-figure img { display:block; width:100%; height:auto; border:1px solid var(--border); border-radius:12px; }
+    .office-figure figcaption { font-size:.8rem; line-height:1.6; color:var(--text-dim); margin-top:.65rem; }
+    .office-figure.office-keyboard-photo { margin:1.5rem 0; width:100%; }
+    .office-status { padding-left:1.2rem; }
+    .office-status li { margin-bottom:.6rem; }
+    .office-table { overflow-x:auto; }
+    .office-commands { padding:1rem 1.2rem; border:1px solid var(--border); background:rgba(13,17,23,.6); overflow-x:auto; font-size:.85rem; line-height:1.8; }
+    .office-commands code { white-space:pre; }
+    .office-date { color:var(--text-dim); font-family:var(--font-mono); font-size:.8rem; }
+    @media (max-width:650px) { .office-intro { grid-template-columns:1fr; gap:1rem; } .office-figure { width:min(100%,420px); margin:auto; } }
+  </style>
+</head>
+<body>
+<div class="site-wrapper">
+  <nav class="site-nav">
+    <div class="nav-name"><a href="/">Mike Cornelia</a></div>
+    <ul class="nav-links">
+      <li><a href="/play.html" class="active">Lab</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main class="mc-post">
+    <a href="/play.html" class="mc-post-back">&larr; The Lab</a>
+    <p class="mc-post-kicker">BUILD NOTES / AGENT OFFICE</p>
+    <div class="mc-post-header">
+      <h1>I Gave My AI Agents an Office</h1>
+      <p class="mc-post-subtitle">Six buttons, six agents, and clearer job descriptions. Also a dog.</p>
+      <p class="office-date">September 5, 2026 &middot; Updated September 8 &middot; Mike Cornelia</p>
+    </div>
+    <p class="mc-post-dek">I got a Creator Micro 2 keyboard for controlling my agents. Then I asked for a little office where I could watch them work. Things escalated. There are brass nameplates now. Also a coffee machine.</p>
+    <p><strong>Agent Office</strong> turns six pinned Codex tasks into a little team on my screen: who&rsquo;s working, who needs me, and what&rsquo;s ready. We built it with Codex; the complete project is <a href="https://github.com/mcornelia/agent-office">on GitHub</a>.</p>
+
+    <div class="office-intro">
+      <div>
+        <h2 style="margin-top:0">A glance at the team</h2>
+        <p>The colors tell me where to look. The labels tell me why.</p>
+        <ul class="office-status">
+          <li><strong>Blue:</strong> work is underway.</li>
+          <li><strong>Amber:</strong> the task needs my response or approval.</li>
+          <li><strong>Green:</strong> work finished, with an unread update.</li>
+          <li><strong>White:</strong> &ldquo;On a break ☕&rdquo;&mdash;confirmed idle.</li>
+          <li><strong>Red:</strong> an error was observed.</li>
+        </ul>
+        <p>A neon <strong>OPEN</strong> sign lights up when any agent is working. No active work? Lights out.</p>
+      </div>
+      <figure class="office-figure office-video">
+        <video controls playsinline preload="metadata" width="592" height="1280" poster="/images/agent-office-video-poster.jpg" aria-label="Earlier Agent Office build: the manager makes clipboard rounds while the OPEN sign glows">
+          <source src="/media/agent-office-article.mp4" type="video/mp4">
+          <a href="/media/agent-office-article.mp4">Watch the Agent Office video</a>.
+        </video>
+        <figcaption>A silent, 23-second look at an earlier build. The names and roles have since changed; the clipboard survived. <a href="/media/agent-office-article.mp4">Open the video</a>.</figcaption>
+      </figure>
+    </div>
+
+    <nav class="mc-post-toc" aria-label="In this article">
+      <p class="mc-post-toc-label">IN THIS ARTICLE</p>
+      <ul>
+        <li><a href="#keyboard">The keyboard connection</a></li>
+        <li><a href="#team">Meet the team</a></li>
+        <li><a href="#useful">What makes it useful</a></li>
+        <li><a href="#manager">Let the coordinator coordinate</a></li>
+        <li><a href="#reliability">A few guardrails</a></li>
+        <li><a href="#instructions">Give them a handbook</a></li>
+        <li><a href="#setup">Run your own office</a></li>
+        <li><a href="#under-the-hood">Under the hood</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="keyboard">It started with six buttons</h2>
+    <p>Press an agent key, give that task some work, move to the next one. I wanted the screen beside the keyboard to make the same team easy to follow.</p>
+    <figure class="office-figure office-keyboard-photo">
+      <a href="/images/codex-micro-keyboard.jpg" aria-label="Open full-size Codex Micro keyboard photo">
+        <img src="/images/codex-micro-keyboard.jpg" width="1050" height="591" loading="lazy" alt="A Codex Micro keyboard on a dark desk, with six illuminated Agent Keys, a dial, and dedicated command buttons.">
+      </a>
+      <figcaption>Codex Micro, with six illuminated Agent Keys and dedicated controls. Select the photo to enlarge it.</figcaption>
+    </figure>
+    <p>We use <strong>Pinned chats</strong> for the Agent Keys: the first six pinned tasks become our team. Rename a task and its nameplate updates; reorder the pins and the desks follow, with each character keeping its identity. OpenAI&rsquo;s <a href="https://learn.chatgpt.com/docs/features/codex-micro">Micro guide</a> covers the keyboard setup.</p>
+    <p>The desks match the keys: 1 and 2 above, 3 through 6 below. The spare corners hold a whiteboard and a coffee station. No coffee, no workee.</p>
+    <p>No special keyboard required. Clicking a desk or pressing 1&ndash;6 in the webpage spotlights an agent, but does not switch Codex tasks. A physical-key spotlight is <a href="https://github.com/mcornelia/agent-office/blob/main/docs/keyboard-selection.md">still a prototype</a>; we couldn&rsquo;t reliably verify that a keypress actually changed tasks.</p>
+
+    <h2 id="team">Meet the team</h2>
+    <p>These are the names and roles I gave our six pinned tasks. Your office uses your own roster.</p>
+    <div class="office-table">
+      <table>
+        <thead><tr><th scope="col">Key</th><th scope="col">Agent</th><th scope="col">Desk title</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Avina</td><td>Chief of Staff (CoS)</td></tr>
+          <tr><td>2</td><td>Echo</td><td>Coordinator</td></tr>
+          <tr><td>3</td><td>Bolt</td><td>Product SWE</td></tr>
+          <tr><td>4</td><td>Pixel</td><td>AI Art Curator</td></tr>
+          <tr><td>5</td><td>Atlas</td><td>Travel Agent</td></tr>
+          <tr><td>6</td><td>Nova</td><td>Pick up player</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Working agents wander between their desks, the board, and the coffee machine. They use the corridor. We have standards. The movement is for fun; the status labels are the useful bit.</p>
+    <p>Avina used to be called Scout. That name now belongs to our Golden Retriever office dog: corridor strolls, naps, and a tail wag when you tap him. Browser animation, not a seventh agent. Zero tokens, excellent attitude.</p>
+
+    <h2 id="useful">The parts that make it useful</h2>
+    <p>Three things keep this from being a very elaborate screensaver.</p>
+    <h3>A live job whiteboard</h3>
+    <p>Who&rsquo;s doing what: researching, building, testing, or waiting? Echo keeps the team&rsquo;s assignment notes current. Live activity takes priority over an old &ldquo;ready&rdquo; label; stale notes are flagged.</p>
+    <h3>A &ldquo;Needs you&rdquo; tray</h3>
+    <p>Questions and approvals collect in an amber tray with the agent&rsquo;s key number. They stay until resolved. Another busy task doesn&rsquo;t get to bury them.</p>
+    <h3>A results shelf</h3>
+    <p>Finished work leaves a folder with a short summary and safe links to the result. &ldquo;Done&rdquo; finally has somewhere to go.</p>
+
+    <h2 id="manager">Let the coordinator coordinate</h2>
+    <p>One agent used to lead projects <em>and</em> make the rounds. A routine check could knock her off the work she was supposed to finish. We split the jobs:</p>
+    <ul>
+      <li><strong>Avina, Chief of Staff:</strong> turns my requests into assignments, brings the results together, and does the final quality check.</li>
+      <li><strong>Echo, coordinator:</strong> checks progress, keeps the board current, and flags blockers or clear next steps on approved jobs. She leaves progressing work alone.</li>
+      <li><strong>The specialists:</strong> do the building, design, research, and troubleshooting. Same six tasks; fewer interruptions.</li>
+    </ul>
+    <p>Avina saves her assignment, progress, and next step outside the chat. Echo can read that checkpoint, but not overwrite it or send her routine nudges. Our local scheduler handles bounded resumptions and respects approval waits. A finished reply is not always a finished job.</p>
+    <p>On our Mac, we&rsquo;ve opted into automatic rounds. A small Python check runs every 15 seconds without calling an AI model. It wakes <strong>Echo</strong> when work changes or needs a check-in, at most once every ten minutes. Unchanged idle nights use no AI tokens for checks; real rounds and authorized work still do.</p>
+    <p>Echo&rsquo;s desk shows <strong>&ldquo;Watching team&rdquo;</strong> between rounds, with the last check time. Her clipboard walks and speech bubbles follow observed check-ins, never private message text.</p>
+    <p>A lost connection is not a coffee break. The office says <strong>&ldquo;Reconnecting&hellip;&rdquo;</strong> and refreshes when you return to the tab or regain connectivity. If a task&rsquo;s state is still unknown, it says so. No cheerful guessing.</p>
+
+    <h2 id="reliability">A few guardrails</h2>
+    <p>Watching work and starting work are different jobs. We keep them separate in the code, too.</p>
+    <ul>
+      <li><strong>Manual by default.</strong> New setups observe activity without sending prompts. Automatic rounds require an explicit opt-in to an experimental desktop connection. If it fails, there&rsquo;s no secret backup route.</li>
+      <li><strong>Ask before recovering.</strong> A saved job that says &ldquo;running&rdquo; when its task is idle needs human review. Calling a recovery prompt &ldquo;read-only&rdquo; doesn&rsquo;t remove its tools or permissions.</li>
+      <li><strong>Keep the receipts.</strong> Before sending work, the scheduler records the attempt and checks the whole saved-state file against its size limit. Uncertain sends or a full file stop dispatch; existing receipts stay put. Rolling back an upgrade keeps those receipts, too.</li>
+    </ul>
+    <p>The <a href="https://github.com/mcornelia/agent-office/blob/main/manager/SAFETY.md">dispatch safety notes</a> cover the details. Duplicate work is not a productivity hack.</p>
+    <h3>Restarts get a bookmark</h3>
+    <p>The viewer also keeps a tiny, separate <a href="https://github.com/mcornelia/agent-office/blob/main/docs/activity-checkpoints.md">local activity bookmark</a>&mdash;no chat text&mdash;so a restart doesn&rsquo;t lose its place in a long task. It validates the bookmark and reads newer events before trusting it. If it can&rsquo;t verify the status, it still says &ldquo;Status unavailable,&rdquo; not &ldquo;On a break.&rdquo; No extra AI calls.</p>
+
+    <h2 id="instructions">Give them a handbook</h2>
+    <p><code>AGENTS.md</code> is a plain-text instruction file written in Markdown: what the project is, how to test it, and the rules for working on it. Codex loads the applicable files when a run starts. Less repeating myself; fewer creative interpretations of &ldquo;done.&rdquo;</p>
+    <p>We keep a <a href="https://github.com/mcornelia/agent-office/blob/main/AGENTS.md">shared project handbook</a> and <a href="https://github.com/mcornelia/agent-office/tree/main/team">a short guide for each role</a>. Each existing task reads its assigned guide and confirms its responsibilities. A folder named after an agent does not automatically create that agent or attach its instructions.</p>
+    <div class="mc-callout">
+      <p><strong>Start here:</strong> OpenAI&rsquo;s <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">guide to setting up <code>AGENTS.md</code></a> explains where the files go and how to check they loaded. Start with one short file in your project root; add role guides when they earn their keep.</p>
+    </div>
+    <p>The handbook guides behavior. Our custom Python code handles timing, duplicate-send protection, and continuation limits. An instruction file is not a scheduler&mdash;or a security boundary.</p>
+
+    <h2 id="setup">Run your own office</h2>
+    <p>You need <strong>Codex on the same Mac</strong>, Python 3.9+, Git, and a modern browser. No Python packages to install.</p>
+    <ol start="0">
+      <li>Open Codex and pin up to six tasks. Give them names you will recognize.</li>
+      <li>Open Terminal (Command-Space, type &ldquo;Terminal,&rdquo; press Return). Paste these commands:</li>
+    </ol>
+    <pre class="office-commands"><code>git clone https://github.com/mcornelia/agent-office.git
+cd agent-office
+python3 server.py</code></pre>
+    <p>Visit <a href="http://127.0.0.1:4318/">http://127.0.0.1:4318/</a> on that Mac. Keep Terminal running; Control-C stops the server. Next time, you can double-click <code>Start Agent Office.command</code>.</p>
+    <h3>Add a coordinator when you want one</h3>
+    <p>Our coordinator is pinned second. From the project folder, run this, replacing <code>2</code> with your coordinator&rsquo;s position if different:</p>
+    <pre class="office-commands"><code>python3 manager/configure.py --manager-key 2</code></pre>
+    <p>This creates a private roster and brief, not a running coordinator. Ask that task to read the brief and handle approved jobs. Review its first report. For automatic rounds, follow the <a href="https://github.com/mcornelia/agent-office/blob/main/manager/README.md#local-gate-no-ai-calls-while-the-office-is-idle">local activity-check setup</a> and review the experimental connection before enabling it. Keep manual check-ins if that isn&rsquo;t for you. Pause any old timer once the local check works; don&rsquo;t run both.</p>
+    <p>For our Avina/Echo split, use the <a href="https://github.com/mcornelia/agent-office/blob/main/manager/CONTINUITY.md#separate-coordinator-optional">separate-coordinator setup</a> and <a href="https://github.com/mcornelia/agent-office/blob/main/team/README.md#onboard-an-existing-task">role onboarding steps</a>. They keep the lead&rsquo;s work checkpoint separate from the coordinator&rsquo;s team notes.</p>
+    <p>Automatic rounds need an awake Mac, the office server, and Codex running. The browser can be closed. Installing the viewer alone never starts a manager or sends prompts.</p>
+    <h3>Give it a desktop home</h3>
+    <p>The <a href="https://github.com/mcornelia/agent-office/blob/main/desktop/README.md">optional Mac app</a> adds a menu-bar launcher, opt-in Start at Login, and fullscreen presentation mode. Private job details are removed at the server before reaching that shared-screen view.</p>
+    <h3>Put it on the LAN</h3>
+    <p>I can check ours from my phone at home. The <a href="https://github.com/mcornelia/agent-office/blob/main/docs/lan-https.md">LAN HTTPS guide</a> puts Caddy in front while the Python server stays local-only. Use your own hostname and trust Caddy&rsquo;s local certificate on each device.</p>
+
+    <h2 id="under-the-hood">Small enough to understand</h2>
+    <p>Plain HTML, CSS, JavaScript, and a small Python server. The page refreshes about once a second from local activity and filtered job notes. The viewer is read-only; optional coordination happens separately in Codex. No extra cloud backend for the office.</p>
+    <div class="mc-callout">
+      <p><strong>A workbench project, not an official OpenAI feature.</strong> The viewer reads internal desktop formats; opt-in automatic rounds also use a private desktop connection, not a supported OpenAI API. App updates can change those. This version targets local Mac tasks; see the <a href="https://github.com/mcornelia/agent-office#local-data-and-compatibility">compatibility notes</a> before setting it up.</p>
+    </div>
+    <p>Our <a href="/posts/family-ai-chatbot.html">family AI chatbot</a> brought an assistant into Messages. This gave the rest of the team desks. <a href="https://github.com/mcornelia/agent-office">The code is on GitHub</a> if your agents need office space. Coffee is, regrettably, simulated.</p>
+  </main>
+  <footer class="site-footer">&copy; 2026 Mike Cornelia</footer>
+</div>
+  <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2b2752bd56614a1d98f09afcc8b3e8b0"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,5 +1,11 @@
 ## Hi there 👋
 
+## Reusing the code
+
+Selected original source code is available under the [MIT License](LICENSE).
+See [LICENSING.md](LICENSING.md) for the exact paths. Articles, photos, personal
+material, artwork, and puzzle data are not included.
+
 <!--
 **mcornelia/mcornelia** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 

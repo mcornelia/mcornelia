@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Build a Family AI ChatBot</title>
+  <desc id="desc">ChatGPT, Codex, and iMessage on an always-on Mac mini without OpenClaw or an API key.</desc>
+  <rect width="1200" height="630" fill="#070d13"/>
+  <g stroke="#24303a" stroke-width="1" opacity="0.8">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/>
+    <path d="M120 0v630M240 0v630M360 0v630M480 0v630M600 0v630M720 0v630M840 0v630M960 0v630M1080 0v630"/>
+  </g>
+  <rect x="54" y="48" width="50" height="5" fill="#00d5f0"/>
+  <rect x="104" y="48" width="50" height="5" fill="#f63dd8"/>
+  <rect x="154" y="48" width="50" height="5" fill="#ffc400"/>
+  <g font-family="Menlo, Monaco, Consolas, monospace">
+    <text x="54" y="94" font-size="18" fill="#00d5f0">FIELD GUIDE / HOME AI</text>
+    <text x="54" y="169" font-size="48" fill="#edf2f7">Build a Family</text>
+    <text x="54" y="226" font-size="48" fill="#edf2f7">AI <tspan fill="#59f26f">ChatBot</tspan></text>
+    <text x="54" y="272" font-size="19" fill="#9eacbb">ChatGPT + Codex + iMessage on an always-on Mac mini</text>
+    <text x="54" y="305" font-size="17" fill="#ffc400">without OpenClaw  /  without an API key</text>
+
+    <g font-size="15" text-anchor="middle">
+      <rect x="54" y="350" width="190" height="138" rx="15" fill="#10202b" stroke="#00d5f0" stroke-width="2"/>
+      <text x="149" y="392" fill="#00d5f0">FAMILY</text>
+      <text x="149" y="433" font-size="24" fill="#edf2f7">CHAT</text>
+      <text x="149" y="463" font-size="13" fill="#9eacbb">approved chat</text>
+
+      <rect x="280" y="350" width="190" height="138" rx="15" fill="#191727" stroke="#f63dd8" stroke-width="2"/>
+      <text x="375" y="392" fill="#f63dd8">MESSAGES</text>
+      <text x="375" y="433" font-size="24" fill="#edf2f7">INBOX</text>
+      <text x="375" y="463" font-size="13" fill="#9eacbb">dedicated identity</text>
+
+      <rect x="506" y="350" width="190" height="138" rx="15" fill="#282214" stroke="#ffc400" stroke-width="2"/>
+      <text x="601" y="392" fill="#ffc400">COURIER</text>
+      <text x="601" y="433" font-size="24" fill="#edf2f7">WATCH</text>
+      <text x="601" y="463" font-size="13" fill="#9eacbb">allowlisted + bounded</text>
+
+      <rect x="732" y="350" width="190" height="138" rx="15" fill="#161b2b" stroke="#8b8cff" stroke-width="2"/>
+      <text x="827" y="392" fill="#a6a6ff">CODEX</text>
+      <text x="827" y="433" font-size="24" fill="#edf2f7">THINK</text>
+      <text x="827" y="463" font-size="13" fill="#9eacbb">ChatGPT authenticated</text>
+
+      <rect x="958" y="350" width="190" height="138" rx="15" fill="#10251b" stroke="#59f26f" stroke-width="2"/>
+      <text x="1053" y="392" fill="#59f26f">REPLY</text>
+      <text x="1053" y="433" font-size="24" fill="#edf2f7">SEND</text>
+      <text x="1053" y="463" font-size="13" fill="#9eacbb">automatic, same chat</text>
+    </g>
+
+    <g fill="#00d5f0">
+      <path d="M250 413h20v-8l12 15-12 15v-8h-20z"/>
+      <path d="M476 413h20v-8l12 15-12 15v-8h-20z"/>
+      <path d="M702 413h20v-8l12 15-12 15v-8h-20z"/>
+      <path d="M928 413h20v-8l12 15-12 15v-8h-20z"/>
+    </g>
+
+    <rect x="54" y="534" width="1094" height="52" rx="8" fill="#121c26" stroke="#283846"/>
+    <rect x="54" y="534" width="5" height="52" fill="#59f26f"/>
+    <text x="78" y="567" font-size="15" fill="#c6d1dc">AUTOMATIC BY DESIGN: one new allowlisted message triggers one bounded reply.</text>
+  </g>
+</svg>
