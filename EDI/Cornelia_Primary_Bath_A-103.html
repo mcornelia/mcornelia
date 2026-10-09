@@ -3,10 +3,6 @@
 <head>
   <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
-<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64">
-<link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <title>A-103 Primary Bath &amp; Closet - Interior Elevations (Shower)</title>
 <style>
   @page { size: 36in 24in; margin: 0; }
@@ -160,27 +156,37 @@
           </g>
 
           <!-- ============ PANEL 1: WEST WALL (local_x 0-64, 64" — plan y66 to y2) ============ -->
-          <!-- shower controls (2 handles), ASSUMED 44" AFF -->
-          <circle cx="10" cy="55" r="1.1" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="6" cy="55" r="1.1" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
-          <circle cx="10" cy="55" r="0.3" fill="#4a2f1f"/>
-          <circle cx="6" cy="55" r="0.3" fill="#4a2f1f"/>
+          <!-- shower controls: rev 3f (10.08.26, owner) KOHLER ANTHEM 3-outlet recessed mechanical thermostatic control panel K-26347-9-BL (Matte Black), 13-5/16" W x 4-1/16" H, horizontal, centered at 54" AFF (niche midline). Valve K-39014 (confirm vs K-26341). -->
+          <rect x="3.35" y="42.97" width="13.3" height="4.06" rx="0.4" fill="#2b2b2b" stroke="#171310" stroke-width="0.25"/><circle cx="5.7" cy="45" r="1.2" fill="#3c3c3c" stroke="#777" stroke-width="0.15"/><circle cx="10.1" cy="45" r="0.9" fill="#3c3c3c" stroke="#777" stroke-width="0.15"/><circle cx="12.7" cy="45" r="0.9" fill="#3c3c3c" stroke="#777" stroke-width="0.15"/><circle cx="15.3" cy="45" r="0.9" fill="#3c3c3c" stroke="#777" stroke-width="0.15"/>
+          
+          
+          
+          
 
           <!-- ============ FOLD LINE 1 (west/north inside corner), local_x 64 ============ -->
           <line x1="64" y1="0" x2="64" y2="99" stroke="#5c4020" stroke-width="0.25" stroke-dasharray="1.4,1"/>
           <text x="64" y="-3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#5c4020">INSIDE CORNER</text>
 
           <!-- ============ PANEL 2: NORTH (BACK) WALL (local_x 64-104, 40") ============ -->
-          <!-- FULL-WIDTH NICHE — penny round (Merola Hudson Penny Round, Stormy Night), 40" wide x 12" tall, ASSUMED 56"–68" AFF (between valve and showerhead). LED strip at niche top. Same grout + edge treatment as the makeup-wall mirror frame (A-104). -->
-          <rect x="64" y="31" width="40" height="12" fill="url(#pennyRound3)" stroke="#171310" stroke-width="0.35"/>
-          <line x1="64.6" y1="31.6" x2="103.4" y2="31.6" stroke="#f2c94c" stroke-width="0.5"/>
-          <line x1="64" y1="43" x2="104" y2="43" stroke="#171310" stroke-width="0.5"/>
+          <!-- NICHE — rev 3b (10.08.26, owner, per inspiration photo): on the WEST wall, starting just past the shower controls and running toward the back corner. 44" long x 12" tall (owner confirmed 10.08.26), ~3-3/4" deep. REV 3d (10.08.26, owner): SILL on the second Stonehenge joint (~48" AFF if the bottom wall tile is full height; set from the actual joint after the floor is built), top ~60"; shower controls centered at ~54", the niche midline. Back = Hudson Penny Round; sides, top & sill = Stonehenge with 45-degree mitered outside corners (no trim). Schluter LIPROTEC LED under the top. Sill sloped slightly into the shower. -->
+          <rect x="20" y="39" width="42" height="12" fill="url(#pennyRound3)" stroke="#171310" stroke-width="0.35"/>
+          <rect x="20" y="39" width="42" height="0.9" fill="#d9c7aa"/><rect x="20" y="50.1" width="42" height="0.9" fill="#d9c7aa"/>
+          <line x1="20.6" y1="40.2" x2="61.4" y2="40.2" stroke="#f2c94c" stroke-width="0.5"/>
           <!-- showerhead, ASSUMED 80" AFF, centered on back wall -->
           <line x1="84" y1="19" x2="84" y2="14" stroke="#4a2f1f" stroke-width="0.3"/>
           <circle cx="84" cy="19" r="1.3" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
           <circle cx="84" cy="19" r="0.35" fill="#4a2f1f"/>
-          <!-- valve trim, ASSUMED 48" AFF -->
-          <circle cx="84" cy="51" r="0.9" fill="#f3ead8" stroke="#4a2f1f" stroke-width="0.3"/>
+          <!-- (valve moved to the west wall controls, rev 3d) -->
+          <!-- HANDHELD (rev 3h, 10.08.26, owner): Brizo wall mount holder w/ integrated hose connection RP76775BL on the BACK wall, below and to the west side of the wall showerhead: ~10" west of the head's centerline, center ~54" AFF (same datum as the control panel / niche midline). Kit 88875-BL (Jason Wu), Matte Black. -->
+          <rect x="73" y="44" width="2" height="2" rx="0.3" fill="#2b2b2b" stroke="#171310" stroke-width="0.15"/>
+          <rect x="73.4" y="38" width="1.2" height="6" rx="0.5" fill="#2b2b2b"/>
+          <path d="M74,46 C74,56 80,58 79,50" fill="none" stroke="#2b2b2b" stroke-width="0.35"/>
+          <text x="74" y="61" text-anchor="middle" font-family="Helvetica" font-size="1.2" fill="#171310">HANDHELD @ 54"</text>
+          <!-- FUTURE GRAB BARS (rev 3d, 10.08.26, owner): bars not installed now; continuous solid blocking 30"-40" AFF on all three tiled shower walls (+ full-height blocking at the west wall's entry end for a future vertical bar, and 15"-40" zone on the west wall for a possible fold-down seat). Typical horizontal bar height 33"-36" AFF sits ~12" below the niche sill and ~18" below the controls. -->
+          <rect x="0" y="59" width="128" height="10" fill="#7fb3d5" fill-opacity="0.12" stroke="#2f6f9f" stroke-width="0.15" stroke-dasharray="1,0.7"/>
+          <line x1="2" y1="64.5" x2="62" y2="64.5" stroke="#2f6f9f" stroke-width="0.6" stroke-dasharray="2,1"/>
+          <line x1="66" y1="64.5" x2="102" y2="64.5" stroke="#2f6f9f" stroke-width="0.6" stroke-dasharray="2,1"/>
+          <text x="32" y="62.4" text-anchor="middle" font-family="Helvetica" font-size="1.4" fill="#2f6f9f">FUTURE GRAB BAR @ 33"–36" · BLOCKING 30"–40" (ALL 3 WALLS)</text>
           <!-- LINEAR DRAIN along the back wall (replaces 6" sq. centered drain). Floor slopes in one plane to this wall. -->
           <rect x="64.5" y="97.6" width="39" height="1.4" fill="#3a3a3a" stroke="#171310" stroke-width="0.15"/>
           <g stroke="#9a9a9a" stroke-width="0.08">
@@ -202,7 +208,7 @@
           </g>
           <!-- callouts -->
           <g font-family="Helvetica" font-size="1.6" fill="#171310">
-            <text x="84" y="29.6" text-anchor="middle">FULL-WIDTH NICHE — PENNY ROUND + LED STRIP</text>
+            <text x="41" y="37.6" text-anchor="middle">LIGHTED NICHE 42" x 12" (LOCKED) — PENNY BACK, MITERED STONEHENGE RETURNS</text>
             <text x="84" y="96.6" text-anchor="middle">LINEAR DRAIN @ BACK WALL</text>
             <text x="32" y="12" text-anchor="middle">STONEHENGE EARTH 24x24</text>
             <text x="32" y="14.2" text-anchor="middle">FLOOR TO CEILING (ALL 3 WALLS)</text>
@@ -223,22 +229,23 @@
               <line x1="171" y1="19" x2="177" y2="19"/>
               <text x="179" y="19.8">80" SHOWERHEAD</text>
               <line x1="171" y1="51" x2="177" y2="51"/>
-              <text x="179" y="51.8">48" VALVE TRIM</text>
-              <line x1="171" y1="55" x2="177" y2="55"/>
-              <text x="179" y="58.5">44" CONTROLS</text>
-              <line x1="171" y1="31" x2="177" y2="31"/>
-              <text x="179" y="31.8">68" NICHE TOP (LED)</text>
-              <line x1="171" y1="43" x2="177" y2="43"/>
-              <text x="179" y="43.8">56" NICHE BOTTOM</text>
+              
+              <line x1="171" y1="39" x2="177" y2="39"/>
+              <text x="179" y="39.8">60" NICHE TOP</text>
+              <line x1="171" y1="45" x2="177" y2="45"/>
+              <text x="179" y="45.8">54" PANEL · HANDHELD</text>
+              <text x="179" y="51.8">48" NICHE SILL (TILE JOINT)</text>
+              <line x1="171" y1="64.5" x2="177" y2="64.5" stroke="#2f6f9f"/>
+              <text x="179" y="65.3" fill="#2f6f9f">34½" FUTURE GRAB BAR</text>
             </g>
           </g>
 
           <!-- ============ ZONE LABELS (below elevation) ============ -->
           <g font-family="Helvetica" font-size="2.2" fill="#333" text-anchor="middle">
             <text x="32" y="107">WEST WALL — 64"</text>
-            <text x="32" y="110.5" fill="#a00000" font-size="1.8">CONTROLS — TBD FIXTURE</text>
+            <text x="32" y="110.5" fill="#a00000" font-size="1.8">KOHLER ANTHEM PANEL + NICHE</text>
             <text x="84" y="107">NORTH (BACK) WALL — 40"</text>
-            <text x="84" y="110.5" fill="#a00000" font-size="1.8">SHOWERHEAD + VALVE — TBD FIXTURE</text>
+            <text x="84" y="110.5" fill="#a00000" font-size="1.8">SHOWERHEAD + HANDHELD</text>
             <text x="64" y="114.5" fill="#333" font-size="1.8">SHOWER FLOOR: BEDROSIANS SAHARA 4x4 DARK MOSAIC · SINGLE-PLANE SLOPE TO LINEAR DRAIN</text>
             <text x="136" y="107">EAST WALL — RETURN 24" + GLASS 40"</text>
             <text x="136" y="110.5" fill="#a00000" font-size="1.8">FIXED GLASS PANEL — TBD GLAZIER</text>
@@ -307,7 +314,10 @@
           <li><b>Shower wall tile</b> — CONFIRMED 2026-10-06: Bond Tile Stonehenge 24x24, Earth, floor to ceiling on all 3 walls. Center the layout on the back wall; put any partial row at the ceiling.</li>
           <li><b>Shower floor tile</b> — CONFIRMED 2026-10-06: Bedrosians Sahara 4"x4" matte mosaic, Dark (item 100001057). Confirm wet DCOF ≥ 0.42 with Bedrosians. Terrazzo → Sahara floor change lands exactly at the shower edge, in line with the glass panel. Hudson Penny Round is NOT a floor tile (DCOF 0.21).</li>
           <li><b>Drain</b> — CHANGED 2026-10-06: linear drain along the back (north) wall, full 40" width; single-plane slope (min. 1/4" per ft.). Tile-insert vs. visible grate (e.g., brass) TBD.</li>
-          <li><b>Niche</b> — full-width (40") on the back wall, lined with Merola Hudson Penny Round, Stormy Night; LED strip at top. Location on the back wall and the 56"–68" AFF height are ASSUMED; confirm with owner and plumber (valve/showerhead rough-in). Same grout and edge treatment as the makeup-wall penny round (A-104).</li>
+          <li><b>Shower controls (rev 3f, 10.08.26, owner)</b> — <b>Kohler Anthem 3-outlet recessed mechanical thermostatic control panel, K-26347-9-BL, Matte Black</b> (one panel: temperature knob + 3 outlet buttons that turn on and then twist for flow; up to 8 gpm). Panel 13-5/16" W x 4-1/16" H, horizontal, centered at 54" AFF on the west wall between the entry end and the niche. <b>Required valve: K-39014 Anthem three-port recessed mechanical thermostatic valve</b> (one listing says K-26341; confirm with the supplier). Outlets may be any brand (standard 1/2" connections). Centered in the ~20" of wall between the entry end and the niche (niche shortened/shifted, rev 3g), ~3-1/2" clear each side.</li>
+          <li><b>Handheld (rev 3h, 10.08.26, owner)</b> — <b>Brizo Jason Wu wall mount hand shower kit 88875-BL, Matte Black</b> (wand + pivoting wall bracket + wall mount elbow + hose; confirm hose with supplier), no slide bar. Holder on the <b>back wall, below and to the west side of the wall showerhead</b>: ~10" west of the head's centerline, center ~54" AFF (shares the 54" datum with the control panel and niche midline). Keeps the west wall a clean composition (panel + niche) and groups the water outlets. Holder doubles as the wall supply; plumber to confirm backflow protection.</li>
+          <li><b>Future grab bars / seat (rev 3d, 10.08.26, owner)</b> — no bars installed now, but <b>blocking goes in before backer board</b>: continuous 2x blocking 30"–40" AFF on all three tiled shower walls (horizontal bars at 33"–36"); full-height blocking at the west wall's entry (south) end for a future vertical bar; blocking 15"–40" on the west wall for a possible fold-down seat. The raised niche (48"–60") and controls (54") leave this zone clear. Photograph and dimension the blocking before tile. Coordinate with the handheld slide bar (consider a grab-bar-rated slide bar).</li>
+          <li><b>Niche</b> — <b style="color:#1a7a3a;">LOCKED by owner 10.08.26.</b> REV 3b (10.08.26, owner): on the <b>west wall</b>, starting just past the shower controls and running toward the back corner, <b>44" long x 12" tall</b> (owner confirmed 10.08.26 so tall pump bottles fit), ~3-3/4" deep in a 2x4 wall (check if exterior wall). <b>REV 3d: the niche STARTS (sill) on the top of the second stacked Stonehenge tile</b>, ~48" AFF if the bottom row is uncut; set from the actual joint once the shower floor is built. Top ~60". <b>Shower controls centered at ~54", the niche midline.</b> Back: Hudson Penny Round. Sides, top &amp; sill: Stonehenge with <b>45-degree mitered outside corners</b> (no trim; ease the miter tips slightly to prevent chipping). Sill one piece, sloped slightly into the shower. Schluter LIPROTEC LED under the top. Moving the niche off the back wall frees that wall for the wall-mounted showerhead and handheld. <b>REV 3g (10.08.26, owner): niche shortened to 42" and shifted toward the back corner</b>: runs from ~20" to ~62" along the west wall (measured from the entry end), ending ~2" short of the back corner, so the Anthem control panel has ~3-1/2" of clear tile on each side. LIPROTEC LED kit ~42". <b>Tile setter (owner, 10.08.26):</b> the ~2" strip of Stonehenge between the niche's back end and the inside corner must be a clean, deliberate full-height 2" cut piece (not a leftover sliver), so the niche reads as stretching nearly into the corner.</li>
           <li><b>Glass panel hardware &amp; rough opening</b> — confirm with glazier per Keynote 4 (A-101) prior to framing the 4" return wall.</li>
         </ol>
       </div>
@@ -400,6 +410,12 @@
         <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
         <tr><td>3</td><td>10.06.2026</td><td>Wall/floor tile, penny niche, linear drain</td></tr>
+        <tr><td>3b</td><td>10.08.2026</td><td>Niche moved to west wall, mitered Stonehenge returns, LED</td></tr>
+        <tr><td>3c</td><td>10.08.2026</td><td>Niche height 12"; niche design locked by owner</td></tr>
+        <tr><td>3h</td><td>10.08.2026</td><td>Handheld holder on back wall, ~10" west of the showerhead, at 54"</td></tr>
+        <tr><td>3g</td><td>10.08.2026</td><td>Niche 42" long, shifted 2" toward back corner; panel centered with ~3.5" clear each side</td></tr>
+        <tr><td>3f</td><td>10.08.2026</td><td>Controls = Kohler Anthem 3-outlet panel, Matte Black, at 54"</td></tr>
+        <tr><td>3d</td><td>10.08.2026</td><td>Niche sill on the 2nd tile joint (~48"), top ~60"; controls at niche midline (~54")</td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
       </table>
     </div>
