@@ -1,8 +1,10 @@
-# Olive’s Fetch Race — local review
+# Olive’s Fetch Race
 
 A competitive asynchronous garden strategy game for Mike and Aimee. Built in an isolated clone on `codex/olives-fetch-race`, from published `origin/main` commit `5a553937` (PR #23). No applicable AGENTS.md or .agents/skills files were present in the source checkout. Existing project documentation and the Worker/test architecture were inspected before implementation.
 
-**Not deployed, pushed, merged, or sent to Aimee.** No production credentials were read or created. The production API config is deliberately empty. Tired Dogs source, hosting configuration, player keys, and live state were not changed or contacted. Only the new game directories and this document are added.
+**Publication approved by Mike on October 13, 2026.** The separate Worker is deployed at `https://olives-fetch-race.mike-cornelia.workers.dev`. Two private game-only player keys are provisioned; only their hashes are stored by the Worker. Raw keys remain in owner-only files outside this repository. Tired Dogs source, hosting configuration, player keys, and live state remain unchanged. Nothing has been sent to Aimee.
+
+The existing Cloudflare dashboard confirmed **Free ($0), Current plan** immediately before deployment. The existing grant was sufficient: Account Read, Workers Scripts Write, and Background Access. No paid service, new account credential, permission expansion, DNS change, or billing change was made. The GitHub Pages route is `https://mcornelia.com/play/olives-fetch-race/`; merging this game’s approved PR publishes it.
 
 ## Teach it in a minute
 
@@ -51,7 +53,7 @@ Verified locally on October 13, 2026:
 - **Chromium and WebKit**, independent 390px phone contexts: last-move/turn synchronization, preview without mutation, double clicks sent one request, server commit with lost response recovered across reload without replaying the action, offline reconnect, shared finish, 320px overflow checks, uniform board rows, keyboard ball, reduced motion, and no page errors. A delayed old poll cannot replace a newer confirmed state.
 - Sound is on by default. The first ordinary pointer or keyboard interaction activates AudioContext; there is no enable-sound gate. Quiet synthesized cues accompany controls and moves. Explicit mute persists through reload. Initial load/rejoin and replayed moves are silent; polls never replay cues. No microphone or audio downloads. WebKit tests verify browser behavior, not physical iPhone speaker/silent-mode audibility.
 - Separate Worker (`olives-fetch-race`), Durable Object class (`FetchRaceRoom`), binding (`FETCH_ROOM`), named room (`olives-fetch-race-v1`), secret names (`FETCH_MIKE_KEY_HASH`, `FETCH_AIMEE_KEY_HASH`), and browser prefix (`olives-fetch-race:v1:`). Browser tests preserve an unrelated Tired Dogs storage sentinel. `git diff origin/main -- play/tired-dogs _services/tired-dogs` is empty. No requests were sent to the live Tired Dogs backend.
-- Deployment **dry run only** passed: Worker bundle 9.91 KiB, 3.73 KiB gzip. No resources were created remotely.
+- Deployment **dry run only** passed: Worker bundle 10.52 KiB, 3.87 KiB gzip. No resources were created remotely.
 
 Screenshots are in ignored `_services/olives-fetch-race/test-results/`: `mobile-fence-preview.png`, `desktop-fence-preview.png`, and `mobile-finish.png`. They show disposable local play, with no keys. Saved Library identity, if available, is reported separately.
 
@@ -61,16 +63,16 @@ The browser stores this game’s provided player key, mute preference, and pendi
 
 The server authenticates before accessing the room. It stores only game state and the last 257 operation receipts. Each action checks identity, turn, version, resources, and route validity in the same synchronous SQLite transaction as its receipt and state update. Old receipts may be pruned, but the monotonically increasing version still rejects old writes. The client saves the exact pending operation before sending; storage failure blocks sending, and timeouts retain that operation for retry. State is never reset on reconnect. A disconnected or quota-limited client cannot silently create a separate local race.
 
-## Exact next step to publish, only after approval
+## Release procedure and authorization
 
-Obtain Mike’s approval for **this game’s publication, a separate Free-plan Worker/Durable Object, and two new Fetch Race player credentials**. Existing Tired Dogs publication approval does not authorize this release. Do not reuse or rotate its keys, modify its Worker, migrate its class, or touch its room.
+Mike approved **this game’s publication, a separate Free-plan Worker/Durable Object, and two new Fetch Race player credentials**, including push, checks, merge, and live verification. Do not reuse or rotate its keys, modify its Worker, migrate its class, or touch its room.
 
-After that approval:
+The approved procedure is:
 
 1. Rebase this isolated branch onto current `origin/main` and rerun the listed checks. Reconfirm the existing Cloudflare account remains on Workers Free and that `olives-fetch-race` does not name an unrelated service. Use the existing authorized deployment mechanism; if its grant is insufficient, report the exact new permission needed before expanding access.
 2. Generate the two approved 32-byte player keys securely outside the repository. Deliver locally to Mike for review/handling; sending anything to Aimee still requires explicit authorization. Provision only SHA-256 hashes using secure stdin-based `wrangler secret put FETCH_MIKE_KEY_HASH` and `wrangler secret put FETCH_AIMEE_KEY_HASH` for this Worker. Never print raw keys or hashes. Both hashes must be distinct. No credential-generation/provisioning tool is included in this review build.
 3. From `_services/olives-fetch-race/`, deploy **only** this separate Worker using `npx wrangler deploy`. Its `fetch-v1` SQLite migration creates `FetchRaceRoom`. Keep observability disabled and `ALLOWED_ORIGIN=https://mcornelia.com`. If free hosting cannot be retained, stop and obtain approval.
-4. Verify unauthenticated state is rejected, each private identity maps to its own player, and wrong origins/turns fail. Set `play/olives-fetch-race/config.mjs` to the exact verified HTTPS Worker origin. Narrow the frontend CSP to that origin for publication if desired; the local test endpoint is port 8887.
+4. Verify unauthenticated state is rejected, each private identity maps to its own player, and wrong origins/turns fail. Set `play/olives-fetch-race/config.mjs` to the exact verified HTTPS Worker origin. Narrow the frontend CSP to that origin for publication before publication; the local test endpoint is port 8887.
 5. Push this branch and open a **draft PR** with rules, evidence, and screenshots. A merge is the GitHub Pages publication step (`main`, repository root), so merge only when Mike’s approval explicitly covers it. The resulting URL will be `https://mcornelia.com/play/olives-fetch-race/`. This change intentionally does not add a public shelf link.
 6. Verify the exact Pages URL and two independent authenticated internet sessions: alternating moves, stale writes, disconnect/retry, rejoin, finish, and physical-phone sound. Report the verified URL; do not send it to Aimee until authorized.
 
