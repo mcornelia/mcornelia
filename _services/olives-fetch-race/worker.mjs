@@ -1,6 +1,7 @@
 import {
   initialState,
   applyMove,
+  applyRematch,
 } from "../../play/olives-fetch-race/engine.mjs";
 
 const json = (value, status = 200) =>
@@ -39,7 +40,7 @@ export default {
           status: 204,
           headers: {
             "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Authorization, Content-Type",
+            "Access-Control-Allow-Headers": "Authorization, Content-Type, X-Fetch-Protocol",
             "Access-Control-Max-Age": "600",
           },
         }),
@@ -106,7 +107,7 @@ export default {
     const response = await room.fetch(
       new Request(`https://room${path}`, {
         method: request.method,
-        headers: { "X-Player": String(player) },
+        headers: { "X-Player": String(player), "X-Fetch-Protocol": request.headers.get("X-Fetch-Protocol") || "" },
         ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
       }),
     );
@@ -116,7 +117,7 @@ export default {
 };
 
 export class FetchRaceRoom {
-  constructor(ctx) {
+  constructor(ctx, env = {}) {
     this.ctx = ctx;
     this.sql = ctx.storage.sql;
     this.sql.exec(
@@ -125,9 +126,11 @@ export class FetchRaceRoom {
     this.sql.exec(
       "CREATE TABLE IF NOT EXISTS receipts (id TEXT PRIMARY KEY, player INTEGER NOT NULL, payload TEXT NOT NULL, version INTEGER NOT NULL)",
     );
+    this.sql.exec("CREATE TABLE IF NOT EXISTS race_archive (race INTEGER PRIMARY KEY, value TEXT NOT NULL)");
     this.sql.exec(
       "INSERT OR IGNORE INTO room VALUES (1, ?)",
-      JSON.stringify(initialState()),
+      // Only an empty room uses this initializer. Existing SQLite state is never replaced.
+      JSON.stringify(initialState(env.INITIAL_LAYOUT || "classic-v1")),
     );
   }
   state() {
@@ -136,7 +139,12 @@ export class FetchRaceRoom {
     );
   }
   async fetch(request) {
-    if (request.method === "GET") return json({ state: this.state() });
+    const protocol = request.headers.get("X-Fetch-Protocol");
+    const current = this.state();
+    // A cached classic client must never render or mutate a new garden.
+    if (current.layout && protocol !== "2")
+      return json({ error: "Refresh this page to open the new garden." }, 426);
+    if (request.method === "GET") return json({ state: current });
     const player = Number(request.headers.get("X-Player"));
     if (![0, 1].includes(player)) return json({ error: "Unauthorized." }, 401);
     let move;
@@ -150,14 +158,20 @@ export class FetchRaceRoom {
       !/^[a-f0-9-]{36}$/.test(move.id || "") ||
       !Number.isSafeInteger(move.version) ||
       move.version < 0 ||
-      move.kind !== "move"
+      !["move", "rematch"].includes(move.kind)
     )
       return json({ error: "Invalid move." }, 400);
-    const payload = JSON.stringify([move.version, move.kind, move.action]);
+    if (move.kind === "rematch" && protocol !== "2")
+      return json({ error: "Refresh before inviting a new race." }, 426);
+    const payload = JSON.stringify(move.race === undefined
+      ? [move.version, move.kind, move.action]
+      : [move.version, move.kind, move.action, move.race]);
     // All validation, receipt insertion and state updates share one synchronous transaction.
     // No await occurs between reading a version and committing its successor.
     return this.ctx.storage.transactionSync(() => {
       const state = this.state();
+      if (state.layout && protocol !== "2")
+        return json({ error: "Refresh this page to open the new garden." }, 426);
       const receipt = this.sql
         .exec("SELECT * FROM receipts WHERE id=?", move.id)
         .toArray()[0];
@@ -177,14 +191,20 @@ export class FetchRaceRoom {
           },
           409,
         );
-      if (player !== state.turn)
+      if ((move.kind === "rematch" || move.race !== undefined) && move.race !== (state.race ?? 0))
+        return json({ error: "This request belongs to an earlier race.", state }, 409);
+      if (move.kind === "move" && player !== state.turn)
         return json({ error: "It is your partner’s turn.", state }, 409);
       let next;
       try {
-        next = applyMove(state, player, move.action);
+        next = move.kind === "move"
+          ? applyMove(state, player, move.action)
+          : applyRematch(state, player, move.action, move.id);
       } catch (error) {
         return json({ error: error.message, state }, 422);
       }
+      if ((next.race ?? 0) !== (state.race ?? 0))
+        this.sql.exec("INSERT INTO race_archive VALUES (?, ?)", state.race ?? 0, JSON.stringify(state));
       this.sql.exec("UPDATE room SET value=? WHERE id=1", JSON.stringify(next));
       this.sql.exec(
         "INSERT INTO receipts VALUES (?, ?, ?, ?)",

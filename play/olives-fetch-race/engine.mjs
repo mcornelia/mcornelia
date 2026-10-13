@@ -4,31 +4,80 @@ export const SIZE = 7,
   BALLS = [2, 4],
   ROCKS = [16, 18, 24, 30, 32];
 export const edge = (a, b) => [a, b].sort((x, y) => x - y).join("-");
+// Layout IDs are immutable. States created before layout IDs keep their exact
+// original geometry. Never change a published definition to introduce a new board.
+const crossingWalls = [[2,3],[3,4],[17,24],[24,31],[44,45],[45,46]];
+const crossingBoard = (id, name, detours) => Object.freeze({
+  id, name, homes: [43,47], balls: [5,1], rocks: [16,18,30,32],
+  crossings: [10,24,38], fixedWalls: [...crossingWalls, ...detours].map(([a,b]) => edge(a,b)),
+});
+export const RACE_LAYOUTS = Object.freeze(["crossing-v2", "north-bend-v2", "south-bend-v2"]);
+export const LAYOUTS = Object.freeze({
+  "classic-v1": Object.freeze({
+    id: "classic-v1",
+    name: "Original Garden",
+    homes: HOMES,
+    balls: BALLS,
+    rocks: ROCKS,
+    fixedWalls: [edge(2, 9), edge(4, 11)],
+    crossings: [],
+  }),
+  "crossing-v2": Object.freeze({
+    id: "crossing-v2",
+    name: "Crossing Garden",
+    homes: [43, 47],
+    balls: [5, 1],
+    rocks: [16, 18, 30, 32],
+    crossings: [10, 24, 38],
+    fixedWalls: [
+      [2, 3],
+      [3, 4],
+      [14, 21],
+      [20, 27],
+      [17, 24],
+      [24, 31],
+      [21, 28],
+      [27, 34],
+      [44, 45],
+      [45, 46],
+    ].map(([a, b]) => edge(a, b)),
+  }),
+  "north-bend-v2": crossingBoard("north-bend-v2", "North Bend", [[8,15],[12,19],[21,28],[27,34]]),
+  "south-bend-v2": crossingBoard("south-bend-v2", "South Bend", [[14,21],[20,27],[29,36],[33,40]]),
+});
+export function boardFor(s) {
+  const id = s.layout ?? "classic-v1";
+  if (!Object.hasOwn(LAYOUTS, id))
+    throw Error("Unknown garden layout. Refresh before playing.");
+  return LAYOUTS[id];
+}
 export const cellName = (n) => `${"ABCDEFG"[n % 7]}${Math.floor(n / 7) + 1}`;
-export function initialState() {
+export function initialState(layout = "classic-v1") {
+  const board = boardFor({ layout });
   return {
+    ...(layout === "classic-v1" ? {} : { layout }),
     schema: 1,
     version: 0,
     turn: 0,
-    players: HOMES.map((pos) => ({
+    players: board.homes.map((pos) => ({
       pos,
       ball: false,
       fences: 6,
       sprints: 2,
       finished: false,
     })),
-    walls: [edge(2, 9), edge(4, 11)],
+    walls: [...board.fixedWalls],
     result: null,
     finalLap: false,
     last: "The garden is ready. Mike takes the first turn.",
   };
 }
-export const validCell = (n) =>
-  Number.isInteger(n) && n >= 0 && n < 49 && !ROCKS.includes(n);
-export function adjacent(a, b) {
+export const validCell = (n, s = {}) =>
+  Number.isInteger(n) && n >= 0 && n < 49 && !boardFor(s).rocks.includes(n);
+export function adjacent(a, b, s = {}) {
   return (
-    validCell(a) &&
-    validCell(b) &&
+    validCell(a, s) &&
+    validCell(b, s) &&
     Math.abs((a % 7) - (b % 7)) +
       Math.abs(Math.floor(a / 7) - Math.floor(b / 7)) ===
       1
@@ -36,7 +85,7 @@ export function adjacent(a, b) {
 }
 export function neighbors(s, n) {
   return [n - 7, n + 7, n - 1, n + 1].filter(
-    (b) => adjacent(n, b) && !s.walls.includes(edge(n, b)),
+    (b) => adjacent(n, b, s) && !s.walls.includes(edge(n, b)),
   );
 }
 export function route(s, from, to) {
@@ -57,13 +106,15 @@ export function route(s, from, to) {
   return null;
 }
 export function distance(s, p) {
+  const { homes, balls } = boardFor(s);
   const a = s.players[p];
   if (a.finished) return 0;
-  const first = route(s, a.pos, a.ball ? HOMES[p] : BALLS[p]);
-  const second = a.ball ? null : route(s, BALLS[p], HOMES[p]);
+  const first = route(s, a.pos, a.ball ? homes[p] : balls[p]);
+  const second = a.ball ? null : route(s, balls[p], homes[p]);
   return first ? first.length - 1 + (second ? second.length - 1 : 0) : Infinity;
 }
 export function validate(s, p, m) {
+  const { homes, balls } = boardFor(s);
   if (s.result !== null) return "The race is complete.";
   if (p !== s.turn) return "It is your partner’s turn.";
   if (!m || !["step", "sprint", "fence"].includes(m.type))
@@ -78,15 +129,15 @@ export function validate(s, p, m) {
     const d = m.to - a.pos,
       mid = a.pos + d / 2;
     return [14, -14, 2, -2].includes(d) &&
-      adjacent(a.pos, mid) &&
-      adjacent(mid, m.to) &&
+      adjacent(a.pos, mid, s) &&
+      adjacent(mid, m.to, s) &&
       neighbors(s, a.pos).includes(mid) &&
       neighbors(s, mid).includes(m.to)
       ? null
       : "Sprint two clear squares in a straight line.";
   }
   if (!a.fences) return "No fences left.";
-  if (!adjacent(m.a, m.b))
+  if (!adjacent(m.a, m.b, s))
     return "A fence belongs between two neighboring lawn squares.";
   if (s.walls.includes(edge(m.a, m.b)))
     return "There is already a fence there.";
@@ -94,8 +145,8 @@ export function validate(s, p, m) {
   for (let i = 0; i < 2; i++) {
     const v = s.players[i];
     if (
-      !route(next, v.pos, v.ball ? HOMES[i] : BALLS[i]) ||
-      !route(next, BALLS[i], HOMES[i])
+      !route(next, v.pos, v.ball ? homes[i] : balls[i]) ||
+      !route(next, balls[i], homes[i])
     )
       return "That fence would close a winning route. Leave a way through.";
   }
@@ -117,6 +168,7 @@ export function legalMoves(s, p = s.turn, type = "step") {
   return moves;
 }
 export function applyMove(s, p, m) {
+  const { homes, balls } = boardFor(s);
   const error = validate(s, p, m);
   if (error) throw Error(error);
   const next = structuredClone(s),
@@ -131,25 +183,59 @@ export function applyMove(s, p, m) {
       m.type === "sprint" ? [a.pos + (m.to - a.pos) / 2, m.to] : [m.to];
     a.pos = m.to;
     if (m.type === "sprint") a.sprints--;
-    const got = !a.ball && crossed.includes(BALLS[p]);
+    const got = !a.ball && crossed.includes(balls[p]);
     if (got) a.ball = true;
     detail = `${m.type === "sprint" ? "sprinted" : "walked"} to ${cellName(m.to)}${got ? " and picked up the ball" : ""}`;
     // Returning home ends a sprint immediately, including when home is its midpoint.
-    if (a.ball && crossed.includes(HOMES[p])) {
-      a.pos = HOMES[p];
+    if (a.ball && crossed.includes(homes[p])) {
+      a.pos = homes[p];
       a.finished = true;
       detail += " and brought it home";
     }
   }
   next.version++;
+  if (next.ply !== undefined) next.ply++;
+  delete next.rematch; // Continuing play cancels a pending restart proposal.
   next.turn = 1 - p;
   if (a.finished) {
-    if (p === 0) {
+    if (p === (s.starter ?? 0)) {
       next.finalLap = true;
-    } else next.result = next.players[0].finished ? "tie" : 1;
+    } else next.result = next.players[1 - p].finished ? "tie" : p;
   }
-  if (p === 1 && next.finalLap)
-    next.result = next.players[1].finished ? "tie" : 0;
+  if (p !== (s.starter ?? 0) && next.finalLap)
+    next.result = next.players[p].finished ? "tie" : 1 - p;
   next.last = `${NAMES[p]} ${detail}.`;
+  return next;
+}
+
+// Server-selected rotation: every next race has a different, immutable garden.
+export function nextLayout(s) {
+  return RACE_LAYOUTS[(RACE_LAYOUTS.indexOf(s.layout) + 1) % RACE_LAYOUTS.length];
+}
+export function applyRematch(s, p, action, id) {
+  if (![0, 1].includes(p)) throw Error("Unknown player.");
+  if (!action || !["request", "accept", "decline"].includes(action.type))
+    throw Error("Choose request, accept, or decline.");
+  const next = structuredClone(s);
+  if (action.type === "request") {
+    if (s.rematch) throw Error("A new-race invitation is already waiting.");
+    next.rematch = { id, by: p, layout: nextLayout(s) };
+  } else {
+    if (!s.rematch || action.proposal !== s.rematch.id)
+      throw Error("That invitation is no longer active.");
+    if (action.type === "decline") delete next.rematch;
+    else {
+      if (s.rematch.by === p) throw Error("Your partner must accept your invitation.");
+      const starter = 1 - (s.starter ?? 0);
+      return {
+        ...initialState(s.rematch.layout), race: (s.race ?? 0) + 1,
+        version: s.version + 1, ply: 0, starter, turn: starter,
+        last: `Both agreed to a new race. ${NAMES[starter]} takes the first turn.`,
+      };
+    }
+  }
+  next.version++;
+  // Invitations are not moves and never use up anyone's turn.
+  next.ply = s.ply ?? s.version;
   return next;
 }

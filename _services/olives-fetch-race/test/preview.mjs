@@ -3,7 +3,11 @@ import { startWorker } from "./harness.mjs";
 const web = await startWeb({ port: 4183, workerPort: 8887, review: true });
 let worker;
 try {
-  worker = await startWorker({ port: 8887, origin: web.origin });
+  worker = await startWorker({
+    port: 8887,
+    origin: web.origin,
+    layout: "crossing-v2",
+  });
 } catch (e) {
   await web.stop();
   throw e;

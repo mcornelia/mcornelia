@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
     <main>
@@ -105,9 +105,11 @@
         <div class="game-layout">
           <section class="garden card">
             <div class="garden-top">
-              <span class="eyebrow">THE LONG WAY CAN BE THE SMART WAY</span
+              <span id="layout-label" class="eyebrow"
+                >THE LONG WAY CAN BE THE SMART WAY</span
               ><span id="turn-number" class="pill"></span>
             </div>
+            <p id="layout-note" class="layout-note"></p>
             <div class="players">
               <div id="player0" class="player mike"></div>
               <div id="player1" class="player aimee"></div>
@@ -125,6 +127,10 @@
               <span><i class="dot mike-dot"></i> M · Mike</span
               ><span><i class="dot aimee-dot"></i> A · Aimee</span
               ><span>✿ flower beds</span>
+            </div>
+            <div class="fence-legend">
+              <span><i class="garden-fence"></i> Garden fence · fixed</span
+              ><span><i class="placed-fence"></i> Player fence · placed</span>
             </div>
           </section>
           <aside class="sidebar">
@@ -153,12 +159,20 @@
               </button>
               <p id="notice" role="status"></p>
             </section>
+            <section class="card rematch-card">
+              <p id="race-label" class="eyebrow"></p>
+              <h2>Another round?</h2>
+              <p id="rematch-status" aria-live="polite"></p>
+              <button id="new-race" class="quiet">Invite a new race</button>
+              <button id="accept-race" class="primary" hidden>Review &amp; accept</button>
+              <button id="decline-race" class="quiet" hidden>Keep this race</button>
+            </section>
             <section class="card field-notes">
               <p class="eyebrow">A GOOD PLAN HAS A WAY HOME</p>
               <p>
-                Fetch your matching ball at the far end, then return to your
-                starting square. A fence costs a turn. A sprint is gone once you
-                use it.
+                Fetch your matching ball, then find your way home. Crossing
+                players can pass through each other. Fences block both players,
+                so a clever shortcut block can also change your own return trip.
               </p>
               <button id="leave" class="quiet">Leave this device</button>
             </section>
@@ -176,7 +190,7 @@
       <h2>Fetch. Foil. Find your way home.</h2>
       <ol>
         <li>
-          <b>Take turns.</b> Mike goes first. Fetch your matching ball, then
+          <b>Take turns.</b> The starting player alternates each race. Fetch your matching ball, then
           bring it back to your home square. You can leave and return hours
           later.
         </li>
@@ -194,14 +208,19 @@
         </li>
         <li>
           <b>Share the lawn.</b> Players may pass through or share a square.
-          Flower beds cannot be crossed. Fences cannot be jumped. The two
-          starting fences are part of the garden.
+          Flower beds cannot be crossed. Fences cannot be jumped. The garden
+          fences, shown with green rails and square posts, are part of this
+          race’s layout and do not use either player’s fence supply.
         </li>
         <li>
-          <b>Equal chances.</b> If Mike gets home first, Aimee gets one final
+          <b>Equal chances.</b> If the starting player gets home first, the other player gets one final
           turn. If both finish in that pair of turns, it’s a tie. Otherwise the
           first home wins.
         </li>
+        <li><b>A fresh garden.</b> Three fair gardens rotate between races. The
+          fences and routes stay fixed during each race. Invite a new race, then
+          wait for your partner to accept. Declining or playing a move cancels
+          the invitation. Neither player can restart alone.</li>
       </ol>
       <p>
         Balls and houses are marked M for Mike and A for Aimee. The step numbers
@@ -213,6 +232,13 @@
         detour that costs your partner more, or save a sprint for the finish.
       </p>
     </dialog>
-    <script type="module" src="app.mjs"></script>
+    <dialog id="rematch-dialog">
+      <p class="eyebrow">A SHARED DECISION</p>
+      <h2 id="rematch-confirm-title"></h2>
+      <p id="rematch-confirm-copy"></p>
+      <button id="rematch-confirm" class="primary"></button>
+      <button id="rematch-back" class="quiet">Back to the garden</button>
+    </dialog>
+    <script type="module" src="app.mjs?v=2"></script>
   </body>
 </html>
