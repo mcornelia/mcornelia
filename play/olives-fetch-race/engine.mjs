@@ -11,7 +11,19 @@ const crossingBoard = (id, name, detours) => Object.freeze({
   id, name, homes: [43,47], balls: [5,1], rocks: [16,18,30,32],
   crossings: [10,24,38], fixedWalls: [...crossingWalls, ...detours].map(([a,b]) => edge(a,b)),
 });
-export const RACE_LAYOUTS = Object.freeze(["crossing-v2", "north-bend-v2", "south-bend-v2"]);
+export const V2_LAYOUTS = Object.freeze(["crossing-v2", "north-bend-v2", "south-bend-v2"]);
+export const RACE_LAYOUTS = Object.freeze([
+  "meadow-crossroads-v3", "north-crossroads-v3", "south-crossroads-v3",
+]);
+const mirror = n => Math.floor(n / 7) * 7 + 6 - n % 7;
+const crossroadsBoard = (id, name, leftWalls) => Object.freeze({
+  id, name, homes: [43, 47], balls: [5, 1],
+  // A visible flower-bed divider makes D4 the shared crossing on EVERY route.
+  rocks: [3, 10, 17, 31, 38, 45], crossings: [24], courtyard: [23, 24, 25],
+  protocol: 3,
+  fixedWalls: [...leftWalls, ...leftWalls.map(pair => pair.map(mirror))]
+    .map(([a, b]) => edge(a, b)),
+});
 export const LAYOUTS = Object.freeze({
   "classic-v1": Object.freeze({
     id: "classic-v1",
@@ -44,6 +56,15 @@ export const LAYOUTS = Object.freeze({
   }),
   "north-bend-v2": crossingBoard("north-bend-v2", "North Bend", [[8,15],[12,19],[21,28],[27,34]]),
   "south-bend-v2": crossingBoard("south-bend-v2", "South Bend", [[14,21],[20,27],[29,36],[33,40]]),
+  "meadow-crossroads-v3": crossroadsBoard("meadow-crossroads-v3", "Meadow Crossroads", [
+    [15,22], [8,9], [0,7], [36,37], [29,36], [21,22], [30,37],
+  ]),
+  "north-crossroads-v3": crossroadsBoard("north-crossroads-v3", "North Crossroads", [
+    [9,16], [28,35], [35,36], [8,15], [14,21], [2,9], [36,37],
+  ]),
+  "south-crossroads-v3": crossroadsBoard("south-crossroads-v3", "South Crossroads", [
+    [30,37], [7,14], [7,8], [29,36], [21,28], [37,44], [8,9],
+  ]),
 });
 export function boardFor(s) {
   const id = s.layout ?? "classic-v1";
@@ -208,18 +229,35 @@ export function applyMove(s, p, m) {
   return next;
 }
 
-// Server-selected rotation: every next race has a different, immutable garden.
+// Retain the published v2 export for cached clients playing their old races.
+// New clients use the stored invitation; v2 invitations require a refresh.
 export function nextLayout(s) {
-  return RACE_LAYOUTS[(RACE_LAYOUTS.indexOf(s.layout) + 1) % RACE_LAYOUTS.length];
+  return V2_LAYOUTS[(V2_LAYOUTS.indexOf(s.layout) + 1) % V2_LAYOUTS.length];
 }
-export function applyRematch(s, p, action, id) {
+
+// Shuffle a tested set on the server. The stored invitation and queue survive
+// retries/restarts; no garden is rerolled during a race. Every bag uses all three.
+export function gardenQueue(s, seed) {
+  if (s.gardenQueue?.length) return [...s.gardenQueue];
+  const queue = [...RACE_LAYOUTS];
+  let word = seed >>> 0;
+  for (let i = queue.length - 1; i > 0; i--) {
+    word = (Math.imul(word, 1664525) + 1013904223) >>> 0;
+    const j = word % (i + 1);
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+  }
+  if (queue[0] === s.layout) [queue[0], queue[1]] = [queue[1], queue[0]];
+  return queue;
+}
+export function applyRematch(s, p, action, id, randomWord = 0) {
   if (![0, 1].includes(p)) throw Error("Unknown player.");
   if (!action || !["request", "accept", "decline"].includes(action.type))
     throw Error("Choose request, accept, or decline.");
   const next = structuredClone(s);
   if (action.type === "request") {
     if (s.rematch) throw Error("A new-race invitation is already waiting.");
-    next.rematch = { id, by: p, layout: nextLayout(s) };
+    const queue = gardenQueue(s, randomWord);
+    next.rematch = { id, by: p, layout: queue[0], queue: queue.slice(1) };
   } else {
     if (!s.rematch || action.proposal !== s.rematch.id)
       throw Error("That invitation is no longer active.");
@@ -229,6 +267,7 @@ export function applyRematch(s, p, action, id) {
       const starter = 1 - (s.starter ?? 0);
       return {
         ...initialState(s.rematch.layout), race: (s.race ?? 0) + 1,
+        gardenQueue: s.rematch.queue ?? [],
         version: s.version + 1, ply: 0, starter, turn: starter,
         last: `Both agreed to a new race. ${NAMES[starter]} takes the first turn.`,
       };

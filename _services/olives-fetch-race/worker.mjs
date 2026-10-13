@@ -2,6 +2,7 @@ import {
   initialState,
   applyMove,
   applyRematch,
+  boardFor,
 } from "../../play/olives-fetch-race/engine.mjs";
 
 const json = (value, status = 200) =>
@@ -45,11 +46,11 @@ export default {
           },
         }),
       );
-    const path = new URL(request.url).pathname;
-    if (!["/state", "/move"].includes(path))
+    const url = new URL(request.url), path = url.pathname;
+    if (!["/state", "/move", "/archive"].includes(path))
       return cors(json({ error: "Not found." }, 404));
     if (
-      (path === "/state" && request.method !== "GET") ||
+      (["/state", "/archive"].includes(path) && request.method !== "GET") ||
       (path === "/move" && request.method !== "POST")
     )
       return cors(json({ error: "Method not allowed." }, 405));
@@ -105,7 +106,7 @@ export default {
       env.FETCH_ROOM.idFromName("olives-fetch-race-v1"),
     );
     const response = await room.fetch(
-      new Request(`https://room${path}`, {
+      new Request(`https://room${path}${url.search}`, {
         method: request.method,
         headers: { "X-Player": String(player), "X-Fetch-Protocol": request.headers.get("X-Fetch-Protocol") || "" },
         ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
@@ -140,11 +141,23 @@ export class FetchRaceRoom {
   }
   async fetch(request) {
     const protocol = request.headers.get("X-Fetch-Protocol");
+    const clientProtocol = ["2", "3"].includes(protocol) ? Number(protocol) : 0;
     const current = this.state();
     // A cached classic client must never render or mutate a new garden.
-    if (current.layout && protocol !== "2")
+    if (current.layout && clientProtocol < (boardFor(current).protocol ?? 2))
       return json({ error: "Refresh this page to open the new garden." }, 426);
-    if (request.method === "GET") return json({ state: current });
+    if (request.method === "GET") {
+      const url = new URL(request.url);
+      if (url.pathname === "/archive") {
+        if (protocol !== "3") return json({ error: "Refresh before opening an archive." }, 426);
+        const values = url.searchParams.getAll("race");
+        if (values.length !== 1 || !/^(0|[1-9][0-9]{0,8})$/.test(values[0]))
+          return json({ error: "A valid archived race number is required." }, 400);
+        const row = this.sql.exec("SELECT value FROM race_archive WHERE race=?", Number(values[0])).toArray()[0];
+        return row ? json({ archivedState: JSON.parse(row.value) }) : json({ error: "Archived race not found." }, 404);
+      }
+      return json({ state: current });
+    }
     const player = Number(request.headers.get("X-Player"));
     if (![0, 1].includes(player)) return json({ error: "Unauthorized." }, 401);
     let move;
@@ -161,7 +174,7 @@ export class FetchRaceRoom {
       !["move", "rematch"].includes(move.kind)
     )
       return json({ error: "Invalid move." }, 400);
-    if (move.kind === "rematch" && protocol !== "2")
+    if (move.kind === "rematch" && protocol !== "3")
       return json({ error: "Refresh before inviting a new race." }, 426);
     const payload = JSON.stringify(move.race === undefined
       ? [move.version, move.kind, move.action]
@@ -170,7 +183,7 @@ export class FetchRaceRoom {
     // No await occurs between reading a version and committing its successor.
     return this.ctx.storage.transactionSync(() => {
       const state = this.state();
-      if (state.layout && protocol !== "2")
+      if (state.layout && clientProtocol < (boardFor(state).protocol ?? 2))
         return json({ error: "Refresh this page to open the new garden." }, 426);
       const receipt = this.sql
         .exec("SELECT * FROM receipts WHERE id=?", move.id)
@@ -199,7 +212,7 @@ export class FetchRaceRoom {
       try {
         next = move.kind === "move"
           ? applyMove(state, player, move.action)
-          : applyRematch(state, player, move.action, move.id);
+          : applyRematch(state, player, move.action, move.id, crypto.getRandomValues(new Uint32Array(1))[0]);
       } catch (error) {
         return json({ error: error.message, state }, 422);
       }

@@ -102,7 +102,7 @@ export async function call(base, player = 0, move, extra = {}) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${keys[player]}`,
-      "X-Fetch-Protocol": "2",
+      "X-Fetch-Protocol": "3",
       ...(move ? { "Content-Type": "application/json" } : {}),
       ...(extra.headers || {}),
     },

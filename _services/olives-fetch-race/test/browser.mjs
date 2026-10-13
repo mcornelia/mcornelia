@@ -9,8 +9,10 @@ import {
   route,
   boardFor,
   initialState,
+  RACE_LAYOUTS,
 } from "../../../play/olives-fetch-race/engine.mjs";
-const crossing = process.env.TEST_LAYOUT === "crossing-v2";
+const layout = process.env.TEST_LAYOUT || "classic-v1";
+const crossing = layout !== "classic-v1";
 const out = join(root, process.env.TEST_OUTPUT || "test-results");
 await mkdir(out, { recursive: true });
 const web = await startWeb();
@@ -98,11 +100,11 @@ try {
   await Promise.all([login(m, 0), login(a, 1)]);
   assert.deepEqual(
     (await call(worker.base)).state,
-    initialState(crossing ? "crossing-v2" : "classic-v1"),
+    initialState(layout),
   );
   assert.match(
     await m.locator("#layout-label").textContent(),
-    crossing ? /Crossing Garden.*10/ : /Original Garden.*2/,
+    new RegExp(`${boardFor(initialState(layout)).name}.*${boardFor(initialState(layout)).fixedWalls.length}`),
   );
   assert.equal(await m.locator("#routes").count(), 0);
   assert.match(await m.locator("#player0").textContent(), /6 fences to place/);
@@ -187,7 +189,11 @@ try {
   await m.locator("#commit").click();
   await version(3);
   await turn(a, "Aimee");
-  await act(a, "step", crossing ? 33 : 40, 4);
+  const nextStep = async p => {
+    const s=(await call(worker.base)).state, b=boardFor(s), v=s.players[p];
+    return route(s,v.pos,v.ball?b.homes[p]:b.balls[p])[1];
+  };
+  await act(a, "step", await nextStep(1), 4);
   await turn(m, "Mike");
   // Server saves, response disappears. Reload replays the exact request once.
   let lose = true,
@@ -200,7 +206,7 @@ try {
     }
     await r.abort("connectionfailed");
   });
-  await act(m, "step", crossing ? 29 : 36, 5);
+  await act(m, "step", await nextStep(0), 5);
   await m.waitForFunction(() =>
     document.getElementById("notice").textContent.includes("kept safely"),
   );
@@ -325,7 +331,8 @@ try {
   assert.equal(rematched.race,1);
   assert.equal(rematched.starter,1);
   assert.equal(rematched.turn,1);
-  assert.equal(rematched.layout,crossing?"north-bend-v2":"crossing-v2");
+  assert.ok(RACE_LAYOUTS.includes(rematched.layout));
+  assert.notEqual(rematched.layout,completed.layout);
   await turn(a,"Aimee");
   await m.waitForFunction(()=>document.getElementById("race-label").textContent.startsWith("RACE 2"));
   assert.equal(await m.locator("#layout-label").textContent(),await a.locator("#layout-label").textContent());

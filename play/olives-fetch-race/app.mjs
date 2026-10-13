@@ -2,7 +2,6 @@ import { API_ORIGIN } from "./config.mjs";
 import {
   NAMES,
   boardFor,
-  nextLayout,
   LAYOUTS,
   cellName,
   edge,
@@ -10,7 +9,7 @@ import {
   validate,
   legalMoves,
   applyMove,
-} from "./engine.mjs?v=2";
+} from "./engine.mjs?v=3";
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
@@ -93,7 +92,7 @@ async function request(path, move) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${key}`,
-      "X-Fetch-Protocol": "2",
+      "X-Fetch-Protocol": "3",
       ...(move ? { "Content-Type": "application/json" } : {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
@@ -242,10 +241,10 @@ function reviewRematch(type) {
     id: crypto.randomUUID(), version: state.version, race: state.race ?? 0,
     kind: "rematch", action: { type, ...(state.rematch ? { proposal: state.rematch.id } : {}) },
   };
-  const name = LAYOUTS[state.rematch?.layout ?? nextLayout(state)].name;
+  const name = state.rematch ? LAYOUTS[state.rematch.layout].name : "a fresh crossroads garden";
   $("rematch-confirm-title").textContent = type === "request" ? "Invite a fresh race?" : type === "accept" ? "Start the next race together?" : "Keep this race?";
   $("rematch-confirm-copy").textContent = type === "request"
-    ? `Next garden: ${name}. ${NAMES[1 - (state.starter ?? 0)]} will go first. This race stays in place until your partner accepts. Playing a move cancels the invitation.`
+    ? `Invite a new race with a randomly chosen, tested crossroads garden and 14 starting fences. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts. Playing a move cancels the invitation.`
     : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences and sprints. The previous race is preserved in storage.`
     : "The invitation will close. This race and its turn stay as they are.";
   $("rematch-confirm").textContent = type === "request" ? "Send invitation" : type === "accept" ? "Accept & start race" : "Keep current race";
@@ -351,17 +350,19 @@ function render() {
   $("layout-label").textContent =
     `${board.name} · ${board.fixedWalls.length} garden fences`;
   $("layout-note").textContent =
-    board.id !== "classic-v1"
+    board.courtyard
+      ? "Both fetch routes must cross D4 in the shared courtyard. Find your own way in and out. Fourteen garden fences create detours; your six fences are extra."
+      : board.id !== "classic-v1"
       ? "Your ball is across the garden. Choose the north, middle, or south crossing. Garden fences are fixed; your six fences are extra."
       : "This race keeps its original garden. Garden fences are fixed; your six fences are extra.";
   const mine = state.turn === player && state.result === null,
     can = mine && !busy && !pending;
   $("turn-number").textContent = `TURN ${(state.ply ?? state.version) + 1}`;
   const invite = state.rematch;
-  $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · NEXT: ${LAYOUTS[nextLayout(state)].name.toUpperCase()}`;
+  $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · FRESH GARDENS AHEAD`;
   $("rematch-status").textContent = invite
     ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."} Playing a move cancels the invitation.`
-    : "A different garden next time. Both players agree before a fresh race starts.";
+    : "The next race gets a different, randomly chosen crossroads garden. Both players agree before it starts.";
   $("new-race").hidden = !!invite;
   $("accept-race").hidden = !invite || invite.by === player;
   $("decline-race").hidden = !invite;
@@ -431,6 +432,7 @@ function render() {
     b.className = "cell";
     b.dataset.cell = n;
     b.classList.toggle("rock", board.rocks.includes(n));
+    b.classList.toggle("courtyard", board.courtyard?.includes(n) ?? false);
     b.classList.toggle("legal", allowed.has(n));
     b.classList.toggle(
       "selected",
@@ -445,6 +447,10 @@ function render() {
       b.innerHTML += "✿";
       label += " flower bed";
     } else {
+      if (board.courtyard?.includes(n)) {
+        label += " shared courtyard";
+        if (n === 24) b.innerHTML += '<span class="crossroads-mark" aria-hidden="true">✦</span>';
+      }
       for (let p = 0; p < 2; p++) {
         if (n === board.homes[p]) {
           b.classList.add("has-goal");
