@@ -1,6 +1,6 @@
-# Varied Crossing Gardens — local review, not published
+# Varied Crossing Gardens — implementation and rollout review
 
-This revision is local on `codex/fetch-race-crossing-garden`. It has not been deployed or pushed. The live Fetch Race, its keys, and Operation: Tired Dogs are untouched. No message has been sent to Aimee.
+Mike approved publication of this tested revision on October 13, 2026, including compatible Worker deployment, versioned Pages publication, and repository push/merge. Publication must preserve the current Fetch Race. Neither a new-race invitation nor acceptance may be performed on either player’s behalf. Existing keys and Operation: Tired Dogs remain untouched; no Aimee message is authorized.
 
 ## Rules in a minute
 
@@ -52,7 +52,7 @@ After Mike approves publication:
 3. Merge the approved PR to publish the Pages client, then verify the live assets and that both player views still show the exact existing race state.
 4. Stop there. Mike may invite the new race when ready; Aimee must accept in the game. Do not automate an acceptance or reset on either person's behalf.
 
-Do not roll the Worker back to classic-only code after a new layout has begun; that older engine cannot interpret it. Use a forward fix or a compatible rollback build. No publication or race-transition action has occurred in this local review.
+Do not roll the Worker back to classic-only code after a new layout has begun; that older engine cannot interpret it. Use a forward fix or a compatible rollback build. The development and test runs used disposable local rooms. Deployment verification is reported separately; no live race-transition action is part of publication.
 
 ## Local review and tests
 

@@ -6,7 +6,7 @@ A competitive asynchronous garden strategy game for Mike and Aimee. Built in an 
 
 The existing Cloudflare dashboard confirmed **Free ($0), Current plan** immediately before deployment. The existing grant was sufficient: Account Read, Workers Scripts Write, and Background Access. No paid service, new account credential, permission expansion, DNS change, or billing change was made. The GitHub Pages route is `https://mcornelia.com/play/olives-fetch-race/`; merging this game’s approved PR publishes it.
 
-**Current local revision is not approved for publication.** The crossed routes, varied gardens, and mutual rematches are documented in [Crossing Garden review](crossing-garden-review.md). The publication approval above applies to the already-published original game, not these new changes.
+**Mike approved publication of the varied-garden revision on October 13, 2026.** The crossed routes, varied gardens, and mutual rematches are documented in [Crossing Garden review](crossing-garden-review.md). The separate approval covers Worker deployment, Pages publication, and repository push/merge, while preserving the current race. No new-race invitation or acceptance is authorized on either player’s behalf.
 
 ## Teach it in a minute
 
@@ -69,6 +69,6 @@ The server authenticates before accessing the room. It stores the current game, 
 
 ## Release procedure and authorization
 
-This revision requires separate publication approval. Follow the exact migration procedure in [Crossing Garden review](crossing-garden-review.md): deploy the compatible Worker first, publish the versioned Pages client, and verify that the current live race is unchanged. Use existing player credentials without reading them into logs or rotating them. Keep the production room and initializer as they are. Both players later choose when to start the next garden through the mutual invitation flow; deployment itself must not start or reset a race.
+This revision received separate publication approval. Follow the exact migration procedure in [Crossing Garden review](crossing-garden-review.md): deploy the compatible Worker first, publish the versioned Pages client, and verify that the current live race is unchanged. Use existing player credentials without reading them into logs or rotating them. Keep the production room and initializer as they are. Both players later choose when to start the next garden through the mutual invitation flow; deployment itself must not start or reset a race.
 
 Any PR must be draft until approved. No Aimee message is authorized. Never alter Operation: Tired Dogs, its credentials, Worker, state, or hosting as part of this game. Once a varied race starts, a classic-only Worker is not a safe rollback: preserve state and use a compatible build or forward fix.
