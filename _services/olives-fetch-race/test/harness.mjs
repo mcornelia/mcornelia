@@ -20,6 +20,7 @@ export async function startWorker({
   directory,
   origin = "http://127.0.0.1:4173",
   configured = true,
+  layout = process.env.TEST_LAYOUT || "classic-v1",
 } = {}) {
   // Never mistake an unrelated listener (or the review preview) for our Worker.
   const probe = createServer();
@@ -47,6 +48,8 @@ export async function startWorker({
     join(directory, "state"),
     "--var",
     `ALLOWED_ORIGIN:${origin}`,
+    "--var",
+    `INITIAL_LAYOUT:${layout}`,
     "--show-interactive-dev-session=false",
   ];
   if (configured)
@@ -99,11 +102,12 @@ export async function call(base, player = 0, move, extra = {}) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${keys[player]}`,
+      "X-Fetch-Protocol": "2",
       ...(move ? { "Content-Type": "application/json" } : {}),
       ...(extra.headers || {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
-    ...extra,
+    ...Object.fromEntries(Object.entries(extra).filter(([k]) => k !== "headers")),
   });
   return {
     status: response.status,

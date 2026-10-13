@@ -112,3 +112,149 @@ test("separate Worker, class, binding, room, secrets and browser storage", async
   assert.match(a, /olives-fetch-race:v1:/);
   assert.ok(![w, c, a].some((s) => s.includes("tired-dogs")));
 });
+
+// Startup configuration must never replace persisted room state.
+test("changing the empty-room initializer leaves an existing classic race and receipts intact", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "fetch-layout-upgrade-"));
+  let server = await startWorker({
+    port: 8892,
+    directory: dir,
+    layout: "classic-v1",
+  });
+  try {
+    const first = move(0);
+    const saved = await call(server.base, 0, first);
+    assert.equal(saved.status, 200);
+    const before = saved.state;
+    await server.stop();
+    server = await startWorker({
+      port: 8892,
+      directory: dir,
+      layout: "crossing-v2",
+    });
+    assert.deepEqual((await call(server.base)).state, before);
+    assert.equal(Object.hasOwn(before, "layout"), false);
+    assert.equal((await call(server.base, 0, first)).alreadyApplied, true);
+    const next = await call(server.base, 1, move(1, { type: "step", to: 39 }));
+    assert.equal(next.status, 200);
+    assert.equal(next.state.version, 2);
+    assert.equal(Object.hasOwn(next.state, "layout"), false);
+  } finally {
+    await server.stop();
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+test("a new crossing room persists its own layout across restart and alternate-client moves", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "fetch-crossing-persist-"));
+  let server = await startWorker({
+    port: 8893,
+    directory: dir,
+    layout: "crossing-v2",
+  });
+  try {
+    const first = move(0, { type: "step", to: 36 });
+    const results = await Promise.all([
+      call(server.base, 0, first),
+      call(server.base, 0, first),
+    ]);
+    assert.equal(results.filter((r) => !r.alreadyApplied).length, 1);
+    const before = (await call(server.base)).state;
+    assert.equal(before.layout, "crossing-v2");
+    await server.stop();
+    server = await startWorker({
+      port: 8893,
+      directory: dir,
+      layout: "classic-v1",
+    });
+    assert.deepEqual((await call(server.base)).state, before);
+    const next = await call(server.base, 1, move(1, { type: "step", to: 40 }));
+    assert.equal(next.status, 200);
+    assert.equal(next.state.layout, "crossing-v2");
+    assert.deepEqual(
+      (await call(server.base, 0)).state,
+      (await call(server.base, 1)).state,
+    );
+  } finally {
+    await server.stop();
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("mutual rematches: stale/duplicate requests, archives, monotonic versions, restart and old-client safety", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "fetch-rematches-"));
+  let server = await startWorker({port:8894,directory:dir,layout:"classic-v1"});
+  const command = (s,type,proposal) => ({id:crypto.randomUUID(),kind:"rematch",version:s.version,race:s.race??0,action:{type,...(proposal?{proposal}:{})}});
+  const archived = [];
+  try {
+    assert.equal((await call(server.base,0,null,{headers:{"X-Fetch-Protocol":""}})).status,200);
+    const oldMove = move(0);
+    assert.equal((await call(server.base,0,oldMove)).status,200);
+    let s=(await call(server.base)).state;
+    const invite=command(s,"request");
+    assert.equal((await call(server.base,0,invite,{headers:{"X-Fetch-Protocol":""}})).status,426);
+    const duplicates=await Promise.all(Array.from({length:12},()=>call(server.base,0,invite)));
+    assert.equal(duplicates.filter(r=>!r.alreadyApplied).length,1);
+    assert.ok(duplicates.every(r=>r.status===200));
+    s=duplicates[0].state;
+    assert.equal((await call(server.base,0,command(s,"accept",s.rematch.id))).status,422);
+    assert.deepEqual(s.players,(await call(server.base)).state.players);
+    const obsoleteAccept=command(s,"accept",s.rematch.id);
+    s=(await call(server.base,1,move(s.version,{type:"step",to:39}))).state;
+    assert.equal(s.rematch,undefined);
+    assert.equal((await call(server.base,1,obsoleteAccept)).status,409);
+    assert.equal((await call(server.base,1,command(s,"accept",invite.id))).status,422);
+    const competing=await Promise.all([call(server.base,0,command(s,"request")),call(server.base,1,command(s,"request"))]);
+    assert.deepEqual(competing.map(r=>r.status).sort(),[200,409]);
+    s=(await call(server.base)).state;
+    const decliner=1-s.rematch.by;
+    const decline=command(s,"decline",s.rematch.id);
+    s=(await call(server.base,decliner,decline)).state;
+    assert.equal(s.rematch,undefined);
+    assert.equal((await call(server.base,decliner,decline)).alreadyApplied,true);
+    const layouts=[];
+    let retryAccept;
+    for(let i=0;i<7;i++) {
+      const previous=s;
+      s=(await call(server.base,0,command(s,"request"))).state;
+      assert.deepEqual(s.players,previous.players);
+      archived.push(s);
+      const accept=command(s,"accept",s.rematch.id);
+      const accepted=await Promise.all(Array.from({length:8},()=>call(server.base,1,accept)));
+      assert.equal(accepted.filter(r=>!r.alreadyApplied).length,1);
+      assert.ok(accepted.every(r=>r.status===200));
+      s=accepted[0].state;
+      assert.equal(s.race,i+1);
+      assert.equal(s.starter,(i+1)%2);
+      assert.equal(s.version,previous.version+2);
+      assert.equal(s.ply,0);
+      assert.deepEqual((await call(server.base,0)).state,(await call(server.base,1)).state);
+      assert.equal((await call(server.base,0,oldMove)).alreadyApplied,true);
+      assert.equal((await call(server.base,s.turn,{...move(s.version),race:0})).status,409);
+      assert.equal((await call(server.base,1,{...accept,id:crypto.randomUUID()})).status,409);
+      assert.equal((await call(server.base,0,null,{headers:{"X-Fetch-Protocol":""}})).status,426);
+      assert.equal((await call(server.base,s.turn,move(s.version),{headers:{"X-Fetch-Protocol":""}})).status,426);
+      layouts.push(s.layout);
+      retryAccept=accept;
+    }
+    assert.deepEqual(layouts,["crossing-v2","north-bend-v2","south-bend-v2","crossing-v2","north-bend-v2","south-bend-v2","crossing-v2"]);
+    await server.stop();
+    server=await startWorker({port:8894,directory:dir,layout:"classic-v1"});
+    assert.deepEqual((await call(server.base)).state,s);
+    assert.equal((await call(server.base,1,retryAccept)).alreadyApplied,true);
+    await server.stop();
+    const {readdir}=await import("node:fs/promises");
+    const {DatabaseSync}=await import("node:sqlite");
+    const files=await readdir(join(dir,"state"),{recursive:true});
+    let snapshots;
+    for(const f of files.filter(f=>f.endsWith(".sqlite"))) {
+      const db=new DatabaseSync(join(dir,"state",f),{readOnly:true});
+      try { snapshots=db.prepare("SELECT value FROM race_archive ORDER BY race").all().map(r=>JSON.parse(r.value)); }
+      catch {} finally {db.close();}
+      if(snapshots) break;
+    }
+    assert.deepEqual(snapshots,archived);
+  } finally {
+    await server.stop();
+    await rm(dir,{recursive:true,force:true});
+  }
+});

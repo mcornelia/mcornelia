@@ -7,10 +7,10 @@ import { startWorker, root, keys, call, move } from "./harness.mjs";
 import { startWeb } from "./server.mjs";
 import {
   route,
-  HOMES,
-  BALLS,
-  legalMoves,
+  boardFor,
+  initialState,
 } from "../../../play/olives-fetch-race/engine.mjs";
+const crossing = process.env.TEST_LAYOUT === "crossing-v2";
 const out = join(root, process.env.TEST_OUTPUT || "test-results");
 await mkdir(out, { recursive: true });
 const web = await startWeb();
@@ -96,6 +96,28 @@ try {
     await version(v);
   }
   await Promise.all([login(m, 0), login(a, 1)]);
+  assert.deepEqual(
+    (await call(worker.base)).state,
+    initialState(crossing ? "crossing-v2" : "classic-v1"),
+  );
+  assert.match(
+    await m.locator("#layout-label").textContent(),
+    crossing ? /Crossing Garden.*10/ : /Original Garden.*2/,
+  );
+  assert.equal(await m.locator("#routes").count(), 0);
+  assert.match(await m.locator("#player0").textContent(), /6 fences to place/);
+  assert.match(
+    await m
+      .locator(`[data-cell="${crossing ? 5 : 2}"]`)
+      .getAttribute("aria-label"),
+    /Mike’s ball/,
+  );
+  assert.match(
+    await a
+      .locator(`[data-cell="${crossing ? 1 : 4}"]`)
+      .getAttribute("aria-label"),
+    /Aimee’s ball/,
+  );
   assert.equal(await a.locator("#commit").isDisabled(), true);
   assert.equal(
     (await call(worker.base, 1, move(0, { type: "step", to: 39 }))).status,
@@ -119,7 +141,7 @@ try {
   });
   await m.evaluate(() => document.dispatchEvent(new Event("visibilitychange")));
   await pollStarted;
-  await m.locator('[data-cell="37"]').click();
+  await m.locator(`[data-cell="${crossing ? 36 : 37}"]`).click();
   assert.match(await m.locator("#preview").textContent(), /Mike/);
   let requests = 0;
   m.on("request", (r) => {
@@ -140,7 +162,7 @@ try {
   assert.match(await m.locator("#turn-title").textContent(), /Aimee/);
   assert.ok(await m.evaluate(() => audioProbe.starts > 0));
   await turn(a, "Aimee");
-  await act(a, "step", 39, 2);
+  await act(a, "step", crossing ? 40 : 39, 2);
   await turn(m, "Mike");
   // Fence preview is a real choice, with no server mutation until confirmed.
   await m.locator('[data-mode="fence"]').click();
@@ -165,7 +187,7 @@ try {
   await m.locator("#commit").click();
   await version(3);
   await turn(a, "Aimee");
-  await act(a, "step", 40, 4);
+  await act(a, "step", crossing ? 33 : 40, 4);
   await turn(m, "Mike");
   // Server saves, response disappears. Reload replays the exact request once.
   let lose = true,
@@ -178,7 +200,7 @@ try {
     }
     await r.abort("connectionfailed");
   });
-  await act(m, "step", 36, 5);
+  await act(m, "step", crossing ? 29 : 36, 5);
   await m.waitForFunction(() =>
     document.getElementById("notice").textContent.includes("kept safely"),
   );
@@ -250,7 +272,11 @@ try {
   for (let i = 0; i < 100 && s.result === null; i++) {
     const p = s.turn,
       v = s.players[p],
-      path = route(s, v.pos, v.ball ? HOMES[p] : BALLS[p]);
+      path = route(
+        s,
+        v.pos,
+        v.ball ? boardFor(s).homes[p] : boardFor(s).balls[p],
+      );
     const r = await call(
       worker.base,
       p,
@@ -273,6 +299,72 @@ try {
   assert.equal((await call(worker.base, s.turn, move(s.version))).status, 422);
   await m.setViewportSize({ width: 390, height: 844 });
   await m.screenshot({ path: join(out, "mobile-finish.png"), fullPage: true });
+  // Both phones must agree; lost acceptance responses retry the same operation.
+  const completed = (await call(worker.base)).state;
+  await m.locator("#new-race").click();
+  await m.locator("#rematch-confirm").evaluate(b => {b.click();b.click();});
+  await version(completed.version + 1);
+  assert.deepEqual((await call(worker.base)).state.players, completed.players);
+  await a.locator("#accept-race").waitFor({state:"visible"});
+  assert.equal(await m.locator("#accept-race").isVisible(),false);
+  await a.screenshot({path:join(out,"mobile-rematch-invitation.png"),fullPage:true});
+  let rematchApplied = false;
+  await a.route("**/move",async r => {
+    if (!rematchApplied) {await r.fetch();rematchApplied=true;}
+    await r.abort("connectionfailed");
+  });
+  await a.locator("#accept-race").click();
+  await a.locator("#rematch-confirm").evaluate(b => {b.click();b.click();});
+  await version(completed.version + 2);
+  await a.waitForFunction(()=>document.getElementById("notice").textContent.includes("kept safely"));
+  await a.unroute("**/move");
+  await a.reload();
+  await a.waitForFunction(()=>document.getElementById("game").hidden===false && !localStorage.getItem("olives-fetch-race:v1:pending"));
+  let rematched=(await call(worker.base)).state;
+  assert.equal(rematched.version,completed.version+2);
+  assert.equal(rematched.race,1);
+  assert.equal(rematched.starter,1);
+  assert.equal(rematched.turn,1);
+  assert.equal(rematched.layout,crossing?"north-bend-v2":"crossing-v2");
+  await turn(a,"Aimee");
+  await m.waitForFunction(()=>document.getElementById("race-label").textContent.startsWith("RACE 2"));
+  assert.equal(await m.locator("#layout-label").textContent(),await a.locator("#layout-label").textContent());
+  await a.setViewportSize({width:390,height:844});
+  await a.screenshot({path:join(out,"mobile-next-garden.png"),fullPage:true});
+  // Declining an active-race invitation preserves pieces and the garden.
+  await m.locator("#new-race").click();
+  await m.locator("#rematch-confirm").click();
+  await version(rematched.version+1);
+  await a.locator("#decline-race").waitFor({state:"visible"});
+  await a.locator("#decline-race").click();
+  await a.locator("#rematch-confirm").click();
+  await version(rematched.version+2);
+  assert.deepEqual((await call(worker.base)).state.players,rematched.players);
+  await contexts[0].setOffline(true);
+  await m.waitForFunction(()=>document.getElementById("connection").textContent.includes("OFFLINE"));
+  assert.equal(await m.locator("#new-race").isDisabled(),true);
+  await contexts[0].setOffline(false);
+  await m.reload();
+  await m.locator("#game").waitFor({state:"visible"});
+  assert.equal((await call(worker.base)).state.layout,rematched.layout);
+  const seen=new Set([rematched.layout]);
+  for(let n=0;n<2;n++) {
+    const before=(await call(worker.base)).state;
+    await m.locator("#new-race").click();
+    await m.locator("#rematch-confirm").click();
+    await version(before.version+1);
+    await a.locator("#accept-race").waitFor({state:"visible"});
+    await a.locator("#accept-race").click();
+    await a.locator("#rematch-confirm").click();
+    await version(before.version+2);
+    rematched=(await call(worker.base)).state;
+    seen.add(rematched.layout);
+    await m.waitForFunction(r=>document.getElementById("race-label").textContent.startsWith(`RACE ${r+1} `),rematched.race);
+    await a.reload();
+    await a.locator("#game").waitFor({state:"visible"});
+    assert.equal(await m.locator("#layout-label").textContent(),await a.locator("#layout-label").textContent());
+  }
+  assert.equal(seen.size,3);
   const outsider = await browser.newPage({
     viewport: { width: 320, height: 700 },
   });
@@ -289,7 +381,7 @@ try {
   console.log(
     "PASS " +
       (process.env.TEST_BROWSER || "chromium") +
-      ": independent phones, shared turns, preview, double click, lost response + reload retry, offline reconnect, finish, 320/390px, default gesture audio, remembered mute, reduced motion, key/state isolation, fail-closed, no page errors.",
+      ": independent phones, shared turns, preview, double click, lost response + reload retry, offline reconnect, finish, three varied rematches, mutual acceptance/decline, rematch lost-response/reload retry, 320/390px, default gesture audio, remembered mute, reduced motion, key/state isolation, fail-closed, no page errors.",
   );
   console.log("Screenshots: " + out);
 } finally {

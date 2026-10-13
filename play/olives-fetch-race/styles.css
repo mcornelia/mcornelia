@@ -706,3 +706,50 @@ dialog ol {
     transition: none !important;
   }
 }
+
+.layout-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.fence-legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 9px;
+}
+.fence-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.fence-legend i {
+  display: inline-block;
+  width: 24px;
+  height: 5px;
+  background: #9b6040;
+}
+.fence-legend .garden-fence {
+  background: #476b5b;
+  border-left: 4px solid #234c3e;
+  border-right: 4px solid #234c3e;
+  height: 9px;
+}
+
+.rematch-card {
+  padding: 22px 24px;
+}
+.rematch-card h2 {
+  font-size: 23px;
+}
+.rematch-card > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.rematch-card button, #rematch-dialog button {
+  margin: 6px 6px 0 0;
+}

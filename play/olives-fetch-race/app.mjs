@@ -1,16 +1,16 @@
 import { API_ORIGIN } from "./config.mjs";
 import {
   NAMES,
-  HOMES,
-  BALLS,
-  ROCKS,
+  boardFor,
+  nextLayout,
+  LAYOUTS,
   cellName,
   edge,
   distance,
   validate,
   legalMoves,
   applyMove,
-} from "./engine.mjs";
+} from "./engine.mjs?v=2";
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
@@ -93,6 +93,7 @@ async function request(path, move) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${key}`,
+      "X-Fetch-Protocol": "2",
       ...(move ? { "Content-Type": "application/json" } : {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
@@ -132,17 +133,20 @@ async function send() {
     if (response.ok) {
       if (!data.alreadyApplied)
         sound.play(
-          state.result !== null
+          pending.kind === "rematch"
+            ? "care"
+            : state.result !== null
             ? "win"
             : pending.action.type === "fence"
               ? "couch"
               : "fetch",
         );
+      const wasRematch = pending.kind === "rematch";
       pending = null;
       save("pending", null);
       selected = null;
       anchor = null;
-      notice = "Move saved. Your partner can play whenever they’re ready.";
+      notice = wasRematch ? "New-race choice saved." : "Move saved. Your partner can play whenever they’re ready.";
     } else if ([400, 409, 422].includes(response.status)) {
       pending = null;
       save("pending", null);
@@ -155,7 +159,7 @@ async function send() {
   } catch {
     online = false;
     notice =
-      "Connection interrupted. Your exact move is kept safely on this device. Reconnect to retry.";
+      "Connection interrupted. Your exact choice is kept safely on this device. Reconnect to retry.";
   } finally {
     busy = false;
     render();
@@ -217,16 +221,46 @@ $("commit").onclick = async () => {
     id: crypto.randomUUID(),
     version: state.version,
     kind: "move",
+    race: state.race ?? 0,
     action: selected,
   };
+  await persistAndSend();
+};
+async function persistAndSend() {
   if (!save("pending", JSON.stringify(pending))) {
     pending = null;
-    notice =
-      "Device storage is unavailable. Enable storage before making a move so retries stay safe.";
+    notice = "Device storage is unavailable. Enable storage before saving a choice so retries stay safe.";
     render();
     return;
   }
   await send();
+}
+let rematchIntent = null;
+function reviewRematch(type) {
+  if (!state || busy || pending || !online) return;
+  rematchIntent = {
+    id: crypto.randomUUID(), version: state.version, race: state.race ?? 0,
+    kind: "rematch", action: { type, ...(state.rematch ? { proposal: state.rematch.id } : {}) },
+  };
+  const name = LAYOUTS[state.rematch?.layout ?? nextLayout(state)].name;
+  $("rematch-confirm-title").textContent = type === "request" ? "Invite a fresh race?" : type === "accept" ? "Start the next race together?" : "Keep this race?";
+  $("rematch-confirm-copy").textContent = type === "request"
+    ? `Next garden: ${name}. ${NAMES[1 - (state.starter ?? 0)]} will go first. This race stays in place until your partner accepts. Playing a move cancels the invitation.`
+    : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences and sprints. The previous race is preserved in storage.`
+    : "The invitation will close. This race and its turn stay as they are.";
+  $("rematch-confirm").textContent = type === "request" ? "Send invitation" : type === "accept" ? "Accept & start race" : "Keep current race";
+  $("rematch-dialog").showModal();
+}
+$("new-race").onclick = () => reviewRematch("request");
+$("accept-race").onclick = () => reviewRematch("accept");
+$("decline-race").onclick = () => reviewRematch("decline");
+$("rematch-back").onclick = () => $("rematch-dialog").close();
+$("rematch-confirm").onclick = async () => {
+  if (busy || pending || !online || !rematchIntent) return;
+  pending = rematchIntent;
+  rematchIntent = null;
+  $("rematch-dialog").close();
+  await persistAndSend();
 };
 function tap(n) {
   if (
@@ -313,13 +347,30 @@ function render() {
     $("join").disabled = true;
   } else if (!state && notice) $("setup").textContent = notice;
   if (!state) return;
+  const board = boardFor(state);
+  $("layout-label").textContent =
+    `${board.name} · ${board.fixedWalls.length} garden fences`;
+  $("layout-note").textContent =
+    board.id !== "classic-v1"
+      ? "Your ball is across the garden. Choose the north, middle, or south crossing. Garden fences are fixed; your six fences are extra."
+      : "This race keeps its original garden. Garden fences are fixed; your six fences are extra.";
   const mine = state.turn === player && state.result === null,
     can = mine && !busy && !pending;
-  $("turn-number").textContent = `TURN ${state.version + 1}`;
+  $("turn-number").textContent = `TURN ${(state.ply ?? state.version) + 1}`;
+  const invite = state.rematch;
+  $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · NEXT: ${LAYOUTS[nextLayout(state)].name.toUpperCase()}`;
+  $("rematch-status").textContent = invite
+    ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."} Playing a move cancels the invitation.`
+    : "A different garden next time. Both players agree before a fresh race starts.";
+  $("new-race").hidden = !!invite;
+  $("accept-race").hidden = !invite || invite.by === player;
+  $("decline-race").hidden = !invite;
+  $("decline-race").textContent = invite?.by === player ? "Withdraw invitation" : "Keep this race";
+  for (const id of ["new-race", "accept-race", "decline-race"]) $(id).disabled = busy || !!pending || !online;
   $("connection").textContent = busy
-    ? "SAVING YOUR MOVE…"
+    ? "SAVING…"
     : pending
-      ? "MOVE WAITING TO RECONNECT"
+      ? "CHOICE WAITING TO RECONNECT"
       : online
         ? "SHARED GARDEN · SAVED"
         : "OFFLINE · RECONNECT TO PLAY";
@@ -334,7 +385,7 @@ function render() {
   $("last").textContent =
     state.last +
     (state.finalLap && state.result === null
-      ? " Aimee has one final turn to tie."
+      ? ` ${NAMES[1 - (state.starter ?? 0)]} has one final turn to tie.`
       : "");
   for (let p = 0; p < 2; p++) {
     const a = state.players[p];
@@ -343,7 +394,7 @@ function render() {
       state.turn === p && state.result === null,
     );
     $("player" + p).innerHTML =
-      `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${a.finished ? "Home with the ball" : a.ball ? "Bring it home" : "Fetch your ball"}<br>${a.fences} fences · ${a.sprints} sprints · ${distance(state, p)} steps`;
+      `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${a.finished ? "Home with the ball" : a.ball ? "Bring it home" : "Fetch your ball"}<br>${a.fences} fences to place · ${a.sprints} sprints · ${distance(state, p)} steps`;
   }
   for (const b of document.querySelectorAll("[data-mode]")) {
     b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
@@ -353,7 +404,7 @@ function render() {
       (b.dataset.mode === "fence" && !state.players[player].fences);
   }
   $("hint").textContent = pending
-    ? "Your saved move is locked until the server confirms it."
+    ? "Your saved choice is locked until the server confirms it."
     : !mine
       ? "You can study the board while your partner plans."
       : mode === "fence"
@@ -379,7 +430,7 @@ function render() {
     b.type = "button";
     b.className = "cell";
     b.dataset.cell = n;
-    b.classList.toggle("rock", ROCKS.includes(n));
+    b.classList.toggle("rock", board.rocks.includes(n));
     b.classList.toggle("legal", allowed.has(n));
     b.classList.toggle(
       "selected",
@@ -390,17 +441,17 @@ function render() {
     );
     let label = cellName(n);
     b.innerHTML = `<span class="coord">${label}</span>`;
-    if (ROCKS.includes(n)) {
+    if (board.rocks.includes(n)) {
       b.innerHTML += "✿";
       label += " flower bed";
     } else {
       for (let p = 0; p < 2; p++) {
-        if (n === HOMES[p]) {
+        if (n === board.homes[p]) {
           b.classList.add("has-goal");
           b.innerHTML += `<span class="goal goal-home p${p}" aria-hidden="true">${houseArt(p)}<span class="goal-owner">${NAMES[p]}</span></span>`;
           label += ` ${NAMES[p]}’s home`;
         }
-        if (n === BALLS[p] && !state.players[p].ball) {
+        if (n === board.balls[p] && !state.players[p].ball) {
           b.classList.add("has-goal");
           b.innerHTML += `<span class="goal goal-ball p${p}" aria-hidden="true">${ballArt(p)}</span>`;
           label += ` ${NAMES[p]}’s ball`;
@@ -413,7 +464,7 @@ function render() {
     }
     if (allowed.has(n)) label += " legal preview";
     b.setAttribute("aria-label", label);
-    b.disabled = ROCKS.includes(n) || !can;
+    b.disabled = board.rocks.includes(n) || !can;
     b.onclick = () => tap(n);
     $("board").append(b);
   }
@@ -427,10 +478,21 @@ function render() {
       x = (((a % 7) + (b % 7)) / 2) * 100 + 50,
       y = ((Math.floor(a / 7) + Math.floor(b / 7)) / 2) * 100 + 50;
     const vertical = b - a === 1,
-      preview = !state.walls.includes(w);
+      preview = !state.walls.includes(w),
+      fixed = board.fixedWalls.includes(w);
     lines.push(
-      `<line x1="${x - (vertical ? 0 : 37)}" y1="${y - (vertical ? 37 : 0)}" x2="${x + (vertical ? 0 : 37)}" y2="${y + (vertical ? 37 : 0)}" stroke="${preview ? "#bb6b39" : "#6c5140"}" stroke-width="9" stroke-linecap="round" ${preview ? 'stroke-dasharray="12 7"' : ""}/>`,
+      `<line x1="${x - (vertical ? 0 : 37)}" y1="${y - (vertical ? 37 : 0)}" x2="${x + (vertical ? 0 : 37)}" y2="${y + (vertical ? 37 : 0)}" stroke="${preview ? "#bb6b39" : fixed ? "#476b5b" : "#9b6040"}" stroke-width="9" stroke-linecap="round" ${preview ? 'stroke-dasharray="12 7"' : ""}/>`,
     );
+    if (fixed) {
+      // Fixed garden fences have capped posts; placed fences are a single brown rail.
+      for (const end of [-37, 37]) {
+        const px = x + (vertical ? 0 : end),
+          py = y + (vertical ? end : 0);
+        lines.push(
+          `<rect x="${px - 6}" y="${py - 6}" width="12" height="12" rx="2" fill="#234c3e" />`,
+        );
+      }
+    }
   }
   $("walls").innerHTML = lines.join("");
   $("preview").textContent =
