@@ -4,28 +4,28 @@ A two-person cooperative evening for Mike and Aimee. Alternate small acts of car
 
 ## Release status
 
-**Implemented and locally verified; not hosted yet.** The checked-in frontend fails closed with a setup message until `play/tired-dogs/config.mjs` has a verified backend origin. No production player keys exist as part of this change.
+**Backend deployed and private access verified on October 13, 2026.** The frontend is configured for the production backend below. Two separate player keys have been provisioned; only their hashes are stored by the Worker. Raw keys are delivered locally outside the repository, never in URLs or chat.
 
 - Target repository: `https://github.com/mcornelia/mcornelia`
 - Isolated branch: `codex/operation-tired-dogs`
-- Proposed frontend: `https://mcornelia.com/play/tired-dogs/`
+- Frontend: `https://mcornelia.com/play/tired-dogs/`
 - Existing Pages deployment: `main`, repository root. Merging publishes the static frontend.
-- Proposed backend: a Cloudflare Worker and one SQLite-backed Durable Object, deployed independently of the Mac.
+- Backend: `https://operation-tired-dogs.mike-cornelia.workers.dev`, a Cloudflare Worker and one SQLite-backed Durable Object, deployed independently of the Mac.
 - Existing Daily Fetch, the play shelf, LAN games, cards, and their saves are unchanged.
 
-The relevant checkouts and deployment metadata had no reusable internet backend. Daily Fetch stores progress in each browser. The household Ravenwood Games runtime is LAN-only. No existing Sites project was available in the selected account. No Cloudflare account authorization was established.
+The relevant checkouts and deployment metadata had no reusable internet backend. Daily Fetch stores progress in each browser. The household Ravenwood Games runtime is LAN-only. The existing unrelated Cloudflare Worker is unchanged.
 
-## Approval still needed
+## Hosting and authorization
 
-Approve the Cloudflare account/setup to host this small backend, and creation of two separate private player keys with a secure way for the two players to receive/store them. If account signup, agreement, paid plan, or billing is necessary, stop for that approval. Do not treat this document as approval to create accounts or credentials.
+The owner approved free Cloudflare hosting, two private player keys, and publication at the exact frontend route above. The separate deployment grant was approved at action time with only Account Read, Workers Scripts Write, and Background Access. Wrangler uses encrypted credential storage backed by macOS Keychain. No DNS or billing-write permission was granted. The deployment grant can be revoked in Cloudflare's Connected Applications after setup; doing so does not stop the hosted game.
 
-Cloudflare's [Durable Objects pricing](https://developers.cloudflare.com/durable-objects/platform/pricing/) documents SQLite Durable Objects on the Workers Free plan. Confirm the actual account's plan and limits at deployment; do not enable paid billing automatically. A quota outage pauses play, and must not fall back to public or browser-local state.
+Cloudflare's [Durable Objects pricing](https://developers.cloudflare.com/durable-objects/platform/pricing/) documents SQLite Durable Objects on the Workers Free plan. The account's actual Workers plan was verified as Free ($0) before deployment. No paid plan was enabled. A quota outage pauses play, and must not fall back to public or browser-local state. Limits are shared with other applications in the account.
 
-Before changing the live Pages site, confirm this exact route and the backend/access setup. Keep the PR in draft until backend deployment and real internet verification are complete. Do not merge unrelated work.
+Only this game's PR is authorized for publication; do not merge unrelated work or broaden access during maintenance.
 
 ## Access model
 
-The static artwork and JavaScript would be publicly retrievable through GitHub Pages, as is this repository. **Shared room state and all mutations require a private player key.** Each 32-byte cryptographically random key is encoded as exactly 43 base64url characters and maps to one player at the server. There is one room, no public room creation and no player selector that can impersonate the other player.
+The static artwork and JavaScript are publicly retrievable through GitHub Pages, as is this repository. **Shared room state and all mutations require a private player key.** Each 32-byte cryptographically random key is encoded as exactly 43 base64url characters and maps to one player at the server. There is one room, no public room creation and no player selector that can impersonate the other player.
 
 This is possession-based private access, not verified account identity: anyone deliberately given a player's key can act as that player. Keys should be kept in the players' password manager. Do not put keys in URLs, source, PRs, logs, screenshots, analytics, or chat. Never send them through third-party messaging without explicit authorization. Rotate the corresponding server secret to revoke a lost key; rotation preserves the room.
 
