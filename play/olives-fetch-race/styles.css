@@ -756,3 +756,11 @@ dialog ol {
 
 .cell.courtyard { background: #e8dfb9; border-color: #c9bd87; }
 .crossroads-mark { position: absolute; color: #9a8951; font-size: 25px; opacity: .5; }
+
+/* Visible credentials stay readable on narrow phones without widening the dialog. */
+#access-dialog { max-width: 34rem; }
+#access-form { display: grid; gap: .65rem; }
+#access-form input { width: 100%; min-width: 0; box-sizing: border-box; font: inherit; font-size: 16px; padding: .75rem; border: 1px solid #c1cdb5; border-radius: .6rem; }
+#access-status { min-height: 3em; }
+.join label.fine { display: flex; align-items: center; gap: .5rem; margin: .75rem 0; min-height: 32px; }
+.join .fine input[type=checkbox] { width: 16px; height: 16px; min-height: 0; flex: none; margin: 0; padding: 0; }

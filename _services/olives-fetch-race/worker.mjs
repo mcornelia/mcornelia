@@ -5,6 +5,8 @@ import {
   boardFor,
 } from "../../play/olives-fetch-race/engine.mjs";
 
+import {AccessAuth} from "./access-auth.mjs";
+
 const json = (value, status = 200) =>
   Response.json(value, {
     status,
@@ -47,11 +49,11 @@ export default {
         }),
       );
     const url = new URL(request.url), path = url.pathname;
-    if (!["/state", "/move", "/archive"].includes(path))
+    if (!["/state", "/move", "/archive", "/access"].includes(path))
       return cors(json({ error: "Not found." }, 404));
     if (
       (["/state", "/archive"].includes(path) && request.method !== "GET") ||
-      (path === "/move" && request.method !== "POST")
+      (["/move", "/access"].includes(path) && request.method !== "POST")
     )
       return cors(json({ error: "Method not allowed." }, 405));
     // Fail closed until BOTH distinct keys are provisioned. No public room creation.
@@ -64,20 +66,8 @@ export default {
       return cors(
         json({ error: "The private room is not configured yet." }, 503),
       );
-    const token = request.headers
-      .get("Authorization")
-      ?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
-    const hash = token ? await tokenHash(token) : "";
-    const player =
-      hash === env.FETCH_MIKE_KEY_HASH
-        ? 0
-        : hash === env.FETCH_AIMEE_KEY_HASH
-          ? 1
-          : -1;
-    if (player < 0)
-      return cors(json({ error: "Your private player key is needed." }, 401));
     let body;
-    if (path === "/move") {
+    if (["/move", "/access"].includes(path)) {
       if (!request.headers.get("Content-Type")?.startsWith("application/json"))
         return cors(json({ error: "JSON required." }, 415));
       if (Number(request.headers.get("Content-Length")) > 2048)
@@ -108,12 +98,12 @@ export default {
     const response = await room.fetch(
       new Request(`https://room${path}${url.search}`, {
         method: request.method,
-        headers: { "X-Player": String(player), "X-Fetch-Protocol": request.headers.get("X-Fetch-Protocol") || "" },
+        headers: { "Authorization": request.headers.get("Authorization") || "", "X-Client-IP": await tokenHash(request.headers.get("CF-Connecting-IP") || "local"), "X-Fetch-Protocol": request.headers.get("X-Fetch-Protocol") || "" },
         ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
       }),
     );
     const data = await response.json();
-    return cors(json({ ...data, player }, response.status));
+    return cors(json(data, response.status));
   },
 };
 
@@ -121,6 +111,7 @@ export class FetchRaceRoom {
   constructor(ctx, env = {}) {
     this.ctx = ctx;
     this.sql = ctx.storage.sql;
+    this.auth = new AccessAuth(this.sql, env);
     this.sql.exec(
       "CREATE TABLE IF NOT EXISTS room (id INTEGER PRIMARY KEY, value TEXT NOT NULL)",
     );
@@ -140,6 +131,23 @@ export class FetchRaceRoom {
     );
   }
   async fetch(request) {
+    // Serialize authentication and its action so revocation cannot race a move.
+    return this.ctx.blockConcurrencyWhile(async () => {
+      const token=request.headers.get("Authorization")?.match(/^Bearer ([^\r\n]{1,160})$/)?.[1];
+      const auth=await this.auth.authenticate(token,request.headers.get("X-Client-IP"));
+      if(auth.error)return json({error:auth.error},auth.status);
+      const player=auth.player;
+      if(new URL(request.url).pathname === "/access") {
+        if(request.headers.get("X-Fetch-Protocol")!=="3")return json({error:"Refresh before changing access."},426);
+        let body;try{body=await request.json();}catch{return json({error:"Invalid access change."},400);}
+        const result=await this.auth.change(player,body),status=result.status||200;
+        delete result.status;return json(result,status);
+      }
+      const response=await this.gameFetch(request,player);
+      return json({...await response.json(),player},response.status);
+    });
+  }
+  async gameFetch(request,player) {
     const protocol = request.headers.get("X-Fetch-Protocol");
     const clientProtocol = ["2", "3"].includes(protocol) ? Number(protocol) : 0;
     const current = this.state();
@@ -158,7 +166,6 @@ export class FetchRaceRoom {
       }
       return json({ state: current });
     }
-    const player = Number(request.headers.get("X-Player"));
     if (![0, 1].includes(player)) return json({ error: "Unauthorized." }, 401);
     let move;
     try {

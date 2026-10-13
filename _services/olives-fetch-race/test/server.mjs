@@ -36,11 +36,13 @@ export async function startWeb({
         {
           ".html": "text/html",
           ".mjs": "text/javascript",
+          ".js": "text/javascript",
           ".css": "text/css",
           ".svg": "image/svg+xml",
         }[extname(file)] || "application/octet-stream",
       );
-      res.end(await readFile(file));
+      const data = await readFile(file);
+      res.end(file.endsWith("index.html") ? data.toString().replace("http://127.0.0.1:8887", `http://127.0.0.1:${workerPort}`) : data);
     } catch {
       res.writeHead(404).end();
     }

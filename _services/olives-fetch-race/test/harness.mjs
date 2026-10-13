@@ -20,6 +20,7 @@ export async function startWorker({
   directory,
   origin = "http://127.0.0.1:4173",
   configured = true,
+  credentialHashes = hashes,
   layout = process.env.TEST_LAYOUT || "classic-v1",
 } = {}) {
   // Never mistake an unrelated listener (or the review preview) for our Worker.
@@ -44,6 +45,8 @@ export async function startWorker({
     "127.0.0.1",
     "--port",
     String(port),
+    "--inspector-port",
+    "0",
     "--persist-to",
     join(directory, "state"),
     "--var",
@@ -55,9 +58,9 @@ export async function startWorker({
   if (configured)
     args.push(
       "--var",
-      `FETCH_MIKE_KEY_HASH:${hashes[0]}`,
+      `FETCH_MIKE_KEY_HASH:${credentialHashes[0]}`,
       "--var",
-      `FETCH_AIMEE_KEY_HASH:${hashes[1]}`,
+      `FETCH_AIMEE_KEY_HASH:${credentialHashes[1]}`,
     );
   const child = spawn(process.execPath, args, {
     cwd: root,
