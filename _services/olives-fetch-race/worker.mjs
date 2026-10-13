@@ -46,11 +46,11 @@ export default {
           },
         }),
       );
-    const path = new URL(request.url).pathname;
-    if (!["/state", "/move"].includes(path))
+    const url = new URL(request.url), path = url.pathname;
+    if (!["/state", "/move", "/archive"].includes(path))
       return cors(json({ error: "Not found." }, 404));
     if (
-      (path === "/state" && request.method !== "GET") ||
+      (["/state", "/archive"].includes(path) && request.method !== "GET") ||
       (path === "/move" && request.method !== "POST")
     )
       return cors(json({ error: "Method not allowed." }, 405));
@@ -106,7 +106,7 @@ export default {
       env.FETCH_ROOM.idFromName("olives-fetch-race-v1"),
     );
     const response = await room.fetch(
-      new Request(`https://room${path}`, {
+      new Request(`https://room${path}${url.search}`, {
         method: request.method,
         headers: { "X-Player": String(player), "X-Fetch-Protocol": request.headers.get("X-Fetch-Protocol") || "" },
         ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
@@ -146,7 +146,18 @@ export class FetchRaceRoom {
     // A cached classic client must never render or mutate a new garden.
     if (current.layout && clientProtocol < (boardFor(current).protocol ?? 2))
       return json({ error: "Refresh this page to open the new garden." }, 426);
-    if (request.method === "GET") return json({ state: current });
+    if (request.method === "GET") {
+      const url = new URL(request.url);
+      if (url.pathname === "/archive") {
+        if (protocol !== "3") return json({ error: "Refresh before opening an archive." }, 426);
+        const values = url.searchParams.getAll("race");
+        if (values.length !== 1 || !/^(0|[1-9][0-9]{0,8})$/.test(values[0]))
+          return json({ error: "A valid archived race number is required." }, 400);
+        const row = this.sql.exec("SELECT value FROM race_archive WHERE race=?", Number(values[0])).toArray()[0];
+        return row ? json({ archivedState: JSON.parse(row.value) }) : json({ error: "Archived race not found." }, 404);
+      }
+      return json({ state: current });
+    }
     const player = Number(request.headers.get("X-Player"));
     if (![0, 1].includes(player)) return json({ error: "Unauthorized." }, 401);
     let move;

@@ -295,3 +295,31 @@ test("server-chosen courtyard invitation and accepted garden persist across rest
     await rm(dir,{recursive:true,force:true});
   }
 });
+
+test("archive readback is authenticated, exact, read-only, and persistent", async()=>{
+  const dir=await mkdtemp(join(tmpdir(),"fetch-archive-read-"));
+  let server=await startWorker({port:8896,directory:dir});
+  const archive=async(query="race=0",player=0,extra={})=>{
+    const r=await fetch(server.base+"/archive?"+query,{headers:{Authorization:`Bearer ${keys[player]}`,"X-Fetch-Protocol":"3"},...extra});
+    return {status:r.status,...await r.json()};
+  };
+  try {
+    assert.equal((await fetch(server.base+"/archive?race=0")).status,401);
+    assert.equal((await archive("race=0",0,{headers:{Authorization:"Bearer "+"z".repeat(43),"X-Fetch-Protocol":"3"}})).status,401);
+    assert.equal((await archive()).status,404);
+    for(const query of ["","race=-1","race=0&race=1","race=1.5","race=0%20OR%201=1"])
+      assert.equal((await archive(query)).status,400);
+    assert.equal((await archive("race=0",0,{method:"POST"})).status,405);
+    const requested=await call(server.base,0,{id:crypto.randomUUID(),version:0,race:0,kind:"rematch",action:{type:"request"}});
+    const old=requested.state;
+    const accepted=await call(server.base,1,{id:crypto.randomUUID(),version:old.version,race:0,kind:"rematch",action:{type:"accept",proposal:old.rematch.id}});
+    assert.equal(accepted.status,200);
+    for(const player of [0,1]) assert.deepEqual((await archive("race=0",player)).archivedState,old);
+    assert.equal((await archive("race=1")).status,404);
+    assert.deepEqual((await call(server.base)).state,accepted.state);
+    await server.stop();
+    server=await startWorker({port:8896,directory:dir});
+    assert.deepEqual((await archive()).archivedState,old);
+    assert.deepEqual((await call(server.base)).state,accepted.state);
+  } finally {await server.stop();await rm(dir,{recursive:true,force:true});}
+});

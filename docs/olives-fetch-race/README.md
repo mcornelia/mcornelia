@@ -1,6 +1,6 @@
 # Olive’s Fetch Race
 
-**New local revision awaiting approval:** [Shared Crossroads review](shared-crossroads-review.md) adds guaranteed central passage, 14 starting fences, and server-shuffled tested gardens. The earlier publication approval below does not cover this revision. The current live race remains preserved.
+**Shared Crossroads publication and fresh test race approved:** [Shared Crossroads review](shared-crossroads-review.md) adds guaranteed central passage, 14 starting fences, and server-shuffled tested gardens. Mike subsequently approved publishing this revision and starting one fresh test race through the supported two-player flow, archiving the old race and preserving keys. The new race must remain unplayed.
 
 A competitive asynchronous garden strategy game for Mike and Aimee. Built in an isolated clone on `codex/olives-fetch-race`, from published `origin/main` commit `5a553937` (PR #23). No applicable AGENTS.md or .agents/skills files were present in the source checkout. Existing project documentation and the Worker/test architecture were inspected before implementation.
 

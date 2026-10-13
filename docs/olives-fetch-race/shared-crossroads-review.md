@@ -1,4 +1,6 @@
-# Shared Crossroads — local revision, not published
+# Shared Crossroads — implementation and rollout review
+
+Mike explicitly approved publication and a fresh test race, with the old test race archived, on October 13, 2026. This later owner authorization covers using the existing two-player test flow to request and accept that one new race. Existing keys stay unchanged, no move is played in the fresh race, and no message is sent to Aimee.
 
 ## Live diagnosis
 
@@ -32,19 +34,19 @@ After six ordinary moves each in Meadow Crossroads, Mike reaches C4 and Aimee E4
 
 ## Existing-race safety and the smallest way to try it
 
-Nothing in this revision has been deployed, reset, invited, or accepted on the live game. Tired Dogs, all player credentials, and infrastructure configuration are unchanged.
+The development and review runs did not deploy, reset, invite, or accept a live race. Subsequent publication and the single owner-authorized fresh test race are reported separately. Tired Dogs, all player credentials, and infrastructure configuration are unchanged.
 
 For an immediate review without affecting live play, run `npm run dev` in `_services/olives-fetch-race/`. The printed loopback Mike/Aimee links use disposable identities and a fresh Meadow Crossroads board. Use separate browser profiles.
 
 The currently published version already offers the ten-fence v2 crossed gardens through **Invite a new race → partner reviews and accepts**. That would not yet include this 14-fence central-courtyard revision.
 
-After approval to publish this new revision, deploy the compatible Worker first, then its versioned Pages client. Verify the current live state is unchanged. **Publishing alone will still leave the old race in place.** To experience the revised board, Mike invites a new race and Aimee accepts (or vice versa). Acceptance archives the previous race and starts one of the new crossroads layouts. Do not automate either player's choice.
+Under the subsequent explicit publication approval, deploy the compatible Worker first, then its versioned Pages client. Verify the current live state is unchanged. **Publishing alone will still leave the old race in place.** To experience the revised board, Mike invites a new race and Aimee accepts (or vice versa). Acceptance archives the previous race and starts one of the new crossroads layouts. The subsequent owner approval explicitly authorizes the request and acceptance for this fresh test race; future transitions still require their own authorization.
 
 All published classic/v2 layout definitions remain unchanged. Existing states retain their geometry and transitions. New IDs end in `v3`; the client uses versioned `?v=3` assets and protocol 3. The Worker permits older clients to continue compatible older races, but requires a current client to invite/accept the revised gardens and to read/play a v3 race. This prevents cached code from silently misreading the new geometry.
 
 ## Verification
 
-**All 27 engine/Worker tests passed**, including the original and v2 suites. The four browser runs passed: classic and v2 starts in Chromium, and v3 starts in Chromium and WebKit. The Worker dry-run bundle passed (16.67 KiB, 5.68 KiB gzip). A final read-only live check still showed `classic-v1`, version 3, with no invitation. Nothing was published.
+**The 27 engine/Worker tests passed in review**, including the original and v2 suites. The four browser runs passed: classic and v2 starts in Chromium, and v3 starts in Chromium and WebKit. The Worker dry-run bundle passed (16.67 KiB, 5.68 KiB gzip). A final read-only live check still showed `classic-v1`, version 3, with no invitation. Nothing was published.
 
 Checks include:
 
@@ -70,3 +72,7 @@ XDG_CONFIG_HOME=/tmp/fetch-race-build-config WRANGLER_SEND_METRICS=false npm run
 ```
 
 Screenshots are saved in `_services/olives-fetch-race/test-results/crossroads-review/`: desktop/mobile tactical previews, both players sharing D4, and each of the three starting gardens. Confirmed Library IDs are returned separately with the review.
+
+## Archive verification
+
+An authenticated, read-only `GET /archive?race=N` uses the same player keys and room as normal play. It accepts only an integer archived race number, returns that snapshot or 404, and has no write/reset capability. This permits exact remote archive readback after the approved fresh-test transition without adding account permissions or exposing secrets.
