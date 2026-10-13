@@ -1,3 +1,4 @@
+import {normalizeCredential, canonicalPhrase} from "./access.mjs?v=4";
 import { API_ORIGIN } from "./config.mjs";
 import {
   NAMES,
@@ -13,10 +14,12 @@ import {
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
+let storageUnavailable = false;
 const read = (k) => {
     try {
       return localStorage.getItem(NS + k);
     } catch {
+      storageUnavailable = true;
       return null;
     }
   },
@@ -26,6 +29,7 @@ const read = (k) => {
       else localStorage.setItem(NS + k, v);
       return true;
     } catch {
+      storageUnavailable = true;
       return false;
     }
   };
@@ -38,8 +42,12 @@ let key = read("key") || "",
   pending = null,
   busy = false,
   polling = false,
+  signingIn = false,
+  authGeneration = 0,
+  refreshController = null,
   notice = "",
-  online = false;
+  online = false,
+  connectionError = null;
 try {
   pending = JSON.parse(read("pending"));
 } catch {
@@ -87,38 +95,65 @@ function adopt(data) {
     state = data.state;
   }
 }
-async function request(path, move) {
+async function request(path, move, credential = key, externalSignal) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  const abort = () => controller.abort();
+  externalSignal?.addEventListener("abort", abort, {once:true});
+  try {
   const response = await fetch(API_ORIGIN + path, {
     method: move ? "POST" : "GET",
     headers: {
-      Authorization: `Bearer ${key}`,
+      Authorization: `Bearer ${credential}`,
       "X-Fetch-Protocol": "3",
       ...(move ? { "Content-Type": "application/json" } : {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
     cache: "no-store",
-    signal: AbortSignal.timeout(12000),
+    signal: controller.signal,
   });
-  const data = await response.json();
+  let data;
+  try { data = await response.json(); } catch { throw Error("The garden returned an unreadable response. Please try again."); }
   return { response, data };
+  } finally { clearTimeout(timer); externalSignal?.removeEventListener("abort", abort); }
 }
-async function refresh() {
-  if (!key || !API_ORIGIN || polling) return;
+async function refresh(force = false) {
+  if (!key || !API_ORIGIN || (polling && !force) || (signingIn && !force)) return false;
+  if(force) refreshController?.abort();
+  const generation = ++authGeneration, credential = key;
+  const controller = refreshController = new AbortController();
   polling = true;
   try {
-    const { response, data } = await request("/state");
-    if (!response.ok) throw Error(data.error || "Could not open this garden.");
+    const { response, data } = await request("/state", undefined, credential, controller.signal);
+    if (generation !== authGeneration) return false;
+    if (!response.ok) {
+      const error = Error(data.error || "Could not open this garden.");
+      error.status = response.status;
+      throw error;
+    }
+    if (!data.state || ![0,1].includes(data.player)) throw Error("The garden response was incomplete. Please try again.");
     adopt(data);
     online = true;
+    connectionError = null;
     if (!pending) notice = "";
+    return true;
   } catch (e) {
+    if (generation !== authGeneration) return false;
     online = false;
-    notice = state
+    connectionError = e.status ?? null;
+    if(e.status === 401) {
+      state = null;
+      player = null;
+      selected = null;
+      anchor = null;
+    }
+    notice = e.status ? e.message : state
       ? "Offline. Your race is safe. Reconnect before confirming."
-      : e.message;
+      : e.name === "AbortError" ? "The garden took too long to respond. Your entry is still here. Try Enter garden again."
+      : e.message === "Failed to fetch" || e instanceof TypeError ? "Could not connect to the garden. Your entry is still here. Check your connection and try again." : e.message;
+    return false;
   } finally {
-    polling = false;
-    render();
+    if(generation === authGeneration) { polling = false; refreshController = null; render(); }
   }
 }
 async function send() {
@@ -164,25 +199,87 @@ async function send() {
     render();
   }
 }
+$("hide-key").onchange = () => { $("key").type = $("hide-key").checked ? "password" : "text"; };
 $("join-form").onsubmit = async (e) => {
   e.preventDefault();
-  const entered = $("key").value.trim();
-  if (!/^[A-Za-z0-9_-]{43}$/.test(entered)) {
-    $("setup").textContent = "Enter the full private player key for this game.";
+  if(signingIn) return;
+  const entered = normalizeCredential($("key").value);
+  if (!entered) {
+    notice = "Enter your existing player key, or your configured phrase of six or more words.";
+    render();
     return;
   }
+  signingIn = true;
+  notice = "Opening your garden…";
   if (entered !== key) {
-    pending = null;
+    state = null; player = null; pending = null;
     save("pending", null);
   }
   key = entered;
-  save("key", key);
-  $("key").value = "";
-  sound.play("care");
-  await refresh();
-  if (pending && state) await send();
+  render();
+  try {
+    sound.play("care");
+    const opened = await refresh(true);
+    if(opened) {
+      const remembered = save("key", key);
+      $("key").value = "";
+      if(!remembered) notice = "Signed in for this visit. This browser cannot remember your key or safely save moves; enable browser storage to play.";
+      if (pending && state) await send();
+    }
+  } catch {
+    notice = "Could not open the garden. Your entry is still here. Please try again.";
+  } finally { signingIn = false; render(); }
+};
+let changingAccess = false;
+$("access-dialog").addEventListener("cancel", event => { if(changingAccess) event.preventDefault(); });
+$("access-open").onclick = () => {
+  $("access-status").textContent = "Only your final Save changes your own access. Your race and partner’s access stay as they are.";
+  for(const id of ["access-current","access-new","access-confirm"]) $(id).value = "";
+  $("access-dialog").showModal();
+};
+$("access-close").onclick = () => { if(!changingAccess) $("access-dialog").close(); };
+$("access-form").onsubmit = async event => {
+  event.preventDefault();
+  if(changingAccess) return;
+  const current = normalizeCredential($("access-current").value);
+  const phrase = canonicalPhrase($("access-new").value);
+  const confirmation = canonicalPhrase($("access-confirm").value);
+  if(!current || !phrase || confirmation !== phrase) {
+    $("access-status").textContent = "Enter your current key or phrase, then enter and confirm six to twelve different words for your new phrase.";
+    return;
+  }
+  changingAccess = true;
+  $("access-save").disabled = true;
+  $("access-close").disabled = true;
+  $("access-status").textContent = "Saving your access phrase…";
+  const expectedPlayer = player;
+  const change = {id:crypto.randomUUID(),phrase,confirmation};
+  try {
+    // Confirm the manually entered credential belongs to this signed-in player.
+    const check = await request("/state", undefined, current);
+    if(!check.response.ok || check.data.player !== expectedPlayer) throw Error("The current key or phrase does not match your signed-in player. Nothing changed.");
+    let result;
+    try { result = await request("/access",change,current); }
+    catch {
+      // A lost reply must not encourage blind rotation: verify the proposed phrase.
+      const verify = await request("/state",undefined,phrase);
+      if(!verify.response.ok || verify.data.player !== expectedPlayer) throw Error("Could not confirm the change. Keep both entries, reconnect, and try signing in with the new phrase first. If it fails, the old key still applies.");
+      result = {response:{ok:true},data:{changed:true}};
+    }
+    if(!result.response.ok || !result.data.changed) throw Error(result.data.error || "Access could not be changed. Your entries are still here.");
+    authGeneration++;refreshController?.abort();polling=false;
+    key=phrase;
+    const remembered=save("key",key);
+    $("access-current").value="";
+    $("access-status").textContent = remembered
+      ? "Saved. Your new phrase now opens your garden; the previous key no longer does. Save these words privately before closing."
+      : "Saved. Your new phrase now opens the garden. This browser cannot remember it; save these words privately before closing.";
+    await refresh(true);
+  } catch(error) { $("access-status").textContent = error.message || "Could not save access. Your entries are still here."; }
+  finally { changingAccess=false;$("access-save").disabled=false;$("access-close").disabled=false; }
 };
 $("leave").onclick = () => {
+  authGeneration++; refreshController?.abort(); polling = false;
   key = "";
   state = null;
   player = null;
@@ -335,16 +432,23 @@ function render() {
     busy,
     notice,
     online,
+    connectionError,
+    signingIn,
+    storageUnavailable,
+    key,
   ]);
   if (signature === renderedSignature) return;
   renderedSignature = signature;
+  $("join").disabled = signingIn || !API_ORIGIN;
+  $("join").textContent = signingIn ? "Opening…" : "Enter garden";
+  $("join-form").setAttribute("aria-busy", String(signingIn));
   $("join-panel").hidden = !!state;
   $("game").hidden = !state;
   if (!API_ORIGIN) {
     $("setup").textContent =
       "This private garden is in local review. Shared play opens after Mike approves publication.";
     $("join").disabled = true;
-  } else if (!state && notice) $("setup").textContent = notice;
+  } else if (!state) $("setup").textContent = notice || "Enter your Fetch Race player key or configured access phrase. Turns wait for you, even for hours.";
   if (!state) return;
   const board = boardFor(state);
   $("layout-label").textContent =
@@ -373,8 +477,12 @@ function render() {
     : pending
       ? "CHOICE WAITING TO RECONNECT"
       : online
-        ? "SHARED GARDEN · SAVED"
-        : "OFFLINE · RECONNECT TO PLAY";
+        ? `SIGNED IN AS ${NAMES[player].toUpperCase()} · SAVED`
+        : connectionError === 426
+          ? "REFRESH THIS PAGE"
+          : connectionError
+            ? "CONNECTION NEEDS ATTENTION"
+            : "OFFLINE · RECONNECT TO PLAY";
   $("turn-title").textContent =
     state.result === "tie"
       ? "A perfectly matched pair."
@@ -407,7 +515,9 @@ function render() {
   $("hint").textContent = pending
     ? "Your saved choice is locked until the server confirms it."
     : !mine
-      ? "You can study the board while your partner plans."
+      ? state.result === null
+        ? `You’re signed in as ${NAMES[player]}. It’s ${NAMES[state.turn]}’s turn; you can study the board while they plan.`
+        : "This race is complete. You can invite a fresh race when you’re ready."
       : mode === "fence"
         ? anchor === null
           ? "Tap one lawn square, then its neighbor to place a fence."
@@ -514,7 +624,7 @@ function render() {
       : "Confirm move";
   $("retry").hidden = online && !pending;
   $("retry").disabled = busy;
-  $("notice").textContent = notice;
+  $("notice").textContent = notice || (storageUnavailable ? "This browser cannot remember your key or safely save moves. Enable browser storage to play." : "");
 }
 window.addEventListener("online", async () => {
   await refresh();
@@ -532,8 +642,10 @@ document.addEventListener("visibilitychange", () => {
   } else sound.stop();
 });
 setInterval(() => {
-  if (!document.hidden && !busy) refresh();
+  if (!document.hidden && !busy && state) refresh();
 }, 4000);
+window.addEventListener("pageshow", event => { if(event.persisted) refresh(); });
+document.documentElement.dataset.fetchReady = "yes";
 render();
 if (key && API_ORIGIN)
   refresh().then(() => {

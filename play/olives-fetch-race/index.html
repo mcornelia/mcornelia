@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <main>
@@ -81,21 +81,24 @@
       <section id="join-panel" class="card join">
         <p class="eyebrow">YOUR PRIVATE GARDEN</p>
         <h2>Pick up where you left off.</h2>
-        <p id="setup">
-          Enter your Fetch Race player key. Turns wait for you, even for hours.
+        <p id="setup" role="status" aria-live="polite">
+          Enter your Fetch Race player key or configured access phrase. Turns wait for you, even for hours.
         </p>
         <form id="join-form">
-          <label for="key">Private player key</label>
+          <label for="key">Player key or access phrase</label>
           <div class="join-row">
             <input
               id="key"
-              type="password"
+              type="text"
+              autocapitalize="none"
+              autocorrect="off"
               autocomplete="off"
               spellcheck="false"
               required
               aria-describedby="setup"
             /><button id="join" class="primary">Enter garden</button>
           </div>
+          <label class="fine"><input id="hide-key" type="checkbox"> Hide my entry</label>
         </form>
         <p class="fine">
           This game has its own room. Your other games stay as they are.
@@ -174,6 +177,7 @@
                 Players can share that square and pass through each other. Fences block both players,
                 so a clever shortcut block can also change your own return trip.
               </p>
+              <button id="access-open" class="quiet">Change my access phrase</button>
               <button id="leave" class="quiet">Leave this device</button>
             </section>
           </aside>
@@ -240,6 +244,20 @@
       <button id="rematch-confirm" class="primary"></button>
       <button id="rematch-back" class="quiet">Back to the garden</button>
     </dialog>
-    <script type="module" src="app.mjs?v=3"></script>
+    <dialog id="access-dialog">
+      <p class="eyebrow">YOUR GARDEN · YOUR WORDS</p>
+      <h2>Something you can remember.</h2>
+      <p>Choose six to twelve different words, separated by dashes. Family names, dog names, and favorite things work. Words are visible so you can check them. Use this phrase only for this game; a longer, less predictable phrase is harder to guess.</p>
+      <form id="access-form" autocomplete="off">
+        <label for="access-current">Your current key or phrase</label><input id="access-current" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <label for="access-new">Your new phrase</label><input id="access-new" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <label for="access-confirm">Enter the new phrase again</label><input id="access-confirm" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <p id="access-status" role="status" aria-live="polite"></p>
+        <button id="access-save" class="primary">Save my new access phrase</button>
+        <button id="access-close" type="button" class="quiet">Close</button>
+      </form>
+    </dialog>
+    <script src="login-guard.js?v=4"></script>
+    <script type="module" src="app.mjs?v=4"></script>
   </body>
 </html>
