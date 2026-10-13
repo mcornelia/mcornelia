@@ -1,0 +1,204 @@
+import {
+  initialState,
+  applyMove,
+} from "../../play/olives-fetch-race/engine.mjs";
+
+const json = (value, status = 200) =>
+  Response.json(value, {
+    status,
+    headers: {
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
+export async function tokenHash(token) {
+  const hash = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(token),
+  );
+  return Array.from(new Uint8Array(hash), (b) =>
+    b.toString(16).padStart(2, "0"),
+  ).join("");
+}
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin");
+    const allowed = env.ALLOWED_ORIGIN;
+    if (origin && origin !== allowed)
+      return json({ error: "This origin is not allowed." }, 403);
+    const cors = (response) => {
+      const headers = new Headers(response.headers);
+      if (origin === allowed)
+        headers.set("Access-Control-Allow-Origin", origin);
+      headers.set("Vary", "Origin");
+      return new Response(response.body, { status: response.status, headers });
+    };
+    if (request.method === "OPTIONS")
+      return cors(
+        new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Authorization, Content-Type",
+            "Access-Control-Max-Age": "600",
+          },
+        }),
+      );
+    const path = new URL(request.url).pathname;
+    if (!["/state", "/move"].includes(path))
+      return cors(json({ error: "Not found." }, 404));
+    if (
+      (path === "/state" && request.method !== "GET") ||
+      (path === "/move" && request.method !== "POST")
+    )
+      return cors(json({ error: "Method not allowed." }, 405));
+    // Fail closed until BOTH distinct keys are provisioned. No public room creation.
+    if (
+      ![env.FETCH_MIKE_KEY_HASH, env.FETCH_AIMEE_KEY_HASH].every((h) =>
+        /^[a-f0-9]{64}$/.test(h || ""),
+      ) ||
+      env.FETCH_MIKE_KEY_HASH === env.FETCH_AIMEE_KEY_HASH
+    )
+      return cors(
+        json({ error: "The private room is not configured yet." }, 503),
+      );
+    const token = request.headers
+      .get("Authorization")
+      ?.match(/^Bearer ([A-Za-z0-9_-]{43})$/)?.[1];
+    const hash = token ? await tokenHash(token) : "";
+    const player =
+      hash === env.FETCH_MIKE_KEY_HASH
+        ? 0
+        : hash === env.FETCH_AIMEE_KEY_HASH
+          ? 1
+          : -1;
+    if (player < 0)
+      return cors(json({ error: "Your private player key is needed." }, 401));
+    let body;
+    if (path === "/move") {
+      if (!request.headers.get("Content-Type")?.startsWith("application/json"))
+        return cors(json({ error: "JSON required." }, 415));
+      if (Number(request.headers.get("Content-Length")) > 2048)
+        return cors(json({ error: "Request too large." }, 413));
+      const reader = request.body?.getReader();
+      const chunks = [];
+      let size = 0;
+      if (reader)
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          size += value.byteLength;
+          if (size > 2048) {
+            await reader.cancel();
+            return cors(json({ error: "Request too large." }, 413));
+          }
+          chunks.push(value);
+        }
+      try {
+        body = JSON.parse(await new Blob(chunks).text());
+      } catch {
+        return cors(json({ error: "Invalid JSON." }, 400));
+      }
+    }
+    const room = env.FETCH_ROOM.get(
+      env.FETCH_ROOM.idFromName("olives-fetch-race-v1"),
+    );
+    const response = await room.fetch(
+      new Request(`https://room${path}`, {
+        method: request.method,
+        headers: { "X-Player": String(player) },
+        ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+      }),
+    );
+    const data = await response.json();
+    return cors(json({ ...data, player }, response.status));
+  },
+};
+
+export class FetchRaceRoom {
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.sql = ctx.storage.sql;
+    this.sql.exec(
+      "CREATE TABLE IF NOT EXISTS room (id INTEGER PRIMARY KEY, value TEXT NOT NULL)",
+    );
+    this.sql.exec(
+      "CREATE TABLE IF NOT EXISTS receipts (id TEXT PRIMARY KEY, player INTEGER NOT NULL, payload TEXT NOT NULL, version INTEGER NOT NULL)",
+    );
+    this.sql.exec(
+      "INSERT OR IGNORE INTO room VALUES (1, ?)",
+      JSON.stringify(initialState()),
+    );
+  }
+  state() {
+    return JSON.parse(
+      this.sql.exec("SELECT value FROM room WHERE id=1").one().value,
+    );
+  }
+  async fetch(request) {
+    if (request.method === "GET") return json({ state: this.state() });
+    const player = Number(request.headers.get("X-Player"));
+    if (![0, 1].includes(player)) return json({ error: "Unauthorized." }, 401);
+    let move;
+    try {
+      move = await request.json();
+    } catch {
+      return json({ error: "Invalid move." }, 400);
+    }
+    if (
+      !move ||
+      !/^[a-f0-9-]{36}$/.test(move.id || "") ||
+      !Number.isSafeInteger(move.version) ||
+      move.version < 0 ||
+      move.kind !== "move"
+    )
+      return json({ error: "Invalid move." }, 400);
+    const payload = JSON.stringify([move.version, move.kind, move.action]);
+    // All validation, receipt insertion and state updates share one synchronous transaction.
+    // No await occurs between reading a version and committing its successor.
+    return this.ctx.storage.transactionSync(() => {
+      const state = this.state();
+      const receipt = this.sql
+        .exec("SELECT * FROM receipts WHERE id=?", move.id)
+        .toArray()[0];
+      if (receipt) {
+        if (receipt.player !== player || receipt.payload !== payload)
+          return json(
+            { error: "This move ID has already been used.", state },
+            409,
+          );
+        return json({ state, alreadyApplied: true });
+      }
+      if (move.version !== state.version)
+        return json(
+          {
+            error: "The race has moved on. Review the refreshed board.",
+            state,
+          },
+          409,
+        );
+      if (player !== state.turn)
+        return json({ error: "It is your partner’s turn.", state }, 409);
+      let next;
+      try {
+        next = applyMove(state, player, move.action);
+      } catch (error) {
+        return json({ error: error.message, state }, 422);
+      }
+      this.sql.exec("UPDATE room SET value=? WHERE id=1", JSON.stringify(next));
+      this.sql.exec(
+        "INSERT INTO receipts VALUES (?, ?, ?, ?)",
+        move.id,
+        player,
+        payload,
+        next.version,
+      );
+      // Old retries remain harmless after pruning: their monotonically increasing version is stale.
+      this.sql.exec(
+        "DELETE FROM receipts WHERE version < ?",
+        next.version - 256,
+      );
+      return json({ state: next, alreadyApplied: false });
+    });
+  }
+}
