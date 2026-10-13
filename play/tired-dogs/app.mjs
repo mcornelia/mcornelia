@@ -1,3 +1,4 @@
+import { createSound, turnCue } from './sound.mjs';
 import { API_ORIGIN } from './config.mjs';
 import { ACTIONS, PLAYERS, initialState, applyAction, ready, finished } from './engine.mjs';
 const $ = id => document.getElementById(id);
@@ -6,17 +7,24 @@ const storage = {
   get(store, key) { try { return store.getItem(namespace + key); } catch { return null; } },
   set(store, key, value) { try { value === null ? store.removeItem(namespace + key) : store.setItem(namespace + key, value); } catch { /* In-memory play remains available. */ } },
 };
+const sound = createSound({ enabled: storage.get(localStorage, 'sound') !== 'off' });
+function renderSound() { $('sound-toggle').textContent = sound.enabled ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound.enabled)); }
+$('sound-toggle').addEventListener('click', () => { sound.setEnabled(!sound.enabled); storage.set(localStorage, 'sound', sound.enabled ? 'on' : 'off'); renderSound(); if (sound.enabled) { sound.unlock(); sound.play('care'); } });
+document.addEventListener('click', event => { if (event.isTrusted && !event.target.closest('#sound-toggle')) sound.unlock(); }, { capture: true });
+renderSound();
 let token = storage.get(sessionStorage, 'key') || storage.get(localStorage, 'key') || '';
 let state = null, player = null, selectedDog = 'Olive', selectedAction = 'walk', busy = false, online = false, pending = null;
 let pollTimer, ballTimer, failures = 0, requestEpoch = 0;
 const configured = (() => { try { const u = new URL(API_ORIGIN); return u.origin === API_ORIGIN && (u.protocol === 'https:' || u.origin === 'http://127.0.0.1:8787'); } catch { return false; } })();
 function notify(message) { $('notice').textContent = message; }
 function savePending() { storage.set(sessionStorage, 'pending', pending ? JSON.stringify(pending) : null); }
-function accept(data) {
+function accept(data, audioEvent) {
   if (Number.isInteger(data.player)) player = data.player;
   if (data.state && (!state || data.state.version >= state.version)) {
     const changed = state && data.state.version > state.version;
+    const cue = turnCue(state, data.state, audioEvent);
     state = data.state;
+    if (cue) sound.play(cue);
     if (state.dogs[selectedDog].asleep) selectedDog = Object.keys(state.dogs).find(name => !state.dogs[name].asleep) || selectedDog;
     if (changed) {
       $('scene').classList.remove('celebrate'); void $('scene').offsetWidth; $('scene').classList.add('celebrate');
@@ -92,12 +100,13 @@ async function sync() {
   if (busy || !token || !configured || document.hidden) return;
   const epoch = requestEpoch; busy = true; render();
   try {
-    const { response, data } = await request(pending ? '/move' : '/state', pending?.move);
+    const sentMove = pending?.move, live = online;
+    const { response, data } = await request(sentMove ? '/move' : '/state', sentMove);
     if (epoch !== requestEpoch) return;
     if (response.status === 401) { leave(); notify('That player key did not open the room. Please try your private key again.'); return; }
     if (response.status >= 500) throw new Error(data.error || 'The room is temporarily unavailable.');
     if (pending) { pending = null; savePending(); }
-    accept(data); online = true; failures = 0;
+    accept(data, { live: live && response.ok, replay: data.alreadyApplied, move: sentMove }); online = true; failures = 0;
     if (!response.ok) notify(data.error || 'Please reconnect.');
   } catch (error) {
     if (epoch !== requestEpoch) return;
@@ -121,8 +130,8 @@ document.querySelectorAll('.pup-choice').forEach(button => button.addEventListen
 $('commit').addEventListener('click', () => submit('action')); $('next-evening').addEventListener('click', () => submit('ready')); $('retry').addEventListener('click', sync); $('leave').addEventListener('click', leave);
 $('help').addEventListener('click', () => $('help-dialog').showModal()); $('close-help').addEventListener('click', () => $('help-dialog').close());
 let boops = 0;
-$('ball').addEventListener('click', () => { clearTimeout(ballTimer); const messages = ['Olive: yes, that is my ball. Thank you for checking.', 'Huck has volunteered to supervise the ball.', 'One priority. Still round.', 'A tiny boop. An enormous amount of joy.']; $('ball-message').textContent = messages[boops++ % messages.length]; $('ball').classList.remove('booped'); void $('ball').offsetWidth; $('ball').classList.add('booped'); ballTimer = setTimeout(() => { $('ball-message').textContent = ''; $('ball').classList.remove('booped'); }, 3500); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(pollTimer); else sync(); }); window.addEventListener('online', sync);
+$('ball').addEventListener('click', () => { sound.play('ball'); clearTimeout(ballTimer); const messages = ['Olive: yes, that is my ball. Thank you for checking.', 'Huck has volunteered to supervise the ball.', 'One priority. Still round.', 'A tiny boop. An enormous amount of joy.']; $('ball-message').textContent = messages[boops++ % messages.length]; $('ball').classList.remove('booped'); void $('ball').offsetWidth; $('ball').classList.add('booped'); ballTimer = setTimeout(() => { $('ball-message').textContent = ''; $('ball').classList.remove('booped'); }, 3500); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(pollTimer); sound.stop(); online = false; } else sync(); }); window.addEventListener('online', sync);
 if (!configured) { $('setup-message').textContent = 'Your private room is being prepared. Live shared play will open here once hosting is connected.'; token = ''; }
 else { $('setup-message').textContent = 'Your key chooses your player automatically. Keep it between you and your partner.'; try { pending = JSON.parse(storage.get(sessionStorage, 'pending')); if (!pending?.move) pending = null; } catch { pending = null; } }
 render(); if (token) sync();

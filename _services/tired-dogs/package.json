@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test test/engine.test.mjs test/worker.test.mjs",
+    "test": "node --test test/engine.test.mjs test/worker.test.mjs test/sound.test.mjs",
     "test:e2e": "node test/browser.mjs",
     "dev": "wrangler dev --local",
     "check:deploy": "wrangler deploy --dry-run --outdir .build"

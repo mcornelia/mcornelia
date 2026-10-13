@@ -33,6 +33,14 @@ Only SHA-256 key hashes are provisioned as Worker secrets `MIKE_KEY_HASH` and `A
 
 The browser keeps its player key in sessionStorage for refresh/rejoin in the same tab. An explicit unchecked-by-default “Remember me” option uses localStorage on that device. Leave clears both. Another phone can rejoin using the same private key. This shared Pages origin should remain limited to trusted scripts; an XSS elsewhere on that origin could compromise remembered keys. Use a dedicated frontend origin if the site's trust model changes.
 
+## Sound
+
+Quiet synthesized sound effects are on by default. The header's Sound on/off button remembers an explicit mute on that device. AudioContext creation/resume happens only in a user click or keyboard activation, including the first tap on iOS; loading, polling, or restoring a saved session cannot unlock audio. There is no autoplay music, audio download, microphone access, or new service.
+
+Care actions have small distinct cues; a partner's newly received care turn gets a soft shared chime. Ball boops, a dog settling, and both dogs asleep have their own cues. Only a single new live turn can play: initial state, reconnect catch-up, repeated polling, old responses, already-applied retry receipts, and replay votes stay silent. Backgrounding stops active effects. Muting stops active tones immediately; rapid cues replace each other instead of adding volume. Browser audio failures never block a move.
+
+Audio tests cover gesture-only construction, a low master gain, no queued blocked effects, remembered mute after reload, and no repeated cues during polling or rejoin. The full two-phone regression can run in Chromium with `npm run test:e2e` or WebKit with `TEST_BROWSER=webkit npm run test:e2e` after installing the corresponding Playwright browser. WebKit desktop emulation is useful Safari-engine coverage, but does not replace listening on a physical iPhone (hardware volume, silent mode, and browser policy still apply).
+
 ## Server guarantees
 
 - Authentication occurs before the Durable Object is accessed. Request bodies cannot choose a player.
