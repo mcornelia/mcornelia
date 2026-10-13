@@ -6,7 +6,6 @@ import {
   ROCKS,
   cellName,
   edge,
-  route,
   distance,
   validate,
   legalMoves,
@@ -78,7 +77,6 @@ $("rules").onclick = () => {
   sound.play("care");
 };
 $("close-rules").onclick = () => $("rules-dialog").close();
-$("routes").onchange = () => render();
 function adopt(data) {
   if (!data.state) return;
   player = data.player ?? player;
@@ -269,6 +267,28 @@ function tap(n) {
   }
   render();
 }
+// Original vector markers: rubber fetch balls with contrasting raised channels.
+// Initials and full accessible cell names identify each owner without color.
+function ballArt(p) {
+  return `<svg class="fetch-ball p${p}" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <circle class="ball-outline" cx="24" cy="24" r="21" />
+    <circle class="ball-rubber" cx="24" cy="24" r="19" />
+    <path class="ball-channel" d="M10 10C26 14 28 34 38 38M38 10C22 14 20 34 10 38" />
+    <path class="ball-shine" d="M13 13Q17 8 24 8" />
+    <circle class="ball-badge" cx="24" cy="24" r="8" />
+    <text class="ball-initial" x="24" y="28">${NAMES[p][0]}</text>
+  </svg>`;
+}
+function houseArt(p) {
+  return `<svg class="home-art" viewBox="0 0 48 46" aria-hidden="true" focusable="false">
+    <path class="home-chimney" d="M33 6H39V20H33Z" />
+    <path class="home-walls" d="M10 20H38V42H10Z" />
+    <path class="home-roof" d="M4 22L24 4L44 22L40 26L24 12L8 26Z" />
+    <path class="home-door" d="M19 26Q24 23 29 26V42H19Z" />
+    <path class="home-window" d="M13 25H17V30H13ZM31 25H35V30H31Z" />
+    <text class="home-initial" x="24" y="37">${NAMES[p][0]}</text>
+  </svg>`;
+}
 let renderedSignature = "";
 function render() {
   // An unchanged poll must not rebuild the board, steal focus, or replay animation.
@@ -282,7 +302,6 @@ function render() {
     busy,
     notice,
     online,
-    $("routes").checked,
   ]);
   if (signature === renderedSignature) return;
   renderedSignature = signature;
@@ -345,11 +364,6 @@ function render() {
   let view = state;
   if (selected && !validate(state, player, selected))
     view = applyMove(state, player, selected);
-  let path = [];
-  if ($("routes").checked) {
-    const a = view.players[player];
-    path = route(view, a.pos, a.ball ? HOMES[player] : BALLS[player]) || [];
-  }
   const legal = can ? legalMoves(state, player, mode) : [];
   const allowed = new Set(
     mode === "fence"
@@ -367,7 +381,6 @@ function render() {
     b.dataset.cell = n;
     b.classList.toggle("rock", ROCKS.includes(n));
     b.classList.toggle("legal", allowed.has(n));
-    b.classList.toggle("path", path.includes(n));
     b.classList.toggle(
       "selected",
       selected?.to === n ||
@@ -383,16 +396,18 @@ function render() {
     } else {
       for (let p = 0; p < 2; p++) {
         if (n === HOMES[p]) {
-          b.innerHTML += `<span class="goal p${p}">⌂</span>`;
+          b.classList.add("has-goal");
+          b.innerHTML += `<span class="goal goal-home p${p}" aria-hidden="true">${houseArt(p)}<span class="goal-owner">${NAMES[p]}</span></span>`;
           label += ` ${NAMES[p]}’s home`;
         }
         if (n === BALLS[p] && !state.players[p].ball) {
-          b.innerHTML += `<span class="goal p${p}">●</span>`;
+          b.classList.add("has-goal");
+          b.innerHTML += `<span class="goal goal-ball p${p}" aria-hidden="true">${ballArt(p)}</span>`;
           label += ` ${NAMES[p]}’s ball`;
         }
         if (state.players[p].pos === n) {
-          b.innerHTML += `<span class="token p${p}">${NAMES[p][0]}${state.players[p].ball ? "•" : ""}</span>`;
-          label += ` ${NAMES[p]}`;
+          b.innerHTML += `<span class="token p${p}" aria-hidden="true">${NAMES[p][0]}${state.players[p].ball ? `<span class="carried-ball">${ballArt(p)}</span>` : ""}</span>`;
+          label += ` ${NAMES[p]}${state.players[p].ball ? " carrying their ball" : ""}`;
         }
       }
     }

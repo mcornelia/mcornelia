@@ -6,7 +6,7 @@
   font-synthesis: none;
   --green: #173e37;
   --muted: #59746a;
-  --mike: #277469;
+  --mike: #216eaa;
   --aimee: #b75c44;
   --paper: #fffcf3;
 }
@@ -243,14 +243,6 @@ h1 em {
   background: #dceca0;
   border: 2px solid #416b39;
 }
-.cell.path:before {
-  content: "";
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  border: 2px dotted #93aa6c;
-  border-radius: 50%;
-}
 .token {
   position: relative;
   z-index: 1;
@@ -274,12 +266,116 @@ h1 em {
   margin-left: -14px;
 }
 .goal {
-  font-size: 17px;
+  position: absolute;
+  inset: 7% 10% 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
   color: var(--mike);
   z-index: 1;
 }
 .goal.p1 {
   color: var(--aimee);
+}
+.fetch-ball {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.fetch-ball.p0 {
+  --rubber: #277cb6;
+  --channel: #ffaf53;
+}
+.fetch-ball.p1 {
+  --rubber: #ee8739;
+  --channel: #225e91;
+}
+.ball-outline {
+  fill: #173e37;
+}
+.ball-rubber {
+  fill: var(--rubber);
+}
+.ball-channel {
+  fill: none;
+  stroke: var(--channel);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.ball-shine {
+  fill: none;
+  stroke: #fff9df;
+  stroke-opacity: 0.65;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.ball-badge {
+  fill: #fffbed;
+}
+.ball-initial {
+  fill: #173e37;
+  font-size: 12px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+.goal-ball {
+  inset: 13%;
+}
+.home-art {
+  width: 100%;
+  height: 75%;
+  overflow: visible;
+}
+.home-chimney,
+.home-roof,
+.home-door {
+  fill: currentColor;
+}
+.home-walls {
+  fill: #fff5d9;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+.home-window {
+  fill: #e3b84c;
+}
+.home-initial {
+  fill: #fffbed;
+  font-size: 9px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+.goal-owner {
+  font-size: clamp(7px, 1vw, 10px);
+  line-height: 1.1;
+  font-weight: 700;
+}
+.cell.has-goal .token {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 39%;
+  font-size: 9px;
+  z-index: 2;
+}
+.cell.has-goal .token + .token {
+  right: 38%;
+}
+.carried-ball {
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+  width: 16px;
+  height: 16px;
+}
+.subtitle {
+  line-height: 1.55;
+}
+.subtitle strong {
+  font-weight: 600;
+  color: var(--green);
 }
 #walls {
   position: absolute;
@@ -404,19 +500,6 @@ h2 {
   font-size: 12px;
   line-height: 1.7;
   margin: 0;
-}
-.route-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  margin-top: 10px;
-  min-height: 44px;
-}
-input[type="checkbox"] {
-  accent-color: #277469;
-  width: 17px;
-  height: 17px;
 }
 footer {
   text-align: center;
