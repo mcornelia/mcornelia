@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "olives-fetch-race",
+  "main": "worker.mjs",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "vars": { "ALLOWED_ORIGIN": "https://mcornelia.com" },
+  "durable_objects": {
+    "bindings": [{ "name": "FETCH_ROOM", "class_name": "FetchRaceRoom" }],
+  },
+  "migrations": [
+    { "tag": "fetch-v1", "new_sqlite_classes": ["FetchRaceRoom"] },
+  ],
+  "observability": { "enabled": false },
+}

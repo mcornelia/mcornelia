@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#173e37" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="robots" content="noindex" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Olive’s Fetch Race</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a href="/play.html" class="wordmark">THE RAVENWOOD GARDEN</a>
+        <div class="header-actions">
+          <button id="sound" class="quiet" aria-pressed="true">Sound on</button
+          ><button id="rules" class="quiet">How to play</button>
+        </div>
+      </header>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">A LITTLE RIVALRY. A VERY GOOD DOG.</p>
+          <h1>Olive’s<br /><em>Fetch Race</em><span class="period">.</span></h1>
+          <p class="subtitle">Two balls. One garden. A few sneaky detours.</p>
+        </div>
+        <button
+          id="ball"
+          aria-label="Toss Olive’s secret tennis ball"
+          title="Someone has spotted a ball…"
+        >
+          <svg viewBox="0 0 140 160" aria-hidden="true">
+            <path
+              d="M26 132 Q11 113 31 105 L102 105 Q125 126 109 146 L39 146Z"
+              fill="#c99567"
+            />
+            <path
+              d="M42 83 Q15 36 25 24 Q50 20 62 48 M90 49 Q119 16 127 37 Q126 67 104 88"
+              fill="#885b3e"
+            />
+            <path
+              d="M36 57 Q45 33 78 39 Q114 40 111 79 L99 113 Q72 132 46 110Z"
+              fill="#d8a676"
+            />
+            <path d="M72 42 L88 46 L89 86 L66 86Z" fill="#f9e7c9" />
+            <ellipse cx="76" cy="96" rx="25" ry="19" fill="#f9e7c9" />
+            <circle cx="55" cy="75" r="4" fill="#243b35" />
+            <circle cx="96" cy="75" r="4" fill="#243b35" />
+            <path d="M65 88 Q77 83 88 88 L77 97Z" fill="#243b35" />
+            <path d="M76 102 Q84 101 84 111 Q77 119 72 110" fill="#d57479" />
+            <path
+              d="M42 117 Q72 137 106 116"
+              fill="none"
+              stroke="#327b69"
+              stroke-width="9"
+            />
+            <circle cx="113" cy="137" r="17" fill="#d9e778" />
+            <path
+              d="M101 124 Q124 135 101 147 M125 126 Q106 136 124 149"
+              fill="none"
+              stroke="#f9f4d7"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+      </section>
+      <p id="ball-message" class="ball-message" aria-live="polite">
+        Olive is supervising. Mostly the tennis balls.
+      </p>
+      <section id="join-panel" class="card join">
+        <p class="eyebrow">YOUR PRIVATE GARDEN</p>
+        <h2>Pick up where you left off.</h2>
+        <p id="setup">
+          Enter your Fetch Race player key. Turns wait for you, even for hours.
+        </p>
+        <form id="join-form">
+          <label for="key">Private player key</label>
+          <div class="join-row">
+            <input
+              id="key"
+              type="password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+              aria-describedby="setup"
+            /><button id="join" class="primary">Enter garden</button>
+          </div>
+        </form>
+        <p class="fine">
+          This game has its own room. Your other games stay as they are.
+        </p>
+      </section>
+      <section id="game" hidden>
+        <div class="game-layout">
+          <section class="garden card">
+            <div class="garden-top">
+              <span class="eyebrow">THE LONG WAY CAN BE THE SMART WAY</span
+              ><span id="turn-number" class="pill"></span>
+            </div>
+            <div class="players">
+              <div id="player0" class="player mike"></div>
+              <div id="player1" class="player aimee"></div>
+            </div>
+            <div class="board-wrap">
+              <div id="board" role="group" aria-label="Garden race board"></div>
+              <svg
+                id="walls"
+                viewBox="0 0 700 700"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              ></svg>
+            </div>
+            <div class="legend">
+              <span><i class="dot mike-dot"></i> Mike</span
+              ><span><i class="dot aimee-dot"></i> Aimee</span
+              ><span>◌ planned route</span><span>✿ flower beds</span>
+            </div>
+          </section>
+          <aside class="sidebar">
+            <section class="card turn-card">
+              <p id="connection" class="eyebrow" role="status">Connecting…</p>
+              <h2 id="turn-title">The garden is ready.</h2>
+              <p id="last" class="last" aria-live="polite"></p>
+              <div class="modes" role="group" aria-label="Choose action">
+                <button data-mode="step" aria-pressed="true">
+                  <span>↟</span>Walk<small>1 square</small></button
+                ><button data-mode="sprint" aria-pressed="false">
+                  <span>↟↟</span>Sprint<small
+                    >2 squares · spend 1</small
+                  ></button
+                ><button data-mode="fence" aria-pressed="false">
+                  <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
+                </button>
+              </div>
+              <p id="hint">Tap a highlighted square to plan.</p>
+              <div id="preview" class="preview" aria-live="polite">
+                Your move is only saved when you confirm.
+              </div>
+              <button id="commit" class="primary" disabled>Confirm move</button
+              ><button id="retry" class="quiet" hidden>
+                Reconnect / retry saved move
+              </button>
+              <p id="notice" role="status"></p>
+            </section>
+            <section class="card field-notes">
+              <p class="eyebrow">A GOOD PLAN HAS A WAY HOME</p>
+              <p>
+                Fetch your matching ball at the far end, then return to your
+                starting square. A fence costs a turn. A sprint is gone once you
+                use it.
+              </p>
+              <label class="route-control"
+                ><input type="checkbox" id="routes" checked /> Show my shortest
+                walking route</label
+              ><button id="leave" class="quiet">Leave this device</button>
+            </section>
+          </aside>
+        </div>
+      </section>
+      <footer>
+        Made for Mike &amp; Aimee. Approved by Olive, pending treats.<br />No
+        clock. No hurry. Just one more clever move.
+      </footer>
+    </main>
+    <dialog id="rules-dialog">
+      <button id="close-rules" class="quiet">Close ×</button>
+      <p class="eyebrow">THE 60-SECOND RULES</p>
+      <h2>Fetch. Foil. Find your way home.</h2>
+      <ol>
+        <li>
+          <b>Take turns.</b> Mike goes first. Fetch your matching ball, then
+          bring it back to your home square. You can leave and return hours
+          later.
+        </li>
+        <li>
+          <b>Choose one action.</b> Walk one square up, down, left, or right. Or
+          spend one of your two sprints to travel two clear squares in a
+          straight line. Crossing your ball picks it up; crossing home with it
+          ends your race.
+        </li>
+        <li>
+          <b>Make a detour.</b> Each of you has six fences. A fence uses your
+          whole turn and blocks one edge for both players, permanently. Tap two
+          adjacent lawn squares to preview it. The game rejects any fence that
+          closes a route to either ball or home.
+        </li>
+        <li>
+          <b>Share the lawn.</b> Players may pass through or share a square.
+          Flower beds cannot be crossed. Fences cannot be jumped. The two
+          starting fences are part of the garden.
+        </li>
+        <li>
+          <b>Equal chances.</b> If Mike gets home first, Aimee gets one final
+          turn. If both finish in that pair of turns, it’s a tie. Otherwise the
+          first home wins.
+        </li>
+      </ol>
+      <p>
+        The dotted route counts walking steps, not sprints. It updates when you
+        preview a fence. Use it as a starting point, not your whole strategy.
+      </p>
+      <p>
+        <b>Tip:</b> A fence that adds one step costs you one turn. Look for a
+        detour that costs your partner more, or save a sprint for the finish.
+      </p>
+    </dialog>
+    <script type="module" src="app.mjs"></script>
+  </body>
+</html>
