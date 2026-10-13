@@ -6,15 +6,17 @@ import { join } from "node:path";
 import { chromium } from "playwright";
 import { startWorker, call, move, keys, root } from "./harness.mjs";
 import { startWeb } from "./server.mjs";
-const out = join(root, "test-results/crossing-review");
+import {route,boardFor} from "../../../play/olives-fetch-race/engine.mjs";
+const out = join(root, "test-results/crossroads-review");
 await mkdir(out, {recursive:true});
 const web = await startWeb({workerPort:8887});
 let worker, browser;
 try {
-  worker = await startWorker({port:8887,origin:web.origin,layout:"crossing-v2"});
+  worker = await startWorker({port:8887,origin:web.origin,layout:"meadow-crossroads-v3"});
   let s = (await call(worker.base)).state;
-  for (const [p,action] of [[0,{type:"step",to:36}],[1,{type:"step",to:40}],[0,{type:"step",to:37}],[1,{type:"sprint",to:38}]]) {
-    const r = await call(worker.base,p,move(s.version,action));
+  for (let i=0;i<12;i++) {
+    const p=s.turn,b=boardFor(s),v=s.players[p];
+    const r=await call(worker.base,p,move(s.version,{type:"step",to:route(s,v.pos,b.balls[p])[1]}));
     assert.equal(r.status,200);
     s=r.state;
   }
@@ -26,20 +28,25 @@ try {
   await page.locator("#join").click();
   await page.locator("#game").waitFor({state:"visible"});
   await page.locator('[data-mode="fence"]').click();
-  await page.locator('[data-cell="37"]').click();
-  await page.locator('[data-cell="38"]').click();
-  assert.match(await page.locator("#preview").textContent(),/Detour: Mike \+2, Aimee \+4/);
-  await page.screenshot({path:join(out,"crossing-garden-mobile.png"),fullPage:true});
+  await page.locator('[data-cell="16"]').click();
+  await page.locator('[data-cell="23"]').click();
+  assert.match(await page.locator("#preview").textContent(),/Detour: Mike \+0, Aimee \+8/);
+  await page.screenshot({path:join(out,"shared-crossroads-mobile.png"),fullPage:true});
   await page.setViewportSize({width:1280,height:950});
-  await page.screenshot({path:join(out,"crossing-garden-desktop.png"),fullPage:true});
+  await page.screenshot({path:join(out,"shared-crossroads-desktop.png"),fullPage:true});
   await page.setViewportSize({width:390,height:844});
-  for (const name of ["north-bend","south-bend"]) {
+  for(const p of [0,1]) s=(await call(worker.base,p,move(s.version,{type:"step",to:24}))).state;
+  await page.reload();
+  await page.locator("#game").waitFor({state:"visible"});
+  assert.equal(await page.locator('[data-cell="24"] .token').count(),2);
+  await page.screenshot({path:join(out,"shared-courtyard-meeting.png"),fullPage:true});
+  for (let i=0;i<3;i++) {
     const command = (type,proposal) => ({id:crypto.randomUUID(),kind:"rematch",version:s.version,race:s.race??0,action:{type,...(proposal?{proposal}:{})}});
     s=(await call(worker.base,0,command("request"))).state;
     s=(await call(worker.base,1,command("accept",s.rematch.id))).state;
     await page.reload();
     await page.locator("#game").waitFor({state:"visible"});
-    await page.screenshot({path:join(out,`${name}-mobile.png`),fullPage:true});
+    await page.screenshot({path:join(out,`${s.layout}-mobile.png`),fullPage:true});
   }
   console.log("Review screenshots: "+out);
 } finally {

@@ -12,73 +12,12 @@ import {
   legalMoves,
   edge,
   RACE_LAYOUTS,
+  V2_LAYOUTS,
   applyRematch,
 } from "../../../play/olives-fetch-race/engine.mjs";
 const fresh = () => initialState("crossing-v2");
 const mirror = (n) => Math.floor(n / 7) * 7 + 6 - (n % 7);
-function allShortest(s, start, target) {
-  const dist = new Map([[target, 0]]),
-    q = [target];
-  for (const n of q)
-    for (const b of neighbors(s, n))
-      if (!dist.has(b)) {
-        dist.set(b, dist.get(n) + 1);
-        q.push(b);
-      }
-  const paths = [];
-  function visit(path) {
-    const n = path.at(-1);
-    if (n === target) {
-      paths.push(path);
-      return;
-    }
-    for (const b of neighbors(s, n))
-      if (dist.get(b) === dist.get(n) - 1) visit([...path, b]);
-  }
-  visit([start]);
-  return paths;
-}
-function fastest(s, p) {
-  const b = boardFor(s),
-    start = { pos: s.players[p].pos, ball: false, sprints: 2, steps: 0 },
-    q = [start],
-    seen = new Set();
-  for (const a of q) {
-    if (a.ball && a.pos === b.homes[p]) return a.steps;
-    const key = [a.pos, a.ball, a.sprints].join(":");
-    if (seen.has(key)) continue;
-    seen.add(key);
-    for (const to of neighbors(s, a.pos))
-      q.push({
-        pos: to,
-        ball: a.ball || to === b.balls[p],
-        sprints: a.sprints,
-        steps: a.steps + 1,
-      });
-    if (a.sprints)
-      for (const delta of [-14, 14, -2, 2]) {
-        const to = a.pos + delta,
-          mid = a.pos + delta / 2;
-        const view = {
-          ...s,
-          turn: p,
-          players: s.players.map((v, i) =>
-            i === p ? { ...v, pos: a.pos, sprints: a.sprints } : v,
-          ),
-        };
-        if (!validate(view, p, { type: "sprint", to })) {
-          const ball = a.ball || [mid, to].includes(b.balls[p]);
-          q.push({
-            pos: ball && [mid, to].includes(b.homes[p]) ? b.homes[p] : to,
-            ball,
-            sprints: a.sprints - 1,
-            steps: a.steps + 1,
-          });
-        }
-      }
-  }
-  return Infinity;
-}
+import {allShortest, fastest} from "./strategy-helpers.mjs";
 test("crossed targets, symmetric fences/resources, equal walking and sprint opportunity", () => {
   const s = fresh(),
     b = boardFor(s);
@@ -205,7 +144,7 @@ test("crossing board: seeded complete games preserve outbound/return routes afte
     return seed % n;
   };
   for (let game = 0; game < 40; game++) {
-    let s = initialState(RACE_LAYOUTS[game % RACE_LAYOUTS.length]);
+    let s = initialState(V2_LAYOUTS[game % V2_LAYOUTS.length]);
     const layout = s.layout;
     for (let turn = 0; turn < 160 && s.result === null; turn++) {
       const b = boardFor(s),
@@ -253,7 +192,7 @@ test("crossing board: seeded complete games preserve outbound/return routes afte
 
 test("every rotating garden is symmetric, solvable, offers three equal lanes and shared routes", () => {
   const routeSets = [];
-  for (const layout of RACE_LAYOUTS) {
+  for (const layout of V2_LAYOUTS) {
     const s = initialState(layout), b = boardFor(s);
     assert.equal(s.walls.length, 10);
     assert.deepEqual(s.walls.map(w => edge(...w.split("-").map(Number).map(mirror))).sort(), [...s.walls].sort());
@@ -273,7 +212,7 @@ test("every rotating garden is symmetric, solvable, offers three equal lanes and
     routeSets.push(JSON.stringify(paths));
     console.log(`${b.name}: ${walking} walking steps, ${fastest(s,0)} optimal movement turns, ${paths[0].length} shortest routes per player; all opposing pairs intersect.`);
   }
-  assert.equal(new Set(routeSets).size, RACE_LAYOUTS.length, "routes actually change, not just decorative fences");
+  assert.equal(new Set(routeSets).size, V2_LAYOUTS.length, "routes actually change, not just decorative fences");
 });
 test("mutual rematches rotate gardens and starters; invitations never spend turns", () => {
   let s = initialState();
@@ -299,7 +238,9 @@ test("mutual rematches rotate gardens and starters; invitations never spend turn
     }
     assert.equal(s.result,"tie");
   }
-  assert.deepEqual(seen,RACE_LAYOUTS.concat(RACE_LAYOUTS,RACE_LAYOUTS[0]));
+  assert.equal(new Set(seen.slice(0,3)).size,3);
+  assert.equal(new Set(seen.slice(3,6)).size,3);
+  assert.ok(seen.every((id,i)=>RACE_LAYOUTS.includes(id) && (!i || id!==seen[i-1])));
   let active = applyRematch(initialState("crossing-v2"),1,{type:"request"},"cancel-by-move");
   active = applyMove(active,0,{type:"step",to:36});
   assert.equal(active.rematch,undefined);

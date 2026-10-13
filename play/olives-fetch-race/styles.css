@@ -753,3 +753,6 @@ dialog ol {
 .rematch-card button, #rematch-dialog button {
   margin: 6px 6px 0 0;
 }
+
+.cell.courtyard { background: #e8dfb9; border-color: #c9bd87; }
+.crossroads-mark { position: absolute; color: #9a8951; font-size: 25px; opacity: .5; }

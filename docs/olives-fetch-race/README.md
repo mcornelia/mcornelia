@@ -1,5 +1,7 @@
 # Olive’s Fetch Race
 
+**New local revision awaiting approval:** [Shared Crossroads review](shared-crossroads-review.md) adds guaranteed central passage, 14 starting fences, and server-shuffled tested gardens. The earlier publication approval below does not cover this revision. The current live race remains preserved.
+
 A competitive asynchronous garden strategy game for Mike and Aimee. Built in an isolated clone on `codex/olives-fetch-race`, from published `origin/main` commit `5a553937` (PR #23). No applicable AGENTS.md or .agents/skills files were present in the source checkout. Existing project documentation and the Worker/test architecture were inspected before implementation.
 
 **Publication approved by Mike on October 13, 2026.** The separate Worker is deployed at `https://olives-fetch-race.mike-cornelia.workers.dev`. Two private game-only player keys are provisioned; only their hashes are stored by the Worker. Raw keys remain in owner-only files outside this repository. Tired Dogs source, hosting configuration, player keys, and live state remain unchanged. Nothing has been sent to Aimee.

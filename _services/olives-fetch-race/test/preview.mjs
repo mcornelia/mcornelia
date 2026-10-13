@@ -6,7 +6,7 @@ try {
   worker = await startWorker({
     port: 8887,
     origin: web.origin,
-    layout: "crossing-v2",
+    layout: "meadow-crossroads-v3",
   });
 } catch (e) {
   await web.stop();

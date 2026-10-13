@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <main>
@@ -170,8 +170,8 @@
             <section class="card field-notes">
               <p class="eyebrow">A GOOD PLAN HAS A WAY HOME</p>
               <p>
-                Fetch your matching ball, then find your way home. Crossing
-                players can pass through each other. Fences block both players,
+                Fetch your matching ball, then find your way home. In crossroads gardens, both routes pass through D4.
+                Players can share that square and pass through each other. Fences block both players,
                 so a clever shortcut block can also change your own return trip.
               </p>
               <button id="leave" class="quiet">Leave this device</button>
@@ -217,7 +217,8 @@
           turn. If both finish in that pair of turns, it’s a tie. Otherwise the
           first home wins.
         </li>
-        <li><b>A fresh garden.</b> Three fair gardens rotate between races. The
+        <li><b>A fresh garden.</b> Three tested crossroads gardens are shuffled between races. Both players
+          must pass through the central courtyard at D4. The
           fences and routes stay fixed during each race. Invite a new race, then
           wait for your partner to accept. Declining or playing a move cancels
           the invitation. Neither player can restart alone.</li>
@@ -239,6 +240,6 @@
       <button id="rematch-confirm" class="primary"></button>
       <button id="rematch-back" class="quiet">Back to the garden</button>
     </dialog>
-    <script type="module" src="app.mjs?v=2"></script>
+    <script type="module" src="app.mjs?v=3"></script>
   </body>
 </html>
