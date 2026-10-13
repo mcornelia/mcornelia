@@ -29,11 +29,15 @@
         <div>
           <p class="eyebrow">A LITTLE RIVALRY. A VERY GOOD DOG.</p>
           <h1>Olive’s<br /><em>Fetch Race</em><span class="period">.</span></h1>
-          <p class="subtitle">Two balls. One garden. A few sneaky detours.</p>
+          <p class="subtitle">
+            Two balls, one garden, and some sneaky detours.<br /><strong
+              >Fetch your ball and bring it home to win.</strong
+            >
+          </p>
         </div>
         <button
           id="ball"
-          aria-label="Toss Olive’s secret tennis ball"
+          aria-label="Toss Olive’s secret fetch ball"
           title="Someone has spotted a ball…"
         >
           <svg viewBox="0 0 140 160" aria-hidden="true">
@@ -61,18 +65,18 @@
               stroke="#327b69"
               stroke-width="9"
             />
-            <circle cx="113" cy="137" r="17" fill="#d9e778" />
+            <circle cx="113" cy="137" r="17" fill="#ee8739" />
             <path
               d="M101 124 Q124 135 101 147 M125 126 Q106 136 124 149"
               fill="none"
-              stroke="#f9f4d7"
-              stroke-width="2"
+              stroke="#225e91"
+              stroke-width="3.5"
             />
           </svg>
         </button>
       </section>
       <p id="ball-message" class="ball-message" aria-live="polite">
-        Olive is supervising. Mostly the tennis balls.
+        Olive is supervising. Mostly the fetch balls.
       </p>
       <section id="join-panel" class="card join">
         <p class="eyebrow">YOUR PRIVATE GARDEN</p>
@@ -118,9 +122,9 @@
               ></svg>
             </div>
             <div class="legend">
-              <span><i class="dot mike-dot"></i> Mike</span
-              ><span><i class="dot aimee-dot"></i> Aimee</span
-              ><span>◌ planned route</span><span>✿ flower beds</span>
+              <span><i class="dot mike-dot"></i> M · Mike</span
+              ><span><i class="dot aimee-dot"></i> A · Aimee</span
+              ><span>✿ flower beds</span>
             </div>
           </section>
           <aside class="sidebar">
@@ -156,10 +160,7 @@
                 starting square. A fence costs a turn. A sprint is gone once you
                 use it.
               </p>
-              <label class="route-control"
-                ><input type="checkbox" id="routes" checked /> Show my shortest
-                walking route</label
-              ><button id="leave" class="quiet">Leave this device</button>
+              <button id="leave" class="quiet">Leave this device</button>
             </section>
           </aside>
         </div>
@@ -203,8 +204,9 @@
         </li>
       </ol>
       <p>
-        The dotted route counts walking steps, not sprints. It updates when you
-        preview a fence. Use it as a starting point, not your whole strategy.
+        Balls and houses are marked M for Mike and A for Aimee. The step numbers
+        count the remaining walk to your ball and back home, without sprints.
+        Fence previews update those numbers; you find the route.
       </p>
       <p>
         <b>Tip:</b> A fence that adds one step costs you one turn. Look for a
