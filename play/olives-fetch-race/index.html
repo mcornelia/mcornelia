@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=7" />
   </head>
   <body>
     <main>
@@ -258,17 +258,17 @@
     <dialog id="access-dialog">
       <p class="eyebrow">YOUR GARDEN · YOUR WORDS</p>
       <h2>Something you can remember.</h2>
-      <p>Choose six to twelve different words, separated by dashes. Family names, dog names, and favorite things work. Words are visible so you can check them. Use this phrase only for this game; a longer, less predictable phrase is harder to guess.</p>
-      <form id="access-form" autocomplete="off">
-        <label for="access-current">Your current key or phrase</label><input id="access-current" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required>
-        <label for="access-new">Your new phrase</label><input id="access-new" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
-        <label for="access-confirm">Enter the new phrase again</label><input id="access-confirm" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
-        <p id="access-status" role="status" aria-live="polite"></p>
+      <p id="access-format">Choose exactly three words separated by dashes, then add a number and ! immediately after the last word. Use letters for the words. You can include Huck or Olive as one of your words. Shorter phrases are easier to guess; use yours only for this casual game.</p>
+      <form id="access-form" autocomplete="off" novalidate>
+        <label for="access-current">Your current key or phrase</label><p id="access-current-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-current-error" id="access-current" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <label for="access-new">Your new phrase</label><p id="access-new-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-new-error access-format" id="access-new" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <label for="access-confirm">Enter the new phrase again</label><p id="access-confirm-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-confirm-error" id="access-confirm" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <p id="access-status" tabindex="-1" role="status" aria-live="polite"></p>
         <button id="access-save" class="primary">Save my new access phrase</button>
         <button id="access-close" type="button" class="quiet">Close</button>
       </form>
     </dialog>
     <script src="login-guard.js?v=4"></script>
-    <script type="module" src="app.mjs?v=5"></script>
+    <script type="module" src="app.mjs?v=6"></script>
   </body>
 </html>

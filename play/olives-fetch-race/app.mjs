@@ -1,5 +1,5 @@
 import {raceSummary, playerObjective} from "./race-summary.mjs?v=5";
-import {normalizeCredential, canonicalPhrase} from "./access.mjs?v=4";
+import {normalizeCredential, canonicalNewPhrase, NEW_PHRASE_GUIDANCE} from "./access.mjs?v=5";
 import { API_ORIGIN } from "./config.mjs";
 import {
   NAMES,
@@ -206,7 +206,7 @@ $("join-form").onsubmit = async (e) => {
   if(signingIn) return;
   const entered = normalizeCredential($("key").value);
   if (!entered) {
-    notice = "Enter your existing player key, or your configured phrase of six or more words.";
+    notice = "Enter your existing player key or your saved access phrase.";
     render();
     return;
   }
@@ -232,23 +232,43 @@ $("join-form").onsubmit = async (e) => {
   } finally { signingIn = false; render(); }
 };
 let changingAccess = false;
+const accessFields = ["access-current", "access-new", "access-confirm"];
+function clearAccessErrors() {
+  for(const id of accessFields) {
+    $(id).removeAttribute("aria-invalid");
+    $(id+"-error").textContent="";
+    $(id+"-error").hidden=true;
+  }
+}
+function accessError(id,message) {
+  $(id).setAttribute("aria-invalid","true");
+  const error=$(id+"-error");error.textContent=message;error.hidden=false;
+  $("access-status").textContent="Nothing changed. Check the highlighted field; your entries are still here.";
+  $(id).focus({preventScroll:true});
+  $(id).scrollIntoView({block:"center"});
+  error.scrollIntoView({block:"nearest"});
+}
+for(const id of accessFields) $(id).addEventListener("input",()=>{
+  $(id).removeAttribute("aria-invalid");$(id+"-error").hidden=true;
+});
 $("access-dialog").addEventListener("cancel", event => { if(changingAccess) event.preventDefault(); });
 $("access-open").onclick = () => {
   $("access-status").textContent = "Only your final Save changes your own access. Your race and partner’s access stay as they are.";
-  for(const id of ["access-current","access-new","access-confirm"]) $(id).value = "";
+  clearAccessErrors();
+  for(const id of accessFields) $(id).value = "";
   $("access-dialog").showModal();
 };
 $("access-close").onclick = () => { if(!changingAccess) $("access-dialog").close(); };
 $("access-form").onsubmit = async event => {
   event.preventDefault();
   if(changingAccess) return;
+  clearAccessErrors();
   const current = normalizeCredential($("access-current").value);
-  const phrase = canonicalPhrase($("access-new").value);
-  const confirmation = canonicalPhrase($("access-confirm").value);
-  if(!current || !phrase || confirmation !== phrase) {
-    $("access-status").textContent = "Enter your current key or phrase, then enter and confirm six to twelve different words for your new phrase.";
-    return;
-  }
+  const phrase = canonicalNewPhrase($("access-new").value);
+  const confirmation = canonicalNewPhrase($("access-confirm").value);
+  if(!current) return accessError("access-current", "Enter your current player key or saved phrase so we can check that this is you.");
+  if(!phrase) return accessError("access-new", NEW_PHRASE_GUIDANCE);
+  if(confirmation !== phrase) return accessError("access-confirm", "The two new phrases do not match. Enter your new phrase again exactly, including the number and !.");
   changingAccess = true;
   $("access-save").disabled = true;
   $("access-close").disabled = true;
@@ -276,7 +296,11 @@ $("access-form").onsubmit = async event => {
       ? "Saved. Your new phrase now opens your garden; the previous key no longer does. Save these words privately before closing."
       : "Saved. Your new phrase now opens the garden. This browser cannot remember it; save these words privately before closing.";
     await refresh(true);
-  } catch(error) { $("access-status").textContent = error.message || "Could not save access. Your entries are still here."; }
+  } catch(error) {
+    $("access-status").textContent = error.message || "Could not save access. Your entries are still here.";
+    $("access-status").focus({preventScroll:true});
+    $("access-status").scrollIntoView({block:"center"});
+  }
   finally { changingAccess=false;$("access-save").disabled=false;$("access-close").disabled=false; }
 };
 $("leave").onclick = () => {
