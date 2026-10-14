@@ -23,7 +23,9 @@ try {
    return {board:box('.board-wrap'),modes:box('.modes'),dock:box('.action-dock'),confirm:box('#commit'),viewport:innerHeight,scroll:scrollY,width:document.documentElement.scrollWidth,inner:innerWidth};
   });
   assert.ok(metrics.width<=metrics.inner);assert.ok(metrics.modes.bottom<=metrics.board.top);assert.ok(metrics.board.bottom<=metrics.dock.top);
-  assert.ok(metrics.board.top>=0 && metrics.confirm.bottom<=metrics.viewport,'Board and deliberate confirmation fit together on phone');
+  await page.locator('#commit').scrollIntoViewIfNeeded();
+  const visibleConfirm=await page.locator('#commit').boundingBox();
+  assert.ok(visibleConfirm.y>=0 && visibleConfirm.y+visibleConfirm.height<=metrics.viewport,'Larger text keeps deliberate confirmation reachable by normal scrolling');
   assert.ok(metrics.confirm.height>=44);
   assert.match(await page.locator('#preview').textContent(),/Aimee \+4/);
   await page.screenshot({path:join(out,`${kind}-${width}-preview.png`)});

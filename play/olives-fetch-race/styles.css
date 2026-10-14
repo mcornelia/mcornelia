@@ -817,3 +817,52 @@ dialog ol {
   .finish-panel h2 { font-size: 28px; }
   .finish-panel p { font-size: 12px; }
 }
+
+/* Readability takes priority over fitting a whole turn above the fold. */
+.board-scroll { min-width: 0; max-width: 100%; overflow: auto; border-radius: 14px; }
+.garden, .sidebar, .turn-status, .action-dock { min-width: 0; }
+@media (max-width: 740px) {
+  :root { --muted: #435e54; --mike: #155f98; --aimee: #9c4432; --safe-top: env(safe-area-inset-top, 0px); --safe-right: env(safe-area-inset-right, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); }
+  body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  main { padding: max(14px,var(--safe-top)) max(12px,var(--safe-right)) max(16px,var(--safe-bottom)) max(12px,var(--safe-left)); }
+  body.in-game main { padding: max(8px,var(--safe-top)) max(8px,var(--safe-right)) max(16px,var(--safe-bottom)) max(8px,var(--safe-left)); }
+  header { flex-wrap: wrap; }
+  .wordmark { font-size: .6875rem; }
+  .header-actions { margin-left: auto; flex-wrap: wrap; }
+  .quiet, .primary, .rematch-card button, #rematch-dialog button { font-size: 1rem; line-height: 1.4; min-height: 44px; }
+  body.in-game h1 { font-size: 1.625rem; line-height: 1.2; }
+  body.in-game #ball { width: 48px; height: 48px; }
+  body.in-game .ball-message { font-size: .8125rem; line-height: 1.4; }
+  .garden { padding: 8px; }
+  .garden-top { flex-wrap: wrap; }
+  .garden-top .eyebrow, .garden-top .pill { font-size: .8125rem; line-height: 1.4; letter-spacing: .02em; }
+  .turn-status #connection { font-size: .875rem; line-height: 1.4; letter-spacing: .03em; margin: 10px 0 6px; }
+  .turn-status h2 { font-size: 1.75rem; line-height: 1.2; }
+  .turn-status .last { font-size: 1rem; line-height: 1.5; margin: 8px 0; }
+  .players { gap: 10px; margin: 12px 0; }
+  .player { font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .player strong { font-size: 1rem; line-height: 1.4; }
+  .modes { flex-wrap: wrap; }
+  .modes button { flex: 1 1 5.5rem; min-height: 56px; padding: 8px 4px; font-size: 1rem; line-height: 1.3; }
+  .modes small { font-size: .8125rem; line-height: 1.35; }
+  .modes span { font-size: 1rem; }
+  .board-wrap { min-width: calc(7 * 2.75rem + 38px); }
+  .cell .coord { font-size: .625rem; line-height: 1.1; color: #27483d; opacity: 1; top: 1px; left: 2px; }
+  .token { font-size: 1rem; }
+  .goal-owner { font-size: .625rem; line-height: 1.1; }
+  .action-dock { margin-top: 12px; padding: 12px; }
+  .action-dock #hint, .action-dock .preview { font-size: 1rem; line-height: 1.5; }
+  .action-dock .preview { padding: 10px; overflow-wrap: anywhere; }
+  .action-dock #commit { font-size: 1rem; min-height: 48px; }
+  .action-dock #notice { font-size: .9375rem; line-height: 1.5; }
+  .legend, .fence-legend { font-size: .8125rem; line-height: 1.5; flex-wrap: wrap; gap: 8px 12px; }
+  .field-notes p:not(.eyebrow), .rematch-card > p:not(.eyebrow), .finish-panel p, dialog p, dialog li, .join p { font-size: 1rem; line-height: 1.5; }
+  .eyebrow, .finish-panel .eyebrow { font-size: .8125rem; line-height: 1.4; letter-spacing: .04em; }
+  .finish-panel h2, .rematch-card h2 { font-size: 1.75rem; }
+  .join label, #access-form label { font-size: 1rem; line-height: 1.5; }
+  .join input, #access-form input { font-size: 1rem; min-height: 48px; }
+  .fine, .join label.fine { font-size: .875rem !important; line-height: 1.5; }
+  dialog, #access-dialog { inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); max-width: calc(100vw - var(--safe-left) - var(--safe-right) - 24px); max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px); overflow: auto; padding: 18px; }
+  #access-form { min-width: 0; }
+  footer { font-size: .8125rem; }
+}
