@@ -19,7 +19,7 @@ export function travel(s,p,ignoreTraps=false) {
 export function choose(s,p,policy='beeline') {
  const first=travel(s,p,policy==='beeline').move;if(policy==='beeline')return first;
  let best=first,score=-Infinity;
- const actions=[...legalMoves(s,p,'step'),...legalMoves(s,p,'sprint'),...(policy==='fences'||policy==='mixed'?legalMoves(s,p,'fence'):[]),...(policy==='fleas'||policy==='mixed'?legalMoves(s,p,'flea'):[])];
+ const actions=[...legalMoves(s,p,'step'),...legalMoves(s,p,'sprint'),...(policy==='fences'||policy==='mixed'?legalMoves(s,p,'fence'):[]),...(policy==='fleas'||policy==='mixed'?[...legalMoves(s,p,'flea'),...legalMoves(s,p,'walk-flea')]:[])];
  for(const move of actions){const next=applyMove(s,p,move),value=next.result===p?100:next.result==='tie'?0:travel(next,1-p).cost-travel(next,p).cost;
   // Prefer moving when an obstacle does not buy a real tempo advantage.
   const adjusted=value+(policy==='fleas'&&move.type==='flea'?.002:['step','sprint'].includes(move.type)?.001:0);
@@ -27,6 +27,6 @@ export function choose(s,p,policy='beeline') {
  }
  return best;
 }
-export function play(layout,starter,policies){let s={...structuredClone(layout),starter,turn:starter};const actions={step:0,sprint:0,fence:0,flea:0};let skips=0;
+export function play(layout,starter,policies){let s={...structuredClone(layout),starter,turn:starter};const actions={step:0,sprint:0,fence:0,flea:0,'walk-flea':0};let skips=0;
  for(let n=0;n<120&&s.result===null;n++){const p=s.turn,m=choose(s,p,policies[p]);if(!m)throw Error('No move');actions[m.type]++;const before=s.ply??s.version;s=applyMove(s,p,m);skips+=(s.ply??s.version)-before-1;}
  if(s.result===null)throw Error('Game failed to finish');return {state:s,actions,skips};}

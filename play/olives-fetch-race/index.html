@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=9" />
   </head>
   <body>
     <main>
@@ -140,6 +140,7 @@
                   <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
                 </button>
                 <button data-mode="flea" aria-pressed="false" hidden><span>✹</span>Flea trap<small>landing skips 1 turn</small></button>
+                <button class="combo-mode" data-mode="walk-flea" aria-pressed="false" hidden><span>↟ + ✹</span>Walk + first flea<small>once per race · one turn total</small></button>
               </div>
             <div class="board-scroll" tabindex="0" role="region" aria-label="Garden board. Scroll sideways if enlarged.">
               <div class="board-wrap">
@@ -155,6 +156,7 @@
             </div>
             <div class="action-dock">
               <div id="fence-sides" role="group" aria-label="Choose a fence side" hidden></div>
+              <button id="change-walk" class="quiet" hidden>Change the walk square</button>
               <p id="hint">Tap a highlighted square to plan.</p>
               <div id="preview" class="preview" aria-live="polite">
                 Your move is only saved when you confirm.
@@ -223,7 +225,7 @@
           whole turn and blocks one edge for both players, permanently. Tap a marked gap, or tap a square and choose its side below the board, to preview it. The game rejects any fence that
           closes a route to either ball or home. In new gardens it also rejects fences adding more than four walking steps or forcing a flea bite.
         </li>
-        <li><b>Two flea traps each, in new gardens.</b> Spend a turn placing one visible trap on empty lawn. Homes, balls and occupied squares are off limits. It only bites your opponent when they land there; a sprint's middle square does not trigger it. The trap disappears and their next turn is automatically spent scratching. Your own traps are safe. Every placement must leave a flea-free route. Traps are never replenished during a race.</li>
+        <li><b>Two flea traps each, in new gardens.</b> Your first flea may accompany a normal one-square walk, once per race. Choose Walk + first flea, select the walk and then the trap square, and confirm both together. No sprint combination. You still have only two traps total; later traps each spend a turn. Placing the first trap alone also uses up the combined-action opportunity. Homes, balls and occupied squares are off limits. It only bites your opponent when they land there; a sprint's middle square does not trigger it. The trap disappears and their next turn is automatically spent scratching. Your own traps are safe. Every placement must leave a flea-free route. Traps are never replenished during a race.</li>
         <li>
           <b>Share the lawn.</b> Players may pass through or share a square.
           Flower beds cannot be crossed. Fences cannot be jumped. The garden
@@ -235,7 +237,7 @@
           turn. If both finish in that pair of turns, it’s a tie. Otherwise the
           first home wins.
         </li>
-        <li><b>A fresh garden.</b> Three shorter asymmetric gardens, each with two seat assignments, are shuffled between races. Both players start with the same walking distance and sprint opportunity. The
+        <li><b>A fresh garden.</b> The three physical gardens are shuffled so each appears before any repeats, with no back-to-back repeat across cycles. Seats switch when a garden returns. Both players start with the same walking distance and sprint opportunity. The
           fences and routes stay fixed during each race. Invite a new race, then
           wait for your partner to accept. Declining or playing a move cancels
           the invitation. Neither player can restart alone.</li>
@@ -271,6 +273,6 @@
       </form>
     </dialog>
     <script src="login-guard.js?v=4"></script>
-    <script type="module" src="app.mjs?v=7"></script>
+    <script type="module" src="app.mjs?v=8"></script>
   </body>
 </html>

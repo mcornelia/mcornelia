@@ -1,4 +1,4 @@
-import {NAMES} from './engine.mjs?v=6';
+import {NAMES} from './engine.mjs?v=7';
 export function raceSummary(state) {
   const turns=state.ply ?? state.version;
   const starter=state.starter ?? 0;

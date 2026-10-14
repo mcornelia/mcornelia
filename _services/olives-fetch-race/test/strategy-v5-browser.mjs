@@ -11,8 +11,14 @@ try{
  async function version(v){const end=Date.now()+5000;while(Date.now()<end){if((await state()).version===v)return;await new Promise(r=>setTimeout(r,50));}throw Error('Version '+v+' not reached');}
  assert.match(await m.locator('#player0').textContent(),/2 flea traps/);assert.equal(await m.locator('#sound').textContent(),'Sound off');
  await m.locator('[data-mode=flea]').click();await m.locator('[data-cell="36"]').click();assert.match(await m.locator('#notice').textContent(),/safe/);assert.equal(await m.locator('#commit').isDisabled(),true);
- await m.locator('[data-cell="33"]').click();assert.match(await m.locator('#preview').textContent(),/sprint over it is safe/);assert.equal((await state()).version,0);
- let writes=0;m.on('request',r=>{if(r.url().endsWith('/move'))writes++;});await m.locator('#commit').evaluate(b=>{b.click();b.click();});await version(1);assert.equal(writes,1);await sync();await a.locator('.flea-marker').waitFor();await a.screenshot({path:join(out,kind+'-visible-flea.png'),fullPage:true});assert.equal((await state()).players[0].fleas,1);
+ await m.locator('[data-mode="walk-flea"]').click();
+ await m.locator('[data-cell="30"]').click();assert.match(await m.locator('#preview').textContent(),/neighboring/);
+ await m.locator('[data-cell="37"]').click();assert.equal(await m.locator('#commit').isDisabled(),true);assert.match(await m.locator('#preview').textContent(),/Nothing has been saved/);
+ await m.locator('#change-walk').click();assert.equal(await m.locator('#change-walk').isHidden(),true);await m.locator('[data-cell="37"]').click();
+ await m.locator('[data-cell="37"]').click();assert.match(await m.locator('#preview').textContent(),/unoccupied/);
+ await m.locator('[data-cell="33"]').click();assert.match(await m.locator('#preview').textContent(),/Walk to C6 \+ first flea at F5.*One turn total/);assert.equal((await state()).version,0);
+ await m.screenshot({path:join(out,kind+'-combined-preview.png'),fullPage:true});
+ let writes=0;m.on('request',r=>{if(r.url().endsWith('/move'))writes++;});await m.locator('#commit').evaluate(b=>{b.click();b.click();});await version(1);assert.equal(writes,1);await sync();await a.locator('.flea-marker').waitFor();await a.screenshot({path:join(out,kind+'-visible-flea.png'),fullPage:true});assert.equal((await state()).players[0].fleas,1);assert.equal((await state()).players[0].pos,37);assert.equal((await state()).ply,1);await m.locator('[data-mode="walk-flea"]:disabled').waitFor();
  await a.locator('[data-cell="33"]').click();assert.match(await a.locator('#preview').textContent(),/Flea bite/);await a.locator('#commit').click();await version(2);await sync();assert.equal((await state()).players[1].scratching,true);assert.equal((await state()).traps.length,0);
  // Lose the response that also resolves a scratch; a reload retry must not skip twice.
  let dropped=false;await m.route('**/move',async r=>{if(!dropped){dropped=true;await r.fetch();}await r.abort();});
@@ -28,5 +34,5 @@ try{
  await m.screenshot({path:join(out,kind+'-fence-preview.png'),fullPage:true});await m.locator('#commit').click();await version(4);await sync();
  await contexts[1].setOffline(true);await a.waitForFunction(()=>document.getElementById('connection').textContent.includes('OFFLINE'));assert.equal(await a.locator('#commit').isDisabled(),true);await contexts[1].setOffline(false);await a.reload();await a.locator('#game').waitFor({state:'visible'});assert.equal((await state()).version,4);
  for(const page of pages){assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.evaluate(()=>localStorage.getItem('tired-dogs:v1:sentinel')),'unchanged');assert.equal(await page.locator('#sound').textContent(),'Sound off');}
- assert.deepEqual(errors,[]);console.log('PASS '+kind+': two-player trap landing/one skip, double click, lost-response/reload idempotence, wrong turn, gap targets, square-to-side help, invalid reasons, reconnect, remembered mute and isolation. Focused regression only; independent full-game QA remains.');
+ assert.deepEqual(errors,[]);console.log('PASS '+kind+': two-player trap landing/one skip, double click, lost-response/reload idempotence, wrong turn, gap targets, square-to-side help, invalid reasons, reconnect, remembered mute and isolation. Includes first-flea walk selection, change-walk, invalid placement, atomic double click and remaining-trap count.');
 }finally{await browser.close();await worker.stop();await web.stop();}

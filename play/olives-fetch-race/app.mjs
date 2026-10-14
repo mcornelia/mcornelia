@@ -1,4 +1,4 @@
-import {raceSummary, playerObjective} from "./race-summary.mjs?v=6";
+import {raceSummary, playerObjective} from "./race-summary.mjs?v=7";
 import {normalizeCredential, canonicalNewPhrase, NEW_PHRASE_GUIDANCE} from "./access.mjs?v=5";
 import { API_ORIGIN } from "./config.mjs";
 import {
@@ -12,7 +12,7 @@ import {
   validate,
   legalMoves,
   applyMove,
-} from "./engine.mjs?v=6";
+} from "./engine.mjs?v=7";
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
@@ -368,7 +368,7 @@ function reviewRematch(type) {
   $("rematch-confirm-title").textContent = type === "request" ? "Invite a fresh race?" : type === "accept" ? "Start the next race together?" : "Keep this race?";
   $("rematch-confirm-copy").textContent = type === "request"
     ? `Invite a new race with a randomly chosen, shorter asymmetric garden, three fences and two flea traps each. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts.${state.result !== null ? "" : " Playing a move cancels the invitation."}`
-    : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences, sprints and flea traps. The previous race is preserved in storage.`
+    : type === "accept" ? `You both agree to end this race and start ${name} with fresh resources.${state.rematch && !LAYOUTS[state.rematch.layout].strategy ? " This earlier invitation keeps its original rules; flea traps start with a newly invited garden." : " Each player may pair their first flea with a normal walk."} The previous race is preserved in storage.`
     : "The invitation will close. This race and its turn stay as they are.";
   $("rematch-confirm").textContent = type === "request" ? "Send invitation" : type === "accept" ? "Accept & start race" : "Keep current race";
   $("rematch-dialog").showModal();
@@ -384,6 +384,7 @@ $("rematch-confirm").onclick = async () => {
   $("rematch-dialog").close();
   await persistAndSend();
 };
+$("change-walk").onclick=()=>{anchor=null;selected=null;notice="";render();};
 function chooseFence(a,b) {
   if(!state||state.result!==null||state.turn!==player||busy||pending)return;
   const action={type:"fence",a,b};
@@ -400,7 +401,15 @@ function tap(n) {
   )
     return;
   sound.play("care");
-  if (mode === "fence") {
+  if(mode==="walk-flea") {
+    if(anchor===null) {
+      const error=validate(state,player,{type:"step",to:n});notice=error||"";
+      if(!error){anchor=n;selected=null;}
+    } else {
+      const action={type:"walk-flea",to:anchor,trap:n};
+      notice=validate(state,player,action)||"";selected=notice?null:action;
+    }
+  } else if (mode === "fence") {
     if (anchor === null || anchor === n || !adjacent(anchor,n,state)) {
       anchor = anchor === n ? null : n;
       selected = null;
@@ -454,7 +463,7 @@ function houseArt(p) {
 }
 let renderedSignature = "";
 function render() {
-  if(state&&mode==="flea"&&!boardFor(state).strategy)mode="step";
+  if(state&&((mode==="flea"&&!boardFor(state).strategy)||(mode==="walk-flea"&&(!state.players[player]?.firstFleaWalk||state.players[player]?.fleas!==2)))){mode="step";anchor=null;selected=null;}
   // An unchanged poll must not rebuild the board, steal focus, or replay animation.
   const signature = JSON.stringify([
     state,
@@ -521,7 +530,7 @@ function render() {
   $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · FRESH GARDENS AHEAD`;
   $("rematch-status").textContent = invite
     ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."}${state.result !== null ? "" : " Playing a move cancels the invitation."}`
-    : "The next race gets a shorter, asymmetric garden. Seat assignments vary too. Both players agree before it starts.";
+    : "All three physical gardens appear before repeating. Seats switch when a garden returns. Both players agree before it starts.";
   $("new-race").hidden = !!invite;
   $("accept-race").hidden = !invite || invite.by === player;
   $("decline-race").hidden = !invite;
@@ -564,13 +573,14 @@ function render() {
     $("player" + p).innerHTML = `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${objective}<br>${resources}${board.strategy?` · ${a.fleas} flea traps${a.scratching?" · next turn: scratching":""}`:""}<br>${summary.counts[p]} turn${summary.counts[p]===1?"":"s"} used`;
   }
   for (const b of document.querySelectorAll("[data-mode]")) {
-    b.hidden=b.dataset.mode==="flea"&&!board.strategy;
+    b.hidden=["flea","walk-flea"].includes(b.dataset.mode)&&!board.strategy;
     b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
     b.disabled =
       !can ||
       (b.dataset.mode === "sprint" && !state.players[player].sprints) ||
       (b.dataset.mode === "fence" && !state.players[player].fences) ||
-      (b.dataset.mode === "flea" && !state.players[player].fleas);
+      (b.dataset.mode === "flea" && !state.players[player].fleas) ||
+      (b.dataset.mode === "walk-flea" && (!state.players[player].firstFleaWalk||state.players[player].fleas!==2));
   }
   $("hint").textContent = pending
     ? "Your saved choice is locked until the server confirms it."
@@ -580,6 +590,7 @@ function render() {
       ? state.result === null
         ? `You’re signed in as ${NAMES[player]}. It’s ${NAMES[state.turn]}’s turn; you can study the board while they plan.`
         : "This race is complete. You can invite a fresh race when you’re ready."
+      : mode === "walk-flea" ? (anchor===null ? "First choose a neighboring square to walk to. Then choose your first flea’s square. Both save together in one turn." : `Walk to ${cellName(anchor)} selected. Now choose an empty square for your first flea, or change your walk. No sprint in this action.`)
       : mode === "fence"
         ? anchor === null
           ? "Tap a highlighted gap. Or tap a square and choose its side below."
@@ -590,8 +601,9 @@ function render() {
   if (selected && !validate(state, player, selected))
     view = applyMove(state, player, selected);
   const legal = can ? legalMoves(state, player, mode) : [];
+  $("change-walk").hidden=mode!=="walk-flea"||anchor===null||!can;
   const allowed = new Set(
-    mode === "fence"
+    mode === "walk-flea" ? (anchor===null?legal.map(m=>m.to):legal.filter(m=>m.to===anchor).map(m=>m.trap)) : mode === "fence"
       ? legal
           .filter((m) => anchor === null || m.a === anchor || m.b === anchor)
           .flatMap((m) => [m.a, m.b])
@@ -610,6 +622,7 @@ function render() {
     b.classList.toggle(
       "selected",
       selected?.to === n ||
+        selected?.trap === n ||
         selected?.a === n ||
         selected?.b === n ||
         anchor === n,
@@ -645,7 +658,7 @@ function render() {
     if(trap){b.innerHTML+=`<span class="flea-marker p${trap.owner}" aria-hidden="true">✹${NAMES[trap.owner][0]}</span>`;label+=` visible flea trap placed by ${NAMES[trap.owner]}, triggers only the opponent on landing`;}
     if (allowed.has(n)) label += " legal preview";
     b.setAttribute("aria-label", label);
-    b.disabled = (board.rocks.includes(n) && mode!=="flea") || !can;
+    b.disabled = (board.rocks.includes(n) && !["flea","walk-flea"].includes(mode)) || !can;
     b.onclick = () => tap(n);
     $("board").append(b);
   }
@@ -696,8 +709,8 @@ function render() {
   $("walls").innerHTML = lines.join("");
   $("preview").textContent =
     selected && !validate(state, player, selected)
-      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. 1 fence + your turn.` : selected.type === "flea" ? `Flea trap at ${cellName(selected.to)}. 1 trap + your turn. Visible to both; your opponent loses their next turn only if they land here. A sprint over it is safe.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Uses 1 sprint." : ""}${!state.players[player].scratching&&view.players[player].scratching?" Flea bite! Your next turn will be skipped.":""}`} Steps left: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
-      : notice || "Plan on the board, check the result here, then confirm.";
+      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. 1 fence + your turn.` : selected.type === "walk-flea" ? `Walk to ${cellName(selected.to)} + first flea at ${cellName(selected.trap)}. One turn total; uses 1 of your 2 traps. No sprint.${view.players[player].scratching?" Flea bite on landing: your next turn will be skipped.":""}` : selected.type === "flea" ? `Flea trap at ${cellName(selected.to)}. 1 trap + your turn. Visible to both; your opponent loses their next turn only if they land here. A sprint over it is safe.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Uses 1 sprint." : ""}${!state.players[player].scratching&&view.players[player].scratching?" Flea bite! Your next turn will be skipped.":""}`} Steps left: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
+      : notice || (mode==="walk-flea"&&anchor!==null?`Walk to ${cellName(anchor)} is selected. Choose the flea square before confirming. Nothing has been saved.`:"Plan on the board, check the result here, then confirm.");
   if(selected&&!validate(state,player,selected)&&view.result!==null) $("preview").textContent += view.result==="tie" ? " This completes an equal-turn tie." : ` This ends the race: ${NAMES[view.result]} wins.`;
   $("commit").disabled =
     !can || !online || !selected || !!validate(state, player, selected);

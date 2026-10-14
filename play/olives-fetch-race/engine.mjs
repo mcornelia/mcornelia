@@ -99,7 +99,7 @@ export function initialState(layout = "classic-v1") {
   return {
     ...(layout === "classic-v1" ? {} : { layout }),
     schema: 1,
-    ...(board.strategy ? {traps:[],turnCounts:[0,0],ply:0} : {}),
+    ...(board.strategy ? {traps:[],turnCounts:[0,0],ply:0,gardenCycleVersion:2,gardenSeats:{[physicalGarden(layout)]:layout.includes("-swap-")}} : {}),
     version: 0,
     turn: 0,
     players: board.homes.map((pos) => ({
@@ -108,7 +108,7 @@ export function initialState(layout = "classic-v1") {
       fences: board.strategy ? 3 : 6,
       sprints: 2,
       finished: false,
-      ...(board.strategy ? {fleas:2,scratching:false} : {}),
+      ...(board.strategy ? {fleas:2,scratching:false,firstFleaWalk:true} : {}),
     })),
     walls: [...board.fixedWalls],
     result: null,
@@ -172,9 +172,18 @@ export function validate(s, p, m) {
   const { homes, balls } = boardFor(s);
   if (s.result !== null) return "The race is complete.";
   if (p !== s.turn) return "It is your partner’s turn.";
-  if (!m || !["step", "sprint", "fence", "flea"].includes(m.type))
+  if (!m || !["step", "sprint", "fence", "flea", "walk-flea"].includes(m.type))
     return "Choose a move, sprint, or fence.";
   const a = s.players[p];
+  if(Object.hasOwn(m,"trap")&&m.type!=="walk-flea")return "A flea can accompany only a normal walk, not a sprint or another action.";
+  if(m.type === "walk-flea") {
+    if(!boardFor(s).strategy || !a.firstFleaWalk || a.fleas!==2) return "Only your first flea can accompany a normal walk, once per race.";
+    const walkError=validate(s,p,{type:"step",to:m.to});
+    if(walkError)return walkError;
+    // Validate the trap against the post-walk positions, without advancing time.
+    const after={...s,players:s.players.map((v,i)=>i===p?{...v,pos:m.to}:v)};
+    return validate(after,p,{type:"flea",to:m.trap});
+  }
   if (m.type === "step")
     return neighbors(s, a.pos).includes(m.to)
       ? null
@@ -224,7 +233,11 @@ export function validate(s, p, m) {
 }
 export function legalMoves(s, p = s.turn, type = "step") {
   const moves = [];
-  if (type === "fence") {
+  if(type==="walk-flea") {
+    for(const to of neighbors(s,s.players[p].pos))for(let trap=0;trap<49;trap++) {
+      const m={type,to,trap};if(!validate(s,p,m))moves.push(m);
+    }
+  } else if (type === "fence") {
     for (let a = 0; a < 49; a++)
       for (const b of [a + 1, a + 7]) {
         const m = { type, a, b };
@@ -245,7 +258,7 @@ export function applyMove(s, p, m) {
     a = next.players[p];
   let detail;
   if(m.type === "flea") {
-    next.traps.push({owner:p,to:m.to});a.fleas--;
+    next.traps.push({owner:p,to:m.to});a.fleas--;a.firstFleaWalk=false;
     detail=`placed a visible flea trap at ${cellName(m.to)}`;
   } else if (m.type === "fence") {
     next.walls.push(edge(m.a, m.b));
@@ -266,7 +279,11 @@ export function applyMove(s, p, m) {
       detail += " and brought it home";
     }
   }
-  if(boardFor(s).strategy && ["step","sprint"].includes(m.type)) {
+  if(m.type==="walk-flea") {
+    next.traps.push({owner:p,to:m.trap});a.fleas--;a.firstFleaWalk=false;
+    detail+=` and placed their first flea trap at ${cellName(m.trap)} in the same turn`;
+  }
+  if(boardFor(s).strategy && ["step","sprint","walk-flea"].includes(m.type)) {
     const trap=next.traps.find(t=>t.to===a.pos&&t.owner!==p);
     if(trap) {
       next.traps=next.traps.filter(t=>t!==trap);a.scratching=true;
@@ -306,27 +323,22 @@ export function nextLayout(s) {
   return V2_LAYOUTS[(V2_LAYOUTS.indexOf(s.layout) + 1) % V2_LAYOUTS.length];
 }
 
-// Shuffle a tested set on the server. The stored invitation and queue survive
-// retries/restarts; no garden is rerolled during a race. Each bag covers all six seat assignments.
+// Persist a three-physical-garden cycle. Seat swaps do not count as a new garden.
+export const physicalGarden=id=>id?.replace("-swap","");
 export function gardenQueue(s, seed) {
-  if (s.gardenQueue?.length && s.gardenQueue.every(id=>STRATEGY_LAYOUTS.includes(id))) return [...s.gardenQueue];
-  const queue = [...STRATEGY_LAYOUTS];
-  let word = seed >>> 0;
-  for (let i = queue.length - 1; i > 0; i--) {
-    word = (Math.imul(word, 1664525) + 1013904223) >>> 0;
-    const j = word % (i + 1);
-    [queue[i], queue[j]] = [queue[j], queue[i]];
-  }
-  const base=id=>id?.replace("-swap","");
-  const arrange=(remaining,prior)=>{
-    if(!remaining.length)return [];
-    for(const id of remaining)if(base(id)!==base(prior)) {
-      const tail=arrange(remaining.filter(v=>v!==id),id);
-      if(tail)return [id,...tail];
-    }
-    return null;
-  };
-  return arrange(queue,s.layout);
+  if(s.gardenCycleVersion===2&&s.gardenQueue?.length&&s.gardenQueue.every(id=>STRATEGY_LAYOUTS.includes(id)))return [...s.gardenQueue];
+  const current=physicalGarden(s.layout),bases=strategySpecs.map(([id])=>id+"-v5");
+  // A directly initialized review garden counts as the first garden in its cycle.
+  const firstCycle=!Array.isArray(s.gardenQueue)||s.gardenCycleVersion!==2;
+  const queue=firstCycle&&bases.includes(current)?bases.filter(id=>id!==current):[...bases];
+  let word=seed>>>0;const random=()=>word=(Math.imul(word,1664525)+1013904223)>>>0;
+  for(let i=queue.length-1;i>0;i--){const j=random()%(i+1);[queue[i],queue[j]]=[queue[j],queue[i]];}
+  if(queue[0]===current&&queue.length>1)[queue[0],queue[1]]=[queue[1],queue[0]];
+  return queue.map(id=>{
+    const previous=s.gardenSeats?.[id]??(id===current?s.layout.includes("-swap-"):undefined);
+    const swapped=previous===undefined?!!(random()&1):!previous;
+    return swapped?id.replace("-v5","-swap-v5"):id;
+  });
 }
 export function applyRematch(s, p, action, id, randomWord = 0) {
   if (![0, 1].includes(p)) throw Error("Unknown player.");
@@ -336,7 +348,7 @@ export function applyRematch(s, p, action, id, randomWord = 0) {
   if (action.type === "request") {
     if (s.rematch) throw Error("A new-race invitation is already waiting.");
     const queue = gardenQueue(s, randomWord);
-    next.rematch = { id, by: p, layout: queue[0], queue: queue.slice(1) };
+    next.rematch = { id, by: p, layout: queue[0], queue: queue.slice(1), cycleVersion:2 };
   } else {
     if (!s.rematch || action.proposal !== s.rematch.id)
       throw Error("That invitation is no longer active.");
@@ -347,6 +359,10 @@ export function applyRematch(s, p, action, id, randomWord = 0) {
       return {
         ...initialState(s.rematch.layout), race: (s.race ?? 0) + 1,
         gardenQueue: s.rematch.queue ?? [],
+        ...(boardFor({layout:s.rematch.layout}).strategy?{
+          gardenCycleVersion:s.rematch.cycleVersion??1,
+          gardenSeats:{...s.gardenSeats,[physicalGarden(s.rematch.layout)]:s.rematch.layout.includes("-swap-")},
+        }:{}),
         version: s.version + 1, ply: 0, starter, turn: starter,
         last: `Both agreed to a new race. ${NAMES[starter]} takes the first turn.`,
       };

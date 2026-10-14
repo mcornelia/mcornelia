@@ -881,3 +881,5 @@ dialog ol {
 .flea-marker { position:absolute; right:3px; bottom:2px; font-size:1rem; line-height:1.1; padding:2px; border-radius:5px; background:#fff2b9; border:1px solid currentColor; font-weight:bold; }
 
 @media (max-width:740px) { .modes:has([data-mode="flea"]:not([hidden])) { display:grid; grid-template-columns:1fr 1fr; } }
+
+.combo-mode { flex-basis:100%; grid-column:1 / -1; }
