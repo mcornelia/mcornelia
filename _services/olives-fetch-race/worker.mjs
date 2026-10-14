@@ -138,7 +138,7 @@ export class FetchRaceRoom {
       if(auth.error)return json({error:auth.error},auth.status);
       const player=auth.player;
       if(new URL(request.url).pathname === "/access") {
-        if(request.headers.get("X-Fetch-Protocol")!=="3")return json({error:"Refresh before changing access."},426);
+        if(!["3","4"].includes(request.headers.get("X-Fetch-Protocol")))return json({error:"Refresh before changing access."},426);
         let body;try{body=await request.json();}catch{return json({error:"Invalid access change."},400);}
         const result=await this.auth.change(player,body),status=result.status||200;
         delete result.status;return json(result,status);
@@ -149,15 +149,17 @@ export class FetchRaceRoom {
   }
   async gameFetch(request,player) {
     const protocol = request.headers.get("X-Fetch-Protocol");
-    const clientProtocol = ["2", "3"].includes(protocol) ? Number(protocol) : 0;
+    const clientProtocol = ["2", "3", "4"].includes(protocol) ? Number(protocol) : 0;
     const current = this.state();
     // A cached classic client must never render or mutate a new garden.
     if (current.layout && clientProtocol < (boardFor(current).protocol ?? 2))
       return json({ error: "Refresh this page to open the new garden." }, 426);
+    if (current.rematch && clientProtocol < (boardFor({layout:current.rematch.layout}).protocol ?? 2))
+      return json({ error: "Refresh this page to review the new garden invitation." }, 426);
     if (request.method === "GET") {
       const url = new URL(request.url);
       if (url.pathname === "/archive") {
-        if (protocol !== "3") return json({ error: "Refresh before opening an archive." }, 426);
+        if (clientProtocol < 3) return json({ error: "Refresh before opening an archive." }, 426);
         const values = url.searchParams.getAll("race");
         if (values.length !== 1 || !/^(0|[1-9][0-9]{0,8})$/.test(values[0]))
           return json({ error: "A valid archived race number is required." }, 400);
@@ -181,7 +183,7 @@ export class FetchRaceRoom {
       !["move", "rematch"].includes(move.kind)
     )
       return json({ error: "Invalid move." }, 400);
-    if (move.kind === "rematch" && protocol !== "3")
+    if (move.kind === "rematch" && clientProtocol < 4)
       return json({ error: "Refresh before inviting a new race." }, 426);
     const payload = JSON.stringify(move.race === undefined
       ? [move.version, move.kind, move.action]

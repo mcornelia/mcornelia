@@ -1,3 +1,4 @@
+import {raceSummary, playerObjective} from "./race-summary.mjs?v=5";
 import {normalizeCredential, canonicalPhrase} from "./access.mjs?v=4";
 import { API_ORIGIN } from "./config.mjs";
 import {
@@ -10,7 +11,7 @@ import {
   validate,
   legalMoves,
   applyMove,
-} from "./engine.mjs?v=3";
+} from "./engine.mjs?v=5";
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
@@ -105,7 +106,7 @@ async function request(path, move, credential = key, externalSignal) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${credential}`,
-      "X-Fetch-Protocol": "3",
+      "X-Fetch-Protocol": "4",
       ...(move ? { "Content-Type": "application/json" } : {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
@@ -341,7 +342,7 @@ function reviewRematch(type) {
   const name = state.rematch ? LAYOUTS[state.rematch.layout].name : "a fresh crossroads garden";
   $("rematch-confirm-title").textContent = type === "request" ? "Invite a fresh race?" : type === "accept" ? "Start the next race together?" : "Keep this race?";
   $("rematch-confirm-copy").textContent = type === "request"
-    ? `Invite a new race with a randomly chosen, tested crossroads garden and 14 starting fences. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts. Playing a move cancels the invitation.`
+    ? `Invite a new race with a randomly chosen, tested crossroads garden and 14 starting fences. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts.${state.result !== null ? "" : " Playing a move cancels the invitation."}`
     : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences and sprints. The previous race is preserved in storage.`
     : "The invitation will close. This race and its turn stay as they are.";
   $("rematch-confirm").textContent = type === "request" ? "Send invitation" : type === "accept" ? "Accept & start race" : "Keep current race";
@@ -444,13 +445,31 @@ function render() {
   $("join-form").setAttribute("aria-busy", String(signingIn));
   $("join-panel").hidden = !!state;
   $("game").hidden = !state;
+  document.body.classList.toggle("in-game", !!state);
   if (!API_ORIGIN) {
     $("setup").textContent =
       "This private garden is in local review. Shared play opens after Mike approves publication.";
     $("join").disabled = true;
   } else if (!state) $("setup").textContent = notice || "Enter your Fetch Race player key or configured access phrase. Turns wait for you, even for hours.";
-  if (!state) return;
+  if (!state) { document.body.classList.remove("race-complete"); return; }
   const board = boardFor(state);
+  const complete = state.result !== null;
+  const justFinished = complete && !document.body.classList.contains("race-complete");
+  const summary = raceSummary(state);
+  document.body.classList.toggle("race-complete", complete);
+  $("finish-panel").hidden = !complete;
+  document.querySelector(".turn-status").hidden = complete;
+  document.querySelector(".modes").hidden = complete;
+  document.querySelector(".action-dock").hidden = complete;
+  const rematchCard = document.querySelector(".rematch-card");
+  const rematchParent = complete ? $("finish-rematch") : document.querySelector(".sidebar");
+  if(rematchCard.parentElement !== rematchParent) rematchParent.prepend(rematchCard);
+  if(complete) {
+    $("finish-badge").textContent = state.result === "tie" ? "RACE COMPLETE · A TIE" : "RACE COMPLETE · BALL HOME";
+    $("finish-title").textContent = summary.title;
+    $("finish-explanation").textContent = summary.explanation;
+    $("finish-counts").textContent = `${summary.turns} turns completed · Mike ${summary.counts[0]} · Aimee ${summary.counts[1]}`;
+  }
   $("layout-label").textContent =
     `${board.name} · ${board.fixedWalls.length} garden fences`;
   $("layout-note").textContent =
@@ -461,11 +480,11 @@ function render() {
       : "This race keeps its original garden. Garden fences are fixed; your six fences are extra.";
   const mine = state.turn === player && state.result === null,
     can = mine && !busy && !pending;
-  $("turn-number").textContent = `TURN ${(state.ply ?? state.version) + 1}`;
+  $("turn-number").textContent = complete ? `${summary.turns} TURNS · COMPLETE` : `TURN ${summary.turns + 1}`;
   const invite = state.rematch;
   $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · FRESH GARDENS AHEAD`;
   $("rematch-status").textContent = invite
-    ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."} Playing a move cancels the invitation.`
+    ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."}${state.result !== null ? "" : " Playing a move cancels the invitation."}`
     : "The next race gets a different, randomly chosen crossroads garden. Both players agree before it starts.";
   $("new-race").hidden = !!invite;
   $("accept-race").hidden = !invite || invite.by === player;
@@ -502,8 +521,9 @@ function render() {
       "active",
       state.turn === p && state.result === null,
     );
-    $("player" + p).innerHTML =
-      `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${a.finished ? "Home with the ball" : a.ball ? "Bring it home" : "Fetch your ball"}<br>${a.fences} fences to place · ${a.sprints} sprints · ${distance(state, p)} steps`;
+    const objective = playerObjective(a, complete, distance(state,p));
+    const resources = complete ? `${a.fences} unused fences · ${a.sprints} unused sprints` : `${a.fences} fences to place · ${a.sprints} sprints · ${distance(state,p)} steps`;
+    $("player" + p).innerHTML = `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${objective}<br>${resources}`;
   }
   for (const b of document.querySelectorAll("[data-mode]")) {
     b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
@@ -514,6 +534,8 @@ function render() {
   }
   $("hint").textContent = pending
     ? "Your saved choice is locked until the server confirms it."
+    : selected && !validate(state, player, selected)
+      ? "Review your choice below, then confirm."
     : !mine
       ? state.result === null
         ? `You’re signed in as ${NAMES[player]}. It’s ${NAMES[state.turn]}’s turn; you can study the board while they plan.`
@@ -613,7 +635,7 @@ function render() {
   $("walls").innerHTML = lines.join("");
   $("preview").textContent =
     selected && !validate(state, player, selected)
-      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. Costs one fence and your turn.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Costs one sprint." : ""}`} Walking distance after: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
+      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. 1 fence + your turn.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Uses 1 sprint." : ""}`} Steps left: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
       : "Plan on the board, check the result here, then confirm.";
   $("commit").disabled =
     !can || !online || !selected || !!validate(state, player, selected);
@@ -624,6 +646,7 @@ function render() {
       : "Confirm move";
   $("retry").hidden = online && !pending;
   $("retry").disabled = busy;
+  if(justFinished) requestAnimationFrame(() => $("finish-panel").scrollIntoView({block:"start",behavior:"instant"}));
   $("notice").textContent = notice || (storageUnavailable ? "This browser cannot remember your key or safely save moves. Enable browser storage to play." : "");
 }
 window.addEventListener("online", async () => {

@@ -12,15 +12,16 @@ const crossingBoard = (id, name, detours) => Object.freeze({
   crossings: [10,24,38], fixedWalls: [...crossingWalls, ...detours].map(([a,b]) => edge(a,b)),
 });
 export const V2_LAYOUTS = Object.freeze(["crossing-v2", "north-bend-v2", "south-bend-v2"]);
+export const V3_LAYOUTS = Object.freeze(["meadow-crossroads-v3", "north-crossroads-v3", "south-crossroads-v3"]);
 export const RACE_LAYOUTS = Object.freeze([
-  "meadow-crossroads-v3", "north-crossroads-v3", "south-crossroads-v3",
+  "meadow-crossroads-v4", "north-crossroads-v3", "south-crossroads-v3",
 ]);
 const mirror = n => Math.floor(n / 7) * 7 + 6 - n % 7;
-const crossroadsBoard = (id, name, leftWalls) => Object.freeze({
+const crossroadsBoard = (id, name, leftWalls, protocol = 3) => Object.freeze({
   id, name, homes: [43, 47], balls: [5, 1],
   // A visible flower-bed divider makes D4 the shared crossing on EVERY route.
   rocks: [3, 10, 17, 31, 38, 45], crossings: [24], courtyard: [23, 24, 25],
-  protocol: 3,
+  protocol,
   fixedWalls: [...leftWalls, ...leftWalls.map(pair => pair.map(mirror))]
     .map(([a, b]) => edge(a, b)),
 });
@@ -59,6 +60,11 @@ export const LAYOUTS = Object.freeze({
   "meadow-crossroads-v3": crossroadsBoard("meadow-crossroads-v3", "Meadow Crossroads", [
     [15,22], [8,9], [0,7], [36,37], [29,36], [21,22], [30,37],
   ]),
+  // Move A4–B4 / F4–G4 to A2–B2 / F2–G2. Opening courtyard cuts
+  // cost four steps rather than eight, while every route still crosses D4.
+  "meadow-crossroads-v4": crossroadsBoard("meadow-crossroads-v4", "Meadow Crossroads", [
+    [15,22], [8,9], [0,7], [36,37], [29,36], [7,8], [30,37],
+  ], 4),
   "north-crossroads-v3": crossroadsBoard("north-crossroads-v3", "North Crossroads", [
     [9,16], [28,35], [35,36], [8,15], [14,21], [2,9], [36,37],
   ]),
@@ -238,7 +244,8 @@ export function nextLayout(s) {
 // Shuffle a tested set on the server. The stored invitation and queue survive
 // retries/restarts; no garden is rerolled during a race. Every bag uses all three.
 export function gardenQueue(s, seed) {
-  if (s.gardenQueue?.length) return [...s.gardenQueue];
+  const updated = id => id === "meadow-crossroads-v3" ? "meadow-crossroads-v4" : id;
+  if (s.gardenQueue?.length) return s.gardenQueue.map(updated);
   const queue = [...RACE_LAYOUTS];
   let word = seed >>> 0;
   for (let i = queue.length - 1; i > 0; i--) {
@@ -246,7 +253,7 @@ export function gardenQueue(s, seed) {
     const j = word % (i + 1);
     [queue[i], queue[j]] = [queue[j], queue[i]];
   }
-  if (queue[0] === s.layout) [queue[0], queue[1]] = [queue[1], queue[0]];
+  if (queue[0] === updated(s.layout)) [queue[0], queue[1]] = [queue[1], queue[0]];
   return queue;
 }
 export function applyRematch(s, p, action, id, randomWord = 0) {
