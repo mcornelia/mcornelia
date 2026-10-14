@@ -25,7 +25,22 @@ const crossroadsBoard = (id, name, leftWalls, protocol = 3) => Object.freeze({
   fixedWalls: [...leftWalls, ...leftWalls.map(pair => pair.map(mirror))]
     .map(([a, b]) => edge(a, b)),
 });
+// Short asymmetric gardens: paired seat assignments make each side available to both players.
+const strategyGarden = (id,name,rocks,walls,swapped=false) => Object.freeze({
+  id,name,protocol:5,strategy:true,homes:swapped?[40,36]:[36,40],balls:swapped?[15,19]:[19,15],
+  rocks,fixedWalls:walls.map(([a,b])=>edge(a,b)),crossings:[],
+});
+const strategySpecs = [
+  ["orchard","Orchard Paths",[0,10,12,14,29,38,41],[[16,23],[18,25],[19,20],[20,27],[22,23],[24,25],[25,26],[44,45]]],
+  ["brook","Brook Bend",[0,7,10,26,34,39,45],[[5,12],[15,16],[17,18],[22,29],[24,25],[28,29],[37,38],[43,44]]],
+  ["rose","Rose Garden",[11,14,21,22,34,46,48],[[0,1],[4,5],[18,25],[19,26],[25,32],[36,43],[38,39],[42,43]]],
+];
+export const STRATEGY_LAYOUTS=Object.freeze(strategySpecs.flatMap(([id])=>[id+"-v5",id+"-swap-v5"]));
+const strategyBoards=Object.fromEntries(strategySpecs.flatMap(([id,name,rocks,walls])=>[false,true].map(swapped=>{
+  const key=id+(swapped?"-swap":"")+"-v5";return [key,strategyGarden(key,name+(swapped?" · switched sides":""),rocks,walls,swapped)];
+})));
 export const LAYOUTS = Object.freeze({
+  ...strategyBoards,
   "classic-v1": Object.freeze({
     id: "classic-v1",
     name: "Original Garden",
@@ -84,14 +99,16 @@ export function initialState(layout = "classic-v1") {
   return {
     ...(layout === "classic-v1" ? {} : { layout }),
     schema: 1,
+    ...(board.strategy ? {traps:[],turnCounts:[0,0],ply:0} : {}),
     version: 0,
     turn: 0,
     players: board.homes.map((pos) => ({
       pos,
       ball: false,
-      fences: 6,
+      fences: board.strategy ? 3 : 6,
       sprints: 2,
       finished: false,
+      ...(board.strategy ? {fleas:2,scratching:false} : {}),
     })),
     walls: [...board.fixedWalls],
     result: null,
@@ -140,11 +157,22 @@ export function distance(s, p) {
   const second = a.ball ? null : route(s, balls[p], homes[p]);
   return first ? first.length - 1 + (second ? second.length - 1 : 0) : Infinity;
 }
+// A trap or fence may never force anyone onto a flea: a clean full route stays open.
+export function safeRoute(s,p,from,to) {
+  const blocked=new Set((s.traps??[]).filter(t=>t.owner!==p).map(t=>t.to));
+  const view={...s,walls:[...s.walls]};
+  for(const n of blocked)for(const b of neighbors(s,n))view.walls.push(edge(n,b));
+  return route(view,from,to);
+}
+function hasSafeObjectives(s,p) {
+  const b=boardFor(s),a=s.players[p];
+  return !!safeRoute(s,p,a.pos,a.ball?b.homes[p]:b.balls[p]) && !!safeRoute(s,p,b.balls[p],b.homes[p]);
+}
 export function validate(s, p, m) {
   const { homes, balls } = boardFor(s);
   if (s.result !== null) return "The race is complete.";
   if (p !== s.turn) return "It is your partner’s turn.";
-  if (!m || !["step", "sprint", "fence"].includes(m.type))
+  if (!m || !["step", "sprint", "fence", "flea"].includes(m.type))
     return "Choose a move, sprint, or fence.";
   const a = s.players[p];
   if (m.type === "step")
@@ -163,6 +191,17 @@ export function validate(s, p, m) {
       ? null
       : "Sprint two clear squares in a straight line.";
   }
+  if(m.type === "flea") {
+    if(!boardFor(s).strategy) return "Flea traps are available in the new gardens only. Finish this race first.";
+    if(!a.fleas) return "No flea traps left. Each player has two for the whole race.";
+    if(!validCell(m.to,s)) return "Put a flea trap on an empty lawn square.";
+    if([...homes,...balls].includes(m.to)) return "Homes and ball squares are safe: no flea traps there.";
+    if(s.players.some(v=>v.pos===m.to)) return "Choose an unoccupied square, not underneath a player.";
+    if(s.traps.some(t=>t.to===m.to)) return "There is already a visible flea trap there.";
+    const next={...s,traps:[...s.traps,{owner:p,to:m.to}]};
+    if(!hasSafeObjectives(next,1-p)) return "That trap would force a bite. Leave your partner a flea-free route to their ball and home.";
+    return null;
+  }
   if (!a.fences) return "No fences left.";
   if (!adjacent(m.a, m.b, s))
     return "A fence belongs between two neighboring lawn squares.";
@@ -176,6 +215,10 @@ export function validate(s, p, m) {
       !route(next, balls[i], homes[i])
     )
       return "That fence would close a winning route. Leave a way through.";
+  }
+  if(boardFor(s).strategy) for(let i=0;i<2;i++) {
+    if(!hasSafeObjectives(next,i)) return "That fence would force a flea bite. Leave both players a flea-free route.";
+    if(distance(next,i)-distance(s,i)>4) return "That fence adds more than four steps. Choose a gentler detour.";
   }
   return null;
 }
@@ -201,7 +244,10 @@ export function applyMove(s, p, m) {
   const next = structuredClone(s),
     a = next.players[p];
   let detail;
-  if (m.type === "fence") {
+  if(m.type === "flea") {
+    next.traps.push({owner:p,to:m.to});a.fleas--;
+    detail=`placed a visible flea trap at ${cellName(m.to)}`;
+  } else if (m.type === "fence") {
     next.walls.push(edge(m.a, m.b));
     a.fences--;
     detail = `placed a fence between ${cellName(m.a)} and ${cellName(m.b)}`;
@@ -220,6 +266,13 @@ export function applyMove(s, p, m) {
       detail += " and brought it home";
     }
   }
+  if(boardFor(s).strategy && ["step","sprint"].includes(m.type)) {
+    const trap=next.traps.find(t=>t.to===a.pos&&t.owner!==p);
+    if(trap) {
+      next.traps=next.traps.filter(t=>t!==trap);a.scratching=true;
+      detail+=" and landed on a flea trap — their next turn is spent scratching";
+    }
+  }
   next.version++;
   if (next.ply !== undefined) next.ply++;
   delete next.rematch; // Continuing play cancels a pending restart proposal.
@@ -232,6 +285,18 @@ export function applyMove(s, p, m) {
   if (p !== (s.starter ?? 0) && next.finalLap)
     next.result = next.players[p].finished ? "tie" : 1 - p;
   next.last = `${NAMES[p]} ${detail}.`;
+  if(boardFor(s).strategy) {
+    next.turnCounts[p]++;
+    // Resolve skipped turns immediately, in the same saved move. No timer or extra click.
+    // No trap is created during a skip; with two traps each, at most four skips exist per race.
+    for(let i=0;i<2&&next.result===null&&next.players[next.turn].scratching;i++) {
+      const skipped=next.turn;next.players[skipped].scratching=false;
+      next.turnCounts[skipped]++;next.ply++;
+      next.last+=` ${NAMES[skipped]} spends this turn scratching. The flea trap is gone.`;
+      if(skipped!==(next.starter??0)&&next.finalLap) next.result=1-skipped;
+      next.turn=1-skipped;
+    }
+  }
   return next;
 }
 
@@ -242,19 +307,26 @@ export function nextLayout(s) {
 }
 
 // Shuffle a tested set on the server. The stored invitation and queue survive
-// retries/restarts; no garden is rerolled during a race. Every bag uses all three.
+// retries/restarts; no garden is rerolled during a race. Each bag covers all six seat assignments.
 export function gardenQueue(s, seed) {
-  const updated = id => id === "meadow-crossroads-v3" ? "meadow-crossroads-v4" : id;
-  if (s.gardenQueue?.length) return s.gardenQueue.map(updated);
-  const queue = [...RACE_LAYOUTS];
+  if (s.gardenQueue?.length && s.gardenQueue.every(id=>STRATEGY_LAYOUTS.includes(id))) return [...s.gardenQueue];
+  const queue = [...STRATEGY_LAYOUTS];
   let word = seed >>> 0;
   for (let i = queue.length - 1; i > 0; i--) {
     word = (Math.imul(word, 1664525) + 1013904223) >>> 0;
     const j = word % (i + 1);
     [queue[i], queue[j]] = [queue[j], queue[i]];
   }
-  if (queue[0] === updated(s.layout)) [queue[0], queue[1]] = [queue[1], queue[0]];
-  return queue;
+  const base=id=>id?.replace("-swap","");
+  const arrange=(remaining,prior)=>{
+    if(!remaining.length)return [];
+    for(const id of remaining)if(base(id)!==base(prior)) {
+      const tail=arrange(remaining.filter(v=>v!==id),id);
+      if(tail)return [id,...tail];
+    }
+    return null;
+  };
+  return arrange(queue,s.layout);
 }
 export function applyRematch(s, p, action, id, randomWord = 0) {
   if (![0, 1].includes(p)) throw Error("Unknown player.");

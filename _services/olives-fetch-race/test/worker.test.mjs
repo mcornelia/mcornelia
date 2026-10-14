@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, rm, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { RACE_LAYOUTS } from "../../../play/olives-fetch-race/engine.mjs";
+import { STRATEGY_LAYOUTS as RACE_LAYOUTS } from "../../../play/olives-fetch-race/engine.mjs";
 import { startWorker, call, move, keys, repo } from "./harness.mjs";
 test("real Durable Object: auth, 12 retries, competing writes, restart, invalid moves", async () => {
   const dir = await mkdtemp(join(tmpdir(), "fetch-race-persistence-"));
@@ -284,7 +284,7 @@ test("server-chosen courtyard invitation and accepted garden persist across rest
     assert.deepEqual((await call(server.base,1)).state,invited);
     s=(await call(server.base,1,{id:crypto.randomUUID(),version:s.version,race:0,kind:"rematch",action:{type:"accept",proposal:s.rematch.id}})).state;
     assert.equal(s.layout,invited.rematch.layout);
-    assert.equal(s.walls.length,14);
+    assert.equal(s.walls.length,8);
     assert.deepEqual(s.gardenQueue,invited.rematch.queue);
     await server.stop();
     server=await startWorker({port:8895,directory:dir,layout:"classic-v1"});
@@ -300,12 +300,12 @@ test("archive readback is authenticated, exact, read-only, and persistent", asyn
   const dir=await mkdtemp(join(tmpdir(),"fetch-archive-read-"));
   let server=await startWorker({port:8896,directory:dir});
   const archive=async(query="race=0",player=0,extra={})=>{
-    const r=await fetch(server.base+"/archive?"+query,{headers:{Authorization:`Bearer ${keys[player]}`,"X-Fetch-Protocol":"4"},...extra});
+    const r=await fetch(server.base+"/archive?"+query,{headers:{Authorization:`Bearer ${keys[player]}`,"X-Fetch-Protocol":"5"},...extra});
     return {status:r.status,...await r.json()};
   };
   try {
     assert.equal((await fetch(server.base+"/archive?race=0")).status,401);
-    assert.equal((await archive("race=0",0,{headers:{Authorization:"Bearer "+"z".repeat(43),"X-Fetch-Protocol":"4"}})).status,401);
+    assert.equal((await archive("race=0",0,{headers:{Authorization:"Bearer "+"z".repeat(43),"X-Fetch-Protocol":"5"}})).status,401);
     assert.equal((await archive()).status,404);
     for(const query of ["","race=-1","race=0&race=1","race=1.5","race=0%20OR%201=1"])
       assert.equal((await archive(query)).status,400);
@@ -324,29 +324,29 @@ test("archive readback is authenticated, exact, read-only, and persistent", asyn
   } finally {await server.stop();await rm(dir,{recursive:true,force:true});}
 });
 
-test('v4 Meadow and its pending invitation reject cached v3 clients without changing existing races',async()=>{
+test('v5 garden and its pending invitation reject cached v4 clients without changing existing races',async()=>{
  const server=await startWorker({port:8921,layout:'north-crossroads-v3'});
  try {
   let state=(await call(server.base)).state;
-  assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,200);
+  assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'4'}})).status,200);
   for(let i=0;i<3;i++) {
    const request={id:crypto.randomUUID(),version:state.version,race:state.race??0,kind:'rematch',action:{type:'request'}};
-   assert.equal((await call(server.base,0,request,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+   assert.equal((await call(server.base,0,request,{headers:{'X-Fetch-Protocol':'4'}})).status,426);
    const invited=await call(server.base,0,request);assert.equal(invited.status,200);
    assert.deepEqual(invited.state.players,state.players);assert.deepEqual(invited.state.walls,state.walls);
    state=invited.state;
-   if(state.rematch.layout==='meadow-crossroads-v4') {
-    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+   if(RACE_LAYOUTS.includes(state.rematch.layout)) {
+    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'4'}})).status,426);
     assert.deepEqual((await call(server.base)).state,state);
    }
    const accept={id:crypto.randomUUID(),version:state.version,race:state.race??0,kind:'rematch',action:{type:'accept',proposal:state.rematch.id}};
    state=(await call(server.base,1,accept)).state;
-   if(state.layout==='meadow-crossroads-v4') {
-    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
-    assert.equal((await call(server.base,state.turn,move(state.version),{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+   if(RACE_LAYOUTS.includes(state.layout)) {
+    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'4'}})).status,426);
+    assert.equal((await call(server.base,state.turn,move(state.version),{headers:{'X-Fetch-Protocol':'4'}})).status,426);
     assert.deepEqual((await call(server.base)).state,state);return;
    }
   }
-  assert.fail('The three-garden rotation did not reach the revised Meadow');
+  assert.fail('New invitations did not use a strategy garden');
  }finally{await server.stop();}
 });

@@ -1,4 +1,4 @@
-import {raceSummary, playerObjective} from "./race-summary.mjs?v=5";
+import {raceSummary, playerObjective} from "./race-summary.mjs?v=6";
 import {normalizeCredential, canonicalNewPhrase, NEW_PHRASE_GUIDANCE} from "./access.mjs?v=5";
 import { API_ORIGIN } from "./config.mjs";
 import {
@@ -6,12 +6,13 @@ import {
   boardFor,
   LAYOUTS,
   cellName,
+  adjacent,
   edge,
   distance,
   validate,
   legalMoves,
   applyMove,
-} from "./engine.mjs?v=5";
+} from "./engine.mjs?v=6";
 import { createSound } from "./sound.mjs";
 const $ = (id) => document.getElementById(id),
   NS = "olives-fetch-race:v1:";
@@ -106,7 +107,7 @@ async function request(path, move, credential = key, externalSignal) {
     method: move ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${credential}`,
-      "X-Fetch-Protocol": "4",
+      "X-Fetch-Protocol": "5",
       ...(move ? { "Content-Type": "application/json" } : {}),
     },
     ...(move ? { body: JSON.stringify(move) } : {}),
@@ -366,8 +367,8 @@ function reviewRematch(type) {
   const name = state.rematch ? LAYOUTS[state.rematch.layout].name : "a fresh crossroads garden";
   $("rematch-confirm-title").textContent = type === "request" ? "Invite a fresh race?" : type === "accept" ? "Start the next race together?" : "Keep this race?";
   $("rematch-confirm-copy").textContent = type === "request"
-    ? `Invite a new race with a randomly chosen, tested crossroads garden and 14 starting fences. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts.${state.result !== null ? "" : " Playing a move cancels the invitation."}`
-    : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences and sprints. The previous race is preserved in storage.`
+    ? `Invite a new race with a randomly chosen, shorter asymmetric garden, three fences and two flea traps each. ${NAMES[1 - (state.starter ?? 0)]} will go first. Both will see its name before acceptance. This race stays in place until your partner accepts.${state.result !== null ? "" : " Playing a move cancels the invitation."}`
+    : type === "accept" ? `You both agree to end this race and start ${name} with fresh fences, sprints and flea traps. The previous race is preserved in storage.`
     : "The invitation will close. This race and its turn stay as they are.";
   $("rematch-confirm").textContent = type === "request" ? "Send invitation" : type === "accept" ? "Accept & start race" : "Keep current race";
   $("rematch-dialog").showModal();
@@ -383,6 +384,12 @@ $("rematch-confirm").onclick = async () => {
   $("rematch-dialog").close();
   await persistAndSend();
 };
+function chooseFence(a,b) {
+  if(!state||state.result!==null||state.turn!==player||busy||pending)return;
+  const action={type:"fence",a,b};
+  notice=validate(state,player,action)||"";
+  selected=notice?null:action;anchor=a;render();
+}
 function tap(n) {
   if (
     !state ||
@@ -394,9 +401,10 @@ function tap(n) {
     return;
   sound.play("care");
   if (mode === "fence") {
-    if (anchor === null || anchor === n) {
+    if (anchor === null || anchor === n || !adjacent(anchor,n,state)) {
       anchor = anchor === n ? null : n;
       selected = null;
+      notice = anchor===null ? "Tap a marked gap, or choose a lawn square." : `Choose a side of ${cellName(n)} below the board, or tap a marked gap.`;
     } else {
       const m = { type: "fence", a: anchor, b: n };
       const error = validate(state, player, m);
@@ -446,6 +454,7 @@ function houseArt(p) {
 }
 let renderedSignature = "";
 function render() {
+  if(state&&mode==="flea"&&!boardFor(state).strategy)mode="step";
   // An unchanged poll must not rebuild the board, steal focus, or replay animation.
   const signature = JSON.stringify([
     state,
@@ -492,12 +501,15 @@ function render() {
     $("finish-badge").textContent = state.result === "tie" ? "RACE COMPLETE · A TIE" : "RACE COMPLETE · BALL HOME";
     $("finish-title").textContent = summary.title;
     $("finish-explanation").textContent = summary.explanation;
-    $("finish-counts").textContent = `${summary.turns} turns completed · Mike ${summary.counts[0]} · Aimee ${summary.counts[1]}`;
+    $("finish-counts").textContent = `${summary.turns} turns completed · Mike ${summary.counts[0]} · Aimee ${summary.counts[1]}${board.strategy?" · includes scratching turns":""}`;
   }
+  $("flea-legend").hidden=!board.strategy;
   $("layout-label").textContent =
     `${board.name} · ${board.fixedWalls.length} garden fences`;
   $("layout-note").textContent =
-    board.courtyard
+    board.strategy
+      ? "Different terrain, equal starting distance. Three fences and two visible flea traps each. A fence can add at most four walking steps; a flea-free route must remain."
+      : board.courtyard
       ? "Both fetch routes must cross D4 in the shared courtyard. Find your own way in and out. Fourteen garden fences create detours; your six fences are extra."
       : board.id !== "classic-v1"
       ? "Your ball is across the garden. Choose the north, middle, or south crossing. Garden fences are fixed; your six fences are extra."
@@ -509,7 +521,7 @@ function render() {
   $("race-label").textContent = `RACE ${(state.race ?? 0) + 1} · FRESH GARDENS AHEAD`;
   $("rematch-status").textContent = invite
     ? `${NAMES[invite.by]} invited a new race in ${LAYOUTS[invite.layout].name}. ${invite.by === player ? "Waiting for your partner." : "Accept only when you are ready to end this race."}${state.result !== null ? "" : " Playing a move cancels the invitation."}`
-    : "The next race gets a different, randomly chosen crossroads garden. Both players agree before it starts.";
+    : "The next race gets a shorter, asymmetric garden. Seat assignments vary too. Both players agree before it starts.";
   $("new-race").hidden = !!invite;
   $("accept-race").hidden = !invite || invite.by === player;
   $("decline-race").hidden = !invite;
@@ -531,6 +543,8 @@ function render() {
       ? "A perfectly matched pair."
       : state.result !== null
         ? `${NAMES[state.result]} wins the race!`
+        : state.finalLap
+          ? (mine ? `Final turn to tie, ${NAMES[player]}.` : `${NAMES[1-(state.starter??0)]} has a final turn to tie.`)
         : mine
           ? `Your turn, ${NAMES[player]}.`
           : `${NAMES[state.turn]} is up next.`;
@@ -547,14 +561,16 @@ function render() {
     );
     const objective = playerObjective(a, complete, distance(state,p));
     const resources = complete ? `${a.fences} unused fences · ${a.sprints} unused sprints` : `${a.fences} fences to place · ${a.sprints} sprints · ${distance(state,p)} steps`;
-    $("player" + p).innerHTML = `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${objective}<br>${resources}`;
+    $("player" + p).innerHTML = `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${objective}<br>${resources}${board.strategy?` · ${a.fleas} flea traps${a.scratching?" · next turn: scratching":""}`:""}<br>${summary.counts[p]} turn${summary.counts[p]===1?"":"s"} used`;
   }
   for (const b of document.querySelectorAll("[data-mode]")) {
+    b.hidden=b.dataset.mode==="flea"&&!board.strategy;
     b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
     b.disabled =
       !can ||
       (b.dataset.mode === "sprint" && !state.players[player].sprints) ||
-      (b.dataset.mode === "fence" && !state.players[player].fences);
+      (b.dataset.mode === "fence" && !state.players[player].fences) ||
+      (b.dataset.mode === "flea" && !state.players[player].fleas);
   }
   $("hint").textContent = pending
     ? "Your saved choice is locked until the server confirms it."
@@ -566,8 +582,9 @@ function render() {
         : "This race is complete. You can invite a fresh race when you’re ready."
       : mode === "fence"
         ? anchor === null
-          ? "Tap one lawn square, then its neighbor to place a fence."
-          : "Tap a neighboring square to preview the fence."
+          ? "Tap a highlighted gap. Or tap a square and choose its side below."
+          : `Choose a side of ${cellName(anchor)} below, or tap a marked gap.`
+        : mode === "flea" ? "Tap empty lawn to preview a visible trap. Landing costs your opponent their next turn; sprinting over it is safe."
         : `Tap a highlighted square to preview your ${mode === "step" ? "walk" : "sprint"}.`;
   let view = state;
   if (selected && !validate(state, player, selected))
@@ -624,9 +641,11 @@ function render() {
         }
       }
     }
+    const trap=view.traps?.find(t=>t.to===n);
+    if(trap){b.innerHTML+=`<span class="flea-marker p${trap.owner}" aria-hidden="true">✹${NAMES[trap.owner][0]}</span>`;label+=` visible flea trap placed by ${NAMES[trap.owner]}, triggers only the opponent on landing`;}
     if (allowed.has(n)) label += " legal preview";
     b.setAttribute("aria-label", label);
-    b.disabled = board.rocks.includes(n) || !can;
+    b.disabled = (board.rocks.includes(n) && mode!=="flea") || !can;
     b.onclick = () => tap(n);
     $("board").append(b);
   }
@@ -634,6 +653,24 @@ function render() {
     $("board")
       .querySelector(`[data-cell="${focused}"]`)
       ?.focus({ preventScroll: true });
+  $("fence-gaps").replaceChildren();$("fence-sides").replaceChildren();
+  $("fence-gaps").hidden=mode!=="fence"||!can;$("fence-sides").hidden=mode!=="fence"||anchor===null||!can;
+  if(mode==="fence"&&can) {
+    for(let a=0;a<49;a++)for(const b of [a+1,a+7]) {
+      if(!adjacent(a,b,state))continue;
+      if(anchor!==null&&a!==anchor&&b!==anchor)continue;
+      const error=validate(state,player,{type:"fence",a,b}),gap=document.createElement("button");
+      gap.type="button";gap.className="fence-gap"+(error?" unavailable":"")+(selected?.type==="fence"&&edge(selected.a,selected.b)===edge(a,b)?" chosen":"");gap.dataset.gap=edge(a,b);
+      gap.style.left=`${((((a%7)+(b%7))/2+.5)/7)*100}%`;gap.style.top=`${((Math.floor(a/7)+Math.floor(b/7))/2+.5)/7*100}%`;
+      gap.innerHTML=b-a===1?"│":"─";
+      gap.setAttribute("aria-label",`Fence ${cellName(a)} to ${cellName(b)}${error?" — "+error:" — preview"}`);gap.onclick=()=>chooseFence(a,b);$("fence-gaps").append(gap);
+    }
+    if(anchor!==null)for(const [name,delta] of [["North",-7],["East",1],["South",7],["West",-1]]) {
+      const to=anchor+delta,button=document.createElement("button");button.type="button";button.className="fence-side";button.dataset.side=name;
+      button.textContent=name+(adjacent(anchor,to,state)?` · ${cellName(anchor)}–${cellName(to)}`:" · no lawn edge");
+      button.onclick=()=>chooseFence(anchor,to);$("fence-sides").append(button);
+    }
+  }
   const lines = [];
   for (const w of view.walls) {
     const [a, b] = w.split("-").map(Number),
@@ -659,8 +696,9 @@ function render() {
   $("walls").innerHTML = lines.join("");
   $("preview").textContent =
     selected && !validate(state, player, selected)
-      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. 1 fence + your turn.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Uses 1 sprint." : ""}`} Steps left: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
-      : "Plan on the board, check the result here, then confirm.";
+      ? `${selected.type === "fence" ? `Fence ${cellName(selected.a)} ↔ ${cellName(selected.b)}. 1 fence + your turn.` : selected.type === "flea" ? `Flea trap at ${cellName(selected.to)}. 1 trap + your turn. Visible to both; your opponent loses their next turn only if they land here. A sprint over it is safe.` : `${selected.type === "sprint" ? "Sprint" : "Walk"} to ${cellName(selected.to)}.${selected.type === "sprint" ? " Uses 1 sprint." : ""}${!state.players[player].scratching&&view.players[player].scratching?" Flea bite! Your next turn will be skipped.":""}`} Steps left: Mike ${distance(view, 0)}, Aimee ${distance(view, 1)}.${selected.type === "fence" ? ` Detour: Mike +${distance(view, 0) - distance(state, 0)}, Aimee +${distance(view, 1) - distance(state, 1)}.` : ""}`
+      : notice || "Plan on the board, check the result here, then confirm.";
+  if(selected&&!validate(state,player,selected)&&view.result!==null) $("preview").textContent += view.result==="tie" ? " This completes an equal-turn tie." : ` This ends the race: ${NAMES[view.result]} wins.`;
   $("commit").disabled =
     !can || !online || !selected || !!validate(state, player, selected);
   $("commit").textContent = busy

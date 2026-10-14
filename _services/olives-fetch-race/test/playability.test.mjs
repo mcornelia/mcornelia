@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as old from './fixtures/published-v3-engine.mjs';
-import {initialState,boardFor,edge,distance,route,legalMoves,applyMove,applyRematch,V3_LAYOUTS} from '../../../play/olives-fetch-race/engine.mjs';
+import {initialState,boardFor,edge,distance,route,legalMoves,applyMove,applyRematch,V3_LAYOUTS,STRATEGY_LAYOUTS} from '../../../play/olives-fetch-race/engine.mjs';
 import {raceSummary, playerObjective} from '../../../play/olives-fetch-race/race-summary.mjs';
 
 test('Meadow opening cuts halve from eight to four steps without creating a worse opening cut',()=>{
@@ -31,10 +31,10 @@ test('all published v3 layouts and completed games retain their exact geometry a
  }
 });
 
-test('new proposals upgrade queued Meadow only; existing invitations keep their exact promised board',()=>{
+test('new proposals use strategy gardens; existing invitations keep their exact promised board',()=>{
  const s={...initialState('south-crossroads-v3'),gardenQueue:['meadow-crossroads-v3','north-crossroads-v3']};
  const next=applyRematch(s,0,{type:'request'},'new');
- assert.equal(next.rematch.layout,'meadow-crossroads-v4');assert.equal(next.layout,s.layout);assert.deepEqual(next.walls,s.walls);
+ assert.ok(STRATEGY_LAYOUTS.includes(next.rematch.layout));assert.equal(next.layout,s.layout);assert.deepEqual(next.walls,s.walls);
  const pending={...s,rematch:{id:'old',by:0,layout:'meadow-crossroads-v3',queue:['north-crossroads-v3']}};
  assert.equal(applyRematch(pending,1,{type:'accept',proposal:'old'}).layout,'meadow-crossroads-v3');
 });

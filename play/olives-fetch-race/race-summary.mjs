@@ -1,8 +1,9 @@
-import {NAMES} from './engine.mjs?v=5';
+import {NAMES} from './engine.mjs?v=6';
 export function raceSummary(state) {
   const turns=state.ply ?? state.version;
   const starter=state.starter ?? 0;
-  const counts=[0,0];counts[starter]=Math.ceil(turns/2);counts[1-starter]=Math.floor(turns/2);
+  const counts=state.turnCounts ? [...state.turnCounts] : [0,0];
+  if(!state.turnCounts){counts[starter]=Math.ceil(turns/2);counts[1-starter]=Math.floor(turns/2);}
   if(state.result===null)return {turns,counts};
   const tied=state.result==='tie';
   const winner=tied?null:state.result;

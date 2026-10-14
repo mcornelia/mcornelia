@@ -869,3 +869,15 @@ dialog ol {
 
 #access-form .access-error { color: #9c3228; font-size: 1rem; line-height: 1.4; margin: 0; }
 #access-form input[aria-invalid="true"] { border: 2px solid #9c3228; }
+
+/* Gap targets have separate diamond hit regions; side choices provide full rectangular targets. */
+#fence-gaps { position:absolute; inset:4px; pointer-events:none; }
+.fence-gap { position:absolute; width:44px; height:44px; min-height:0; padding:0; transform:translate(-50%,-50%); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); border:0; border-radius:0; background:#f4d98c; color:#67421b; font-size:26px; line-height:44px; pointer-events:auto; box-shadow:none; }
+.fence-gap.unavailable { background:#e4e6dc; color:#637568; }
+.fence-gap.chosen,.fence-gap:focus-visible { background:#ad5930; color:white; }
+#fence-sides { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+#fence-sides[hidden],#fence-gaps[hidden] { display:none; }
+.fence-side { min-height:48px; font-size:1rem; padding:8px; border:1px solid #9cba91; border-radius:10px; background:#f2eddb; color:#254e40; }
+.flea-marker { position:absolute; right:3px; bottom:2px; font-size:1rem; line-height:1.1; padding:2px; border-radius:5px; background:#fff2b9; border:1px solid currentColor; font-weight:bold; }
+
+@media (max-width:740px) { .modes:has([data-mode="flea"]:not([hidden])) { display:grid; grid-template-columns:1fr 1fr; } }

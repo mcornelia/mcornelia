@@ -12,6 +12,7 @@ import {
   legalMoves,
   edge,
   RACE_LAYOUTS,
+  STRATEGY_LAYOUTS,
   V2_LAYOUTS,
   applyRematch,
 } from "../../../play/olives-fetch-race/engine.mjs";
@@ -240,7 +241,7 @@ test("mutual rematches rotate gardens and starters; invitations never spend turn
   }
   assert.equal(new Set(seen.slice(0,3)).size,3);
   assert.equal(new Set(seen.slice(3,6)).size,3);
-  assert.ok(seen.every((id,i)=>RACE_LAYOUTS.includes(id) && (!i || id!==seen[i-1])));
+  assert.ok(seen.every((id,i)=>STRATEGY_LAYOUTS.includes(id) && (!i || id!==seen[i-1])));
   let active = applyRematch(initialState("crossing-v2"),1,{type:"request"},"cancel-by-move");
   active = applyMove(active,0,{type:"step",to:36});
   assert.equal(active.rematch,undefined);

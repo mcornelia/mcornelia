@@ -81,7 +81,7 @@ test("shuffled gardens are stable through invitations, use every variant, and ne
   for(let seed=0;seed<24;seed++) {
     let s=initialState();
     const seen=[];
-    for(let game=0;game<9;game++) {
+    for(let game=0;game<12;game++) {
       const before=s;
       s=applyRematch(s,0,{type:"request"},`invite-${game}`,seed+game*71);
       const invitation=structuredClone(s.rematch);
@@ -93,7 +93,7 @@ test("shuffled gardens are stable through invitations, use every variant, and ne
       assert.ok(!seen.length || s.layout!==seen.at(-1));
       seen.push(s.layout);
     }
-    for(let i=0;i<9;i+=3)assert.equal(new Set(seen.slice(i,i+3)).size,3);
+    for(let i=0;i<12;i+=6)assert.equal(new Set(seen.slice(i,i+6)).size,6);
     orders.add(seen.slice(0,3).join());
   }
   assert.ok(orders.size>=3,"different server seeds produce different garden orders");
