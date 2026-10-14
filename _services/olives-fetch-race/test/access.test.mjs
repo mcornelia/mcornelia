@@ -3,11 +3,12 @@ import assert from "node:assert/strict";
 import {mkdtemp,rm} from "node:fs/promises";
 import {join} from "node:path";
 import {tmpdir} from "node:os";
-import {randomBytes,createHash} from "node:crypto";
+import {randomBytes,createHash,pbkdf2Sync} from "node:crypto";
 
-import {canonicalPhrase,normalizeCredential,credentialCandidates,phraseHash} from "../../../play/olives-fetch-race/access.mjs";
+import {canonicalPhrase,canonicalNewPhrase,normalizeCredential,credentialCandidates,phraseHash} from "../../../play/olives-fetch-race/access.mjs";
 import {startWorker,keys,hashes,call,move} from "./harness.mjs";
 const generatePhrase=()=>Array.from({length:6},()=>Array.from(randomBytes(8),n=>String.fromCharCode(97+n%26)).join('')).join('-');
+const newPhrase=()=>generatePhrase().split("-").slice(0,3).join("-")+"27!";
 const digest=s=>createHash('sha256').update(s).digest('hex');
 
 test("opaque keys remain exact; six-word phrases normalize without leaking candidate values",async()=>{
@@ -74,7 +75,7 @@ test("overlapping opaque/normalized identities fail closed instead of choosing a
 test('self-service phrase change revokes only its player, preserves race, retries, and persists on restart',async()=>{
   const dir=await mkdtemp(join(tmpdir(),'fetch-self-service-'));
   let server=await startWorker({port:8899,directory:dir});
-  const phrase=generatePhrase(),other=generatePhrase(),id=crypto.randomUUID();
+  const phrase=newPhrase(),other=newPhrase(),id=crypto.randomUUID();
   async function api(token,path='/state',body) {
     const r=await fetch(server.base+path,{method:body?'POST':'GET',headers:{Authorization:`Bearer ${token}`,'X-Fetch-Protocol':'3',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
     return {status:r.status,...await r.json()};
@@ -85,10 +86,14 @@ test('self-service phrase change revokes only its player, preserves race, retrie
     assert.equal((await api(generatePhrase(),'/access',body)).status,401);
     assert.equal((await api(keys[0],'/access',{...body,confirmation:other})).status,400);
     assert.deepEqual((await call(server.base,0)).state,before);
+    for(const invalid of [generatePhrase(), 'onecontinuousword7!', 'first-second-third!', 'first-second-third7', 'first-second7!', 'first-second-third-fourth7!', 'first second third7!']) {
+      assert.equal((await api(keys[0],'/access',{...body,phrase:invalid,confirmation:invalid})).status,400);
+      assert.deepEqual((await call(server.base,0)).state,before);
+    }
     const attempts=await Promise.all([api(keys[0],'/access',body),api(keys[0],'/access',body)]);
     assert.deepEqual(attempts.map(a=>a.status).sort(),[200,401]);
     assert.equal((await api(keys[0])).status,401);
-    assert.equal((await api(phrase.toUpperCase().replaceAll('-',' '))).player,0);
+    assert.equal((await api(phrase.toUpperCase())).player,0);
     assert.equal((await api(phrase,'/access',body)).changed,true);
     assert.equal((await api(phrase,'/access',{...body,id:crypto.randomUUID()})).status,409);
     assert.deepEqual((await call(server.base,1)).state,before);
@@ -115,4 +120,18 @@ test('failed sign-ins are throttled, valid existing credentials still work, fore
     assert.equal((await fetch(server.base+'/access',{method:'POST',headers:{Authorization:`Bearer ${keys[0]}`,Origin:'https://other.example','Content-Type':'application/json'},body:JSON.stringify({id:crypto.randomUUID(),phrase,confirmation:phrase})})).status,403);
     assert.equal((await call(server.base,0)).state.version,0);
   } finally {await server.stop();}
+});
+
+
+test('new phrases have exactly three dashed words, a number and exclamation; login retains old formats',async()=>{
+  for(const value of ['first-second-third0!', 'HUCK-Second-Third123!', 'olive-second-third9!', 'a-b-c7!']) {
+    assert.equal(canonicalNewPhrase(value),value.toLowerCase());
+    assert.equal(normalizeCredential(value),value.toLowerCase());
+  }
+  for(const value of ['', 'onecontinuousword7!', 'first second third7!', 'first-second-third!', 'first-second-third7', 'first-second-third-7!', 'first-second-third-fourth7!', generatePhrase()]) assert.equal(canonicalNewPhrase(value),null);
+  const old=generatePhrase();assert.equal(canonicalPhrase(old),old);
+  // Model an existing salted verifier row, not merely a legacy environment key.
+  const {AccessAuth}=await import('../access-auth.mjs');
+  const salt=randomBytes(16),row={salt:salt.toString('hex'),verifier:pbkdf2Sync(old,salt,100000,32,'sha256').toString('hex')};
+  assert.equal(await AccessAuth.prototype.matches.call({row:()=>row},0,credentialCandidates(old.toUpperCase().replaceAll('-',' ')),[]),true);
 });

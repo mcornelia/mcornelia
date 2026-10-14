@@ -1,4 +1,4 @@
-import {canonicalPhrase,credentialCandidates} from '../../play/olives-fetch-race/access.mjs';
+import {canonicalPhrase,canonicalNewPhrase,NEW_PHRASE_GUIDANCE,credentialCandidates} from '../../play/olives-fetch-race/access.mjs';
 const hex=b=>Array.from(new Uint8Array(b),n=>n.toString(16).padStart(2,'0')).join('');
 const digest=async value=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)));
 async function derive(phrase,salt) {
@@ -42,9 +42,9 @@ export class AccessAuth {
     return {player:matches[0]};
   }
   async change(player,body) {
-    const phrase=canonicalPhrase(body?.phrase),confirmation=canonicalPhrase(body?.confirmation);
+    const phrase=canonicalNewPhrase(body?.phrase),confirmation=canonicalNewPhrase(body?.confirmation);
     if(!phrase || confirmation!==phrase || !/^[a-f0-9-]{36}$/.test(body?.id||''))
-      return {status:400,error:'Enter and confirm the same phrase of six to twelve different words.'};
+      return {status:400,error:NEW_PHRASE_GUIDANCE+' Enter the same phrase in both fields.'};
     const candidates=credentialCandidates(phrase),hashes=await Promise.all(candidates.map(digest));
     if(await this.matches(1-player,candidates,hashes))return {status:409,error:'Choose a different phrase from the other player.'};
     const prior=this.row(player);

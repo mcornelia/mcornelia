@@ -76,9 +76,36 @@ try {
   assert.match(await pl.locator('#hint').textContent(),/signed in as Mike/i);
   await pl.locator('#access-open').click();
   // Test-only phrases created inside the browser; never printed or photographed.
-  await pl.evaluate(k=>{const fresh=()=>Array.from({length:6},()=>Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>String.fromCharCode(97+n%26)).join('')).join('-');window.testPhrase=fresh();document.getElementById('access-current').value=k;document.getElementById('access-new').value=testPhrase;document.getElementById('access-confirm').value=fresh();},keys[0]);
-  await pl.locator('#access-save').click();assert.match(await pl.locator('#access-status').textContent(),/enter and confirm/);
-  await pl.evaluate(()=>document.getElementById('access-confirm').value=testPhrase);
+  await pl.evaluate(k=>{const fresh=()=>Array.from({length:3},()=>Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>String.fromCharCode(97+n%26)).join('')).join('-')+'27!';window.testPhrase=fresh();document.getElementById('access-current').value=k;document.getElementById('access-new').value=testPhrase;document.getElementById('access-confirm').value=fresh();},keys[0]);
+  await pl.locator('#access-save').click();assert.match(await pl.locator('#access-confirm-error').textContent(),/do not match/);
+  // All feedback uses dummy entries; malformed phrases never reach /access.
+  let invalidWrites=0;const countInvalid=r=>{if(r.url().endsWith('/access'))invalidWrites++;};pl.on('request',countInvalid);
+  await pl.setViewportSize({width:393,height:380});
+  for(const [current,phrase,confirm,field] of [
+    ['', 'first-second-third7!', 'first-second-third7!', 'current'],
+    [keys[0], '', '', 'new'],
+    ...['onecontinuousword7!', 'first second third7!', 'first-second-third!', 'first-second-third7', 'first-second-third-fourth7!', 'first-second-third-fourth-fifth-sixth'].map(v=>[keys[0],v,v,'new']),
+    [keys[0], 'first-second-third7!', 'first-second-other7!', 'confirm'],
+  ]) {
+    await pl.evaluate(([a,b,c])=>{document.getElementById('access-current').value=a;document.getElementById('access-new').value=b;document.getElementById('access-confirm').value=c;},[current,phrase,confirm]);
+    await pl.locator('#access-save').click();
+    assert.equal(await pl.evaluate(()=>document.activeElement.id),'access-'+field);
+    assert.equal(await pl.locator('#access-'+field).getAttribute('aria-invalid'),'true');
+    assert.ok(await pl.locator('#access-'+field+'-error').isVisible());
+    const box=await pl.locator('#access-'+field+'-error').boundingBox();assert.ok(box.y>=0&&box.y+box.height<=380,'Inline error scrolls into the keyboard-sized viewport');
+    assert.deepEqual(await pl.evaluate(()=>['current','new','confirm'].map(n=>document.getElementById('access-'+n).value)),[current,phrase,confirm]);
+    assert.match(await pl.locator('#access-status').textContent(),/Nothing changed/);
+  }
+  assert.equal(invalidWrites,0);pl.off('request',countInvalid);
+  assert.deepEqual((await call(worker.base,1)).state,before);
+  await pl.evaluate(k=>{document.getElementById('access-current').value=k;document.getElementById('access-new').value=testPhrase;document.getElementById('access-confirm').value=testPhrase;},keys[1]);
+  await pl.locator('#access-save').click();
+  await pl.waitForFunction(()=>document.getElementById('access-status').textContent.includes('does not match'));
+  assert.equal(await pl.evaluate(()=>document.activeElement.id),'access-status');
+  assert.ok(await pl.evaluate(k=>document.getElementById('access-current').value===k&&document.getElementById('access-new').value===testPhrase,keys[1]));
+  assert.deepEqual((await call(worker.base,1)).state,before);
+  await pl.setViewportSize({width:393,height:852});
+  await pl.evaluate(k=>{document.getElementById('access-current').value=k;document.getElementById('access-new').value=testPhrase;document.getElementById('access-confirm').value=testPhrase;},keys[0]);
   let writes=0;
   await pl.route('**/access',async route=>{writes++;await route.fetch();await route.abort();});
   await pl.evaluate(()=>{document.getElementById('access-form').requestSubmit();document.getElementById('access-form').requestSubmit();});
@@ -90,5 +117,5 @@ try {
   assert.match(await pl.locator('#connection').textContent(),/SIGNED IN AS MIKE/);
   assert.deepEqual((await call(worker.base,1)).state,before);
   await live.close();assert.equal(errors.length,0);
-  console.log(kind+': self-service confirmation, double-submit, lost-response recovery, reload, identity and exact race preservation passed');
+  console.log(kind+': invalid-format focus/inline feedback, retained fields, no invalid writes, three-word self-service confirmation, double-submit, lost-response recovery, reload, identity and exact race preservation passed');
 } finally {await worker?.stop();await web.stop();await browser.close();}

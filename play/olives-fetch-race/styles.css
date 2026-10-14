@@ -866,3 +866,6 @@ dialog ol {
   #access-form { min-width: 0; }
   footer { font-size: .8125rem; }
 }
+
+#access-form .access-error { color: #9c3228; font-size: 1rem; line-height: 1.4; margin: 0; }
+#access-form input[aria-invalid="true"] { border: 2px solid #9c3228; }
