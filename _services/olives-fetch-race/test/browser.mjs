@@ -9,7 +9,7 @@ import {
   route,
   boardFor,
   initialState,
-  RACE_LAYOUTS,
+  STRATEGY_LAYOUTS as RACE_LAYOUTS,
 } from "../../../play/olives-fetch-race/engine.mjs";
 const layout = process.env.TEST_LAYOUT || "classic-v1";
 const crossing = layout !== "classic-v1";

@@ -8,7 +8,7 @@ try {
   worker = await startWorker({
     port: workerPort,
     origin: web.origin,
-    layout: process.env.TEST_LAYOUT || "meadow-crossroads-v4",
+    layout: process.env.TEST_LAYOUT || "orchard-v5",
   });
 } catch (e) {
   await web.stop();

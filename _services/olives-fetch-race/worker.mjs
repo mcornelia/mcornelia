@@ -138,7 +138,7 @@ export class FetchRaceRoom {
       if(auth.error)return json({error:auth.error},auth.status);
       const player=auth.player;
       if(new URL(request.url).pathname === "/access") {
-        if(!["3","4"].includes(request.headers.get("X-Fetch-Protocol")))return json({error:"Refresh before changing access."},426);
+        if(!["3","4","5"].includes(request.headers.get("X-Fetch-Protocol")))return json({error:"Refresh before changing access."},426);
         let body;try{body=await request.json();}catch{return json({error:"Invalid access change."},400);}
         const result=await this.auth.change(player,body),status=result.status||200;
         delete result.status;return json(result,status);
@@ -149,7 +149,7 @@ export class FetchRaceRoom {
   }
   async gameFetch(request,player) {
     const protocol = request.headers.get("X-Fetch-Protocol");
-    const clientProtocol = ["2", "3", "4"].includes(protocol) ? Number(protocol) : 0;
+    const clientProtocol = ["2", "3", "4", "5"].includes(protocol) ? Number(protocol) : 0;
     const current = this.state();
     // A cached classic client must never render or mutate a new garden.
     if (current.layout && clientProtocol < (boardFor(current).protocol ?? 2))
@@ -183,7 +183,7 @@ export class FetchRaceRoom {
       !["move", "rematch"].includes(move.kind)
     )
       return json({ error: "Invalid move." }, 400);
-    if (move.kind === "rematch" && clientProtocol < 4)
+    if (move.kind === "rematch" && clientProtocol < 5)
       return json({ error: "Refresh before inviting a new race." }, 426);
     const payload = JSON.stringify(move.race === undefined
       ? [move.version, move.kind, move.action]
