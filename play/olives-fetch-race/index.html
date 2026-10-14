@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body>
     <main>
@@ -140,14 +140,16 @@
                   <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
                 </button>
               </div>
-            <div class="board-wrap">
-              <div id="board" role="group" aria-label="Garden race board"></div>
-              <svg
-                id="walls"
-                viewBox="0 0 700 700"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              ></svg>
+            <div class="board-scroll" tabindex="0" role="region" aria-label="Garden board. Scroll sideways if enlarged.">
+              <div class="board-wrap">
+                <div id="board" role="group" aria-label="Garden race board"></div>
+                <svg
+                  id="walls"
+                  viewBox="0 0 700 700"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                ></svg>
+              </div>
             </div>
             <div class="action-dock">
               <p id="hint">Tap a highlighted square to plan.</p>
