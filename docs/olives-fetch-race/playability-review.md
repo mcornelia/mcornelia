@@ -67,3 +67,9 @@ Screenshots are under `_services/olives-fetch-race/test-results-playability/` (i
 Confirmed Library review images: phone preview `libfile_41bb384829008191a0a68332bb41b8b3`; finish panel fixture `libfile_be8b45c9117c8191bd838a8a66ab2131`. Neither contains credentials.
 
 One initial full WebKit run completed its gameplay assertions but failed the final no-page-errors check with a native access-control message during intentionally interrupted networking. A fresh rerun with phase diagnostics passed all assertions with no page errors; the isolated WebKit access/reconnect suites also passed. Keep reconnect/reload behavior in the independent QA checks.
+
+## Independent QA and final copy correction
+
+The independent reviewer completed three UI matches on `afc1c3585cc808609924a2182cd6fae4484e0d06`: Meadow v4 tied after 66 turns (33 each), North ended with Aimee winning after 50 (25 each), and South ended with Mike winning after 52 (26 each), 168 moves total. The reviewer confirmed all three improvements and five reconnect checks without browser exceptions, and found no further gameplay change justified by this sample.
+
+The one final reported defect was finished-game player copy saying “Fetch unfinished · 1 steps left” while that player carried the ball. The narrow correction now says “Return unfinished · 1 step left”; outbound status remains “Fetch unfinished”, with correct zero/one/multiple plurals. Active-game instructions and completed-player text remain unchanged. Targeted tests cover both phases, zero/one/five steps, active players, and finished players; Chromium and WebKit terminal fixtures check the rendered one-step return status. The independent reviewer should recheck the preserved terminal states on the final follow-up commit; no fourth full game is needed for this copy-only change.

@@ -16,3 +16,9 @@ export function raceSummary(state) {
         : `${NAMES[winner]} brought the ball home before ${NAMES[1-winner]}. Both players had the same number of turns.`,
   };
 }
+
+export function playerObjective(player, complete, steps) {
+  if(player.finished) return "Home with the ball";
+  if(!complete) return player.ball ? "Bring it home" : "Fetch your ball";
+  return `${player.ball ? "Return" : "Fetch"} unfinished · ${steps} ${steps === 1 ? "step" : "steps"} left`;
+}

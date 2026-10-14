@@ -38,6 +38,7 @@ try {
    assert.match(await page.locator('#finish-counts').textContent(),new RegExp(`${ply} turns completed`));
    assert.match(await page.locator('#finish-title').textContent(),result==='tie'?/matched/:new RegExp((result===1?'Aimee':'Mike')+' wins'));
    assert.ok(await page.locator('#new-race').isVisible());
+   if(result!=='tie')assert.match(await page.locator('#player'+(1-result)).textContent(),/Return unfinished · 1 step left/);
    await page.evaluate(()=>scrollTo(0,0));
    if(width===390)await page.screenshot({path:join(out,`${kind}-finish-${ply}-${result}.png`)});
   }

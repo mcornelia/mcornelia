@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as old from './fixtures/published-v3-engine.mjs';
 import {initialState,boardFor,edge,distance,route,legalMoves,applyMove,applyRematch,V3_LAYOUTS} from '../../../play/olives-fetch-race/engine.mjs';
-import {raceSummary} from '../../../play/olives-fetch-race/race-summary.mjs';
+import {raceSummary, playerObjective} from '../../../play/olives-fetch-race/race-summary.mjs';
 
 test('Meadow opening cuts halve from eight to four steps without creating a worse opening cut',()=>{
  for(const [id,expected] of [['meadow-crossroads-v3',8],['meadow-crossroads-v4',4]]) {
@@ -53,4 +53,12 @@ test('finished summaries count completed turns and explain tie or either winning
   s.result=1-starter;assert.match(raceSummary(s).explanation,/same number of turns/);
  }
  const s={...initialState(),starter:1,ply:3};assert.deepEqual(raceSummary(s).counts,[1,2]);
+});
+
+test('player status distinguishes fetch and return, pluralizes zero/one/multiple, and preserves finished and active copy',()=>{
+  for(const [ball, expected] of [[false,["Fetch unfinished · 0 steps left","Fetch unfinished · 1 step left","Fetch unfinished · 5 steps left"]],[true,["Return unfinished · 0 steps left","Return unfinished · 1 step left","Return unfinished · 5 steps left"]]]) {
+    assert.deepEqual([0,1,5].map(steps=>playerObjective({ball,finished:false},true,steps)),expected);
+    assert.equal(playerObjective({ball,finished:true},true,0),"Home with the ball");
+    assert.equal(playerObjective({ball,finished:false},false,5),ball?"Bring it home":"Fetch your ball");
+  }
 });

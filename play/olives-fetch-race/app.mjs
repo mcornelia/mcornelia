@@ -1,4 +1,4 @@
-import {raceSummary} from "./race-summary.mjs?v=5";
+import {raceSummary, playerObjective} from "./race-summary.mjs?v=5";
 import {normalizeCredential, canonicalPhrase} from "./access.mjs?v=4";
 import { API_ORIGIN } from "./config.mjs";
 import {
@@ -521,7 +521,7 @@ function render() {
       "active",
       state.turn === p && state.result === null,
     );
-    const objective = a.finished ? "Home with the ball" : complete ? `Fetch unfinished · ${distance(state,p)} steps left` : a.ball ? "Bring it home" : "Fetch your ball";
+    const objective = playerObjective(a, complete, distance(state,p));
     const resources = complete ? `${a.fences} unused fences · ${a.sprints} unused sprints` : `${a.fences} fences to place · ${a.sprints} sprints · ${distance(state,p)} steps`;
     $("player" + p).innerHTML = `<strong>${NAMES[p]} ${p === player ? "· you" : ""} ${a.ball ? "●" : ""}</strong>${objective}<br>${resources}`;
   }
