@@ -764,3 +764,56 @@ dialog ol {
 #access-status { min-height: 3em; }
 .join label.fine { display: flex; align-items: center; gap: .5rem; margin: .75rem 0; min-height: 32px; }
 .join .fine input[type=checkbox] { width: 16px; height: 16px; min-height: 0; flex: none; margin: 0; padding: 0; }
+
+/* Keep the decision beside its board, in normal flow (never over the lawn). */
+.turn-status { margin-top: 16px; }
+.turn-status .eyebrow { margin-bottom: 7px; }
+.turn-status h2 { margin-bottom: 5px; }
+.turn-status .last { min-height: 0; margin: 5px 0; }
+.garden .modes { margin: 12px 0; }
+.action-dock { margin-top: 10px; padding: 10px; border: 1px solid #d7dfca; border-radius: 12px; background: var(--paper); }
+.action-dock #hint { min-height: 0; margin: 0 0 7px; }
+.action-dock .preview { min-height: 0; margin-bottom: 7px; }
+.action-dock #notice:empty { display: none; }
+.finish-panel { grid-column: 1 / -1; padding: 26px; background: linear-gradient(135deg,#edf2de,var(--paper)); }
+.finish-panel h2 { font-size: 34px; }
+.finish-panel p { line-height: 1.55; }
+.finish-counts { font-weight: 700; }
+.finish-panel .rematch-card { padding: 16px 0 0; border: 0; border-top: 1px solid #d5ddc6; border-radius: 0; background: transparent; box-shadow: none; }
+.finish-panel .rematch-card h2 { font-size: 22px; }
+.finish-panel .rematch-card .eyebrow { display: none; }
+@media (max-width: 740px) {
+  body.in-game main { padding: 6px 12px calc(12px + env(safe-area-inset-bottom)); }
+  body.in-game header { min-height: 38px; }
+  body.in-game .hero { margin: 0 0 6px; min-height: 34px; }
+  body.in-game h1 { font-size: 23px; line-height: 1; letter-spacing: -.6px; margin: 0; }
+  body.in-game h1 br { display: none; }
+  body.in-game h1 em::before { content: " "; }
+  body.in-game .hero .eyebrow, body.in-game .subtitle { display: none; }
+  body.in-game #ball { width: 38px; height: 38px; flex: none; }
+  body.in-game .ball-message { margin: 0 0 5px; font-size: 9px; }
+  .garden { padding: 10px; }
+  .garden-top .eyebrow { font-size: 7px; letter-spacing: .5px; }
+  .garden-top .pill { font-size: 8px; padding: 4px 7px; }
+  .turn-status { margin-top: 8px; }
+  .turn-status #connection { font-size: 7px; margin: 0 0 4px; }
+  .turn-status h2 { font-size: 22px; margin: 0; }
+  .turn-status .last { font-size: 10px; line-height: 1.35; margin: 4px 0; }
+  .in-game .layout-note { display: none; }
+  .players { margin: 8px 0; gap: 6px; }
+  .player { padding-left: 6px; font-size: 9px; line-height: 1.4; }
+  .player strong { font-size: 12px; }
+  .garden .modes { margin: 8px 0; gap: 5px; }
+  .modes button { min-height: 44px; padding: 4px; font-size: 12px; }
+  .modes span { display: inline; height: auto; font-size: 15px; margin-right: 4px; }
+  .modes small { font-size: 8px; margin-top: 2px; line-height: 1.2; }
+  .action-dock { padding: 8px; margin-top: 8px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+  .action-dock #hint { font-size: 10px; line-height: 1.3; margin-bottom: 5px; }
+  .action-dock .preview { padding: 6px 8px; font-size: 10px; line-height: 1.4; }
+  .action-dock #commit { min-height: 44px; padding: 8px; }
+  .action-dock #notice { font-size: 10px; margin-top: 5px; }
+  .legend, .fence-legend { margin-top: 8px; }
+  .finish-panel { padding: 20px; }
+  .finish-panel h2 { font-size: 28px; }
+  .finish-panel p { font-size: 12px; }
+}

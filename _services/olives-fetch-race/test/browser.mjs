@@ -18,6 +18,7 @@ await mkdir(out, { recursive: true });
 const web = await startWeb();
 let worker, browser;
 const errors = [];
+let phase = "sign-in";
 try {
   worker = await startWorker({ port: 8887, origin: web.origin });
   const cached = join(
@@ -63,7 +64,7 @@ try {
       };
     });
   const [m, a] = await Promise.all(contexts.map((c) => c.newPage()));
-  for (const p of [m, a]) p.on("pageerror", (e) => errors.push(e.message));
+  for (const p of [m, a]) p.on("pageerror", (e) => errors.push({phase,message:e.message,stack:e.stack}));
   const url = web.origin + "/play/olives-fetch-race/";
   async function login(p, i) {
     await p.goto(url);
@@ -224,6 +225,7 @@ try {
   assert.equal((await call(worker.base)).state.version, 5);
   assert.equal(await m.evaluate(() => audioProbe.starts), 0);
   await m.unroute("**/move");
+  phase = "offline/reconnect";
   // Offline planning cannot commit, reconnect restores turn/state.
   await contexts[1].setOffline(true);
   await a.waitForFunction(() =>
@@ -314,6 +316,7 @@ try {
   await a.locator("#accept-race").waitFor({state:"visible"});
   assert.equal(await m.locator("#accept-race").isVisible(),false);
   await a.screenshot({path:join(out,"mobile-rematch-invitation.png"),fullPage:true});
+  phase = "rematch lost-response/reload";
   let rematchApplied = false;
   await a.route("**/move",async r => {
     if (!rematchApplied) {await r.fetch();rematchApplied=true;}
@@ -338,6 +341,7 @@ try {
   assert.equal(await m.locator("#layout-label").textContent(),await a.locator("#layout-label").textContent());
   await a.setViewportSize({width:390,height:844});
   await a.screenshot({path:join(out,"mobile-next-garden.png"),fullPage:true});
+  phase = "rematch decline and offline/reload";
   // Declining an active-race invitation preserves pieces and the garden.
   await m.locator("#new-race").click();
   await m.locator("#rematch-confirm").click();
@@ -354,6 +358,7 @@ try {
   await m.reload();
   await m.locator("#game").waitFor({state:"visible"});
   assert.equal((await call(worker.base)).state.layout,rematched.layout);
+  phase = "repeated rematches";
   const seen=new Set([rematched.layout]);
   for(let n=0;n<2;n++) {
     const before=(await call(worker.base)).state;

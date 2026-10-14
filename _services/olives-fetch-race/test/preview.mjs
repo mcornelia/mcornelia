@@ -1,19 +1,21 @@
 import { startWeb } from "./server.mjs";
 import { startWorker } from "./harness.mjs";
-const web = await startWeb({ port: 4183, workerPort: 8887, review: true });
+const port = Number(process.env.PREVIEW_PORT || 4193);
+const workerPort = Number(process.env.WORKER_PORT || 8917);
+const web = await startWeb({ port, workerPort, review: true });
 let worker;
 try {
   worker = await startWorker({
-    port: 8887,
+    port: workerPort,
     origin: web.origin,
-    layout: "meadow-crossroads-v3",
+    layout: process.env.TEST_LAYOUT || "meadow-crossroads-v4",
   });
 } catch (e) {
   await web.stop();
   throw e;
 }
 console.log(
-  "Local review only. Disposable in-memory identities; fresh room per launch.\nMike: http://127.0.0.1:4183/review/mike\nAimee (separate browser/profile): http://127.0.0.1:4183/review/aimee\nStop with Ctrl-C. Nothing is deployed.",
+  `Local review only. Disposable in-memory identities; fresh room per launch.\nMike: http://127.0.0.1:${port}/review/mike\nAimee (separate browser/profile): http://127.0.0.1:${port}/review/aimee\nStop with Ctrl-C. Nothing is deployed.`,
 );
 process.on("SIGINT", async () => {
   await web.stop();

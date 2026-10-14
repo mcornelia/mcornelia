@@ -14,7 +14,7 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
     <title>Olive’s Fetch Race</title>
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <main>
@@ -106,17 +106,40 @@
       </section>
       <section id="game" hidden>
         <div class="game-layout">
+          <section id="finish-panel" class="card finish-panel" hidden aria-labelledby="finish-title">
+            <p id="finish-badge" class="eyebrow"></p>
+            <h2 id="finish-title" aria-live="polite"></h2>
+            <p id="finish-explanation"></p>
+            <p id="finish-counts" class="finish-counts"></p>
+            <div id="finish-rematch"></div>
+          </section>
           <section class="garden card">
             <div class="garden-top">
               <span id="layout-label" class="eyebrow"
                 >THE LONG WAY CAN BE THE SMART WAY</span
               ><span id="turn-number" class="pill"></span>
             </div>
+            <div class="turn-status">
+              <p id="connection" class="eyebrow" role="status">Connecting…</p>
+              <h2 id="turn-title">The garden is ready.</h2>
+              <p id="last" class="last" aria-live="polite"></p>
+            </div>
             <p id="layout-note" class="layout-note"></p>
             <div class="players">
               <div id="player0" class="player mike"></div>
               <div id="player1" class="player aimee"></div>
             </div>
+              <div class="modes" role="group" aria-label="Choose action">
+                <button data-mode="step" aria-pressed="true">
+                  <span>↟</span>Walk<small>1 square</small></button
+                ><button data-mode="sprint" aria-pressed="false">
+                  <span>↟↟</span>Sprint<small
+                    >2 squares · spend 1</small
+                  ></button
+                ><button data-mode="fence" aria-pressed="false">
+                  <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
+                </button>
+              </div>
             <div class="board-wrap">
               <div id="board" role="group" aria-label="Garden race board"></div>
               <svg
@@ -125,6 +148,17 @@
                 preserveAspectRatio="none"
                 aria-hidden="true"
               ></svg>
+            </div>
+            <div class="action-dock">
+              <p id="hint">Tap a highlighted square to plan.</p>
+              <div id="preview" class="preview" aria-live="polite">
+                Your move is only saved when you confirm.
+              </div>
+              <button id="commit" class="primary" disabled>Confirm move</button
+              ><button id="retry" class="quiet" hidden>
+                Reconnect / retry saved move
+              </button>
+              <p id="notice" role="status"></p>
             </div>
             <div class="legend">
               <span><i class="dot mike-dot"></i> M · Mike</span
@@ -137,31 +171,6 @@
             </div>
           </section>
           <aside class="sidebar">
-            <section class="card turn-card">
-              <p id="connection" class="eyebrow" role="status">Connecting…</p>
-              <h2 id="turn-title">The garden is ready.</h2>
-              <p id="last" class="last" aria-live="polite"></p>
-              <div class="modes" role="group" aria-label="Choose action">
-                <button data-mode="step" aria-pressed="true">
-                  <span>↟</span>Walk<small>1 square</small></button
-                ><button data-mode="sprint" aria-pressed="false">
-                  <span>↟↟</span>Sprint<small
-                    >2 squares · spend 1</small
-                  ></button
-                ><button data-mode="fence" aria-pressed="false">
-                  <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
-                </button>
-              </div>
-              <p id="hint">Tap a highlighted square to plan.</p>
-              <div id="preview" class="preview" aria-live="polite">
-                Your move is only saved when you confirm.
-              </div>
-              <button id="commit" class="primary" disabled>Confirm move</button
-              ><button id="retry" class="quiet" hidden>
-                Reconnect / retry saved move
-              </button>
-              <p id="notice" role="status"></p>
-            </section>
             <section class="card rematch-card">
               <p id="race-label" class="eyebrow"></p>
               <h2>Another round?</h2>
@@ -258,6 +267,6 @@
       </form>
     </dialog>
     <script src="login-guard.js?v=4"></script>
-    <script type="module" src="app.mjs?v=4"></script>
+    <script type="module" src="app.mjs?v=5"></script>
   </body>
 </html>

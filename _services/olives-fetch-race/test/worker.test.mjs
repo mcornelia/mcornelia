@@ -300,12 +300,12 @@ test("archive readback is authenticated, exact, read-only, and persistent", asyn
   const dir=await mkdtemp(join(tmpdir(),"fetch-archive-read-"));
   let server=await startWorker({port:8896,directory:dir});
   const archive=async(query="race=0",player=0,extra={})=>{
-    const r=await fetch(server.base+"/archive?"+query,{headers:{Authorization:`Bearer ${keys[player]}`,"X-Fetch-Protocol":"3"},...extra});
+    const r=await fetch(server.base+"/archive?"+query,{headers:{Authorization:`Bearer ${keys[player]}`,"X-Fetch-Protocol":"4"},...extra});
     return {status:r.status,...await r.json()};
   };
   try {
     assert.equal((await fetch(server.base+"/archive?race=0")).status,401);
-    assert.equal((await archive("race=0",0,{headers:{Authorization:"Bearer "+"z".repeat(43),"X-Fetch-Protocol":"3"}})).status,401);
+    assert.equal((await archive("race=0",0,{headers:{Authorization:"Bearer "+"z".repeat(43),"X-Fetch-Protocol":"4"}})).status,401);
     assert.equal((await archive()).status,404);
     for(const query of ["","race=-1","race=0&race=1","race=1.5","race=0%20OR%201=1"])
       assert.equal((await archive(query)).status,400);
@@ -322,4 +322,31 @@ test("archive readback is authenticated, exact, read-only, and persistent", asyn
     assert.deepEqual((await archive()).archivedState,old);
     assert.deepEqual((await call(server.base)).state,accepted.state);
   } finally {await server.stop();await rm(dir,{recursive:true,force:true});}
+});
+
+test('v4 Meadow and its pending invitation reject cached v3 clients without changing existing races',async()=>{
+ const server=await startWorker({port:8921,layout:'north-crossroads-v3'});
+ try {
+  let state=(await call(server.base)).state;
+  assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,200);
+  for(let i=0;i<3;i++) {
+   const request={id:crypto.randomUUID(),version:state.version,race:state.race??0,kind:'rematch',action:{type:'request'}};
+   assert.equal((await call(server.base,0,request,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+   const invited=await call(server.base,0,request);assert.equal(invited.status,200);
+   assert.deepEqual(invited.state.players,state.players);assert.deepEqual(invited.state.walls,state.walls);
+   state=invited.state;
+   if(state.rematch.layout==='meadow-crossroads-v4') {
+    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+    assert.deepEqual((await call(server.base)).state,state);
+   }
+   const accept={id:crypto.randomUUID(),version:state.version,race:state.race??0,kind:'rematch',action:{type:'accept',proposal:state.rematch.id}};
+   state=(await call(server.base,1,accept)).state;
+   if(state.layout==='meadow-crossroads-v4') {
+    assert.equal((await call(server.base,0,null,{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+    assert.equal((await call(server.base,state.turn,move(state.version),{headers:{'X-Fetch-Protocol':'3'}})).status,426);
+    assert.deepEqual((await call(server.base)).state,state);return;
+   }
+  }
+  assert.fail('The three-garden rotation did not reach the revised Meadow');
+ }finally{await server.stop();}
 });

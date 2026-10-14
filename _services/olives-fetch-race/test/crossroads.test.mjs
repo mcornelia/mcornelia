@@ -68,7 +68,7 @@ test("reachable courtyard choice has a real detour; players may meet and pass th
   }
   assert.deepEqual(s.players.map(p=>p.pos),[23,25]);
   const fenced=applyMove(s,0,{type:"fence",a:16,b:23});
-  assert.deepEqual([0,1].map(p=>distance(fenced,p)-distance(s,p)),[0,8]);
+  assert.deepEqual([0,1].map(p=>distance(fenced,p)-distance(s,p)),[0,4]);
   assert.equal(fenced.players[0].fences,5);
   s=applyMove(s,0,{type:"step",to:24});
   s=applyMove(s,1,{type:"step",to:24});
