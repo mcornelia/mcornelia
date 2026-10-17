@@ -386,3 +386,21 @@ body.fetch-complete .brand-mark i { box-shadow: 0 0 11px rgba(231,183,90,.7); }
 .storage-notice { color: var(--sun); font-size: .85rem; line-height: 1.5; }
 
 #stats-dialog .fine-print { color: var(--muted); font-size: .82rem; line-height: 1.55; }
+
+/* A full board earns one extra flip after the familiar catch and return. */
+.celebration-scene.perfect-fetch.playing .olive-run {
+  transform-origin: 50% 50%;
+  animation: olive-super-fetch 3.4s .25s cubic-bezier(.25,.1,.42,1) both,
+    olive-victory-flip 1.25s 3.65s ease-in-out forwards;
+}
+@keyframes olive-victory-flip {
+  0%,100% { transform: translate(70px,0) rotate(0deg) scaleX(-1); }
+  25% { transform: translate(70px,-65px) rotate(90deg) scaleX(-1); }
+  50% { transform: translate(70px,-100px) rotate(180deg) scaleX(-1); }
+  80% { transform: translate(70px,-40px) rotate(300deg) scaleX(-1); }
+  99% { transform: translate(70px,0) rotate(360deg) scaleX(-1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celebration-scene.perfect-fetch.playing .olive-run { animation: none !important; }
+  .celebration-scene.perfect-fetch .catch-impact strong { background: #ffe5a0; box-shadow: 0 0 24px #e7b75a88; }
+}

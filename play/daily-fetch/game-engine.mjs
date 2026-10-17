@@ -152,3 +152,10 @@ export function createShareText({ dayNumber, foundWords, secret, completed, stre
   const status = completed ? "Ball found!" : `${objectives.wordCount}/${WORD_GOAL} words`;
   return `The Daily Fetch #${dayNumber}\n${paws} ${status}\n${scoreWords(foundWords)} points · ${foundWords.length} words\n🔥 ${streak} day streak\nhttps://mcornelia.com/play/daily-fetch/`;
 }
+
+// Membership matters: retired words and duplicate saved entries cannot complete a board.
+export function isPerfectFetch(foundWords, acceptedWords) {
+  const eligible = eligibleWords(acceptedWords);
+  const found = new Set(foundWords);
+  return eligible.length > 0 && eligible.every(word => found.has(word));
+}

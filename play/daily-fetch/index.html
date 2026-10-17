@@ -29,7 +29,7 @@
   <meta name="twitter:description" content="Trace words through neighboring letters and help Olive recover her favorite ball. Huck is supervising.">
   <meta name="twitter:image" content="https://mcornelia.com/og-images/daily-fetch.png">
 
-  <link rel="stylesheet" href="./styles.css?v=20261003-word-count">
+  <link rel="stylesheet" href="./styles.css?v=20261016-perfect">
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -242,7 +242,7 @@
     <button class="quiet-button" id="reset-button" type="button">Start today over</button>
   </dialog>
 
-  <dialog class="celebration-dialog" id="celebration-dialog">
+  <dialog class="celebration-dialog" id="celebration-dialog" aria-labelledby="celebration-title">
     <div class="celebration-scene fetch-scene" aria-hidden="true">
       <span class="fetch-sun"></span><span class="fetch-cloud cloud-one"></span><span class="fetch-cloud cloud-two"></span>
       <span class="yard-house"></span><span class="yard-fence"></span>
@@ -257,8 +257,8 @@
       </span>
     </div>
     <div class="celebration-copy">
-      <span class="dialog-kicker">Fetch complete · A+</span>
-      <h2>Ball found!</h2>
+      <span class="dialog-kicker" id="celebration-kicker">Fetch complete · A+</span>
+      <h2 id="celebration-title">Ball found!</h2>
       <p><strong id="celebration-lead">Olive knew you could do it.</strong> <span id="celebration-tag">Huck would like the record to show that he supervised.</span></p>
       <div class="celebration-results" aria-label="Today's results">
         <div><strong id="celebration-score">0</strong><span>Points</span></div>
@@ -275,6 +275,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
 
-  <script type="module" src="./app.mjs?v=20261004-modern"></script>
+  <script type="module" src="./app.mjs?v=20261016-perfect"></script>
 </body>
 </html>
