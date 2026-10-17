@@ -1,6 +1,7 @@
 import { puzzleForDate } from "./puzzle-schedule.mjs?v=20261004-modern";
 import {
   WORD_GOAL,
+  isPerfectFetch,
   eligibleWords,
   calculateStats,
   canAddToPath,
@@ -11,7 +12,7 @@ import {
   pointsForWord,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs?v=20261004-four-letters";
+} from "./game-engine.mjs?v=20261016-perfect";
 
 import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20261004-modern';
 const DEFAULT_CATCH_DELAY_MS = 2350;
@@ -96,6 +97,7 @@ let dragState = null;
 let messageTimer = null;
 let toastTimer = null;
 let confettiTimer = null;
+let confettiCleanupTimer = null;
 let audioContext = null;
 let activeSound = null;
 let celebrationMessageOffset = 0;
@@ -336,6 +338,7 @@ function submitPath() {
   }
 
   const previousObjectives = getObjectives(dayState.foundWords, puzzle.secret);
+  const previouslyPerfect = isPerfectFetch(dayState.foundWords, puzzle.words);
   dayState.foundWords.push(result.word);
   const objectives = getObjectives(dayState.foundWords, puzzle.secret);
   if (result.word === puzzle.secret) {
@@ -355,7 +358,8 @@ function submitPath() {
   saveStore();
   clearPath();
   renderProgress();
-  if (newlyCompleted) stageFirstCelebration();
+  const newlyPerfect = !previouslyPerfect && isPerfectFetch(dayState.foundWords, puzzle.words);
+  if (newlyCompleted || newlyPerfect) stageFirstCelebration();
 }
 
 function renderProgress() {
@@ -429,7 +433,8 @@ function makeConfetti() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   elements.confetti.innerHTML = "";
   const colors = ["#e7b75a", "#df7547", "#8ba780", "#eee6cb"];
-  for (let index = 0; index < 42; index += 1) {
+  const pieceCount = isPerfectFetch(dayState.foundWords, puzzle.words) ? 76 : 42;
+  for (let index = 0; index < pieceCount; index += 1) {
     const piece = document.createElement("i");
     piece.style.left = `${Math.random() * 100}%`;
     piece.style.setProperty("--color", colors[index % colors.length]);
@@ -440,7 +445,8 @@ function makeConfetti() {
     piece.style.setProperty("--rotation", `${Math.random() * 180}deg`);
     elements.confetti.append(piece);
   }
-  setTimeout(() => { elements.confetti.innerHTML = ""; }, 5400);
+  clearTimeout(confettiCleanupTimer);
+  confettiCleanupTimer = setTimeout(() => { elements.confetti.innerHTML = ""; }, 6000);
 }
 
 function restartSceneAnimation() {
@@ -451,6 +457,7 @@ function restartSceneAnimation() {
 
 function scheduleCatchFeedback() {
   clearTimeout(confettiTimer);
+  clearTimeout(confettiCleanupTimer);
   elements.confetti.innerHTML = "";
   const delayMs = catchDelayMs();
   confettiTimer = setTimeout(() => {
@@ -470,6 +477,21 @@ function scheduleCatchFeedback() {
 function celebrate({ markSeen = false } = {}) {
   renderStats();
   rotateCelebrationMessage();
+  const perfect = isPerfectFetch(dayState.foundWords, puzzle.words);
+  elements.celebrationScene.classList.toggle('perfect-fetch', perfect);
+  document.querySelector('#celebration-title').textContent = perfect ? 'Perfect Fetch!' : 'Ball found!';
+  document.querySelector('#celebration-kicker').textContent = perfect ? 'Every word found · A++' : 'Fetch complete · A+';
+  document.querySelector('.catch-impact strong').textContent = perfect ? 'PERFECT!' : 'WOW!';
+  if (perfect) {
+    elements.celebrationLead.textContent = 'Every word found!';
+    elements.celebrationTag.textContent = 'Olive saved her victory backflip for you. Huck awards full marks.';
+  }
+  elements.celebrationReplay.textContent = perfect ? 'Replay Olive’s victory backflip' : 'Replay Olive’s catch';
+  document.querySelector('.results-note').textContent = perfect
+    ? 'You found every word in today’s guide. What a fetch! Your full score is saved.'
+    : 'Keep finding words—your daily score updates with every new find. Reopen today’s results anytime.';
+  // Confetti must live in the modal top layer to appear above its backdrop.
+  elements.celebrationDialog.append(elements.confetti);
   if (!elements.celebrationDialog.open) elements.celebrationDialog.showModal();
   elements.celebrationDialog.scrollTop = 0;
   restartSceneAnimation();
@@ -638,6 +660,8 @@ document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.addEventListener("close", () => {
     if (dialog === elements.celebrationDialog) {
       clearTimeout(confettiTimer);
+      clearTimeout(confettiCleanupTimer);
+      elements.confetti.innerHTML = "";
       stopCelebrationSound();
       if (navigator.vibrate) navigator.vibrate(0);
       elements.celebrationScene.classList.remove("playing");
