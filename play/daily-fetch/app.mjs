@@ -125,6 +125,9 @@ function renderSoundPreference() {
   const enabled = Boolean(store.soundEnabled);
   elements.soundButton.setAttribute("aria-pressed", String(enabled));
   elements.soundButton.setAttribute("aria-label", `Turn celebration sound ${enabled ? "off" : "on"}`);
+  const resultSound = document.querySelector('#celebration-sound');
+  resultSound.textContent = enabled ? 'Sound on · mute' : 'Sound off · turn on';
+  resultSound.setAttribute('aria-pressed', String(enabled));
   elements.soundButton.title = `Celebration sound: ${enabled ? "on" : "off"}`;
 }
 
@@ -209,6 +212,22 @@ function playCelebrationSound(context, delayMs) {
   sources.push(scheduleTone(context, master, { frequency: 1760, frequencyEnd: 1480, start: catchTime + .29, duration: .16, volume: .055, type: "triangle" }));
   sources.push(scheduleTone(context, master, { frequency: 2210, frequencyEnd: 1840, start: catchTime + .4, duration: .14, volume: .04, type: "triangle" }));
 
+  const perfect = isPerfectFetch(dayState.foundWords, puzzle.words);
+  let endDelay = delayMs + 1100;
+  if (perfect) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const flipTime = reduced ? catchTime + .15 : catchTime + 1.3;
+    const landing = reduced ? flipTime + .15 : flipTime + 1.25;
+    if (!reduced) {
+      sources.push(scheduleTone(context, master, { frequency: 260, frequencyEnd: 1500, start: flipTime, duration: .6, volume: .23, type: 'triangle' }));
+      sources.push(scheduleTone(context, master, { frequency: 1500, frequencyEnd: 360, start: flipTime + .6, duration: .55, volume: .15 }));
+    }
+    [523.25, 659.25, 783.99, 1046.5].forEach((frequency, index) => {
+      sources.push(scheduleTone(context, master, { frequency, start: landing + index * .11, duration: .42, volume: .24, type: 'triangle' }));
+    });
+    endDelay = (landing - context.currentTime + 1) * 1000;
+  }
+
   const stopThisSound = () => {
     sources.forEach((source) => {
       try { source.stop(); } catch { /* The source has already finished. */ }
@@ -220,7 +239,7 @@ function playCelebrationSound(context, delayMs) {
     if (activeSound !== stopThisSound) return;
     master.disconnect();
     activeSound = null;
-  }, delayMs + 1100);
+  }, endDelay);
 }
 
 function saveStore() {
@@ -599,7 +618,7 @@ elements.hintButton.addEventListener("click", () => {
   saveStore();
   renderProgress();
 });
-elements.soundButton.addEventListener("click", () => {
+function toggleSound() {
   store.soundEnabled = !store.soundEnabled;
   store.soundPreferenceSet = true;
   saveStore();
@@ -614,7 +633,9 @@ elements.soundButton.addEventListener("click", () => {
     if (navigator.vibrate) navigator.vibrate(0);
     showToast("Celebration sound is off.");
   }
-});
+}
+elements.soundButton.addEventListener('click', toggleSound);
+document.querySelector('#celebration-sound').addEventListener('click', toggleSound);
 elements.helpButton.addEventListener("click", () => elements.helpDialog.showModal());
 function openStats() {
   if (refreshForNewDay()) return;
