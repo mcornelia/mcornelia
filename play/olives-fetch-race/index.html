@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#173e37" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="robots" content="noindex" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://olives-fetch-race.mike-cornelia.workers.dev http://127.0.0.1:8887; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Olive’s Fetch Race</title>
+    <link rel="stylesheet" href="styles.css?v=9" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a href="/play.html" class="wordmark">THE RAVENWOOD GARDEN</a>
+        <div class="header-actions">
+          <button id="sound" class="quiet" aria-pressed="true">Sound on</button
+          ><button id="rules" class="quiet">How to play</button>
+        </div>
+      </header>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">A LITTLE RIVALRY. A VERY GOOD DOG.</p>
+          <h1>Olive’s<br /><em>Fetch Race</em><span class="period">.</span></h1>
+          <p class="subtitle">
+            Two balls, one garden, and some sneaky detours.<br /><strong
+              >Fetch your ball and bring it home to win.</strong
+            >
+          </p>
+        </div>
+        <button
+          id="ball"
+          aria-label="Toss Olive’s secret fetch ball"
+          title="Someone has spotted a ball…"
+        >
+          <svg viewBox="0 0 140 160" aria-hidden="true">
+            <path
+              d="M26 132 Q11 113 31 105 L102 105 Q125 126 109 146 L39 146Z"
+              fill="#c99567"
+            />
+            <path
+              d="M42 83 Q15 36 25 24 Q50 20 62 48 M90 49 Q119 16 127 37 Q126 67 104 88"
+              fill="#885b3e"
+            />
+            <path
+              d="M36 57 Q45 33 78 39 Q114 40 111 79 L99 113 Q72 132 46 110Z"
+              fill="#d8a676"
+            />
+            <path d="M72 42 L88 46 L89 86 L66 86Z" fill="#f9e7c9" />
+            <ellipse cx="76" cy="96" rx="25" ry="19" fill="#f9e7c9" />
+            <circle cx="55" cy="75" r="4" fill="#243b35" />
+            <circle cx="96" cy="75" r="4" fill="#243b35" />
+            <path d="M65 88 Q77 83 88 88 L77 97Z" fill="#243b35" />
+            <path d="M76 102 Q84 101 84 111 Q77 119 72 110" fill="#d57479" />
+            <path
+              d="M42 117 Q72 137 106 116"
+              fill="none"
+              stroke="#327b69"
+              stroke-width="9"
+            />
+            <circle cx="113" cy="137" r="17" fill="#ee8739" />
+            <path
+              d="M101 124 Q124 135 101 147 M125 126 Q106 136 124 149"
+              fill="none"
+              stroke="#225e91"
+              stroke-width="3.5"
+            />
+          </svg>
+        </button>
+      </section>
+      <p id="ball-message" class="ball-message" aria-live="polite">
+        Olive is supervising. Mostly the fetch balls.
+      </p>
+      <section id="join-panel" class="card join">
+        <p class="eyebrow">YOUR PRIVATE GARDEN</p>
+        <h2>Pick up where you left off.</h2>
+        <p id="setup" role="status" aria-live="polite">
+          Enter your Fetch Race player key or configured access phrase. Turns wait for you, even for hours.
+        </p>
+        <form id="join-form">
+          <label for="key">Player key or access phrase</label>
+          <div class="join-row">
+            <input
+              id="key"
+              type="text"
+              autocapitalize="none"
+              autocorrect="off"
+              autocomplete="off"
+              spellcheck="false"
+              required
+              aria-describedby="setup"
+            /><button id="join" class="primary">Enter garden</button>
+          </div>
+          <label class="fine"><input id="hide-key" type="checkbox"> Hide my entry</label>
+        </form>
+        <p class="fine">
+          This game has its own room. Your other games stay as they are.
+        </p>
+      </section>
+      <section id="game" hidden>
+        <div class="game-layout">
+          <section id="finish-panel" class="card finish-panel" hidden aria-labelledby="finish-title">
+            <p id="finish-badge" class="eyebrow"></p>
+            <h2 id="finish-title" aria-live="polite"></h2>
+            <p id="finish-explanation"></p>
+            <p id="finish-counts" class="finish-counts"></p>
+            <div id="finish-rematch"></div>
+          </section>
+          <section class="garden card">
+            <div class="garden-top">
+              <span id="layout-label" class="eyebrow"
+                >THE LONG WAY CAN BE THE SMART WAY</span
+              ><span id="turn-number" class="pill"></span>
+            </div>
+            <div class="turn-status">
+              <p id="connection" class="eyebrow" role="status">Connecting…</p>
+              <h2 id="turn-title">The garden is ready.</h2>
+              <p id="last" class="last" aria-live="polite"></p>
+            </div>
+            <p id="layout-note" class="layout-note"></p>
+            <div class="players">
+              <div id="player0" class="player mike"></div>
+              <div id="player1" class="player aimee"></div>
+            </div>
+              <div class="modes" role="group" aria-label="Choose action">
+                <button data-mode="step" aria-pressed="true">
+                  <span>↟</span>Walk<small>1 square</small></button
+                ><button data-mode="sprint" aria-pressed="false">
+                  <span>↟↟</span>Sprint<small
+                    >2 squares · spend 1</small
+                  ></button
+                ><button data-mode="fence" aria-pressed="false">
+                  <span>⊣</span>Fence<small>block 1 edge · spend 1</small>
+                </button>
+                <button data-mode="flea" aria-pressed="false" hidden><span>✹</span>Flea trap<small>landing skips 1 turn</small></button>
+                <button class="combo-mode" data-mode="walk-flea" aria-pressed="false" hidden><span>↟ + ✹</span>Walk + first flea<small>once per race · one turn total</small></button>
+              </div>
+            <div class="board-scroll" tabindex="0" role="region" aria-label="Garden board. Scroll sideways if enlarged.">
+              <div class="board-wrap">
+                <div id="board" role="group" aria-label="Garden race board"></div>
+                <svg
+                  id="walls"
+                  viewBox="0 0 700 700"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                ></svg>
+                <div id="fence-gaps" hidden></div>
+              </div>
+            </div>
+            <div class="action-dock">
+              <div id="fence-sides" role="group" aria-label="Choose a fence side" hidden></div>
+              <button id="change-walk" class="quiet" hidden>Change the walk square</button>
+              <p id="hint">Tap a highlighted square to plan.</p>
+              <div id="preview" class="preview" aria-live="polite">
+                Your move is only saved when you confirm.
+              </div>
+              <button id="commit" class="primary" disabled>Confirm move</button
+              ><button id="retry" class="quiet" hidden>
+                Reconnect / retry saved move
+              </button>
+              <p id="notice" role="status"></p>
+            </div>
+            <div class="legend">
+              <span><i class="dot mike-dot"></i> M · Mike</span
+              ><span><i class="dot aimee-dot"></i> A · Aimee</span
+              ><span>✿ flower beds</span><span id="flea-legend" hidden>✹ M/A · visible flea trap</span>
+            </div>
+            <div class="fence-legend">
+              <span><i class="garden-fence"></i> Garden fence · fixed</span
+              ><span><i class="placed-fence"></i> Player fence · placed</span>
+            </div>
+          </section>
+          <aside class="sidebar">
+            <section class="card rematch-card">
+              <p id="race-label" class="eyebrow"></p>
+              <h2>Another round?</h2>
+              <p id="rematch-status" aria-live="polite"></p>
+              <button id="new-race" class="quiet">Invite a new race</button>
+              <button id="accept-race" class="primary" hidden>Review &amp; accept</button>
+              <button id="decline-race" class="quiet" hidden>Keep this race</button>
+            </section>
+            <section class="card field-notes">
+              <p class="eyebrow">A GOOD PLAN HAS A WAY HOME</p>
+              <p>
+                Fetch your matching ball, then find your way home. New gardens have different routes for each player with equal starting distance. Older crossroads races keep their D4 crossing.
+                Players can share squares and pass through each other. Fences block both players,
+                so a clever shortcut block can also change your own return trip.
+              </p>
+              <button id="access-open" class="quiet">Change my access phrase</button>
+              <button id="leave" class="quiet">Leave this device</button>
+            </section>
+          </aside>
+        </div>
+      </section>
+      <footer>
+        Made for Mike &amp; Aimee. Approved by Olive, pending treats.<br />No
+        clock. No hurry. Just one more clever move.
+      </footer>
+    </main>
+    <dialog id="rules-dialog">
+      <button id="close-rules" class="quiet">Close ×</button>
+      <p class="eyebrow">THE 60-SECOND RULES</p>
+      <h2>Fetch. Foil. Find your way home.</h2>
+      <ol>
+        <li>
+          <b>Take turns.</b> The starting player alternates each race. Fetch your matching ball, then
+          bring it back to your home square. You can leave and return hours
+          later.
+        </li>
+        <li>
+          <b>Choose one action.</b> Walk one square up, down, left, or right. Or
+          spend one of your two sprints to travel two clear squares in a
+          straight line. Crossing your ball picks it up; crossing home with it
+          ends your race.
+        </li>
+        <li>
+          <b>Make a detour.</b> New gardens give each player three fences; older races retain six. A fence uses your
+          whole turn and blocks one edge for both players, permanently. Tap a marked gap, or tap a square and choose its side below the board, to preview it. The game rejects any fence that
+          closes a route to either ball or home. In new gardens it also rejects fences adding more than four walking steps or forcing a flea bite.
+        </li>
+        <li><b>Two flea traps each, in new gardens.</b> Your first flea may accompany a normal one-square walk, once per race. Choose Walk + first flea, select the walk and then the trap square, and confirm both together. No sprint combination. You still have only two traps total; later traps each spend a turn. Placing the first trap alone also uses up the combined-action opportunity. Homes, balls and occupied squares are off limits. It only bites your opponent when they land there; a sprint's middle square does not trigger it. The trap disappears and their next turn is automatically spent scratching. Your own traps are safe. Every placement must leave a flea-free route. Traps are never replenished during a race.</li>
+        <li>
+          <b>Share the lawn.</b> Players may pass through or share a square.
+          Flower beds cannot be crossed. Fences cannot be jumped. The garden
+          fences, shown with green rails and square posts, are part of this
+          race’s layout and do not use either player’s fence supply.
+        </li>
+        <li>
+          <b>Equal chances.</b> If the starting player gets home first, the other player gets one final
+          turn. If both finish in that pair of turns, it’s a tie. Otherwise the
+          first home wins.
+        </li>
+        <li><b>A fresh garden.</b> The three physical gardens are shuffled so each appears before any repeats, with no back-to-back repeat across cycles. Seats switch when a garden returns. Both players start with the same walking distance and sprint opportunity. The
+          fences and routes stay fixed during each race. Invite a new race, then
+          wait for your partner to accept. Declining or playing a move cancels
+          the invitation. Neither player can restart alone.</li>
+      </ol>
+      <p>
+        Balls and houses are marked M for Mike and A for Aimee. The step numbers
+        count the remaining walk to your ball and back home, without sprints.
+        Fence previews update those numbers; you find the route.
+      </p>
+      <p>
+        <b>Tip:</b> A fence that adds one step costs you one turn. Look for a
+        detour that costs your partner more, or save a sprint for the finish.
+      </p>
+    </dialog>
+    <dialog id="rematch-dialog">
+      <p class="eyebrow">A SHARED DECISION</p>
+      <h2 id="rematch-confirm-title"></h2>
+      <p id="rematch-confirm-copy"></p>
+      <button id="rematch-confirm" class="primary"></button>
+      <button id="rematch-back" class="quiet">Back to the garden</button>
+    </dialog>
+    <dialog id="access-dialog">
+      <p class="eyebrow">YOUR GARDEN · YOUR WORDS</p>
+      <h2>Something you can remember.</h2>
+      <p id="access-format">Choose exactly three words separated by dashes, then add a number and ! immediately after the last word. Use letters for the words. You can include Huck or Olive as one of your words. Shorter phrases are easier to guess; use yours only for this casual game.</p>
+      <form id="access-form" autocomplete="off" novalidate>
+        <label for="access-current">Your current key or phrase</label><p id="access-current-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-current-error" id="access-current" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <label for="access-new">Your new phrase</label><p id="access-new-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-new-error access-format" id="access-new" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <label for="access-confirm">Enter the new phrase again</label><p id="access-confirm-error" class="access-error" role="alert" hidden></p><input aria-describedby="access-confirm-error" id="access-confirm" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="160">
+        <p id="access-status" tabindex="-1" role="status" aria-live="polite"></p>
+        <button id="access-save" class="primary">Save my new access phrase</button>
+        <button id="access-close" type="button" class="quiet">Close</button>
+      </form>
+    </dialog>
+    <script src="login-guard.js?v=4"></script>
+    <script type="module" src="app.mjs?v=8"></script>
+  </body>
+</html>

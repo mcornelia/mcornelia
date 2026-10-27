@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17251f">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev http://127.0.0.1:8787; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Operation: Tired Dogs · Ravenwood Games</title>
+  <meta name="description" content="Two people, two good dogs, one very cozy mission.">
+  <link rel="icon" href="./paw.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/play.html"><span aria-hidden="true">⌂</span> RAVENWOOD <b>GAMES</b></a><div class="header-controls"><button id="sound-toggle" class="quiet" type="button" aria-pressed="true" title="Quiet sound effects. Your preference is remembered on this device.">Sound on</button><button id="help" class="quiet">How to play <span aria-hidden="true">?</span></button></div></header>
+  <main>
+    <div class="intro"><p class="eyebrow">A LITTLE TEAMWORK. A LOT OF LOVE.</p><h1>Operation: <em>Tired Dogs</em></h1><p>Two good dogs. One cozy mission. Get them happily asleep, together.</p><a id="jump-actions" href="#play-panel" hidden>Choose an activity ↓</a></div>
+    <section class="evening" aria-label="Your shared evening">
+      <div class="scene-column">
+        <div class="scene" id="scene">
+          <div class="scene-label"><span class="glow-dot"></span><span id="evening-label">THE COZIEST ASSIGNMENT</span></div>
+          <svg viewBox="0 0 720 420" class="room-art" role="img" aria-label="Olive and Huck together in a warm living room at dusk">
+            <defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#344b3e"/><stop offset="1" stop-color="#263c32"/></linearGradient><linearGradient id="window" x2="0" y2="1"><stop stop-color="#708c88"/><stop offset="1" stop-color="#edbd87"/></linearGradient><radialGradient id="light"><stop stop-color="#efd3a0" stop-opacity=".25"/><stop offset="1" stop-color="#efd3a0" stop-opacity="0"/></radialGradient></defs>
+            <path fill="url(#wall)" d="M0 0h720v420H0z"/><circle fill="url(#light)" cx="620" cy="140" r="200"/>
+            <rect x="63" y="65" width="167" height="164" rx="70" fill="#192d28"/><path fill="url(#window)" d="M73 222V143a73 73 0 0 1 147 0v79z"/><path d="M74 195l32-47 24 33 34-62 55 75v29H74z" fill="#53675b"/><path d="M146 70v153M73 158h147" stroke="#263a30" stroke-width="8"/>
+            <circle cx="185" cy="106" r="13" fill="#f1d5a4"/><path d="M0 307h720v113H0z" fill="#9a7860"/><path d="M0 323h720M0 369h720M210 307v16m270 0v46m-180 0v51" stroke="#765c4b" stroke-width="2"/>
+            <ellipse cx="347" cy="361" rx="262" ry="43" fill="#b49d7d"/><ellipse cx="347" cy="361" rx="243" ry="32" fill="none" stroke="#d0bb96" stroke-width="3"/>
+            <path d="M171 313v37m374-37v37" stroke="#4d392e" stroke-width="14"/><rect x="156" y="195" width="413" height="128" rx="33" fill="#84947b"/><rect x="174" y="210" width="181" height="87" rx="20" fill="#9dac91"/><rect x="365" y="210" width="181" height="87" rx="20" fill="#9dac91"/><rect x="140" y="259" width="47" height="74" rx="18" fill="#71866f"/><rect x="539" y="259" width="47" height="74" rx="18" fill="#71866f"/><path d="M190 292h349v41H190z" fill="#7e9177"/>
+            <path d="M502 222q-28-7-44 9v94h74v-75q-15-14-30-28" fill="#d4af84"/><path d="M465 242h43m-43 17h60m-60 17h67m-67 17h67" stroke="#b89068" stroke-width="3"/>
+            <path d="M632 159v163m-29 0h58" stroke="#d5b981" stroke-width="6"/><path d="M600 92h62l20 69h-103z" fill="#e7cc9b"/><path d="M600 161h62" stroke="#efd8ae" stroke-width="5"/>
+            <path d="M36 297v-56m0 26q-28-4-21-25 27 1 21 25m0-9q24-2 26-24-27 0-26 24" fill="#82916d" stroke="#82916d" stroke-width="4"/><path d="M14 281h45l-8 39H21z" fill="#c0835e"/>
+            <g id="olive-art" class="pup olive">
+              <ellipse cx="282" cy="310" rx="62" ry="18" fill="#55392c" opacity=".2"/><path d="M255 277q-58-11-47-41" fill="none" stroke="#9e5335" stroke-width="12" stroke-linecap="round" class="tail"/>
+              <ellipse cx="278" cy="283" rx="45" ry="27" fill="#ac623d"/><path d="M256 291v20h-17m63-20v20h-18" fill="none" stroke="#edd6ae" stroke-width="12" stroke-linecap="round"/>
+              <g transform="translate(218 176) scale(.96)"><path d="M25 38C7 42 5 71 21 90c5-14 11-25 18-34zM95 38c18 4 20 33 4 52-5-14-11-25-18-34z" fill="#793923"/><path d="M29 38c5-22 54-25 62 0 7 24-3 59-31 61-28-2-38-37-31-61z" fill="#a64f2f"/><path d="M55 20c5-3 9-3 12 0l-4 39-6 1z" fill="#f0d9b6"/><path d="M37 46c6-5 11-5 16-1m15 0c5-4 10-3 15 1" stroke="#d39561" stroke-width="5" fill="none" stroke-linecap="round"/><g class="eyes-open"><circle cx="46" cy="53" r="3.8" fill="#2a1d18"/><circle cx="75" cy="53" r="3.8" fill="#2a1d18"/></g><path class="eyes-shut" d="M40 53q6 7 12 0m17 0q6 7 12 0" stroke="#2a1d18" stroke-width="3" fill="none"/><path d="M42 67c5-9 31-9 36 0 6 14-5 24-18 24S36 81 42 67z" fill="#f0d9b6"/><path d="M52 66c4-4 12-4 16 0-1 7-14 7-16 0z" fill="#2c211d"/><path d="M28 92h64L60 111z" fill="#db7c50"/></g>
+              <text class="sleep-z" x="239" y="181">z z z</text>
+            </g>
+            <g id="huck-art" class="pup huck">
+              <ellipse cx="425" cy="316" rx="73" ry="18" fill="#263027" opacity=".2"/><path d="M463 285q45-18 42-44" fill="none" stroke="#272d29" stroke-width="15" stroke-linecap="round" class="tail"/>
+              <ellipse cx="431" cy="281" rx="57" ry="35" fill="#282e2a"/><path d="M399 293v21h-19m67-21v21h-19" fill="none" stroke="#343b34" stroke-width="17" stroke-linecap="round"/>
+              <g transform="translate(352 157) scale(1.13)"><path d="M29 32C9 26 8 66 25 78l17-33zM91 32c20-6 21 34 4 46L78 45z" fill="#121714"/><path d="M29 35c9-21 53-21 62 0 9 25-3 63-31 64-28-1-40-39-31-64z" fill="#202623"/><g class="eyes-open"><circle cx="45" cy="51" r="4" fill="#c19b65"/><circle cx="75" cy="51" r="4" fill="#c19b65"/></g><path class="eyes-shut" d="M39 51q6 7 12 0m18 0q6 7 12 0" stroke="#b8a583" stroke-width="3" fill="none"/><path d="M39 66c7-10 35-10 42 0 6 17-6 27-21 27S33 83 39 66z" fill="#50564c"/><path d="M51 65c5-5 13-5 18 0-1 8-17 8-18 0z" fill="#090b09"/><path class="tongue" d="M58 81h10v9q-5 10-10 0" fill="#ce8c7a"/><path d="M29 91c16 10 46 10 62 0l-2 12H31z" fill="#547d90"/></g>
+              <text class="sleep-z" x="438" y="163">z z z</text>
+            </g>
+          </svg>
+          <button id="ball" aria-label="Play with Olive’s orange-and-blue ball" title="Olive has one priority. It is round."><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26" fill="#317fa5" stroke="#f38a42" stroke-width="6"/><path d="M16 8q19 22 0 44M44 8q-19 22 0 44" fill="none" stroke="#f38a42" stroke-width="7"/></svg></button>
+          <p id="ball-message" role="status"></p>
+          <p class="scene-caption" id="scene-caption">The couch has room for everyone.</p>
+        </div>
+        <div class="dogs" id="dogs"></div>
+      </div>
+      <div class="controls-column">
+        <section id="join-panel" class="panel join-panel" aria-labelledby="join-title">
+          <span class="eyebrow">JUST THE TWO OF YOU</span><h2 id="join-title">Come on in.</h2><p>Your private player key brings you back to the same evening, on any phone.</p>
+          <form id="join-form"><label for="player-key">Your player key</label><input id="player-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required maxlength="43" minlength="43"><label class="remember"><input id="remember" type="checkbox"> Remember me on this device</label><button class="primary" id="join" type="submit">Join our evening <span aria-hidden="true">→</span></button></form>
+          <p id="setup-message" class="small"></p>
+        </section>
+        <section id="play-panel" class="panel" hidden aria-labelledby="turn-title">
+          <div class="turn-top"><span id="connection" class="connection">Connecting…</span><button id="leave" class="text-button">Leave</button></div>
+          <p class="eyebrow" id="move-label"></p><h2 id="turn-title"></h2><p id="turn-description"></p>
+          <fieldset id="pup-picker"><legend>Who gets a little love?</legend><button class="pup-choice" type="button" data-dog="Olive" aria-pressed="true">Olive <small>Ball enthusiast</small></button><button class="pup-choice" type="button" data-dog="Huck" aria-pressed="false">Huck <small>Gentle goofball</small></button></fieldset>
+          <div id="activities" class="activities"></div>
+          <div id="preview" class="preview"></div><button id="commit" class="primary" disabled></button>
+          <button id="next-evening" class="primary" hidden>Ready for another evening</button>
+          <button id="retry" class="quiet retry" hidden>Reconnect &amp; check our evening</button>
+        </section>
+        <p id="notice" role="status" class="notice"></p>
+        <details class="journal" id="journal" hidden><summary>Our little evening <span id="journal-count"></span></summary><ol id="journal-items"></ol></details>
+      </div>
+    </section>
+    <footer>No timer. No streak to keep. Just a good evening, together.</footer>
+  </main>
+  <dialog id="help-dialog" aria-labelledby="help-title"><button id="close-help" class="quiet close">Close</button><p class="eyebrow">YOUR VERY IMPORTANT MISSION</p><h2 id="help-title">Two happily sleeping dogs.</h2><p>You and your partner take turns choosing one activity. A sniff walk helps both pups; the other activities care for the pup you select.</p><p>Before tucking a pup in, aim for <strong>25 or fewer wiggles</strong>, <strong>20 or fewer sniffs to do</strong>, and <strong>75 or more love</strong>. The activity preview shows exactly what will change.</p><p>Nothing gets worse while you are away. Sleeping pups stay asleep. There is no wrong turn you cannot recover from.</p><p>Both ready for a fresh evening? Each of you can say so after the pups fall asleep.</p><p class="small">Quiet sound effects start after your first tap. Use Sound on/off at the top to mute; this device remembers your choice. No music plays.</p><p class="small">Olive’s ball is always fair game. Ball boops are just for fun and never spend a turn.</p></dialog>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "operation-tired-dogs",
+  "main": "worker.mjs",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "vars": { "ALLOWED_ORIGIN": "https://mcornelia.com" },
+  "durable_objects": {
+    "bindings": [{ "name": "ROOM", "class_name": "DogRoom" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DogRoom"] }],
+  "observability": { "enabled": false }
+}

@@ -1,6 +1,7 @@
 import { puzzleForDate } from "./puzzle-schedule.mjs?v=20261004-modern";
 import {
   WORD_GOAL,
+  isPerfectFetch,
   eligibleWords,
   calculateStats,
   canAddToPath,
@@ -11,7 +12,7 @@ import {
   pointsForWord,
   scoreWords,
   wordFromPath,
-} from "./game-engine.mjs?v=20261004-four-letters";
+} from "./game-engine.mjs?v=20261016-perfect";
 
 import { openStore, prepareDay, recordHint, restartDay, updateDayRecord } from './stats-store.mjs?v=20261004-modern';
 const DEFAULT_CATCH_DELAY_MS = 2350;
@@ -96,6 +97,7 @@ let dragState = null;
 let messageTimer = null;
 let toastTimer = null;
 let confettiTimer = null;
+let confettiCleanupTimer = null;
 let audioContext = null;
 let activeSound = null;
 let celebrationMessageOffset = 0;
@@ -123,6 +125,9 @@ function renderSoundPreference() {
   const enabled = Boolean(store.soundEnabled);
   elements.soundButton.setAttribute("aria-pressed", String(enabled));
   elements.soundButton.setAttribute("aria-label", `Turn celebration sound ${enabled ? "off" : "on"}`);
+  const resultSound = document.querySelector('#celebration-sound');
+  resultSound.textContent = enabled ? 'Sound on · mute' : 'Sound off · turn on';
+  resultSound.setAttribute('aria-pressed', String(enabled));
   elements.soundButton.title = `Celebration sound: ${enabled ? "on" : "off"}`;
 }
 
@@ -207,6 +212,22 @@ function playCelebrationSound(context, delayMs) {
   sources.push(scheduleTone(context, master, { frequency: 1760, frequencyEnd: 1480, start: catchTime + .29, duration: .16, volume: .055, type: "triangle" }));
   sources.push(scheduleTone(context, master, { frequency: 2210, frequencyEnd: 1840, start: catchTime + .4, duration: .14, volume: .04, type: "triangle" }));
 
+  const perfect = isPerfectFetch(dayState.foundWords, puzzle.words);
+  let endDelay = delayMs + 1100;
+  if (perfect) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const flipTime = reduced ? catchTime + .15 : catchTime + 1.3;
+    const landing = reduced ? flipTime + .15 : flipTime + 1.25;
+    if (!reduced) {
+      sources.push(scheduleTone(context, master, { frequency: 260, frequencyEnd: 1500, start: flipTime, duration: .6, volume: .23, type: 'triangle' }));
+      sources.push(scheduleTone(context, master, { frequency: 1500, frequencyEnd: 360, start: flipTime + .6, duration: .55, volume: .15 }));
+    }
+    [523.25, 659.25, 783.99, 1046.5].forEach((frequency, index) => {
+      sources.push(scheduleTone(context, master, { frequency, start: landing + index * .11, duration: .42, volume: .24, type: 'triangle' }));
+    });
+    endDelay = (landing - context.currentTime + 1) * 1000;
+  }
+
   const stopThisSound = () => {
     sources.forEach((source) => {
       try { source.stop(); } catch { /* The source has already finished. */ }
@@ -218,7 +239,7 @@ function playCelebrationSound(context, delayMs) {
     if (activeSound !== stopThisSound) return;
     master.disconnect();
     activeSound = null;
-  }, delayMs + 1100);
+  }, endDelay);
 }
 
 function saveStore() {
@@ -336,6 +357,7 @@ function submitPath() {
   }
 
   const previousObjectives = getObjectives(dayState.foundWords, puzzle.secret);
+  const previouslyPerfect = isPerfectFetch(dayState.foundWords, puzzle.words);
   dayState.foundWords.push(result.word);
   const objectives = getObjectives(dayState.foundWords, puzzle.secret);
   if (result.word === puzzle.secret) {
@@ -355,7 +377,8 @@ function submitPath() {
   saveStore();
   clearPath();
   renderProgress();
-  if (newlyCompleted) stageFirstCelebration();
+  const newlyPerfect = !previouslyPerfect && isPerfectFetch(dayState.foundWords, puzzle.words);
+  if (newlyCompleted || newlyPerfect) stageFirstCelebration();
 }
 
 function renderProgress() {
@@ -429,7 +452,8 @@ function makeConfetti() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   elements.confetti.innerHTML = "";
   const colors = ["#e7b75a", "#df7547", "#8ba780", "#eee6cb"];
-  for (let index = 0; index < 42; index += 1) {
+  const pieceCount = isPerfectFetch(dayState.foundWords, puzzle.words) ? 76 : 42;
+  for (let index = 0; index < pieceCount; index += 1) {
     const piece = document.createElement("i");
     piece.style.left = `${Math.random() * 100}%`;
     piece.style.setProperty("--color", colors[index % colors.length]);
@@ -440,7 +464,8 @@ function makeConfetti() {
     piece.style.setProperty("--rotation", `${Math.random() * 180}deg`);
     elements.confetti.append(piece);
   }
-  setTimeout(() => { elements.confetti.innerHTML = ""; }, 5400);
+  clearTimeout(confettiCleanupTimer);
+  confettiCleanupTimer = setTimeout(() => { elements.confetti.innerHTML = ""; }, 6000);
 }
 
 function restartSceneAnimation() {
@@ -451,6 +476,7 @@ function restartSceneAnimation() {
 
 function scheduleCatchFeedback() {
   clearTimeout(confettiTimer);
+  clearTimeout(confettiCleanupTimer);
   elements.confetti.innerHTML = "";
   const delayMs = catchDelayMs();
   confettiTimer = setTimeout(() => {
@@ -470,6 +496,21 @@ function scheduleCatchFeedback() {
 function celebrate({ markSeen = false } = {}) {
   renderStats();
   rotateCelebrationMessage();
+  const perfect = isPerfectFetch(dayState.foundWords, puzzle.words);
+  elements.celebrationScene.classList.toggle('perfect-fetch', perfect);
+  document.querySelector('#celebration-title').textContent = perfect ? 'Perfect Fetch!' : 'Ball found!';
+  document.querySelector('#celebration-kicker').textContent = perfect ? 'Every word found · A++' : 'Fetch complete · A+';
+  document.querySelector('.catch-impact strong').textContent = perfect ? 'PERFECT!' : 'WOW!';
+  if (perfect) {
+    elements.celebrationLead.textContent = 'Every word found!';
+    elements.celebrationTag.textContent = 'Olive saved her victory backflip for you. Huck awards full marks.';
+  }
+  elements.celebrationReplay.textContent = perfect ? 'Replay Olive’s victory backflip' : 'Replay Olive’s catch';
+  document.querySelector('.results-note').textContent = perfect
+    ? 'You found every word in today’s guide. What a fetch! Your full score is saved.'
+    : 'Keep finding words—your daily score updates with every new find. Reopen today’s results anytime.';
+  // Confetti must live in the modal top layer to appear above its backdrop.
+  elements.celebrationDialog.append(elements.confetti);
   if (!elements.celebrationDialog.open) elements.celebrationDialog.showModal();
   elements.celebrationDialog.scrollTop = 0;
   restartSceneAnimation();
@@ -577,7 +618,7 @@ elements.hintButton.addEventListener("click", () => {
   saveStore();
   renderProgress();
 });
-elements.soundButton.addEventListener("click", () => {
+function toggleSound() {
   store.soundEnabled = !store.soundEnabled;
   store.soundPreferenceSet = true;
   saveStore();
@@ -592,7 +633,9 @@ elements.soundButton.addEventListener("click", () => {
     if (navigator.vibrate) navigator.vibrate(0);
     showToast("Celebration sound is off.");
   }
-});
+}
+elements.soundButton.addEventListener('click', toggleSound);
+document.querySelector('#celebration-sound').addEventListener('click', toggleSound);
 elements.helpButton.addEventListener("click", () => elements.helpDialog.showModal());
 function openStats() {
   if (refreshForNewDay()) return;
@@ -638,6 +681,8 @@ document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.addEventListener("close", () => {
     if (dialog === elements.celebrationDialog) {
       clearTimeout(confettiTimer);
+      clearTimeout(confettiCleanupTimer);
+      elements.confetti.innerHTML = "";
       stopCelebrationSound();
       if (navigator.vibrate) navigator.vibrate(0);
       elements.celebrationScene.classList.remove("playing");

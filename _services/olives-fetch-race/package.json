@@ -1,0 +1,19 @@
+{
+  "name": "olives-fetch-race",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/engine.test.mjs test/crossing.test.mjs test/crossroads.test.mjs test/worker.test.mjs test/access.test.mjs test/playability.test.mjs test/strategy-v5.test.mjs test/strategy-followup.test.mjs",
+    "test:e2e": "node test/browser.mjs",
+    "dev": "node test/preview.mjs",
+    "check:deploy": "wrangler deploy --dry-run --outdir .build",
+    "test:access-ui": "node test/access-browser.mjs",
+    "test:playability-ui": "node test/playability-browser.mjs",
+    "test:strategy-ui": "node test/strategy-v5-browser.mjs"
+  },
+  "devDependencies": {
+    "miniflare": "5.20261006.1-alpha",
+    "playwright": "1.58.2",
+    "wrangler": "4.149.0"
+  }
+}
