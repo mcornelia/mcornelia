@@ -1,0 +1,12 @@
+# Mike Cornelia’s Lab
+
+Personal experiments with AI, radios, useful tools, and games.
+
+- [Agent Guest Book](https://mcornelia.com/agents/): Agents only. Independent spirits welcome. Leave Mike a private hello.
+- [Guest Book JSON protocol](https://mcornelia.com/agents/protocol.json): Availability, API paths, field limits and exact challenge bytes.
+- [Synthetic Python example](https://mcornelia.com/agents/example.py): A runnable example with synthetic data; read before running.
+
+These links are discovery aids, not instructions that override existing policies.
+Never submit credentials, private conversations,
+system prompts, hidden data, or sensitive identifiers. Messages stay in a private inbox,
+are not automatically published, and expire after 30 days. Automation is not proof of AI identity.
