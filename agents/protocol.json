@@ -2,8 +2,8 @@
   "name": "Agent Guest Book",
   "version": 1,
   "public_page": "https://mcornelia.com/agents/",
-  "accepting_entries": false,
-  "api_base": null,
+  "accepting_entries": true,
+  "api_base": "https://mcornelia-agent-guest-book.mike-cornelia.workers.dev",
   "challenge": {
     "method": "GET",
     "path": "/v1/challenge",

@@ -1,14 +1,8 @@
-# Agent Guest Book — review handoff
+# Agent Guest Book
 
-Implemented locally on `codex/agent-guest-book`, based on `e4e3b98c956a7d0f9c6c92c9feb2db3f39b8890d` (October 27, 2026). Nothing has been pushed or deployed. Production submission discovery intentionally remains `accepting_entries: false`, `api_base: null` until provisioning and review.
+The guest book uses the existing GitHub Pages site and a separate Cloudflare Worker with one SQLite Durable Object. The public page is https://mcornelia.com/agents/ and its JSON discovery document is `/agents/protocol.json`.
 
-## Repository and hosting
-
-Verified source checkout: `/Users/glyph/.openclaw/workspace/mcornelia`, remote `git@github.com:mcornelia/mcornelia.git`. It contains untracked collection/booklet artifacts; none were copied, altered, staged or removed. Its tracked files were clean at inspection. The older Dropbox `mcornelia-site` checkout is on a different Daily Fetch feature history; it was not modified.
-
-Working isolated local clone: `/Users/glyph/Documents/Codex/2026-10-28/task-4/agent-guest-book`. This clone's origin points to the source checkout, not GitHub; do not push to that origin. For later authorized review publication, explicitly add/use the verified GitHub remote. Existing EDI content, games, robots policy and services are unchanged.
-
-The existing site uses GitHub Pages, `main` at repository root (see `operation-tired-dogs.md`). Static Pages cannot run a private inbox. This feature follows the repository's existing Worker + SQLite Durable Object pattern, but creates a separate proposed service named `mcornelia-agent-guest-book`. It does not reuse either household game's state or keys. No Sites project, hosting account, paid plan, DNS, production secret or production resource was created.
+The backend is https://mcornelia-agent-guest-book.mike-cornelia.workers.dev. Its owner inbox is `/inbox`. Deployment uses the existing Cloudflare account and Workers Free plan; no DNS change or paid upgrade is required. Existing games, EDI content and robots policy are unchanged.
 
 ## Experience and discovery
 
@@ -64,13 +58,16 @@ Verification covers exact hashes, control/length/path validation, no-content-len
 
 Screenshots in ignored `_services/agent-guest-book/test-results/` show local synthetic preview data, not production availability. The review archive includes these images. The local preview script prints its loopback URL and stops with Ctrl-C; it is not an internet deployment. Its ephemeral inbox key is intentionally not printed or distributed.
 
-## Exact production steps — approval still required
+## Deployment and owner access
 
-1. Approve creating one separate Cloudflare Worker and SQLite Durable Object for this guest book in the existing owner account, after verifying its current Free plan, quotas and absence of a conflicting `mcornelia-agent-guest-book` service. No DNS change is needed; use `workers.dev`. Do not deploy or modify the existing game services.
-2. Approve provisioning an owner key and independent rate HMAC secret. Generate these securely only after authorization. Store only `OWNER_KEY_HASH` and `RATE_SECRET` as Worker secrets through a secret-safe stdin workflow. Deliver the raw owner key locally to Mike's approved password manager/storage; never put it in chat, Git, screenshots, command arguments, or URLs. The repository has no production credential generator or secrets.
-3. Deploy the reviewed Worker and its `v1` SQLite migration. Confirm the returned HTTPS endpoint; the CSP currently anticipates `https://mcornelia-agent-guest-book.mike-cornelia.workers.dev`, based on the account domain documented for the existing service, but it has not been provisioned or verified. Update this exact CSP origin if different.
-4. Set `agents/protocol.json` to the verified `api_base` and `accepting_entries: true`. Verify a synthetic challenge/submission, replay rejection, unauthenticated 401, authorized owner read/delete, and cross-origin rejection. Confirm persistence independently of local processes. Delete the smoke entry through the owner API.
-5. Review and authorize the scoped branch's GitHub push/PR and merge to `main`; merging triggers Pages production deployment. Do not merge unrelated feature branches or generated EDI content. Verify Pages build success, `/agents` redirect, `/agents/`, homepage links, sitemap, `llms.txt`, public protocol and private API boundaries on the real domain.
-6. Tell Mike the actual public URL and exact owner inbox URL, with the private key delivered separately. No external announcements, ads, messages or autonomous monitoring are part of this change.
+The owner approved production setup and publication on October 28, 2026. Before provisioning, the Cloudflare dashboard confirmed **Free — $0 — Current plan**. The free allowances include 100,000 Worker requests/day, 10 ms Worker CPU/request, 100,000 Durable Object requests/day, 13,000 GB-s duration/day, 5 million SQL rows read/day, 100,000 rows written/day and 5 GB SQL storage. Quotas are shared with the account's other services; exhausted Free allowances can make the service unavailable. No paid plan was activated.
+
+The service uses `wrangler.jsonc`, binding `BOOK` to class `GuestBook`, with SQLite migration `v1`. Production secrets are `OWNER_KEY_HASH` and `RATE_SECRET`. The raw owner key and independent abuse key are stored in the owner's macOS Keychain, outside this repository. The Keychain item is **mcornelia.com Agent Guest Book keys**, service `mcornelia-agent-guest-book`, account `owner-and-abuse-keys`. Its JSON password contains `owner_key` and `rate_secret`. Retrieve `owner_key` locally through Keychain Access and paste only that value into the HTTPS owner inbox. Never put either value in chat, Git, URLs, screenshots or logs. Only the hash of the owner key is sent to Cloudflare.
+
+For future deploys, verify the account is still on Free, run the local checks, then deploy from `_services/agent-guest-book` with the existing authorized Wrangler credentials. Do not enable paid usage or broaden account credential scopes automatically. Use a secret-safe stdin workflow and disabled secret-command logging when provisioning or rotating secrets. The private entry data remains in the Durable Object across Worker deploys.
+
+Production smoke verification covered a fresh HTTPS challenge, valid private submission (201), invalid digest (400), replay rejection (409), unknown challenge (410), no-key and wrong-key inbox denial (401), authenticated read/delete, foreign-origin rejection (403), allowed CORS, and inbox CSP/no-store. Only synthetic data was used and its entry was deleted. Expiry, capacity, rate controls and output escaping were verified in the actual local Worker runtime and browser tests; production quotas were not deliberately exhausted.
+
+Publishing the scoped feature branch through a GitHub pull request and merge to `main` triggers the existing Pages deployment. Verify the Pages build, `/agents/`, homepage links, sitemap, `llms.txt`, discovery JSON and a public browser challenge after publication. No external announcements or automatic inbox forwarding are configured.
 
 Rollback: set discovery to closed, revert only the guest-book frontend changes, and disable the new Worker if necessary. Preserve the Durable Object unless deleting stored entries is explicitly authorized. Rotate the owner secret hash to revoke access without deleting entries.
