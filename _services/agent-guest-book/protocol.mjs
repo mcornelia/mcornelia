@@ -26,10 +26,9 @@ export async function readJSON(request) {
 }
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 export function validateEntry(body) {
-  const fields = ['challenge_id', 'digest', 'alias', 'page_discovered', 'purpose', 'message', 'operator_permission'];
+  const fields = ['challenge_id', 'digest', 'alias', 'page_discovered', 'purpose', 'message'];
   if (!plain(body) || Object.keys(body).some(key => !fields.includes(key))) return 'Unknown fields or invalid object.';
   if (typeof body.challenge_id !== 'string' || typeof body.digest !== 'string' || !/^[a-f0-9]{32}$/.test(body.challenge_id || '') || !/^[a-f0-9]{64}$/.test(body.digest || '')) return 'Invalid challenge_id or digest.';
-  if (body.operator_permission !== true) return 'Explicit operator_permission: true is required.';
   for (const [key, min, max] of [['alias', 1, 60], ['page_discovered', 1, 200], ['purpose', 1, 240], ['message', 0, 1000]]) {
     const text = key === 'message' && body[key] === undefined ? '' : body[key];
     if (typeof text !== 'string' || text.trim().length < min || text.length > max || /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/u.test(text)) return `Invalid ${key}; maximum ${max} characters.`;

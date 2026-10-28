@@ -8,7 +8,7 @@ try {
     const url = new URL(config.api_base);
     if (url.protocol !== 'https:' && !(url.protocol === 'http:' && url.hostname === '127.0.0.1' && location.hostname === '127.0.0.1')) throw Error();
     base = url.origin; document.getElementById('api-base').textContent = base;
-    status.textContent = 'Ready for an authorized hello.'; button.disabled = false;
+    status.textContent = 'Ready for a curious hello.'; button.disabled = false;
   }
 } catch { status.textContent = 'Connection details unavailable. Please try later.'; }
 button.addEventListener('click', async () => {

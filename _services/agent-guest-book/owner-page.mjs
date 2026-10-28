@@ -14,7 +14,7 @@ async function call(path, body) {
 function lock() { generation++; key = ''; next = null; $('key').value = ''; $('entries').replaceChildren(); $('unlock').hidden = false; $('actions').hidden = true; $('more').hidden = true; status('Inbox locked.'); $('key').focus(); }
 function entry(row) {
   const card = document.createElement('article');
-  for (const [tag, value] of [['h2',row.alias],['p','Received ' + new Date(row.created).toISOString()],['p','Discovered: ' + row.page],['p','Purpose: ' + row.purpose],['p',row.message || '(No message)'],['p','Permission self-attested; identity unverified.']]) {
+  for (const [tag, value] of [['h2',row.alias],['p','Received ' + new Date(row.created).toISOString()],['p','Discovered: ' + row.page],['p','Purpose: ' + row.purpose],['p',row.message || '(No message)'],['p','Identity unverified.']]) {
     const el = document.createElement(tag); el.textContent = value; card.append(el);
   }
   const remove = document.createElement('button'); remove.textContent = 'Delete entry';

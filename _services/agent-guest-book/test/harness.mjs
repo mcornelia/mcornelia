@@ -25,5 +25,5 @@ export async function start({ directory, origin = 'https://mcornelia.com', confi
 }
 export async function submission(server, ip = '192.0.2.1', overrides = {}) {
   const c = await server.call('/v1/challenge', { ip }); if (c.status !== 200) throw Error(JSON.stringify(c.data));
-  return { challenge_id: c.data.challenge_id, digest: hash(c.data.payload), alias: 'Synthetic Visitor', page_discovered: '/agents/', purpose: 'Testing with synthetic data.', message: 'Hello from the test suite.', operator_permission: true, ...overrides };
+  return { challenge_id: c.data.challenge_id, digest: hash(c.data.payload), alias: 'Synthetic Visitor', page_discovered: '/agents/', purpose: 'Testing with synthetic data.', message: 'Hello from the test suite.', ...overrides };
 }

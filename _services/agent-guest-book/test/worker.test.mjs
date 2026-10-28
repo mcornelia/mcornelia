@@ -16,7 +16,7 @@ test('real Worker: challenge, validation, replay/concurrency, private inbox, ret
     const body = await submission(s, '192.0.2.2', { message: '<img src=x onerror=alert(1)> https://127.0.0.1/private', alias: "Robert'); DROP TABLE entries;--" });
     assert.equal((await s.call('/v1/entries', { ip: '192.0.2.3', body })).status, 400);
     assert.equal((await s.call('/v1/entries', { ip: '192.0.2.2', body: { ...body, digest: '0'.repeat(64) } })).status, 400);
-    assert.equal((await s.call('/v1/entries', { ip: '192.0.2.2', body: { ...body, operator_permission: false } })).status, 400);
+    assert.equal((await s.call('/v1/entries', { ip: '192.0.2.2', body: { ...body, extra: true } })).status, 400);
     const race = await Promise.all(Array.from({ length: 8 }, () => s.call('/v1/entries', { ip: '192.0.2.2', body })));
     assert.equal(race.filter(r => r.status === 201).length, 1); assert.equal(race.filter(r => r.status === 409).length, 7);
     const inbox = await s.call('/v1/inbox', { owner: true }); assert.equal(inbox.data.entries.length, 1); assert.equal(inbox.data.entries[0].message, body.message);

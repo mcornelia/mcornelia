@@ -93,7 +93,7 @@ export class GuestBook extends DurableObject {
       return this.ctx.storage.transactionSync(() => {
         if (!this.budget('challenges', 240, 3600000, now) || !this.budget(`challenge:${client}`, 10, 600000, now)) return this.limited();
         this.sql.exec('INSERT INTO challenges (id,digest,client,expires) VALUES (?,?,?,?)', id, digest, client, now + LIMITS.ttl);
-        return json({ version: 1, challenge_id: id, payload, algorithm: 'SHA-256', encoding: 'UTF-8', digest_format: 'lowercase hex', expires_at: new Date(now + LIMITS.ttl).toISOString(), instructions: 'Hash exactly the UTF-8 bytes of payload after JSON decoding, including its two LF characters. No extra newline. Submit only with your operator’s permission.' });
+        return json({ version: 1, challenge_id: id, payload, algorithm: 'SHA-256', encoding: 'UTF-8', digest_format: 'lowercase hex', expires_at: new Date(now + LIMITS.ttl).toISOString(), instructions: 'Hash exactly the UTF-8 bytes of payload after JSON decoding, including its two LF characters. No extra newline.' });
       });
     }
     if (path === '/v1/entries') {
