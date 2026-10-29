@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>Finish & Fixture Schedule (1 of 2)</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== Finish & Fixture Schedule (1 of 2) BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 20.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .elev-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .elev-svg-holder { display: flex; justify-content: center; align-items: flex-start; margin-top: 0.5in; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.5in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .verify-box { border: 0.03in solid #a00000; padding: 0.1in 0.14in; font-size: 8.4pt; line-height: 1.5; margin-bottom: 0.16in; }
+  .verify-box .hdr { font-weight: 700; color: #a00000; margin-bottom: 6px; }
+  .verify-box ol { margin: 0; padding-left: 0.2in; }
+  .verify-box li { margin-bottom: 5px; }
+  .verify-box b { color: #a00000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  .keyplan-box { border: 0.02in solid #000; padding: 0.12in; margin-bottom: 0.16in; text-align: center; }
+  .keyplan-box .hdr { font-weight: 700; font-size: 9pt; margin-bottom: 6px; text-align: left; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+
+  /* DRAFT / WORK-IN-PROGRESS WATERMARK — added 2026-07-25 per owner: Primary Bath 100-series sheets not yet finalized, matching the same treatment already used on A-208/A-209. Semi-transparent, non-printing-obstructive, sits above all content. */
+  .draft-watermark {
+    position: absolute; top: 50%; left: 41.5%; transform: translate(-50%, -50%) rotate(-35deg);
+    font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
+  }
+
+  .g-field { position:absolute; top:0; left:0; width:30in; height:24in; padding:0.35in 0.4in; }
+  .g-title { font-size:36pt; font-weight:800; letter-spacing:1px; }
+  .g-sub { font-size:16pt; color:#333; margin:4px 0 0.18in 0; }
+  .g-cols { display:grid; grid-template-columns: 1fr 1fr 1fr; column-gap:0.32in; }
+  .box { border:0.02in solid #000; padding:0.1in 0.14in; margin-bottom:0.2in; font-size:20pt; line-height:1.36; }
+  .box h3 { margin:0 0 8px 0; font-size:23pt; letter-spacing:0.4px; border-bottom:0.015in solid #000; padding-bottom:3px; }
+  .box ul { margin:0; padding-left:0.2in; } .box li { margin-bottom:3px; }
+  .box.red { border:0.03in solid #a00000; } .box.red h3 { color:#a00000; border-color:#a00000; }
+  .box.blue { border:0.03in solid #1a5a8a; } .box.blue h3 { color:#1a5a8a; border-color:#1a5a8a; }
+  table.idx { width:100%; border-collapse:collapse; font-size:19pt; }
+  table.idx td { border-bottom:0.01in solid #bbb; padding:3px 4px; }
+  table.idx td:first-child { font-weight:800; width:1.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 10.5pt; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 3px 5px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+  .s-field { position:absolute; top:0; left:0; width:30in; height:24in; padding:0.35in 0.4in; }
+  .s-head { font-size:20pt; font-weight:800; letter-spacing:1px; margin-bottom:0.12in; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="s-field">
+    <div class="s-head">FINISH & FIXTURE SCHEDULE (1 OF 2)</div>
+    <table class="sched">
+<tr><th style="width:9%">Item</th><th style="width:13%">Location</th><th style="width:9%">Manufacturer</th><th style="width:14%">Model / SKU</th><th style="width:10%">Color / Finish</th><th>Notes</th></tr>
+<tr><td>Floor tile</td><td><b>Entire bathroom</b> (everything north of the screen / wing-wall line), except the shower floor</td><td>Bond Tile</td><td>Stonehenge 24x24 ("Rizzo" listing)</td><td>Earth / Matte / Terrazzo-look</td><td><b style="color:#1a5a8a;">REV 4 (10.11.26, owners):</b> Mike: tile everywhere but the closet. Option B (oak into the bath) removed. Radiant heat below — see Ditra-Heat row. Curbless shower entry is now tile-to-tile.</td></tr>
+<tr><td>Closet floor — hardwood</td><td><b>Walk-in closet only</b>, up to the screen / wing-wall line</td><td>Stuga</td><td>Fika</td><td>European white oak, natural blonde, matte acrylic urethane</td><td><b style="color:#1a5a8a;">REV 4 (10.11.26, owners):</b> No longer extends into the bath. Planks run N–S.</td></tr>
+<tr><td>Radiant floor heating</td><td>Under tile &amp; hardwood, entire room EXCEPT shower</td><td class="tbd">Tile setter's choice (owner, 10.08.26)</td><td>Basis of design: Schluter DITRA-HEAT membrane + DITRA-HEAT-E-HK cable + DITRA-HEAT-E-RT thermostat. <b>Owner to pull the brand from the guest suite finish schedule</b> (same tile setter) and match it.</td><td>Thermostat: <b>black faceplate</b> if offered (on dark kit-kat)</td><td><b style="color:#1a5a8a;">REV 3c (10.08.26):</b> <b>Thermostat location (owner): north (toilet) wall, above the north end of the east vanity, ~10-12" in from the NE corner, 52" AFF to center</b>, fully in the kit-kat above the 47" wainscot line (see plan "T"). Not at the door: the floor takes 15-20 min to warm up, so program a schedule. If the selected thermostat only comes in white, drop it to ~41" AFF in the upper Stonehenge tile, level with the vanity outlets, with the box inside one tile. Floor sensor wire drops inside the wall behind the floating vanity. Programmable, GFCI-protected; <b>dedicated circuit</b> (not shared with the bidet or vanity outlets). Confirm approved method under the engineered oak (Stuga) before installing. Coordinate with the north medicine cabinet door (hinge it on its south edge).</td></tr>
+<tr><td>Floor transitions</td><td>(1) Bath tile ↔ closet oak: one straight E–W seam along the screen / wing-wall line, across both 28" openings (runs under the screen). (2) Bath tile ↔ bedroom floor at the door threshold.</td><td>Schluter (installer to confirm)</td><td>Flush, height-matched metal profile (e.g., Schluter RENO-T or SCHIENE)</td><td>Matte Black (matches the edge-trim rule)</td><td><b style="color:#1a5a8a;">REV 4 (10.11.26, owners):</b> <b>Flush, no lip</b> (owner preference). The tile/oak seam is now dry-zone only (well away from the shower), so far lower water risk than the old seam. Match finished heights of tile + membrane and oak + underlayment so the profile sits flush. Door threshold: confirm the bedroom floor height and pick the matching profile.</td></tr>
+<tr><td>Grout joints — width</td><td>All tile</td><td>—</td><td><b>Smallest joint each tile allows</b> (owner, 10.07.26)</td><td>Grout colors chosen on site</td><td><b style="color:#1a5a8a;">REV 3b (10.07.26):</b> <b>Stonehenge 24x24 (rectified): 1/16"</b>, set with a tile leveling system to control lippage; installer to check warpage first (industry rule: joint ≥ 3x the tile's size variation). <b>Sahara 3x12 kit-kat (pressed, non-rectified edges): 1/8"</b>, the practical minimum for this edge type. <b>Sahara 4x4 mosaic and Hudson penny round:</b> set by the sheet; keep sheet-to-sheet joints matching the in-sheet joint so the seams disappear. Changes of plane (wall/floor, inside corners, tile-to-wood) get color-matched flexible sealant, not grout.</td></tr>
+<tr><td>Tile edge trim — outside corners</td><td>All exposed tile edges and outside corners: the shower return wall end at the glass, and any tile edge that ends on an outside corner. (Wing walls are painted drywall, so no tile edges there; where tile meets drywall in an inside corner, a color-matched caulk joint, no trim.)</td><td>Schluter</td><td>Square-edge profile (e.g., QUADEC; JOLLY as alternate), <b>height matched to each tile</b> (Stonehenge ≈ 10 mm; Sahara kit-kat ≈ 8–10 mm)</td><td><b>Matte Black</b></td><td><b style="color:#1a5a8a;">REV 3b (10.07.26):</b> Owner selection. Ties to the matte black KERDI-LINE drain and black concrete counters; reads as a crisp, mid-century outline on terrazzo and disappears into the dark kit-kat. Wainscot-to-kit-kat transition stays flush with no trim; inside corners and changes of plane get sealant, not trim. Shower niche: mitered, no trim (owner).</td></tr>
+<tr><td>Shower floor tile</td><td>Shower floor</td><td>Bedrosians</td><td>Sahara 4"x4" Matte Porcelain Mosaic, item 100001057</td><td>Dark</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Replaces Hudson Penny Round (DCOF 0.21, not wet-rated). Small format for grip; slopes in one plane to the linear drain. Confirm wet DCOF ≥ 0.42. Floor change from terrazzo lands exactly at the shower edge, in line with the glass. No radiant heat in shower.</td></tr>
+<tr><td>Grab bar &amp; seat blocking (future)</td><td>Shower: all three tiled walls; also the toilet area (shower return wall / north wall)</td><td>GC / framer</td><td>Continuous 2x solid blocking 30"–40" AFF in the shower; full-height at the west wall entry end; 15"–40" on the west wall for a fold-down seat; 30"–40" beside the toilet</td><td>—</td><td><b style="color:#1a5a8a;">REV 3d (10.08.26, owner):</b> Bars not installed now; blocking makes them a same-day add later. The niche (48"–60") and controls (54") were raised partly to keep the 33"–36" grab bar zone clear. Photograph/dimension blocking before backer board.</td></tr>
+<tr><td>Foot ledge (shaving shelf)</td><td>Shower, <b>back/west inside corner</b> (niche side), top ~17" AFF (see A-103)</td><td>Kohler</td><td>Square Shower Foot Ledge, <b>K-23287-BL</b> (<a href="https://www.fergusonhome.com/kohler-k-23287/s1716135">link</a>), $95.66 at Ferguson</td><td>Matte Black</td><td><b style="color:#1a5a8a;">REV 4f (10.12.26, owner):</b> Matches the Kohler Anthem panel. Corner-mounted with two small wall plates (screws through tile): <b>blocking in both walls at ~14"-20" AFF before backer board</b>. Sits below the future grab bar zone and next to the handheld. Compact ledge for a foot, not a seat.</td></tr>
+<tr><td>Shower niche</td><td><b>West wall</b>, starting just past the shower controls, toward the back corner; <b>42" long</b> (rev 3g: shortened 2" and shifted 2" toward the back corner, ending ~2" from it, to give the Anthem panel room) x <b>12" tall</b> x ~3-3/4" deep; <b>sill on the 2nd Stonehenge tile joint (~48" AFF), top ~60"</b>; controls centered at the niche midline, ~54" (rev 3d, owner 10.08.26; see A-103)</td><td>Merola Tile + Bond Tile + Schluter</td><td>Back: Hudson Penny Round FKOMPRSN · Sides/top/sill: Stonehenge 24x24 · Light: Schluter LIPROTEC LED kit sized to ~42" (installer to select)</td><td>Stormy Night / Earth</td><td><b style="color:#1a7a3a;">LOCKED by owner 10.08.26.</b> <b style="color:#1a5a8a;">REV 3b (10.08.26):</b> Per owner inspiration photo; 12" height confirmed by owner 10.08.26 (fits tall pump bottles). <b>45-degree mitered</b> Stonehenge outside corners, no trim. One-piece sill sloped into the shower. LED on the accent dimmer (Z4) with a low-voltage driver outside the wet zone. Penny round is the back panel only. <b>Never on a floor.</b> <b>Tile setter (owner, 10.08.26):</b> the ~2" strip of Stonehenge between the niche's back end and the inside corner must be a clean, deliberate full-height 2" cut piece (not a leftover sliver), so the niche reads as stretching nearly into the corner.</td></tr>
+<tr><td>Shower wall tile</td><td>Shower walls, floor-to-ceiling</td><td>Bond Tile</td><td>Stonehenge 24x24 Matte Porcelain Terrazzo-look (11.62 sf/case)</td><td>Earth</td><td>Same Stonehenge/Earth product line as the bathroom floor tile above (different case-size listing). $107.95/case, $8.83/sf at 69+sf. Slip-resistant, waterproof, rectified. <a href="https://www.wayfair.com/home-improvement/pdp/bond-tile-stonehenge-2354-in-x-2354-in-matte-porcelain-terrazzo-look-floor-and-wall-tile-1162-sq-ft-case-sost4902.html?piid=58623291">Product link</a></td></tr>
+<tr><td>Wainscot tile</td><td>All bath walls outside the shower &amp; west makeup wall (east, north, jog walls), 0–47" AFF. <b>Not the closet partition (wing walls), which are painted drywall</b></td><td>Bond Tile</td><td>Stonehenge 24x24 (same as floor)</td><td>Earth</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Two full tiles high (~47" incl. grout, no cut at top). Serves as the backsplash behind the east vanity. Flush transition to kit-kat above, no trim.</td></tr>
+<tr><td>Wall tile above wainscot ("kit-kat")</td><td>Same walls, 47" AFF to ceiling</td><td>Bedrosians</td><td>Sahara 3"x12" Matte Porcelain, item 100001024</td><td>Dark</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Vertical stack, grout matched to tile; a nod to the house's original wood paneling (guest bath uses the same pairing in light). Partial row at the ceiling.</td></tr>
+<tr><td>Shower glass</td><td>East side of shower: fixed panel off the 4" return, <b>floor to ceiling</b></td><td class="tbd">TBD (glazier)</td><td>Fixed panel, ⅜" min. tempered, <b>low-iron (ultra-clear)</b></td><td>Hardware: <b>CRL SGC037ULBR</b> fixed-panel square clamps w/ small leg, <b>solid unlacquered brass</b> (wall, floor &amp; ceiling; qty. ~6, glazier to confirm)</td><td><b style="color:#1a5a8a;">REV 3b (10.07.26):</b> Owner wants brass hardware kept <b>small</b> (slim channel or mini clamps, not chunky) in a finish that starts bright and <b>patinas</b>, not lacquered or polished-permanent, to age with the Nicolo hardware and faucets. <b>Clamps, not U-channel:</b> brass-look U-channels are finished aluminum and won't patina. CRL is the glass industry's standard supplier, so any glazier can order it (~$35 ea.; ⅜"–½" glass; ¾" holes drilled in the glass at fabrication). Alt.: Rejuvenation wall-mount shower glass clamp, unlacquered brass (~$55). <a href="https://www.dkhardware.com/sgc037ulbr-unlacquered-brass-fixed-panel-square-clamp-with-small-leg-product-3647035.html">Product link</a> Low-iron glass avoids a green edge against the terrazzo. Floor slopes toward the linear drain, so the glazier templates <b>after tile</b> and cuts the bottom edge to follow the slope. See Note 4.</td></tr>
+<tr><td>East vanity countertop</td><td>East double vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>No backsplash</b>; slab meets the Stonehenge wainscot directly (color-matched silicone joint). Sinks (qty. 2) integrally poured — see Sinks row.</td></tr>
+<tr><td>West vanity — makeup countertop</td><td>West vanity</td><td>Modern Concrete of Athens</td><td>Custom</td><td>Black Concrete</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> <b>Seated makeup station, top at 30" AFF</b> (was 34"); stool w/ ~18" seat. Floating slab, no sink, no cabinet, <b>no backsplash</b>. Confirm support method w/ fabricator. See A-104.</td></tr>
+<tr><td>Vanity cabinetry</td><td>East vanity only</td><td>DraytonWorks (Greg)</td><td>Custom</td><td><b>Walnut</b>, floating vanity</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Walnut replaces white oak. Water-resistant topcoat required. West vanity has NO cabinet (A-104). <b style="color:#1a5a8a;">REV 3c (10.08.26):</b> <b>Push-to-open, no pulls</b> (owner); mechanism by Greg (e.g., Blum TIP-ON BLUMOTION). Vanity drawers hold toilet paper (north drawer, by the toilet) and the cleaning caddy. Plan drawers around the sink plumbing coming up from the floor (U-shaped top drawers or a door below the sinks). Drawers ~18" deep inside: folded hand towels and washcloths fit easily.</td></tr>
+<tr><td>Jog wall cabinetry</td><td>Jog wall (north of vanity nook, runs east-west — NOT the west wall; see CHANGELOG.md)</td><td>DraytonWorks (Greg), tentative</td><td>Custom</td><td><b>Walnut</b></td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Walnut to match the east vanity. Two 21.5"-wide bays (<b>west recessed ~17.5" into the existing wall cavity behind the shower</b>, face flush with the jog wall, per owner site photo 10.08.26; east <b>also recessed</b>, replacing the existing recessed linen cabinet; exact dimensions per Mike, TBD): <b>Design intent (owner, 10.08.26): clear sightline from the bath door to the makeup counter; both cabinet fronts sit flush with the jog wall, nothing projects into the room.</b> <s>west = open shelving</s> <b>west = cabinet w/ door, 30" makeup countertop to ceiling (rev 4, owner 10.08.26)</b>; east = cabinet w/ door floating at <b>47" AFF, its bottom aligned with the top of the Stonehenge wainscot</b> (owner, 10.08.26; was 52"), towel warmer below. See A-106. <b style="color:#1a5a8a;">REV 3c (10.08.26):</b> <b>Both cabinets push-to-open, no hardware</b> (owner). <b>Door type and mechanism are Greg's call</b>; owner will talk through the idea of a pop-up / lift-up door over a hair-tool zone in the west cabinet. Decide before electrical rough-in whether that cabinet gets an interior outlet. If yes: <b>GFCI protection is required</b> (code requires it for every bathroom receptacle, regardless of distance from water). Feed it from a GFCI breaker or an upstream GFCI so no test/reset buttons are hidden inside the cabinet; put it on a 20A circuit, ideally not shared with the vanity outlets (hair dryers draw ~1,500W). Storage: west = cosmetics + hair tools; east = linens + back stock. <b>Towel storage:</b> folded bath towels need ~12-14" of shelf depth (bath sheets ~16"); the 18" cabinet gives ~16-17" inside, so it works. Adjustable shelves, ~11-12" apart (about 4 bath towels per stack).</td></tr>
+<tr><td>PAX wardrobe cabinetry</td><td>South run + east return</td><td>IKEA</td><td>PAX / COMPLEMENT system</td><td>Dark Gray</td><td>Color confirmed by owner via IKEA planning rendering. Frame &amp; door style/hardware still TBD; interior configuration (shelves/drawers/rods) also still TBD per bay — see Note 9</td></tr>
+<tr><td>Bathroom entry door</td><td>East wall (from bedroom)</td><td class="tbd">TBD</td><td><b>Solid slab, 36"</b>, ash (verify), to match the existing house doors</td><td><b>Black stain</b>, grain showing, to match the house doors</td><td><b style="color:#1a5a8a;">REV 3 (10.06.26):</b> Widened from 32" to <b>36"</b> to let more bedroom light in (and for long-term accessibility). <b>Solid door</b> per owner. <b>Hinged on the south (closet-side) jamb, swings IN toward the closet</b> (owner, 10.07.26), so the switch bank on the 10" wall by the vanity is on the latch side and easy to reach. When fully open the leaf overlaps ~12" of the east closet opening: <b>door stop</b>: owner's EVI brass floor stop (see Door stop row). <b>Casing: clamshell profile to match the existing house trim</b> (owner, 10.07.26); clamshell is typically ~2-1/4" wide, which also suits the 10" switch wall. <b>Casing paint: Sherwin-Williams Tricorn Black (SW 6258), satin, both sides</b> (owner, 10.08.26), matching every door casing in the house. Jamb extensions so the casing sits proud of the finished tile; Door slab to match the rest of the house: solid ash (owner believes; verify on an existing door), stained black so a little grain shows. Ask the finisher for a stain sample on an ash offcut next to an existing door before finishing. South jamb stays 48" from S. wall; opening extends north, leaving ~10" of wall to the vanity. New header — GC to confirm framing.</td></tr>
+<tr><td>Door lever (privacy)</td><td>Bathroom entry door, both sides</td><td>Handle Shop Couture</td><td><b>SABANI solid brass lever, Privacy Set (thumb turn)</b>, round rose, SKU HSC.SAB.MAT.384 (<a href="https://handleshopcouture.com/en-us/products/sabani-solid-brass-door-handles?variant=41319744208953">link</a>), $247</td><td><b>Matte Black</b></td><td><b style="color:#1a5a8a;">REV 3c (10.08.26):</b> Owner selection. Black on the black-stained door and Tricorn Black casing, so the door reads as one quiet piece, like the rest of the house. <b>Confirm with the seller before ordering</b> (not listed online): backset fits the slab bore (2-3/8" or 2-3/4"); fits a 1-3/4" door; latch and strike included; outside emergency release on the privacy side; lever can be set for this door's handing (hinged on the south jamb, swings in). <b style="color:#b3261e;">OWNER ACTION:</b> Same SABANI levers and MADISON hinges are used throughout the house. Locate the Handle Shop Couture installation instructions from the original remodel (email), print them, and have them on site for the carpenter.</td></tr>
+<tr><td>Door hinges</td><td>Bathroom entry door, south (closet-side) jamb</td><td>Handle Shop Couture</td><td><b>MADISON solid brass butt hinges, qty. 3</b>, SKU MAD481MAT (<a href="https://handleshopcouture.com/en-us/products/madison-solid-brass-hinges?variant=44172002426937">link</a>), sold in pairs: <b>order 2 pairs</b> ($50); 3 installed + 1 attic stock</td><td><b>Matte Black</b></td><td><b style="color:#1a5a8a;">REV 3c (10.08.26):</b> Owner selection: three hinges, which is also the right call for a heavy 36" solid slab (spreads the weight, keeps the door from sagging). Matches the SABANI lever. <b>Confirm with the seller:</b> size (4" or 4-1/2" for a solid 36" door), weight rating, ball bearing preferred, corner shape (square vs. 5/8" or 1/4" radius) to match how the slab/jamb is mortised. <b>Screws included</b> (owner, 10.08.26). Add one 3" matte black screw per hinge on the jamb side of the top hinge, into the stud (buy separately). <b style="color:#b3261e;">OWNER ACTION:</b> Same SABANI levers and MADISON hinges are used throughout the house. Locate the Handle Shop Couture installation instructions from the original remodel (email), print them, and have them on site for the carpenter.</td></tr>
+<tr><td>Door stop</td><td>Floor, bath side, at the open door leaf: ~22" from the east wall (in line with the end of the east wing wall), just south of the leaf at 90&deg; (see plan, "DS")</td><td>EVI Herrajes</td><td>Brass floor door stop, screw-mount, black rubber bumper, 0.79" dia x 1.14" H (Amazon B08FDK1M8R) — <b>owner has on hand</b></td><td>Matt brass / black rubber</td><td><b style="color:#1a5a8a;">REV 3c (10.08.26):</b> Stops the 36" solid leaf at 90&deg; so it stays clear of the east closet opening and the wing wall. Kept out of the walkway into the closet so it is not a toe-stubber. <b>Rev 4: now on tile</b> — drill through the porcelain with a diamond bit (ideally at a grout joint) and use the stop's anchor; <b>locate it clear of the radiant heating cable before drilling.</b></td></tr>
+<tr><td>Wiring devices — family</td><td>All switches, dimmers &amp; outlets (bath + closet)</td><td>Legrand</td><td>adorne collection</td><td><b>Color follows the surface:</b> Magnesium on terrazzo · Graphite on penny round &amp; kit-kat · White (or Magnesium) on closet painted walls</td><td><b style="color:#1a5a8a;">REV 3b (10.07.26):</b> Owner: match each device to the tile behind it so it recedes. East vanity GFCI = Magnesium (terrazzo); makeup outlet = Graphite (penny round); bidet GFCI behind toilet = Magnesium (terrazzo); door switch bank = Magnesium if in the terrazzo tile below 47", Graphite if in the kit-kat above. Plates in the same color as their device. Dimmers LED-compatible. Keep every box within a single tile; nothing on the 47" line.</td></tr>
+<tr><td>Outlet — towel warmer</td><td>Jog wall, east bay, below the towel warmer: <b style="color:#1a5a8a;">REV 4h:</b> <b>~6" AFF to center, in the ~4" strip BESIDE the warmer on its cord side</b> (the warmer runs down to ~4" AFF and its cord exits the bottom), fully inside the bottom Stonehenge tile; <s>~8" AFF at the warmer's cord end</s>; partly hidden by the hanging towels</td><td>Legrand</td><td>adorne 15A dual tamper-resistant <b>plus-size outlet ARTR153M4</b> (<a href="https://www.legrand.us/wiring-devices/designer-switches-and-outlets/adorne-15a-dual-tamper-resistant-plus-size-outletmagnesium/p/artr153m4">link</a>)</td><td><b>Magnesium</b> (on terrazzo, per the color rule)</td><td><b style="color:#1a5a8a;">REV 4 (10.08.26, owner):</b> For a <b>plug-in</b> towel warmer. <b>GFCI protection required</b> (bathroom receptacle): feed from a GFCI breaker or an upstream GFCI. Final position to suit the selected warmer's cord exit; keep the box clear of the warmer's wall brackets. Mop splash note: 8" keeps it above floor-cleaning water while staying out of sight.</td></tr>
+<tr><td>Outlets — east vanity (qty. 3)</td><td>East vanity wall, ~41" AFF in the upper Stonehenge tile (34"–47" band above the counter): left of the left sink (~9" from the north end) · center (between the sinks, below the cabinet seam) · right of the right sink (~9" from the south end). Symmetrical about the vanity centerline.</td><td>Legrand</td><td><b>Left:</b> adorne GFCI AGFTR2152M4 · <b>Center:</b> adorne 65W USB-C outlet, plus-size, 15A TR (ARTRUSB15PD65M4) · <b>Right:</b> adorne dual-controlled outlet ARCD152M10</td><td>Magnesium (devices + plates; center uses a One-Gang-Plus plate)</td><td><b style="color:#1a5a8a;">REV 3b (10.07.26):</b> Owner change: USB-C charging outlet in the center. Power enters at the <b>left GFCI</b>; the center USB and right outlet are wired on its <b>load side</b> so all three are protected. (Alternative for perfect symmetry: protect the circuit with a GFCI breaker and use matching regular outlets on both sides.) Each box within one tile. <a href="https://www.legrand.us/wiring-devices/adorne-collection/adorne-65w-usb-outlet-plus-size-type-c-15a-tamper-resistant-magnesium/p/ad-artrusb15pd65m4">USB outlet link</a> · <a href="https://www.legrand.us/wiring-devices/adorne-collection/outlets/adorne-tamper-resistant-15a-duplex-self-test-gfci-receptacles-magnesium/p/agftr2152m4">GFCI link</a> · <a href="https://www.legrand.us/wiring-devices/designer-switches-and-outlets/adorne-15a-tamper-resistant-dual-controlled-outlet-magnesium/p/arcd152m10">Regular outlet link</a></td></tr>
+    </table>
+    <div style="font-size:10pt;color:#555;margin-top:0.1in;">Generated from the A-101 schedule (A-101 is the master copy).</div>
+  </div>
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop5" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom5" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop5" xlink:href="#sealArcTop5" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom5" xlink:href="#sealArcBottom5" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">FINISH &amp; FIXTURE<br>SCHEDULE<br>(1 OF 2)</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">NTS</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">10.26.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>10.26.2026</td><td>Issued for contractor walkthrough &amp; pricing</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      ISSUED FOR CONTRACTOR WALKTHROUGH &amp; PRICING — 10.26.2026.<br>
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS AND EXISTING CONDITIONS PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-108</div>
+      <div class="of">SHEET 9 OF 10 · PRIMARY BATH SET</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

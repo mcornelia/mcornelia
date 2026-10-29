@@ -114,6 +114,11 @@
     font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
     color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
   }
+
+  .print-only { display:none; }
+  .sched-pointer { border:0.03in solid #1a5a8a; color:#1a5a8a; padding:0.18in; font-size:14pt; font-weight:700; text-align:center; margin-bottom:0.25in; }
+  .sched-pointer span { font-size:9pt; font-weight:400; }
+  @media print { .sched-screen, table.sched { display:none !important; } .print-only { display:block !important; } }
 </style>
 </head>
 <body>
@@ -494,6 +499,9 @@
           <li class="gen">Slatted screen (Andor Willow Wood Slat Room Divider, purchased/ordered — see Finish Schedule) and both short closet partitions are non-structural finish elements; confirm final quantity/finish with owner before ordering/fabrication.</li>
           <li class="keyed">South &amp; east PAX wardrobe dimensions are nominal planning figures; verify actual unit/frame dimensions before ordering cabinetry.</li>
           <li class="keyed">Toilet, vanity, and shower fixture rough-in locations shown are design intent only; plumber to confirm exact rough-in against selected fixture spec sheets.</li>
+          <li class="keyed"><b style="color:#1a5a8a;">CEILINGS (rev 4p, owner 10.27.26):</b> Remove the existing painted popcorn ceiling drywall in the bath and closet and replace with new (moisture-resistant board over the bath; level 4 smooth finish for the grazing gimbals). <b>Test the popcorn for asbestos before demolition</b> (1965 house; the kitchen ceiling from the same era tested with only a trace, below the threshold); if positive, licensed abatement first.</li>
+          <li class="keyed"><b style="color:#1a5a8a;">INSULATION (rev 4p, owner 10.27.26):</b> Spray foam insulation in the exterior walls behind the closet cabinets (PAX). Contractor to confirm which closet walls are exterior and the foam type before drywall.</li>
+          <li class="keyed"><b style="color:#1a5a8a;">SHOWER PENETRATIONS (rev 4p, owner 10.27.26):</b> Seal every shower penetration with Schluter prefabricated gasket seals (KERDI-SEAL-MV at the valve, KERDI-SEAL-PS sized to the pipes) and KERDI-FIX sealant, in a Schluter KERDI system; supplied by the tile setter. See A-103.</li>
           <li class="keyed"><b style="color:#b3261e;">TOILET CLEARANCE (rev 4g, 10.12.26):</b> Center the toilet between the shower return (east face) and the east vanity: centerline ~16¾" from each. <b>Code minimum is 15" from centerline to any side wall, vanity or obstruction, and 21" clear in front</b> (IRC P2705 / R307). The earlier drawing had it ~11" from the return wall. WOODBRIDGE HT9031: <b>12" rough-in</b> (drain center to the <b>finished</b> back wall, i.e. stud + backer + tile), 15.5"W x 26.75"D x 19.3"H. Plumber: if the existing drain is less than 15" from the return, relocate it now while the floor is open.</li>
         </ol>
       </div>
@@ -501,7 +509,8 @@
 
     <!-- RIGHT: SCHEDULES / LEGEND / NOTES -->
     <div class="right-col">
-      <div class="col-heading">FINISH &amp; FIXTURE SCHEDULE</div>
+      <div class="col-heading sched-screen">FINISH &amp; FIXTURE SCHEDULE</div>
+      <div class="print-only sched-pointer">FINISH &amp; FIXTURE SCHEDULE — SEE SHEETS <b>A-108</b> AND <b>A-109</b><br><span>(printed full-size there; the on-screen version of this sheet shows it here)</span></div>
       <table class="sched">
         <tr><th style="width:16%">Item</th><th style="width:18%">Location</th><th style="width:16%">Manufacturer</th><th style="width:14%">Model / SKU</th><th style="width:14%">Color / Finish</th><th>Notes</th></tr>
         <tr><td>Floor tile</td><td><b>Entire bathroom</b> (everything north of the screen / wing-wall line), except the shower floor</td><td>Bond Tile</td><td>Stonehenge 24x24 ("Rizzo" listing)</td><td>Earth / Matte / Terrazzo-look</td><td><b style="color:#1a5a8a;">REV 4 (10.11.26, owners):</b> Mike: tile everywhere but the closet. Option B (oak into the bath) removed. Radiant heat below — see Ditra-Heat row. Curbless shower entry is now tile-to-tile.</td></tr>
@@ -671,7 +680,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-101</div>
-      <div class="of">SHEET 2 OF 8 · PRIMARY BATH SET</div>
+      <div class="of">SHEET 2 OF 10 · PRIMARY BATH SET</div>
     </div>
   </div>
 
