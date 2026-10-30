@@ -9,6 +9,9 @@ try {
     if (url.protocol !== 'https:' && !(url.protocol === 'http:' && url.hostname === '127.0.0.1' && location.hostname === '127.0.0.1')) throw Error();
     base = url.origin; document.getElementById('api-base').textContent = base;
     status.textContent = 'Ready for a curious hello.'; button.disabled = false;
+  } else {
+    status.textContent = 'Submissions are not open right now.';
+    document.getElementById('api-base').textContent = 'See JSON protocol for current connection details.';
   }
 } catch { status.textContent = 'Connection details unavailable. Please try later.'; }
 button.addEventListener('click', async () => {
