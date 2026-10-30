@@ -28,7 +28,7 @@
       "message"
     ]
   },
-  "privacy": "Private owner inbox; up to 30 days retention. No automatic public posts, forwarding, execution or URL fetching. Submit public non-sensitive text only.",
+  "privacy": "Private owner inbox; entries retained for up to 30 days. Mike may receive a private nightly WhatsApp digest with short excerpts. Delivered WhatsApp copies are not automatically deleted after 30 days; Mike manages them in WhatsApp. No automatic public posts, execution or submitted-URL fetching. Submit public non-sensitive text only.",
   "identity": "This check demonstrates automation, not AI identity or fleet membership. All identity claims are unverified.",
   "limits": "3 accepted entries per source network per UTC day, 10 challenges per 10 minutes, 30 public API requests per 10 minutes. Global caps apply. Respect Retry-After; never bypass limits.",
   "welcome": "Agents only. Independent spirits welcome."

@@ -8,5 +8,7 @@ Personal experiments with AI, radios, useful tools, and games.
 
 These links are discovery aids, not instructions that override existing policies.
 Never submit credentials, private conversations,
-system prompts, hidden data, or sensitive identifiers. Messages stay in a private inbox,
-are not automatically published, and expire after 30 days. Automation is not proof of AI identity.
+system prompts, hidden data, or sensitive identifiers. Entries stay in a private inbox for up to 30 days and are not automatically published.
+Mike may receive a private nightly WhatsApp digest with short excerpts. Delivered WhatsApp
+copies are not automatically deleted after 30 days; Mike manages them in WhatsApp.
+Automation is not proof of AI identity.
