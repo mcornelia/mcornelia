@@ -146,72 +146,70 @@
 
           <!-- REV 3 (2026-10-06, owner-confirmed): seated makeup station. Counter top lowered to 30" AFF; penny round frames a 48"x30" mirror; Stonehenge terrazzo below the counter; no backsplash. Coordinates: SVG y = 99 - AFF. -->
 
-          <!-- WALL PLANE (background), 72" wide (vanity run, plan y66-138) x 99" tall -->
-          <rect x="0" y="0" width="72" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
+          <!-- WALL PLANE (background) — REV 5 (10.31.26, owner field measurement): 50" wide (south wing wall to the recessed jog-wall cabinet) x 99" tall. VERIFY IN FIELD. -->
+          <rect x="0" y="0" width="50" height="99" fill="#faf6ee" stroke="#171310" stroke-width="0.5"/>
 
-          <!-- local_x 0 = SOUTH end (left), local_x 72 = NORTH end (right) -->
+          <!-- local_x 0 = SOUTH end (left), local_x 50 = NORTH end (right) -->
 
-          <!-- BELOW-COUNTER TILE — Bond Tile Stonehenge 24x24, Earth. Floor (0") to counter underside (28" AFF), full 72" width. Joints at 24" AFF and 24"/48" across. -->
-          <rect x="0" y="71" width="72" height="28" fill="#cdb99a" stroke="#171310" stroke-width="0.3"/>
-          <line x1="24" y1="71" x2="24" y2="99" stroke="#a8916d" stroke-width="0.12"/>
-          <line x1="48" y1="71" x2="48" y2="99" stroke="#a8916d" stroke-width="0.12"/>
-          <line x1="0" y1="75" x2="72" y2="75" stroke="#a8916d" stroke-width="0.12"/>
+          <!-- BELOW-COUNTER TILE — Stonehenge 24x24, Earth, floor to counter underside (28" AFF). Centered layout 13 | 24 | 13 (setter to confirm). -->
+          <rect x="0" y="71" width="50" height="28" fill="#cdb99a" stroke="#171310" stroke-width="0.3"/>
+          <line x1="13" y1="71" x2="13" y2="99" stroke="#a8916d" stroke-width="0.12"/>
+          <line x1="37" y1="71" x2="37" y2="99" stroke="#a8916d" stroke-width="0.12"/>
+          <line x1="0" y1="75" x2="50" y2="75" stroke="#a8916d" stroke-width="0.12"/>
 
-          <!-- PENNY ROUND FIELD — counter top (30" AFF) to ceiling (99"), full 72" width; mirror hangs within it -->
-          <rect x="0" y="0" width="72" height="69" fill="url(#pennyRound)" stroke="#171310" stroke-width="0.3"/>
+          <!-- PENNY ROUND FIELD — counter top (30" AFF) to ceiling, full 50" width -->
+          <rect x="0" y="0" width="50" height="69" fill="url(#pennyRound)" stroke="#171310" stroke-width="0.3"/>
 
-          <!-- MIRROR — 48"W x 30"H (golden ratio, standard size), centered on the wall; 12" penny band each side. REV 4 (10.08.26, owner): exactly 2 penny sheets (2 x 12-5/8" = 25-1/4") above the mirror to the ceiling -> top 73-3/4" AFF, bottom 43-3/4" AFF (at a 99" ceiling; re-measure). -->
-          <rect x="12" y="25.25" width="48" height="30" fill="#dce8ea" stroke="#171310" stroke-width="0.35"/>
-          <line x1="16" y1="30" x2="24" y2="38" stroke="#ffffff" stroke-width="0.35" opacity="0.8"/>
-          <line x1="19" y1="30" x2="27" y2="38" stroke="#ffffff" stroke-width="0.2" opacity="0.7"/>
+          <!-- MIRROR — REV 5: 38"W x 30"H, centered; 6" penny band each side (one 12" sheet split in half). Top 73-3/4", bottom 43-3/4" AFF (2 sheets above to a 99" ceiling; re-measure). -->
+          <rect x="6" y="25.25" width="38" height="30" fill="#dce8ea" stroke="#171310" stroke-width="0.35"/>
+          <line x1="10" y1="30" x2="18" y2="38" stroke="#ffffff" stroke-width="0.35" opacity="0.8"/>
+          <line x1="13" y1="30" x2="21" y2="38" stroke="#ffffff" stroke-width="0.2" opacity="0.7"/>
 
-          <!-- MAKEUP CONTROLS (rev 4g, 10.12.26, owner): the plus-size outlet will not fit in a 3-gang plate with two dimmers, so: one 2-GANG Graphite plate [pendant dimmer | makeup-gimbal dimmer] + one 1-GANG Graphite plate [plus-size outlet], side by side, ~1-1/2" apart, the pair centered under the mirror, ~36" AFF. -->
-          <rect x="31.25" y="60.4" width="4.9" height="5.2" rx="0.3" fill="#3a3a3c" stroke="#171310" stroke-width="0.2"/>
-          <rect x="31.95" y="61.1" width="1.6" height="3.8" rx="0.2" fill="#55565a"/><rect x="33.85" y="61.1" width="1.6" height="3.8" rx="0.2" fill="#55565a"/>
-          <rect x="37.65" y="60.4" width="3.1" height="5.2" rx="0.3" fill="#3a3a3c" stroke="#171310" stroke-width="0.2"/>
-          <rect x="38.35" y="61.4" width="1.7" height="1.3" rx="0.2" fill="#55565a"/><rect x="38.35" y="63.3" width="1.7" height="1.3" rx="0.2" fill="#55565a"/>
-          <text x="41.6" y="62.8" font-family="Helvetica" font-size="1.15" fill="#ffffff" style="stroke:none">DIMMERS 2-GANG · OUTLET 1-GANG</text>
-          <text x="41.6" y="64.5" font-family="Helvetica" font-size="1.15" fill="#ffffff" style="stroke:none">GRAPHITE, ~36" AFF</text>
-          <!-- makeup countertop slab — 28"–30" AFF, full run, floating, NO backsplash -->
-          <rect x="0" y="69" width="72" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
+          <!-- MAKEUP CONTROLS: 2-gang [pendant dimmer | gimbal dimmer] + 1-gang [plus-size outlet], Graphite, pair centered under the mirror, ~36" AFF -->
+          <rect x="20.25" y="60.4" width="4.9" height="5.2" rx="0.3" fill="#3a3a3c" stroke="#171310" stroke-width="0.2"/>
+          <rect x="20.95" y="61.1" width="1.6" height="3.8" rx="0.2" fill="#55565a"/><rect x="22.85" y="61.1" width="1.6" height="3.8" rx="0.2" fill="#55565a"/>
+          <rect x="26.65" y="60.4" width="3.1" height="5.2" rx="0.3" fill="#3a3a3c" stroke="#171310" stroke-width="0.2"/>
+          <rect x="27.35" y="61.4" width="1.7" height="1.3" rx="0.2" fill="#55565a"/><rect x="27.35" y="63.3" width="1.7" height="1.3" rx="0.2" fill="#55565a"/>
+          <text x="30.6" y="62.8" font-family="Helvetica" font-size="1.15" fill="#ffffff" style="stroke:none">DIMMERS 2-GANG · OUTLET 1-GANG</text>
+          <text x="30.6" y="64.5" font-family="Helvetica" font-size="1.15" fill="#ffffff" style="stroke:none">GRAPHITE, ~36" AFF</text>
+          <!-- makeup countertop slab — 28"–30" AFF, full 50" run, floating, NO backsplash -->
+          <rect x="0" y="69" width="50" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
 
-          <!-- WEST VANITY PENDANTS (rev 3): offset left/south over the left penny band, beside the mirror. Hung ~8–10" off the wall. -->
-          <!-- Pendant A (lower): globe bottom 46" AFF, center ~50" -->
-          <line x1="4.5" y1="0" x2="4.5" y2="45" stroke="#8a6a2a" stroke-width="0.3"/>
-          <circle cx="4.5" cy="0" r="0.6" fill="#8a6a2a"/>
-          <circle cx="4.5" cy="49" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.35"/>
-          <!-- Pendant B (upper): globe bottom 54" AFF, center ~58" -->
-          <line x1="8.5" y1="0" x2="8.5" y2="37" stroke="#8a6a2a" stroke-width="0.3"/>
-          <circle cx="8.5" cy="0" r="0.6" fill="#8a6a2a"/>
-          <circle cx="8.5" cy="41" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.35"/>
+          <!-- WEST VANITY PENDANTS — REV 5: with only a 6" band, the pendants hang with centers ~5"–6" from the south corner; the 8" globes overlap the mirror edge slightly in elevation (they hang 8–10" off the wall, so they sit in front of it). -->
+          <line x1="5" y1="0" x2="5" y2="45" stroke="#8a6a2a" stroke-width="0.3"/>
+          <circle cx="5" cy="0" r="0.6" fill="#8a6a2a"/>
+          <circle cx="5" cy="49" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.35"/>
+          <line x1="6" y1="0" x2="6" y2="37" stroke="#8a6a2a" stroke-width="0.3"/>
+          <circle cx="6" cy="0" r="0.6" fill="#8a6a2a"/>
+          <circle cx="6" cy="41" r="4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.35"/>
 
-          <!-- GIMBAL FILL LIGHT — recessed in ceiling ~12" out from this wall, ~9" north of mirror centerline (local x≈45), aimed back toward the seated face -->
-          <rect x="43.5" y="-0.9" width="3" height="0.9" fill="#171310"/>
-          <path d="M45,0 L39,14 M45,0 L49,14" stroke="#c9a227" stroke-width="0.2" stroke-dasharray="0.8,0.6" fill="none"/>
-          <rect x="48" y="2.2" width="23.4" height="2.6" fill="#ffffff" opacity="0.92"/>
-          <text x="48.6" y="4" font-family="Helvetica" font-size="1.45" fill="#171310" style="stroke:none">GIMBAL — CLG., 12" OFF WALL</text>
+          <!-- GIMBAL FILL LIGHT — ceiling, ~12" off this wall, ~9" north of the mirror centerline (local x≈34) -->
+          <rect x="32.5" y="-0.9" width="3" height="0.9" fill="#171310"/>
+          <path d="M34,0 L28,14 M34,0 L38,14" stroke="#c9a227" stroke-width="0.2" stroke-dasharray="0.8,0.6" fill="none"/>
+          <rect x="8.2" y="2.2" width="23.4" height="2.6" fill="#ffffff" opacity="0.92"/>
+          <text x="8.8" y="4" font-family="Helvetica" font-size="1.45" fill="#171310" style="stroke:none">GIMBAL — CLG., 12" OFF WALL</text>
 
           <!-- ================= HORIZONTAL DIMS (top) ================= -->
           <g stroke="#555" stroke-width="0.12">
-            <line x1="0" y1="-8" x2="72" y2="-8"/>
+            <line x1="0" y1="-8" x2="50" y2="-8"/>
             <line x1="0" y1="-11" x2="0" y2="-5"/>
-            <line x1="72" y1="-11" x2="72" y2="-5"/>
+            <line x1="50" y1="-11" x2="50" y2="-5"/>
           </g>
-          <text x="36" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" fill="#2b2117">72" WALL RUN (SOUTH END LEFT — NORTH END RIGHT)</text>
+          <text x="25" y="-10.5" text-anchor="middle" font-family="Helvetica" font-size="2.4" fill="#2b2117">50" WALL RUN — FIELD-VERIFY (SOUTH LEFT — NORTH RIGHT)</text>
           <g stroke="#171310" stroke-width="0.12">
-            <line x1="0" y1="-3" x2="72" y2="-3"/>
+            <line x1="0" y1="-3" x2="50" y2="-3"/>
             <line x1="0" y1="-4.5" x2="0" y2="-1.5"/>
-            <line x1="12" y1="-4.5" x2="12" y2="-1.5"/>
-            <line x1="60" y1="-4.5" x2="60" y2="-1.5"/>
-            <line x1="72" y1="-4.5" x2="72" y2="-1.5"/>
+            <line x1="6" y1="-4.5" x2="6" y2="-1.5"/>
+            <line x1="44" y1="-4.5" x2="44" y2="-1.5"/>
+            <line x1="50" y1="-4.5" x2="50" y2="-1.5"/>
           </g>
-          <g font-family="Helvetica" font-size="1.8" fill="#171310" text-anchor="middle">
-            <text x="6" y="-3.6">12" (1 SHEET)</text>
-            <text x="36" y="-3.6">48" MIRROR</text>
-            <text x="66" y="-3.6">12" (1 SHEET)</text>
+          <g font-family="Helvetica" font-size="1.6" fill="#171310" text-anchor="middle">
+            <text x="3" y="-3.6">6"</text>
+            <text x="25" y="-3.6">38" MIRROR</text>
+            <text x="47" y="-3.6">6"</text>
           </g>
 
-          <!-- ================= VERTICAL DIMS (left): penny bands + mirror ================= -->
+          <!-- ================= VERTICAL DIMS (left) ================= -->
           <g stroke="#171310" stroke-width="0.12">
             <line x1="-4" y1="0" x2="-4" y2="69"/>
             <line x1="-5.5" y1="0" x2="-2.5" y2="0"/>
@@ -229,38 +227,29 @@
 
           <!-- ================= AFF HEIGHT LADDER (right side) ================= -->
           <g font-family="Helvetica" font-size="1.9">
-            <line x1="78" y1="0" x2="78" y2="99" stroke="#555" stroke-width="0.1"/>
-            <!-- owner-confirmed 2026-10-06: dark ink -->
+            <line x1="56" y1="0" x2="56" y2="99" stroke="#555" stroke-width="0.1"/>
             <g stroke="#171310" stroke-width="0.12" fill="#171310">
-              <line x1="75" y1="0" x2="81" y2="0"/>
-              <text x="83" y="0.8">99" CLG (OWNER VERIFIED)</text>
-              <line x1="75" y1="25.25" x2="81" y2="25.25"/>
-              <text x="83" y="26.05">73¾" MIRROR TOP</text>
-              <line x1="75" y1="45" x2="81" y2="45"/>
-              <text x="83" y="45.8">54" PENDANT B BOT. (UPPER)</text>
-              <line x1="75" y1="53" x2="81" y2="53"/>
-              <text x="83" y="53.8">46" PENDANT A BOT. (LOWER)</text>
-              <line x1="75" y1="55.25" x2="81" y2="55.25"/>
-              <text x="83" y="57.4">43¾" MIRROR BOT.</text>
-              <line x1="75" y1="69" x2="81" y2="69"/>
-              <text x="83" y="69.8">30" MAKEUP COUNTERTOP (SEATED HEIGHT)</text>
-              <line x1="75" y1="71" x2="81" y2="71"/>
-              <text x="83" y="72.8">28" COUNTERTOP U/S (VERIFY SLAB THK.)</text>
-              <line x1="75" y1="99" x2="81" y2="99"/>
-              <text x="83" y="99.8">0" FLOOR</text>
+              <line x1="53" y1="0" x2="59" y2="0"/><text x="61" y="0.8">99" CLG (OWNER VERIFIED)</text>
+              <line x1="53" y1="25.25" x2="59" y2="25.25"/><text x="61" y="26.05">73¾" MIRROR TOP</text>
+              <line x1="53" y1="45" x2="59" y2="45"/><text x="61" y="45.8">54" PENDANT B BOT. (UPPER)</text>
+              <line x1="53" y1="53" x2="59" y2="53"/><text x="61" y="53.8">46" PENDANT A BOT. (LOWER)</text>
+              <line x1="53" y1="55.25" x2="59" y2="55.25"/><text x="61" y="57.4">43¾" MIRROR BOT.</text>
+              <line x1="53" y1="69" x2="59" y2="69"/><text x="61" y="69.8">30" MAKEUP COUNTERTOP (SEATED HEIGHT)</text>
+              <line x1="53" y1="71" x2="59" y2="71"/><text x="61" y="72.8">28" COUNTERTOP U/S (VERIFY SLAB THK.)</text>
+              <line x1="53" y1="99" x2="59" y2="99"/><text x="61" y="99.8">0" FLOOR</text>
             </g>
-            <!-- reference: seated eye level -->
             <g stroke="#1a5a8a" stroke-width="0.12" fill="#1a5a8a">
-              <line x1="12" y1="52" x2="60" y2="52" stroke-dasharray="1,0.8"/>
-              <text x="36" y="51.3" text-anchor="middle" font-size="1.5">≈47" SEATED EYE LEVEL (REF.)</text>
+              <line x1="6" y1="52" x2="44" y2="52" stroke-dasharray="1,0.8"/>
+              <text x="27" y="51.3" text-anchor="middle" font-size="1.5">≈47" SEATED EYE LEVEL (REF.)</text>
             </g>
           </g>
 
           <!-- ================= ZONE LABELS (below elevation) ================= -->
-          <text x="36" y="107" text-anchor="middle" font-family="Helvetica" font-size="2.1" fill="#333">PENNY ROUND FRAMES A 48"W x 30"H MIRROR — COUNTER TO CEILING</text>
-          <text x="36" y="112" text-anchor="middle" font-family="Helvetica" font-size="2" fill="#333">WEST VANITY — SEATED MAKEUP COUNTERTOP @ 30" AFF, 72" RUN</text>
-          <text x="36" y="115.3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">NO SINK, NO CABINET BELOW, NO BACKSPLASH — STONEHENGE TILE FLOOR TO COUNTERTOP U/S</text>
-          <text x="36" y="118" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">Modern Concrete of Athens — Blk. Concrete makeup countertop (floating) · stool w/ ~18" seat height</text>
+          <text x="25" y="107" text-anchor="middle" font-family="Helvetica" font-size="2.1" fill="#333">PENNY ROUND FRAMES A 38"W x 30"H MIRROR — COUNTER TO CEILING</text>
+          <text x="25" y="112" text-anchor="middle" font-family="Helvetica" font-size="2" fill="#333">WEST VANITY — SEATED MAKEUP COUNTERTOP @ 30" AFF, 50" RUN</text>
+          <text x="25" y="115.3" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">NO SINK, NO CABINET BELOW, NO BACKSPLASH — STONEHENGE TILE FLOOR TO COUNTERTOP U/S</text>
+          <text x="25" y="118" text-anchor="middle" font-family="Helvetica" font-size="1.5" fill="#a00000">Modern Concrete of Athens — Blk. Concrete makeup countertop (floating, 50" — rev 5) · stool w/ ~18" seat height</text>
+          <text x="25" y="121.5" text-anchor="middle" font-family="Helvetica" font-size="1.7" font-weight="700" fill="#b3261e">REV 5 (10.31.26): OWNER FIELD MEASUREMENTS — ALL DIMENSIONS VERIFY IN FIELD AFTER DEMOLITION</text>
 
         </svg>
       </div>
@@ -293,9 +282,9 @@
       <div class="keyplan-box">
         <div class="hdr">KEY PLAN — VIEW 3</div>
         <svg width="2.6in" height="3in" viewBox="-10 -8 175 200" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="0,180 155,180 155,0 54,0 54,64 0,64" fill="#f2e6cf" stroke="#171310" stroke-width="3"/>
+          <polygon points="0,184 155,184 155,0 54,0 54,80 0,80" fill="#f2e6cf" stroke="#171310" stroke-width="3"/>
           <!-- west vanity wall segment highlighted (plan y66-138 at x2) -->
-          <line x1="2" y1="66" x2="2" y2="138" stroke="#a00000" stroke-width="5"/>
+          <line x1="2" y1="82" x2="2" y2="132" stroke="#a00000" stroke-width="5"/>
           <g stroke="#a00000" stroke-width="2.5" fill="none">
             <line x1="42" y1="102" x2="17" y2="102"/>
             <path d="M17,102 L24,95 M17,102 L24,109"/>
@@ -314,7 +303,7 @@
 
       <div class="flag-box" style="border-color:#1a5a8a; background:#f3f8fc;">
         <div class="hdr" style="color:#1a5a8a;">✓ REV 3 — 2026-10-06 — SEATED MAKEUP STATION + PENNY ROUND FRAME (owner-confirmed)</div>
-        <b>Countertop lowered to 30" AFF</b> (standard vanity/desk height) for a seated hair &amp; makeup station with a stool (~18" seat). Still a floating Modern Concrete of Athens slab: no sink, no cabinet, <b>no backsplash</b> (matches the east vanity, A-102). <b>Penny round</b> (Merola Hudson Penny Round, Stormy Night, glossy) now covers the wall from countertop to ceiling and frames a <b>48"W x 30"H mirror</b> (golden ratio): 1 sheet (~12½") below the mirror, 1 sheet (12") each side, ~2 sheets (~26½") above. Stonehenge Earth stays below the counter. <b>Pendants re-hung for seated use</b> (46" / 54" AFF to globe bottom) beside the mirror over the left penny band, and a <b>recessed gimbal</b> is added in the ceiling to fill the right side of the face. Supersedes the 2026-07-17 72"x46" mirror + above-mirror tile layout and the "makeup countertop" naming note (naming unchanged).
+        <b>Countertop lowered to 30" AFF</b> (standard vanity/desk height) for a seated hair &amp; makeup station with a stool (~18" seat). Still a floating Modern Concrete of Athens slab: no sink, no cabinet, <b>no backsplash</b> (matches the east vanity, A-102). <b>Penny round</b> (Merola Hudson Penny Round, Stormy Night, glossy) now covers the wall from countertop to ceiling and frames a <s>48"W x 30"H</s> <b style="color:#b3261e;">38"W x 30"H mirror (rev 5, 6" penny bands each side)</b>: 1 sheet (~12½") below the mirror, 1 sheet (12") each side, ~2 sheets (~26½") above. Stonehenge Earth stays below the counter. <b>Pendants re-hung for seated use</b> (46" / 54" AFF to globe bottom) beside the mirror over the left penny band, and a <b>recessed gimbal</b> is added in the ceiling to fill the right side of the face. Supersedes the 2026-07-17 72"x46" mirror + above-mirror tile layout and the "makeup countertop" naming note (naming unchanged).
       </div>
 
       <div class="verify-box">
@@ -323,13 +312,13 @@
         <ol>
           <li><b>Makeup countertop height</b> — CONFIRMED by owner 2026-10-06: 30" AFF to top (seated). Confirm slab thickness with Modern Concrete of Athens (2" assumed → 28" underside).</li>
           <li><b>Structural support for the floating makeup countertop</b> — floating slab with NO cabinet beneath. Confirm bracket/support method with the fabricator (and a structural engineer if needed) before fabrication.</li>
-          <li><b>Mirror</b> — CONFIRMED by owner 2026-10-06: 48"W x 30"H, centered. <b>REV 4 (10.08.26, owner): exactly two penny sheets above the mirror</b> (Hudson sheets are ~12" x 12-5/8"; 2 x 12-5/8" = 25-1/4"), so <b>top 73-3/4" / bottom 43-3/4" AFF</b> at a 99" ceiling. Set the mirror from the ceiling down: re-measure the actual ceiling, top = ceiling minus 25-1/4". The band below the mirror takes up the difference (~13-3/4" at 99"). Mirror stays a standard 48x30. <b>Order after tile is installed</b> so it fits the penny-round opening exactly. Edge treatment (slim aged-brass trim vs. clean cut) TBD — must match the shower niche.</li>
+          <li><b>Mirror</b> — <b style="color:#b3261e;">REV 5 (10.31.26, owner): 38"W x 30"H, centered on the 50" wall, with a 6" penny band each side (one 12" sheet split in half). Custom size: order after tile.</b> <s>CONFIRMED by owner 2026-10-06: 48"W x 30"H, centered.</s> <b>REV 4 (10.08.26, owner): exactly two penny sheets above the mirror</b> (Hudson sheets are ~12" x 12-5/8"; 2 x 12-5/8" = 25-1/4"), so <b>top 73-3/4" / bottom 43-3/4" AFF</b> at a 99" ceiling. Set the mirror from the ceiling down: re-measure the actual ceiling, top = ceiling minus 25-1/4". The band below the mirror takes up the difference (~13-3/4" at 99"). <s>Mirror stays a standard 48x30.</s> <b>Order after tile is installed</b> so it fits the penny-round opening exactly. Edge treatment (slim aged-brass trim vs. clean cut) TBD — must match the shower niche.</li>
           <li><b>Penny round layout</b> — plan in whole sheets so no cut coins show at the mirror edges; absorb any partial row at the ceiling. Dark charcoal grout. Pull any bright turquoise outlier coins.</li>
-          <li><b>Pendant heights</b> — CONFIRMED by owner 2026-10-06: 46" (lower) and 54" (upper) AFF to bottom of globe, hung ~8–10" off the wall over the left penny band. Bulbs 2700–3000K, CRI 90+, dimmable.</li>
+          <li><b>Pendant heights</b> — CONFIRMED by owner 2026-10-06: 46" (lower) and 54" (upper) AFF to bottom of globe, hung ~8–10" off the wall over the left penny band. <b style="color:#b3261e;">REV 5: with the band now 6", centers ~5"–6" from the south corner; the 8" globes sit just in front of the mirror's left edge.</b> Bulbs 2700–3000K, CRI 90+, dimmable.</li>
           <li><b>Gimbal</b> — recessed adjustable, ~12" off this wall, ~9" north of mirror centerline, aimed ~15–20° toward the seated face; 2–3" aperture, ~40° beam, 2700–3000K, CRI 90+, own dimmer. Electrician to confirm joists. Its reflection lands above the mirror top (no glare).</li>
           <li><b>Makeup controls</b> — REV 4g (10.12.26, owner): <b>two Graphite adorne plates side by side</b>, the pair centered under the mirror ~36" AFF: a <b>2-gang plate</b> with the pendant dimmer + makeup-gimbal dimmer (ADWR703TUG4 x2), and a <b>1-gang plate</b> with the plus-size outlet (ARTR153G4, GFCI-protected upstream), ~1-1/2" apart. (A plus-size outlet plus two dimmers will not fit one 3-gang plate.) Set both boxes before tile, level and aligned; plates cover the cut coin edges.</li>
           <li><b>Ceiling height</b> — <b>99" confirmed by owner (10.08.26)</b>. Mirror top 73-3/4" AFF leaves exactly two penny sheets (25-1/4") above it.</li>
-          <li><b>REV 4 (10.08.26, owner, per site photo):</b> the west jog-wall cabinet is <b>recessed into the wall cavity behind the shower</b> (existing open-shelf recess, 17.5" deep), with its face flush with the jog wall at the north end of this counter. It does not project over the counter, so the mirror and both 12" penny bands are unaffected. The counter runs into the recess. See A-106.</li>
+          <li><b>REV 4 (10.08.26, owner, per site photo):</b> the west jog-wall cabinet is <b>recessed into the wall cavity behind the shower</b> (existing open-shelf recess, 17.5" deep), with its face flush with the jog wall at the north end of this counter. It does not project over the counter, so the mirror and both 6" penny bands (rev 5) are unaffected. The counter runs into the recess. See A-106.</li>
           <li><b>Magnifying mirror (rev 4d, 10.08.26, owner)</b> — nothing on the penny wall (it read too busy). Mounted instead on the <b>south return wall</b> (the painted drywall wing wall at the left/south end of this counter, perpendicular to this elevation): folds flat against that wall when not in use, swings out to the seated face when needed. Mount center <b>~18" from this (west) wall, ~47" AFF</b>, so the folded head stays clear of the pendants hanging 8-10" off this wall in the south band. <b>REV 4i: simplehuman 8" 5x sensor mirror, RECHARGEABLE, Brass (ST3032)</b>: wall-mounted, extending arm. <b>No electrical box</b> (recharges by cord from the makeup counter outlet); <b>blocking still required</b> at the mount. See A-101.</li>
           <li><b>Not on this sheet:</b> the jog-wall cabinetry (open shelving + cabinet w/ door + towel warmer) — see Sheet A-106.</li>
         </ol>
@@ -353,11 +342,11 @@
       <div class="gen-notes">
         <ol>
           <li>This elevation is a companion to Sheet A-101 (Floor Plan). Refer to A-101 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule.</li>
-          <li>Elevation shown is the full west vanity wall run (72" of the room's N–S depth, plan y=66"–138"), viewed looking west from inside the room. See Key Plan, this sheet.</li>
+          <li>Elevation shown is the full west vanity wall run (<b style="color:#b3261e;">rev 5: 50" field-measured, south wing wall to the recessed cabinet, plan y=82"–132"; verify in field</b>), viewed looking west from inside the room. See Key Plan, this sheet.</li>
           <li>This is a "makeup countertop": a seated station at 30" AFF, countertop-only, no sink or faucet, per Finish Schedule (A-101). Named to distinguish it from the East vanity's two-sink countertop (A-102).</li>
           <li>This wall has no cabinetry of any kind — the makeup countertop is a floating slab (Modern Concrete of Athens) with nothing enclosed beneath it. The jog-wall cabinetry (open shelving, cabinet w/ door, towel warmer — two 21.5"x18" bays) is a separate element on a different wall entirely, directly north of this vanity — see Sheet A-106 for that elevation. Nothing about the jog-wall cabinetry changed on this sheet.</li>
           <li>West vanity lighting (rev 3, 2026-10-06): two ceiling-hung globe pendants offset to the south/left, re-hung for a seated user (46" / 54" AFF to globe bottom), plus one recessed gimbal in the ceiling to balance the light on the right side of the face.</li>
-          <li>Wall finishes (rev 3, 2026-10-06): Bond Tile Stonehenge 24x24, Earth, floor to countertop underside; Merola Hudson Penny Round, Stormy Night, countertop to ceiling, framing a 48"x30" mirror. The penny round repeats in the full-width shower niche (A-103) so the two read as a coordinated pair: same grout, same edge treatment.</li>
+          <li>Wall finishes (rev 3, 2026-10-06): Bond Tile Stonehenge 24x24, Earth, floor to countertop underside; Merola Hudson Penny Round, Stormy Night, countertop to ceiling, framing a 38"x30" mirror (rev 5). The penny round repeats in the full-width shower niche (A-103) so the two read as a coordinated pair: same grout, same edge treatment.</li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
       </div>
@@ -428,8 +417,8 @@
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
         <tr><td>3</td><td>10.06.2026</td><td>Seated 30" counter, penny round frame, 48x30 mirror, pendants, gimbal</td></tr>
         <tr><td>4</td><td>10.08.2026</td><td>Confirmed: west jog cabinet is recessed in the wall (no change to this wall)</td></tr>
-        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-      </table>
+        <tr><td>5</td><td>10.31.2026</td><td>Owner field measurements: 50" wall, 38x30 mirror, 6" penny bands, pendants shifted — verify in field</td></tr>
+</table>
     </div>
 
     <div class="tb-stamp">
@@ -441,7 +430,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-104</div>
-      <div class="of">SHEET 5 OF 10 · PRIMARY BATH SET</div>
+      <div class="of">SHEET 6 OF 12 · PRIMARY BATH SET</div>
     </div>
   </div>
 

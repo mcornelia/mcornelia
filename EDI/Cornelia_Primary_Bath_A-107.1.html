@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>A-107.1 Primary Bath &amp; Closet - Switching Diagram</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 2px 4px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+
+  /* DRAFT / WORK-IN-PROGRESS WATERMARK — added 2026-07-25 per owner: Primary Bath 100-series sheets not yet finalized, matching the same treatment already used on A-208/A-209. Semi-transparent, non-printing-obstructive, sits above all content. */
+  .draft-watermark {
+    position: absolute; top: 50%; left: 41.5%; transform: translate(-50%, -50%) rotate(-35deg);
+    font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
+  }
+
+.swd .wrap{padding:0}
+.swd .wrap{width:1500px;padding:28px 34px;box-sizing:border-box}
+.swd h1{font-size:26px;margin:0 0 4px}
+.swd .sub{font-size:14px;color:#6b5a48;margin-bottom:18px}
+.swd .row{display:flex;gap:28px}
+.swd .plan{flex:0 0 640px;background:#fff;border:1px solid #d8cdbb;border-radius:10px;padding:12px}
+.swd .right{flex:1}
+.swd .bank{background:#fff;border:1px solid #d8cdbb;border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.swd .bank h2{font-size:17px;margin:0 0 10px}
+.swd .plate{display:flex;gap:10px}
+.swd .sw{flex:1;border-radius:8px;padding:10px;color:#fff;min-height:118px}
+.swd .sw b{display:block;font-size:15px;margin-bottom:4px}
+.swd .sw span{font-size:12.5px;line-height:1.35;display:block}
+.swd .sw .k{font-size:11px;opacity:.85;margin-top:6px}
+.swd .else{font-size:13px;line-height:1.5}
+.swd .else div{margin:4px 0;display:flex;gap:8px;align-items:flex-start}
+.swd .dot{width:14px;height:14px;border-radius:50%;flex:0 0 14px;margin-top:2px}
+.swd .note{font-size:12.5px;color:#6b5a48;margin-top:10px;line-height:1.45}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  
+
+  <!-- ============================= MAIN FIELD ============================= -->
+<div class="main-field" style="display:block;">
+<div class="swd" style="transform:scale(1.86);transform-origin:0 0;width:1500px;margin-top:0.5in;"><div class="wrap">
+<h1>SWITCHING DIAGRAM — WHAT EACH SWITCH CONTROLS</h1>
+<div class="sub">Two stacked 3-gang plates (Legrand adorne, Magnesium) on the wall between the double vanity and the bathroom door, at ~24"–47" AFF. Colors on the plan match the switches.</div>
+<div class="row">
+<div class="plan">
+<svg viewBox="-14 -10 186 212" width="616" height="702" font-family="Helvetica">
+ <polygon points="0,184 155,184 155,0 54,0 54,80 0,80" fill="#f3ead8" stroke="#2b2117" stroke-width="2.5"/>
+ <!-- shower -->
+ <rect x="56" y="2" width="35" height="76" fill="#e4e0d6"/><line x1="93" y1="26" x2="93" y2="78" stroke="#7aa7b8" stroke-width="1"/><rect x="91" y="2" width="4" height="24" fill="#2b2117"/>
+ <text x="73.5" y="70" text-anchor="middle" font-size="3.4" fill="#6b5a48">SHOWER</text>
+ <!-- niche -->
+ <rect x="54.6" y="4" width="1.6" height="54" fill="#3c4842"/>
+ <!-- east vanity -->
+ <rect x="131" y="2" width="22" height="72" fill="#c9a98a"/><text x="136" y="40" text-anchor="middle" font-size="3" fill="#2b2117" transform="rotate(90 136,40)">DOUBLE VANITY</text>
+ <!-- west makeup -->
+ <rect x="2" y="82" width="21.5" height="50" fill="none" stroke="#8a6a3a" stroke-dasharray="1.5,1" stroke-width="0.6"/><text x="12.7" y="110" text-anchor="middle" font-size="3" fill="#6b5a48" transform="rotate(-90 12.7,110)">MAKEUP</text>
+ <!-- toilet -->
+ <ellipse cx="108.5" cy="14" rx="7" ry="9" fill="#fff" stroke="#2b2117" stroke-width="0.5"/>
+ <!-- wing walls + screen -->
+ <rect x="2" y="132" width="21.5" height="4" fill="#2b2117"/><rect x="131.5" y="132" width="21.5" height="4" fill="#2b2117"/>
+ <line x1="23.5" y1="134" x2="131.5" y2="134" stroke="#a8875a" stroke-width="1.6" stroke-dasharray="0.8,0.8"/>
+ <text x="77.5" y="131" text-anchor="middle" font-size="3" fill="#6b5a48">SLATTED SCREEN</text>
+ <!-- PAX -->
+ <rect x="2" y="168.25" width="151" height="13.75" fill="#dcdcdc"/><rect x="139.25" y="147.375" width="13.75" height="20.875" fill="#dcdcdc"/>
+ <text x="70" y="177" text-anchor="middle" font-size="3.2" fill="#555">CLOSET (PAX)</text>
+ <!-- door -->
+ <rect x="151" y="91" width="6" height="36" fill="#fbf8f2"/><path d="M155,127 L119,127 A36,36 0 0 1 155,91" fill="none" stroke="#2b2117" stroke-width="0.5"/>
+ <text x="162" y="111" font-size="3.2" fill="#2b2117" transform="rotate(90 162,111)">DOOR</text>
+ <!-- switch bank -->
+ <rect x="150.5" y="77" width="3" height="11" fill="#2b2117"/>
+ <path d="M146,82 L132,96" stroke="#2b2117" stroke-width="0.4"/><text x="104" y="101" font-size="3.4" font-weight="700">SWITCH BANKS ↗</text>
+ <!-- Z1 downlights red -->
+ <g fill="#c0392b"><circle cx="113" cy="50" r="2.4"/><circle cx="52" cy="98" r="2.4"/><circle cx="100" cy="98" r="2.4"/><circle cx="52" cy="120" r="2.4"/><circle cx="100" cy="120" r="2.4"/></g>
+ <!-- Z2 vanity orange -->
+ <g fill="#e08a1e"><rect x="124.5" y="17.5" width="5" height="5"/><rect x="124.5" y="53.5" width="5" height="5"/><circle cx="146" cy="38" r="2.2"/></g>
+ <!-- Z4 accent purple -->
+ <g fill="#7b4fa0"><rect x="61.5" y="118.5" width="5" height="5"/><rect x="88.5" y="118.5" width="5" height="5"/><rect x="54" y="4" width="2.6" height="54"/></g>
+ <!-- Z5 shower blue -->
+ <rect x="68.5" y="38" width="10" height="7" rx="1" fill="#2e6fa7"/><text x="73.5" y="43" text-anchor="middle" font-size="3" fill="#fff" font-weight="700">FL</text>
+ <!-- Z6 toilet fan teal -->
+ <rect x="104" y="27" width="9" height="6" rx="1" fill="#1d8a7a"/><text x="108.5" y="31.4" text-anchor="middle" font-size="3" fill="#fff" font-weight="700">F</text>
+ <!-- local controls gray -->
+ <g fill="#8c8c8c"><circle cx="5" cy="126" r="2"/><circle cx="6" cy="129" r="2"/><rect x="9.5" y="93.5" width="5" height="5"/></g>
+ <g fill="#b8a27a"><rect x="19.5" y="148.5" width="5" height="5"/><rect x="53.5" y="148.5" width="5" height="5"/><rect x="87.5" y="148.5" width="5" height="5"/><rect x="119.5" y="148.5" width="5" height="5"/></g>
+ <text x="77.5" y="196" text-anchor="middle" font-size="3.2" fill="#6b5a48">Plan, north up. ● downlight · ■ adjustable gimbal · ● small = pendant</text>
+</svg>
+</div>
+<div class="right">
+ <div class="bank"><h2>Bank 1 (upper plate) — LIGHTS · all dimmers</h2>
+  <div class="plate">
+   <div class="sw" style="background:#c0392b"><b>1 · General</b><span>5 ceiling downlights: room, shower entry and the area in front of the screen</span><div class="k">Zone Z1</div></div>
+   <div class="sw" style="background:#e08a1e"><b>2 · Vanity</b><span>2 gimbals over the sinks + the Burning Man pendant between the cabinets</span><div class="k">Zone Z2 · cabinets dim at their own touch switch</div></div>
+   <div class="sw" style="background:#7b4fa0"><b>3 · Accent / evening</b><span>2 gimbals grazing the oak screen + the lighted shower niche</span><div class="k">Zone Z4</div></div>
+  </div></div>
+ <div class="bank"><h2>Bank 2 (lower plate) — SHOWER &amp; FANS</h2>
+  <div class="plate">
+   <div class="sw" style="background:#2e6fa7"><b>4 · Shower light</b><span>Light in the shower fan/light combo</span><div class="k">Zone Z5</div></div>
+   <div class="sw" style="background:#2e6fa7;opacity:.85"><b>5 · Shower fan</b><span>Exhaust in the same unit, on its own plain on/off switch (no timer or humidity sensor)</span><div class="k">Zone Z5</div></div>
+   <div class="sw" style="background:#1d8a7a"><b>6 · Toilet fan</b><span>Separate fan over the toilet, on a timer</span><div class="k">Zone Z6</div></div>
+  </div></div>
+ <div class="bank"><h2>Controlled elsewhere (not at the door)</h2>
+  <div class="else">
+   <div><span class="dot" style="background:#8c8c8c"></span><span><b>Makeup wall, under the mirror (~36"):</b> 2 dimmers: the 2 globe pendants, and the makeup fill gimbal (G1). An outlet sits beside them.</span></div>
+   <div><span class="dot" style="background:#b8a27a"></span><span><b>Closet, on the wing wall by the full-length mirror:</b> 1 dimmer for the 4 closet gimbals (Zone Z7, White plate).</span></div>
+   <div><span class="dot" style="background:#e08a1e;opacity:.5"></span><span><b>Medicine cabinets:</b> on constant power, so their lights run from the touch switch on each cabinet and the inside outlets are always live.</span></div>
+   <div><span class="dot" style="background:#ddd"></span><span><b>Floor heat:</b> its own thermostat at 52" by the vanity. <b>Niche LED</b> rides with Accent (switch 3).</span></div>
+  </div>
+  <div class="note"><b>Still open (yours to decide):</b> whether the vanity pendant gets its own dimmer so it can be a soft night light. Bank 1 is full, so it would need a 4-gang plate or a dual dimmer. The rev 5 wall beside the door is now ~17" wide (was ~10"), so a 4-gang plate would now fit.</div>
+ </div>
+</div></div><div class="note" style="margin-top:6px">Companion to Sheet A-107 (Reflected Ceiling &amp; Lighting Plan). Zone numbers (Z1–Z7) match the A-107 Switching &amp; Dimming Zones table. Fixture positions are diagrammatic; A-107 governs. Rev 5 field measurements: verify in field.</div></div></div>
+</div>
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop7" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom7" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop7" xlink:href="#sealArcTop7" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom7" xlink:href="#sealArcBottom7" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">SWITCHING<br>DIAGRAM</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">NTS (diagram)</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">10.31.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>10.31.2026</td><td>Initial issue — switch banks and zones, companion to A-107</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      ISSUED FOR CONTRACTOR WALKTHROUGH &amp; PRICING — 10.26.2026.<br>
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, STRUCTURAL FRAMING, AND CODE COMPLIANCE (EGRESS, GFCI/AFCI, EXHAUST VENTILATION, WATERPROOFING, CLEARANCES) PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">A-107.1</div>
+      <div class="of">SHEET 10 OF 12 · PRIMARY BATH SET</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
