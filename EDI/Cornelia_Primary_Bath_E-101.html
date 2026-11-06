@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>E-101 Primary Bath &amp; Closet - Power &amp; Switching Plan</title>
+<style>
+  @page { size: 36in 24in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #7a7a7a; font-family: Arial, Helvetica, sans-serif; }
+
+  .sheet {
+    width: 36in; height: 24in;
+    margin: 0 auto 0.5in auto;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  /* ===================== TITLE BLOCK (right strip) ===================== */
+  .title-block {
+    position: absolute; top: 0; right: 0; width: 6in; height: 24in;
+    border-left: 0.025in solid #000;
+    display: flex; flex-direction: column;
+    font-size: 9pt;
+  }
+  .tb-logo {
+    height: 1.6in; border-bottom: 0.02in solid #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tb-section { border-bottom: 0.02in solid #000; padding: 0.1in 0.15in; }
+  .tb-label { font-size: 7pt; letter-spacing: 0.5px; color: #555; text-transform: uppercase; margin-bottom: 1px; }
+  .tb-value { font-size: 10pt; font-weight: 600; margin-bottom: 6px; }
+  .tb-value.small { font-size: 9pt; font-weight: 400; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .tb-grid > div { border-right: 0.02in solid #000; padding: 0.08in 0.12in; }
+  .tb-grid > div:last-child { border-right: none; }
+
+  .tb-stamp {
+    margin: 0.12in 0.15in; padding: 0.1in; border: 0.03in solid #a00000;
+    font-size: 7.5pt; line-height: 1.35; color: #a00000; font-weight: 700; text-align: center;
+  }
+
+  .tb-rev-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .tb-rev-table th, .tb-rev-table td { border: 0.015in solid #999; padding: 2px 4px; text-align: left; }
+  .tb-rev-table th { background: #eee; }
+
+  .tb-sheetno {
+    margin-top: auto; border-top: 0.03in solid #000; text-align: center; padding: 0.15in 0;
+  }
+  .tb-sheetno .num { font-size: 34pt; font-weight: 800; line-height: 1; }
+  .tb-sheetno .of { font-size: 8pt; color: #555; margin-top: 4px; }
+
+  /* ===================== MAIN FIELD ===================== */
+  .main-field {
+    position: absolute; top: 0; left: 0; width: 30in; height: 24in;
+    padding: 0.3in; display: grid;
+    grid-template-columns: 15.3in 1fr;
+    column-gap: 0.3in;
+  }
+
+  .col-heading {
+    font-size: 12pt; font-weight: 700; letter-spacing: 0.5px; border-bottom: 0.02in solid #000;
+    padding-bottom: 3px; margin-bottom: 0.14in;
+  }
+
+  .plan-wrap { display: flex; flex-direction: column; height: 23.4in; }
+  .plan-svg-holder { display: flex; justify-content: center; align-items: flex-start; }
+
+  .scale-row {
+    display: flex; align-items: center; gap: 0.4in; margin: 0.12in 0 0.1in 0;
+    padding-top: 0.08in; border-top: 0.015in solid #ccc;
+  }
+  .scale-bar-label { font-size: 8pt; color: #333; }
+  .north-mini { display: flex; align-items: center; gap: 6px; font-size: 8pt; color: #333; }
+
+  .keynotes { font-size: 9pt; line-height: 1.5; }
+  .keynotes ol { margin: 0; padding-left: 0; list-style: none; counter-reset: kn; }
+  .keynotes li { counter-increment: kn; margin-bottom: 5px; padding-left: 0.28in; position: relative; }
+  .keynotes li.keyed::before {
+    content: counter(kn); position: absolute; left: 0; top: -1px; width: 0.19in; height: 0.19in;
+    border: 0.018in solid #000; border-radius: 50%; text-align: center; font-size: 8pt; line-height: 0.17in;
+    font-weight: 700;
+  }
+  .keynotes li.gen::before {
+    content: counter(kn) "."; position: absolute; left: 0; top: 0; font-weight: 700;
+  }
+
+  /* Right column of main field: schedule + legend + notes */
+  .right-col { display: flex; flex-direction: column; height: 23.4in; }
+
+  table.sched { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin-bottom: 0.16in; }
+  table.sched th, table.sched td { border: 0.012in solid #888; padding: 2px 4px; text-align: left; vertical-align: top; }
+  table.sched th { background: #e4e4e4; font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  table.sched td.tbd { color: #a00000; font-weight: 700; }
+  table.sched tr:nth-child(even) td { background: #f7f7f7; }
+
+  .legend-box { border: 0.02in solid #000; padding: 0.1in 0.14in; font-size: 8pt; line-height: 1.55; margin-bottom: 0.16in; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-swatch { width: 0.36in; height: 0.14in; flex: none; border: 1px solid #000; }
+
+  .gen-notes { font-size: 8.6pt; line-height: 1.5; }
+  .gen-notes ol { margin: 0; padding-left: 0.22in; }
+  .gen-notes li { margin-bottom: 4px; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; border: none; }
+  }
+
+  /* DRAFT / WORK-IN-PROGRESS WATERMARK — added 2026-07-25 per owner: Primary Bath 100-series sheets not yet finalized, matching the same treatment already used on A-208/A-209. Semi-transparent, non-printing-obstructive, sits above all content. */
+  .draft-watermark {
+    position: absolute; top: 50%; left: 41.5%; transform: translate(-50%, -50%) rotate(-35deg);
+    font-family: Helvetica, Arial, sans-serif; font-size: 4.2in; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(160, 0, 0, 0.1); white-space: nowrap; pointer-events: none; z-index: 900; user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  
+
+  <!-- ============================= MAIN FIELD ============================= -->
+  <div class="main-field">
+
+    <!-- LEFT: PLAN -->
+    <div class="plan-wrap">
+      <div class="col-heading">POWER &amp; SWITCHING PLAN — SCALE 3/4" = 1'-0" &nbsp;(lighting plan A-107 shown faded; wiring info in color)</div>
+
+      <div class="plan-svg-holder">
+        <svg width="12.1875in" height="13.3125in" viewBox="-18 -12 195 213" xmlns="http://www.w3.org/2000/svg"><style>
+            /* white halo behind every label so text stays readable over tile/cabinet/shower fills */
+            text { paint-order: stroke; stroke: #ffffff; stroke-width: 0.3; stroke-linejoin: round; stroke-opacity: 0.95; }
+          </style>
+<g opacity="0.35">
+<g opacity="0.3">
+          <!-- background -->
+          <rect x="-18" y="-12" width="195" height="213" fill="#ffffff"/>
+
+          <!-- FLOOR FILL (L-shaped polygon: bathroom + closet), north at top -->
+          <!-- FLOOR — REV 4 (2026-10-11, owners): Stonehenge terrazzo tile over the ENTIRE bathroom (Option B oak extension removed); white oak in the walk-in closet ONLY. Tile/oak seam runs E-W along the screen / wing-wall line (y=140), visible only at the two 28" openings and between screen slats. -->
+          <polygon points="0,184 155,184 155,0 54,0 54,80 0,80" fill="#dcc9a8" stroke="none"/>
+          <rect x="0" y="136" width="155" height="48" fill="#f4e9d3"/><line x1="0.00" y1="136" x2="0.00" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="7.38" y1="136" x2="7.38" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="14.75" y1="136" x2="14.75" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="22.12" y1="136" x2="22.12" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="29.50" y1="136" x2="29.50" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="36.88" y1="136" x2="36.88" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="44.25" y1="136" x2="44.25" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="51.62" y1="136" x2="51.62" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="59.00" y1="136" x2="59.00" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="66.38" y1="136" x2="66.38" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="73.75" y1="136" x2="73.75" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="81.12" y1="136" x2="81.12" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="88.50" y1="136" x2="88.50" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="95.88" y1="136" x2="95.88" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="103.25" y1="136" x2="103.25" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="110.62" y1="136" x2="110.62" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="118.00" y1="136" x2="118.00" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="125.38" y1="136" x2="125.38" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="132.75" y1="136" x2="132.75" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="140.12" y1="136" x2="140.12" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="147.50" y1="136" x2="147.50" y2="184" stroke="#d9c49c" stroke-width="0.12"/><line x1="154.88" y1="136" x2="154.88" y2="184" stroke="#d9c49c" stroke-width="0.12"/>
+          <line x1="2" y1="136" x2="153" y2="136" stroke="#8a5a3a" stroke-width="0.45" stroke-dasharray="1.2,0.7"/>
+
+          <!-- SHOWER FLOOR — rev 3: Bedrosians Sahara 4x4 Dark mosaic (taupe tint so labels stay legible) -->
+          <rect x="56" y="2" width="35" height="76" fill="#b3a596"/>
+          <g stroke="#9d8f80" stroke-width="0.06">
+            <line x1="56" y1="10" x2="91" y2="10"/><line x1="56" y1="18" x2="91" y2="18"/><line x1="56" y1="26" x2="91" y2="26"/><line x1="56" y1="34" x2="91" y2="34"/><line x1="56" y1="42" x2="91" y2="42"/><line x1="56" y1="50" x2="91" y2="50"/><line x1="56" y1="58" x2="91" y2="58"/><line x1="56" y1="66" x2="91" y2="66"/><line x1="56" y1="74" x2="91" y2="74"/>
+            <line x1="64" y1="2" x2="64" y2="78"/><line x1="72" y1="2" x2="72" y2="78"/><line x1="80" y1="2" x2="80" y2="78"/><line x1="88" y1="2" x2="88" y2="78"/>
+          </g>
+
+          <!-- WALLS: exterior + closet-return, 4" nominal -->
+          <!-- REV 5 (10.31.26): plan re-proportioned to owners' field measurements: east wall 180" interior N-S (89" to door, 36" door, ~5" return, wing wall, 46" closet); shower 35" x 76"; ~4" cabinet (jog) wall; 50" makeup wall; 78" east vanity. E-W width unchanged (field-verify). -->
+          <polygon points="0,184 155,184 155,0 54,0 54,80 0,80" fill="none" stroke="#171310" stroke-width="4" stroke-linejoin="miter"/>
+
+          <!-- DOOR: east wall — REV 3 (2026-10-06): widened to 36" (was 32"), SOLID door per owner. South jamb unchanged (48" from S. wall); opening grows NORTH into the vanity-to-door wall (now ~10"). REV 3b 10.07.26 (owner): hinge moved to the SOUTH jamb; door swings IN toward the closet, so the latch side (north) wall holds the switch bank. Open leaf rests ~6" off the east wing wall and overlaps ~12" of the east closet opening when fully open; add a door stop. New header req'd — GC to confirm. -->
+          <line x1="155" y1="91" x2="155" y2="127" stroke="#f4e9d3" stroke-width="4.4"/>
+          <line x1="155" y1="127" x2="119" y2="127" stroke="#4a2f1f" stroke-width="0.3"/>
+          <path d="M155,91 A36,36 0 0,0 119,127" fill="none" stroke="#4a2f1f" stroke-width="0.15" stroke-dasharray="0.7,0.6"/>
+          
+          <!-- NICOLO HARDWARE (rev 4b, 10.12.26): TB towel bar on the east vanity's south end panel; TP holder on the shower return's east face; RH robe hooks moved to the 9" jog-wall strip between the recessed east cabinet and the shower (cabinets are now recessed/flush, so the old cabinet side-panel location no longer exists). -->
+          <g style="stroke-width:0.08">
+            <circle cx="142" cy="80.7" r="0.6" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><text x="136" y="81.2" text-anchor="end" font-family="Helvetica" font-size="1.2" style="fill:#2b2117;stroke-width:0.08">HH (HAND TOWEL HOOK, VANITY END PANEL)</text>
+            <circle cx="95.9" cy="22" r="0.8" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><text x="97.4" y="22.4" font-family="Helvetica" font-size="1.2" style="fill:#2b2117;stroke-width:0.08">TP (BLOCKING)</text>
+            <circle cx="47.5" cy="82.7" r="0.6" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><circle cx="51.5" cy="82.7" r="0.6" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><text x="49.5" y="85.3" text-anchor="middle" font-family="Helvetica" font-size="1.2" style="fill:#2b2117;stroke-width:0.08">RH x2</text>
+          </g>
+          <!-- CLOSET ROBE HOOK (rev 4k, 10.13.26, owner): Nicolo robe hook (on hand) on the CLOSET face of the west wing wall, centered on the 21.5" wall (~10-11" from the west corner, beside the full-length mirror on the west wall), ~68" AFF. Blocking required. -->
+          <circle cx="12.75" cy="136.9" r="0.6" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><text x="12.75" y="139.3" text-anchor="middle" font-family="Helvetica" font-size="1.2" style="fill:#2b2117;stroke-width:0.08">RH (BLOCKING)</text>
+          <!-- MAGNIFYING MIRROR on the south return (wing) wall, bath face, ~18" from west wall, ~47" AFF (rev 4d, owner) -->
+          <g><rect x="17.4" y="130.6" width="2.2" height="1.3" fill="#b08d57" stroke="#171310" stroke-width="0.1"/><text x="18.5" y="129.6" text-anchor="middle" font-family="Helvetica" font-size="1.1" style="fill:#2b2117;stroke-width:0.08">MM</text></g>
+          <!-- DOOR STOP — 10.08.26 (owner has on hand): EVI Herrajes brass floor stop, ~3/4" dia x 1-1/8" tall. Stops the leaf at 90 deg, ~22" from the hinge, out of the closet walkway. -->
+          <circle cx="133" cy="129.4" r="0.6" fill="#b08d57" stroke="#171310" stroke-width="0.12"/><text x="130.8" y="131.6" font-family="Helvetica" font-size="1.1" fill="#4a2f1f">DS</text>
+
+          <!-- SHOWER EAST RETURN WALL (solid, 4x24) -->
+          <rect x="91" y="2" width="4" height="24" fill="#171310"/>
+          <!-- SHOWER GLASS (thick solid line, centered on return wall, to open south end) -->
+          <line x1="93" y1="26" x2="93" y2="78" stroke="#000000" stroke-width="0.5"/>
+
+          <!-- SHOWERHEAD (north end) -->
+          <circle cx="73.5" cy="6" r="0.9" fill="none" stroke="#4a2f1f" stroke-width="0.25"/>
+          <circle cx="73.5" cy="6" r="0.3" fill="#4a2f1f"/>
+          <!-- SHOWER CONTROLS (west wall, near open south end) -->
+          <circle cx="58" cy="68" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <circle cx="58" cy="72" r="0.6" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <!-- SHOWER DRAIN — rev 3: LINEAR drain along the back (north) wall, full width; floor slopes in one plane to it -->
+          <rect x="57" y="3.2" width="33" height="1.6" fill="#3a3a3a" stroke="#171310" stroke-width="0.12"/>
+          <!-- SHOWER NICHE — rev 3c (10.08.26): west wall, ~54" long x 12" tall (rev 5; was 42"), recessed into the west wall (dashed = in-wall recess) -->
+          <rect x="54.6" y="4" width="1.4" height="54" fill="#3c4842" stroke="#171310" stroke-width="0.1" stroke-dasharray="0.6,0.4"/>
+
+          <!-- EXHAUST — rev 3b (10.07.26): wet-rated fan/light combo centered in shower + smaller fan-only over toilet. See A-107 lighting plan. -->
+          <rect x="70.5" y="44" width="6" height="6" fill="none" stroke="#4a2f1f" stroke-width="0.18" stroke-dasharray="0.6,0.4"/>
+          <circle cx="73.5" cy="47" r="1.8" fill="none" stroke="#4a2f1f" stroke-width="0.15"/><circle cx="73.5" cy="26" r="6" fill="none" stroke="#4a2f1f" stroke-width="0.25" stroke-dasharray="0.8,0.5"/><!-- rain head above, 12" halo (rev 4c) -->
+          <rect x="106" y="13" width="5" height="5" fill="none" stroke="#4a2f1f" stroke-width="0.18" stroke-dasharray="0.6,0.4"/>
+          <line x1="106" y1="13" x2="111" y2="18" stroke="#4a2f1f" stroke-width="0.15"/>
+          <line x1="111" y1="13" x2="106" y2="18" stroke="#4a2f1f" stroke-width="0.15"/>
+
+          <!-- TOILET -->
+          <!-- rev 4g (10.12.26): toilet shifted east so its centerline is 16.5" from the shower return face (x98) and 17" from the vanity (x131.5); code min 15" each side. Was 10.8" from the return. -->
+          <rect x="100.75" y="2" width="15.5" height="26.75" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <rect x="103.25" y="2" width="10" height="8" fill="none" stroke="#4a2f1f" stroke-width="0.18"/>
+          <ellipse cx="108.5" cy="19" rx="7.5" ry="9.5" fill="none" stroke="#4a2f1f" stroke-width="0.2"/>
+          <!-- toilet clearance dims (rev 4g) -->
+          <g font-family="Helvetica" font-size="1.15" fill="#b3261e" stroke="none">
+            <text x="108.5" y="35.2" text-anchor="middle" font-weight="700">℄ TOILET AT EXISTING ROUGH-IN · FIELD-VERIFY</text>
+          </g>
+
+          <!-- EAST DOUBLE VANITY -->
+          <rect x="131" y="2" width="22" height="78" fill="#c9a98a" stroke="#171310" stroke-width="0.25"/>
+          <rect x="133" y="9.5" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
+          <rect x="133" y="48.5" width="18" height="24" fill="none" stroke="#171310" stroke-width="0.2"/>
+          <circle cx="152" cy="21.5" r="0.4" fill="#171310"/><circle cx="152" cy="29.5" r="0.55" fill="none" stroke="#171310" stroke-width="0.2"/>
+          <circle cx="152" cy="60.5" r="0.4" fill="#171310"/><circle cx="152" cy="68.5" r="0.55" fill="none" stroke="#171310" stroke-width="0.2"/>
+
+          <!-- SOUTH-WALL PAX WARDROBES -->
+          <rect x="2" y="168.25" width="151" height="13.75" fill="#dcdcdc" stroke="#171310" stroke-width="0.25"/>
+          <line x1="27.17" y1="168.25" x2="27.17" y2="182" stroke="#171310" stroke-width="0.14"/>
+          <line x1="52.33" y1="168.25" x2="52.33" y2="182" stroke="#171310" stroke-width="0.14"/>
+          <line x1="77.5" y1="168.25" x2="77.5" y2="182" stroke="#171310" stroke-width="0.14"/>
+          <line x1="102.67" y1="168.25" x2="102.67" y2="182" stroke="#171310" stroke-width="0.14"/>
+          <line x1="127.83" y1="168.25" x2="127.83" y2="182" stroke="#171310" stroke-width="0.14"/>
+
+          <!-- EAST PAX RETURN (L-shaped) -->
+          <rect x="139.25" y="147.375" width="13.75" height="34.625" fill="#dcdcdc" stroke="#171310" stroke-width="0.25"/>
+
+          <!-- SHORT PARTITION WALLS -->
+          <rect x="2" y="132" width="21.5" height="4" fill="#171310"/>
+          <rect x="131.5" y="132" width="21.5" height="4" fill="#171310"/>
+          <rect x="151" y="127" width="2" height="5" fill="#171310"/>
+
+          <!-- SLATTED SCREEN: 52" long, both flanking openings = 28" -->
+          <rect x="51.5" y="130" width="52" height="8" fill="none" stroke="#171310" stroke-width="0.15" stroke-dasharray="1.2,0.9"/>
+          <g stroke="#171310" stroke-width="1">
+            <line x1="54" y1="131" x2="54" y2="137"/>
+            <line x1="60.5" y1="131" x2="60.5" y2="137"/>
+            <line x1="67" y1="131" x2="67" y2="137"/>
+            <line x1="73.5" y1="131" x2="73.5" y2="137"/>
+            <line x1="80" y1="131" x2="80" y2="137"/>
+            <line x1="86.5" y1="131" x2="86.5" y2="137"/>
+            <line x1="93" y1="131" x2="93" y2="137"/>
+            <line x1="99.5" y1="131" x2="99.5" y2="137"/>
+          </g>
+
+          <!-- WEST VANITY -->
+          <rect x="2" y="82" width="21.5" height="50" fill="none" stroke="#171310" stroke-width="0.3" stroke-dasharray="1.2,0.8"/>
+
+          <!-- JOG WALL CABINETRY: 43" total run (2 x 21.5" bays), mounted on the JOG WALL (y=64, running EAST-WEST from x=0 to x=54 — the wall separating the vanity nook from the notch above it), NOT the west wall. FINAL, confirmed 2026-07-17 (3rd correction) against owner's own red-annotated markup of the original A-101 PDF, which showed both bays side-by-side (east-west) directly under this wall, not stacked north-south along the west wall as two earlier attempts had it. WEST bay (x=2-23.5, directly above the vanity's north end) = open shelving, vanity-top (34" AFF) to ceiling. EAST bay (x=23.5-45, extending past the vanity's own depth) = cabinet w/ door, floats at 52" AFF. Both bays 18" deep (y=66-84, projecting south from the wall). See Sheet A-106 (elevation of this wall). -->
+          <!-- rev 4 (10.08.26, owner site photo): west jog cabinet RECESSED into the wall cavity behind the shower, ~17.5" deep, face flush with the jog wall; counter runs into it -->
+          <rect x="2" y="62.5" width="21.5" height="17.5" fill="#efe6d8" stroke="#171310" stroke-width="0.25" stroke-dasharray="1.2,0.9"/>
+          
+          <!-- rev 4 (10.08.26): east cabinet RECESSED into the wall cavity, replacing the existing recessed linen cabinet (owner confirmed existing is recessed). Exact width/depth per Mike's field dimensions - TBD. Towel warmer on the flat wall face below it. -->
+          <rect x="23.5" y="62.5" width="21.5" height="17.5" fill="#efe6d8" stroke="#171310" stroke-width="0.25" stroke-dasharray="1.2,0.9"/>
+          
+
+          <!-- towel warmer note ticks — sit in the open floor south of the EAST (door cabinet) bay, below the 47" AFF float line. Corrected 2026-07-17 (3rd correction) to match the new jog-wall cabinet position. -->
+          <g stroke="#8a5a3a" stroke-width="0.2">
+            <line x1="25" y1="82.2" x2="43" y2="82.2"/>
+            <line x1="25" y1="83.4" x2="43" y2="83.4"/>
+          </g>
+
+          <!-- MAKEUP FILL LIGHT — rev 3: recessed gimbal in ceiling, ~12" off west wall, ~9" north of mirror centerline (mirror centered at y=102) -->
+          <circle cx="12" cy="96" r="1.3" fill="#fff" stroke="#171310" stroke-width="0.2" stroke-dasharray="0.5,0.35"/>
+          <circle cx="12" cy="96" r="0.45" fill="#171310"/>
+          <text x="12" y="93.6" text-anchor="middle" font-family="Helvetica" font-size="1.2" fill="#171310">GIMBAL</text>
+
+          <!-- NORTH ARROW: straight shaft, arrowhead pointing north (up) -->
+          <g stroke="#7a5230" stroke-width="0.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="11.5" y1="27" x2="11.5" y2="9"/>
+            <path d="M8.3,15.5 L11.5,8 L14.7,15.5"/>
+          </g>
+          <text x="11.5" y="5.5" text-anchor="middle" font-family="Helvetica" font-size="2.6" font-weight="700" fill="#7a5230">N</text>
+
+          <!-- ROOM LABEL -->
+          <text x="70" y="105" font-family="Helvetica" font-size="4.2" font-weight="700" fill="#2b2117">BATHROOM</text>
+
+          <!-- KEYNOTE BUBBLES -->
+          <g font-family="Helvetica" font-size="1.9" fill="#171310" text-anchor="middle">
+            <circle cx="66" cy="42" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="66" y="42.7">3</text>
+            <circle cx="97.5" cy="46" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="97.5" y="46.7">4</text>
+            <circle cx="9" cy="88" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="9" y="88.7">5</text>
+            <circle cx="122" cy="20" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="122" y="20.7">6</text>
+            <circle cx="77" cy="175" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="77" y="175.7">9</text>
+            <circle cx="126.5" cy="12" r="1.6" fill="#fff" stroke="#171310" stroke-width="0.15"/>
+            <text x="126.5" y="12.7">10</text>
+          </g>
+
+          <!-- ============ DIMENSIONS ============ -->
+          <g font-family="Helvetica" font-size="2" fill="#2b2117">
+            <!-- overall E-W -->
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="0" y1="192" x2="155" y2="192"/>
+              <line x1="0" y1="188" x2="0" y2="196"/>
+              <line x1="155" y1="188" x2="155" y2="196"/>
+            </g>
+            <text x="77.5" y="199.5" text-anchor="middle">~156" E–W (DOOR THRESHOLD TO WEST WALL, OWNER-MEASURED)</text>
+
+            <!-- overall N-S -->
+            <g stroke="#555" stroke-width="0.12">
+              <line x1="163" y1="2" x2="163" y2="182"/>
+              <line x1="159" y1="2" x2="167" y2="2"/>
+              <line x1="159" y1="182" x2="167" y2="182"/>
+            </g>
+            <text x="171" y="91" text-anchor="middle" transform="rotate(90 171,91)">180" INTERIOR N–S (EAST WALL, OWNER-MEASURED)</text>
+
+            <!-- north wall -->
+            <line x1="54" y1="-6" x2="155" y2="-6" stroke="#555" stroke-width="0.12"/>
+            <text x="104.5" y="-8.5" text-anchor="middle">101" NORTH WALL</text>
+
+            <!-- west wall south of cutout -->
+            <line x1="-6" y1="80" x2="-6" y2="184" stroke="#555" stroke-width="0.12"/>
+            <text x="-9.5" y="132" text-anchor="middle" transform="rotate(-90 -9.5,132)">WEST WALL (50" VANITY + WING + 46" CLOSET)</text>
+
+            <!-- wall west of shower (64") -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="44" y1="2" x2="44" y2="78"/>
+              <line x1="41" y1="2" x2="47" y2="2"/>
+              <line x1="41" y1="78" x2="47" y2="78"/>
+            </g>
+            <text x="38" y="38" text-anchor="middle" font-size="1.7" fill="#5c4020" transform="rotate(-90 38,38)">76" SHOWER (OWNER-MEASURED)</text>
+
+            <!-- wall north of west vanity (54") -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="2" y1="58" x2="52" y2="58"/>
+              <line x1="2" y1="55" x2="2" y2="61"/>
+              <line x1="52" y1="55" x2="52" y2="61"/>
+            </g>
+            <text x="27" y="54" text-anchor="middle" font-size="1.7" fill="#5c4020">54" CABINET WALL (~4" THICK)</text>
+
+            <!-- door: witness-line dimension anchored at the 36" opening (Y96-132), rev 3 -->
+            <g stroke="#8a6a3a" stroke-width="0.1">
+              <line x1="153" y1="91" x2="145" y2="91"/>
+              <line x1="153" y1="127" x2="145" y2="127"/>
+              <line x1="145" y1="91" x2="145" y2="127"/>
+              <line x1="142" y1="91" x2="148" y2="91"/>
+              <line x1="142" y1="127" x2="148" y2="127"/>
+            </g>
+            <text x="141" y="109" text-anchor="middle" fill="#5c4020" font-size="1.8" transform="rotate(-90 141,109)">36" DOOR OPENING (SOLID)</text>
+            <text x="137" y="109" text-anchor="middle" fill="#5c4020" font-size="1.5" transform="rotate(-90 137,109)">N. JAMB 89" FROM N. WALL</text>
+
+            <!-- east vanity -->
+            <text x="172" y="41" text-anchor="middle" fill="#333" transform="rotate(90 172,41)">78" x 22" DOUBLE VANITY</text>
+            <text x="142" y="41.5" text-anchor="middle" fill="#333" font-size="1.7">7½ / 24 / 15 / 24 / 7½</text>
+
+            <!-- shower -->
+            <text x="73.5" y="86" text-anchor="middle" fill="#333">35" x 76" SHOWER</text>
+            <text x="73.5" y="12" text-anchor="middle" fill="#171310" font-size="1.4">LINEAR DRAIN @ BACK · NICHE @ WEST WALL</text>
+            <!-- FLOOR HEAT THERMOSTAT — 10.08.26 (owner): north wall above the north end of the east vanity, ~10-12" from the NE corner, 52" AFF to center, in the 3x12 tile. -->
+          <g><rect x="140.6" y="2.3" width="2.8" height="1.6" fill="#171310" stroke="#171310" stroke-width="0.12"/><text x="142" y="5.9" text-anchor="middle" font-family="Helvetica" font-size="1.1" font-weight="700" style="fill:#2b2117;stroke-width:0.08">T</text><text x="142" y="7.3" text-anchor="middle" font-family="Helvetica" font-size="1.1" style="fill:#2b2117;stroke-width:0.08">FLOOR HEAT @ 52"</text></g>
+            <text x="73.5" y="62" text-anchor="middle" fill="#171310" font-size="1.5">SAHARA DARK 4x4 FLOOR</text>
+            <text x="73.5" y="64.2" text-anchor="middle" fill="#171310" font-size="1.3">SLOPES TO BACK WALL</text>
+
+            <!-- partition line -->
+            <g stroke="#999" stroke-width="0.1">
+              <line x1="-12" y1="136" x2="-12" y2="182"/>
+              <line x1="-15" y1="136" x2="-9" y2="136"/>
+              <line x1="-15" y1="182" x2="-9" y2="182"/>
+            </g>
+            <text x="-13.5" y="160" text-anchor="middle" fill="#555" font-size="1.7" transform="rotate(-90 -13.5,159)">46" CLOSET DEPTH</text>
+
+            <!-- wing-wall + screen dimension string: witness lines drop south off each element into the walk-in closet -->
+            <g stroke="#999" stroke-width="0.1">
+              <line x1="2" y1="136" x2="2" y2="146"/>
+              <line x1="23.5" y1="136" x2="23.5" y2="146"/>
+              <line x1="51.5" y1="138" x2="51.5" y2="146"/>
+              <line x1="103.5" y1="138" x2="103.5" y2="146"/>
+              <line x1="131.5" y1="136" x2="131.5" y2="146"/>
+              <line x1="153" y1="136" x2="153" y2="146"/>
+              <line x1="2" y1="146" x2="153" y2="146"/>
+            </g>
+            <text x="12.75" y="150.5" text-anchor="middle" fill="#5c4020" font-size="1.5">21.5" WING WALL</text>
+            <text x="37.5" y="150.5" text-anchor="middle" fill="#555" font-size="1.7">28" OPENING</text>
+            <text x="37.5" y="153" text-anchor="middle" fill="#8a5a3a" font-size="1.3">TILE | OAK — FLUSH STRIP</text>
+            <text x="77.5" y="150.5" text-anchor="middle" fill="#555" font-size="1.7">52" SCREEN</text>
+            <text x="117.5" y="150.5" text-anchor="middle" fill="#555" font-size="1.7">28" OPENING</text>
+            <text x="117.5" y="153" text-anchor="middle" fill="#8a5a3a" font-size="1.3">TILE | OAK — FLUSH STRIP</text>
+            <text x="142.25" y="150.5" text-anchor="middle" fill="#5c4020" font-size="1.5">21.5" WING WALL</text>
+
+            <!-- floor material transition symbol, right at each 28" opening threshold -->
+            <g stroke="#8a5a3a" stroke-width="0.3" stroke-dasharray="1,0.7">
+
+            </g>
+
+            <!-- south PAX -->
+            <text x="77.5" y="166" text-anchor="middle" fill="#333" font-size="1.7">SOUTH PAX RUN — 13.75" DEPTH</text>
+
+            <!-- east PAX return -->
+            <text x="172" y="164" text-anchor="middle" fill="#333" font-size="1.7" transform="rotate(90 172,164)">EAST PAX RETURN — 34.625" TOTAL</text>
+
+            <!-- west vanity -->
+            <text x="-6" y="107" text-anchor="middle" fill="#333" font-size="1.7" transform="rotate(-90 -6,107)">WEST VANITY — 21.5" DEPTH</text>
+
+            <!-- west vanity -->
+            <text x="11" y="119" text-anchor="middle" fill="#333" font-size="1.6">WEST VANITY — 50" RUN</text>
+            <text x="11" y="122.5" text-anchor="middle" fill="#333" font-size="1.6">MAKEUP COUNTERTOP + MIRROR, SEE A-104</text>
+
+            <!-- jog wall cabinetry -->
+            <text x="12.75" y="70" text-anchor="middle" fill="#333" font-size="1.25">CABINET W/ DOOR</text>
+            <text x="12.75" y="72.4" text-anchor="middle" fill="#333" font-size="1.1">RECESSED 17.5", CTR. TO CLG.</text>
+            <text x="34.25" y="70" text-anchor="middle" fill="#333" font-size="1.25">CABINET W/ DOOR</text>
+            <text x="34.25" y="72.4" text-anchor="middle" fill="#333" font-size="1.1">RECESSED, 47" TO CLG.</text>
+            <text x="34" y="86" text-anchor="middle" fill="#8a5a3a" font-size="1">TOWEL WARMER ON WALL, SEE SCHED.</text>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 5: jog wall (open shelving + door cabinet + towel warmer), view direction points north (-y) toward the wall — restored 2026-07-17 (3rd correction), this wall/sheet is active again. Positioned at x=15 (west bay) to clear both the bay divider (x=23.5) and Marker 3 at (35,102) — caught via screenshot QA, an earlier x=32 placement collided directly with Marker 3. Arrow shaft shortened 2026-07-18 (was 40.8 units, running all the way to the wall at y=64 — inconsistent with every other marker on this sheet, which use short 5-13 unit gesture arrows that stop well short of the wall they reference; see CHANGELOG) -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="15" cy="104" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="11.8" y1="104" x2="18.2" y2="104" stroke="#171310" stroke-width="0.15"/>
+            <text x="15" y="103.3" font-size="2">5</text>
+            <text x="15" y="106.4" font-size="1.4">A-106</text>
+            <path d="M15,100.8 L15,84 M15,84 L13,87 M15,84 L17,87" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 1: tags the east wall, view direction points east (+x) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="120" cy="80" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="116.8" y1="80" x2="123.2" y2="80" stroke="#171310" stroke-width="0.15"/>
+            <text x="120" y="79.3" font-size="2">1</text>
+            <text x="120" y="82.4" font-size="1.4">A-102</text>
+            <path d="M123.2,80 L128,80 M128,80 L125.4,78 M128,80 L125.4,82" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 2: shower, unfolded 3-wall view (west/north/east) -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="73.5" cy="40" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="70.3" y1="40" x2="76.7" y2="40" stroke="#171310" stroke-width="0.15"/>
+            <text x="73.5" y="39.3" font-size="2">2</text>
+            <text x="73.5" y="42.4" font-size="1.4">A-103</text>
+            <g stroke="#171310" stroke-width="0.2">
+              <line x1="70.3" y1="40" x2="60" y2="40"/>
+              <line x1="73.5" y1="36.8" x2="73.5" y2="18"/>
+              <line x1="76.7" y1="40" x2="88" y2="40"/>
+            </g>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 3: west vanity wall, view direction points west (-x) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="35" cy="107" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="31.8" y1="107" x2="38.2" y2="107" stroke="#171310" stroke-width="0.15"/>
+            <text x="35" y="106.3" font-size="2">3</text>
+            <text x="35" y="109.4" font-size="1.4">A-104</text>
+            <path d="M31.8,107 L25,107 M25,107 L27.6,105 M25,107 L27.6,109" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+
+          <!-- INTERIOR ELEVATION MARKER 4: south PAX wall, view direction points south (+y) toward the wall -->
+          <g font-family="Helvetica" fill="#171310" text-anchor="middle">
+            <circle cx="77.5" cy="152" r="3.2" fill="#fff" stroke="#171310" stroke-width="0.18"/>
+            <line x1="74.3" y1="152" x2="80.7" y2="152" stroke="#171310" stroke-width="0.15"/>
+            <text x="77.5" y="151.3" font-size="2">4</text>
+            <text x="77.5" y="154.4" font-size="1.4">A-105</text>
+            <path d="M77.5,155.2 L77.5,166 M77.5,166 L75.5,163 M77.5,166 L79.5,163" fill="none" stroke="#171310" stroke-width="0.25"/>
+          </g>
+        
+        </g>
+
+<g font-family="Helvetica"><polygon points="0,184 155,184 155,0 54,0 54,80 0,80" fill="none" stroke="#171310" stroke-width="4" stroke-linejoin="miter"/><g><rect x="69.5" y="43" width="8" height="8" fill="#e6f1f4" stroke="#171310" stroke-width="0.3"/><circle cx="73.5" cy="47" r="2.3" fill="#fff6d6" stroke="#171310" stroke-width="0.25"/><path d="M70.5,44 L76.5,50 M76.5,44 L70.5,50" stroke="#5a7d8a" stroke-width="0.15"/><text x="73.5" y="41.6" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">FL</text><text x="73.5" y="54" text-anchor="middle" font-size="1.15" fill="#171310">FAN/LIGHT, WET-RATED</text></g><g><!-- RAIN HEAD (rev 4d, 10.12.26): Brizo Roccesco 12" Halo on 6" ceiling arm, center ~24" off the back wall --><circle cx="73.5" cy="26" r="6" fill="none" stroke="#171310" stroke-width="0.6"/><circle cx="73.5" cy="26" r="4.6" fill="none" stroke="#171310" stroke-width="0.15" stroke-dasharray="0.5,0.4"/><circle cx="73.5" cy="26" r="0.5" fill="#171310"/><text x="73.5" y="18.6" text-anchor="middle" font-size="1.3" font-weight="700" fill="#171310">RAIN HEAD 12" HALO</text></g><g><rect x="105.5" y="13" width="6" height="6" fill="#eef0f2" stroke="#171310" stroke-width="0.3"/><path d="M105.5,13 L111.5,19 M111.5,13 L105.5,19" stroke="#171310" stroke-width="0.18"/><text x="108.5" y="11.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">F</text></g><line x1="57.4" y1="4" x2="57.4" y2="46" stroke="#e0b100" stroke-width="0.7"/><text x="60.5" y="30" font-size="1.15" fill="#7a5410" transform="rotate(-90 60.5,30)">NICHE LED</text><g><rect x="151.6" y="6.5" width="2.2" height="30" fill="#fff3c4" stroke="#b07d12" stroke-width="0.2"/><rect x="151.6" y="45.5" width="2.2" height="30" fill="#fff3c4" stroke="#b07d12" stroke-width="0.2"/><text x="148.6" y="41" text-anchor="middle" font-size="1.3" fill="#7a5410" transform="rotate(-90 148.6,41)">LIGHTED MED. CABINETS (MC)</text></g><g><!-- VANITY PENDANT PV (rev 4n, 10.26.26, owner): Modern Forms Burning Man mini pendant, Aged Brass, centered between the sinks, ~9" off the east wall, bottom ~58-62" AFF. Requires a gap between the medicine cabinets (narrower cabinets, TBD). --><circle cx="144" cy="41" r="1.4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.28"/><circle cx="144" cy="41" r="0.4" fill="#8a6a2a"/><text x="140.6" y="41.5" text-anchor="end" font-size="1.3" font-weight="700" fill="#8a6a2a">PV</text></g><g><circle cx="9" cy="126" r="1.4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.28"/><text x="12.2" y="126.5" font-size="1.4" font-weight="700" fill="#8a6a2a">P</text></g><g><circle cx="9" cy="129" r="1.4" fill="#fdf6e3" stroke="#8a6a2a" stroke-width="0.28"/><text x="12.2" y="129.5" font-size="1.4" font-weight="700" fill="#8a6a2a">P</text></g><g><circle cx="113" cy="50" r="1.7" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="113" cy="50" r="0.45" fill="#171310"/><text x="113" y="47.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">D</text></g><g><circle cx="52" cy="98" r="1.7" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="52" cy="98" r="0.45" fill="#171310"/><text x="52" y="95.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">D</text></g><g><circle cx="100" cy="98" r="1.7" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="100" cy="98" r="0.45" fill="#171310"/><text x="100" y="95.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">D</text></g><g><circle cx="52" cy="120" r="1.7" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="52" cy="120" r="0.45" fill="#171310"/><text x="52" y="117.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">D</text></g><g><circle cx="100" cy="120" r="1.7" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="100" cy="120" r="0.45" fill="#171310"/><text x="100" y="117.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#171310">D</text></g><g><circle cx="12" cy="96" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="12" cy="96" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="12" cy="96" r="0.45" fill="#171310"/><line x1="9.82" y1="96.33" x2="6.86" y2="96.77" stroke="#b07d12" stroke-width="0.3"/><path d="M8.02,95.79 L6.86,96.77 L8.26,97.37" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="12" y="93.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G1</text></g><g><circle cx="127" cy="21.5" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="127" cy="21.5" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="127" cy="21.5" r="0.45" fill="#171310"/><line x1="129.2" y1="21.5" x2="132.2" y2="21.5" stroke="#b07d12" stroke-width="0.3"/><path d="M130.9,20.8 L132.2,20 L130.9,19.2" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="127" y="18.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G2</text></g><g><circle cx="127" cy="60.5" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="127" cy="60.5" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="127" cy="60.5" r="0.45" fill="#171310"/><line x1="129.2" y1="60.5" x2="132.2" y2="60.5" stroke="#b07d12" stroke-width="0.3"/><path d="M130.9,56.8 L132.2,56 L130.9,55.2" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="127" y="57.7" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G2</text></g><g><circle cx="64" cy="121" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="64" cy="121" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="64" cy="121" r="0.45" fill="#171310"/><line x1="64" y1="123.2" x2="64" y2="126.2" stroke="#b07d12" stroke-width="0.3"/><path d="M63.2,124.9 L64,126.2 L64.8,124.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="64" y="118.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G3</text></g><g><circle cx="91" cy="121" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="91" cy="121" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="91" cy="121" r="0.45" fill="#171310"/><line x1="91" y1="123.2" x2="91" y2="126.2" stroke="#b07d12" stroke-width="0.3"/><path d="M90.2,124.9 L91,126.2 L91.8,124.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="91" y="118.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G3</text></g><g><circle cx="22" cy="154" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="22" cy="154" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="22" cy="154" r="0.45" fill="#171310"/><line x1="22" y1="156.2" x2="22" y2="159.2" stroke="#b07d12" stroke-width="0.3"/><path d="M21.2,157.9 L22,159.2 L22.8,157.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="22" y="151.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G4</text></g><g><circle cx="56" cy="154" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="56" cy="154" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="56" cy="154" r="0.45" fill="#171310"/><line x1="56" y1="156.2" x2="56" y2="159.2" stroke="#b07d12" stroke-width="0.3"/><path d="M55.2,157.9 L56,159.2 L56.8,157.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="56" y="151.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G4</text></g><g><circle cx="90" cy="154" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="90" cy="154" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="90" cy="154" r="0.45" fill="#171310"/><line x1="90" y1="156.2" x2="90" y2="159.2" stroke="#b07d12" stroke-width="0.3"/><path d="M89.2,157.9 L90,159.2 L90.8,157.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="90" y="151.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G4</text></g><g><circle cx="122" cy="154" r="2.2" fill="none" stroke="#b07d12" stroke-width="0.22" stroke-dasharray="0.6,0.4"/><circle cx="122" cy="154" r="1.5" fill="#fff6d6" stroke="#171310" stroke-width="0.28"/><circle cx="122" cy="154" r="0.45" fill="#171310"/><line x1="122" y1="156.2" x2="122" y2="159.2" stroke="#b07d12" stroke-width="0.3"/><path d="M121.2,157.9 L122,159.2 L122.8,157.9" fill="none" stroke="#b07d12" stroke-width="0.3"/><text x="122" y="151.2" text-anchor="middle" font-size="1.5" font-weight="700" fill="#7a5410">G4</text></g><g><rect x="151.6" y="81.3" width="2.2" height="3.6" fill="#c9cacd" stroke="#171310" stroke-width="0.25"/><rect x="151.6" y="85.1" width="2.2" height="3.6" fill="#c9cacd" stroke="#171310" stroke-width="0.25"/><text x="150.6" y="83.6" text-anchor="end" font-size="1.2" font-weight="700" fill="#171310">S1</text><text x="150.6" y="87.6" text-anchor="end" font-size="1.2" font-weight="700" fill="#171310">S2</text><text x="146" y="85.6" text-anchor="end" font-size="1.15" fill="#171310">DOOR SWITCH BANK (2 x 3-GANG, STACKED)</text></g><g><rect x="24.5" y="137.5" width="5" height="2.6" fill="#fff" stroke="#171310" stroke-width="0.25"/><text x="27" y="139.6" text-anchor="middle" font-size="1.4" font-weight="700" fill="#171310">S</text></g><text x="70" y="161" text-anchor="middle" font-family="Helvetica" font-size="2.2" font-weight="700" fill="#2b2117" opacity="0.6">WALK-IN CLOSET</text><g><rect x="140.6" y="2.3" width="2.8" height="1.6" fill="#171310" stroke="#171310" stroke-width="0.12"/><text x="142" y="5.9" text-anchor="middle" font-family="Helvetica" font-size="1.1" font-weight="700" fill="#4a2f1f">T</text><text x="142" y="7.3" text-anchor="middle" font-family="Helvetica" font-size="0.9" fill="#4a2f1f">FLOOR HEAT @ 52"</text></g><g><circle cx="114.5" cy="3.4" r="1.1" fill="#fff" stroke="#171310" stroke-width="0.25"/><line x1="114.1" y1="2.9" x2="114.1" y2="3.9" stroke="#171310" stroke-width="0.2"/><line x1="114.9" y1="2.9" x2="114.9" y2="3.9" stroke="#171310" stroke-width="0.2"/><text x="117" y="6.2" font-size="1.2" fill="#171310">GFCI (BIDET)</text></g><g><circle cx="7" cy="138.6" r="1.1" fill="#fff" stroke="#171310" stroke-width="0.25"/><line x1="6.6" y1="138.1" x2="6.6" y2="139.1" stroke="#171310" stroke-width="0.2"/><line x1="7.4" y1="138.1" x2="7.4" y2="139.1" stroke="#171310" stroke-width="0.2"/><text x="9" y="141.4" font-size="1.2" fill="#171310">CL-1</text></g></g>
+</g>
+<g id="E-OVERLAY" font-family="Helvetica">
+<path d="M149.0,83.0 Q136.9,60.0 113.0,50.0" fill="none" stroke="#c0392b" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q97.8,73.0 52.0,98.0" fill="none" stroke="#c0392b" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q121.8,81.7 100.0,98.0" fill="none" stroke="#c0392b" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q93.8,84.0 52.0,120.0" fill="none" stroke="#c0392b" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q117.8,92.7 100.0,120.0" fill="none" stroke="#c0392b" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q128.8,55.5 127.0,21.5" fill="none" stroke="#e08a1e" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q134.6,75.0 127.0,60.5" fill="none" stroke="#e08a1e" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q112.2,114.8 64.0,121.0" fill="none" stroke="#e08a1e" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q125.7,110.7 91.0,121.0" fill="none" stroke="#e08a1e" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q157.0,60.8 144.0,41.0" fill="none" stroke="#7b4fa0" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,83.0 Q113.6,36.4 55.3,31.0" fill="none" stroke="#7b4fa0" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,87.6 Q106.4,76.4 73.5,47.0" fill="none" stroke="#2e6fa7" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,87.6 Q116.1,58.2 73.5,47.0" fill="none" stroke="#5a8fc0" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M149.0,87.6 Q110.8,61.9 108.5,16.0" fill="none" stroke="#1d8a7a" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M4.5,111.0 Q2.2,119.8 9.0,126.0" fill="none" stroke="#7d7d7d" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M4.5,111.0 Q1.2,121.6 9.0,129.5" fill="none" stroke="#7d7d7d" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M4.5,111.0 Q3.8,101.2 12.0,96.0" fill="none" stroke="#7d7d7d" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M27.0,138.4 Q26.4,146.8 22.0,154.0" fill="none" stroke="#a8895a" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M27.0,138.4 Q43.4,142.7 56.0,154.0" fill="none" stroke="#a8895a" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M27.0,138.4 Q60.4,138.6 90.0,154.0" fill="none" stroke="#a8895a" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<path d="M27.0,138.4 Q76.4,134.8 122.0,154.0" fill="none" stroke="#a8895a" stroke-width="0.32" stroke-dasharray="1.3,0.8" stroke-linecap="round"/>
+<circle cx="113.0" cy="50.0" r="2.0" fill="none" stroke="#c0392b" stroke-width="0.45"/>
+<circle cx="52.0" cy="98.0" r="2.0" fill="none" stroke="#c0392b" stroke-width="0.45"/>
+<circle cx="100.0" cy="98.0" r="2.0" fill="none" stroke="#c0392b" stroke-width="0.45"/>
+<circle cx="52.0" cy="120.0" r="2.0" fill="none" stroke="#c0392b" stroke-width="0.45"/>
+<circle cx="100.0" cy="120.0" r="2.0" fill="none" stroke="#c0392b" stroke-width="0.45"/>
+<circle cx="127.0" cy="21.5" r="2.4" fill="none" stroke="#e08a1e" stroke-width="0.45"/>
+<circle cx="127.0" cy="60.5" r="2.4" fill="none" stroke="#e08a1e" stroke-width="0.45"/>
+<circle cx="64.0" cy="121.0" r="2.4" fill="none" stroke="#e08a1e" stroke-width="0.45"/>
+<circle cx="91.0" cy="121.0" r="2.4" fill="none" stroke="#e08a1e" stroke-width="0.45"/>
+<circle cx="144.0" cy="41.0" r="1.9" fill="none" stroke="#7b4fa0" stroke-width="0.45"/>
+<rect x="53.4" y="3.5" width="3.8" height="55" fill="none" stroke="#7b4fa0" stroke-width="0.45" stroke-dasharray="1,0.6"/>
+<rect x="69.8" y="43.3" width="7.4" height="7.4" fill="none" stroke="#2e6fa7" stroke-width="0.5"/>
+<rect x="104.6" y="12.1" width="7.8" height="7.8" fill="none" stroke="#1d8a7a" stroke-width="0.5"/>
+<circle cx="9.0" cy="126.0" r="1.9" fill="none" stroke="#7d7d7d" stroke-width="0.45"/>
+<circle cx="9.0" cy="129.5" r="1.9" fill="none" stroke="#7d7d7d" stroke-width="0.45"/>
+<circle cx="12.0" cy="96.0" r="1.9" fill="none" stroke="#7d7d7d" stroke-width="0.45"/>
+<circle cx="22.0" cy="154.0" r="2.4" fill="none" stroke="#a8895a" stroke-width="0.45"/>
+<circle cx="56.0" cy="154.0" r="2.4" fill="none" stroke="#a8895a" stroke-width="0.45"/>
+<circle cx="90.0" cy="154.0" r="2.4" fill="none" stroke="#a8895a" stroke-width="0.45"/>
+<circle cx="122.0" cy="154.0" r="2.4" fill="none" stroke="#a8895a" stroke-width="0.45"/>
+<g><rect x="143.0" y="81.7" width="3.6" height="2.6" rx="0.3" fill="#fff" stroke="#c0392b" stroke-width="0.4"/><text x="144.5" y="83.5" font-size="1.5" font-weight="700" text-anchor="middle" fill="#c0392b">S1</text><text x="146.1" y="84.1" font-size="0.9" text-anchor="middle" fill="#c0392b">D</text></g>
+<g><rect x="146.8" y="78.7" width="3.6" height="2.6" rx="0.3" fill="#fff" stroke="#e08a1e" stroke-width="0.4"/><text x="148.3" y="80.5" font-size="1.5" font-weight="700" text-anchor="middle" fill="#e08a1e">S2</text><text x="149.9" y="81.1" font-size="0.9" text-anchor="middle" fill="#e08a1e">D</text></g>
+<g><rect x="150.4" y="81.7" width="3.6" height="2.6" rx="0.3" fill="#fff" stroke="#7b4fa0" stroke-width="0.4"/><text x="151.9" y="83.5" font-size="1.5" font-weight="700" text-anchor="middle" fill="#7b4fa0">S3</text><text x="153.5" y="84.1" font-size="0.9" text-anchor="middle" fill="#7b4fa0">D</text></g>
+<g><rect x="143.0" y="87.5" width="3.6" height="2.6" rx="0" fill="#fff" stroke="#2e6fa7" stroke-width="0.4"/><text x="144.8" y="89.3" font-size="1.5" font-weight="700" text-anchor="middle" fill="#2e6fa7">S4</text></g>
+<g><rect x="146.8" y="89.7" width="3.6" height="2.6" rx="0" fill="#fff" stroke="#5a8fc0" stroke-width="0.4"/><text x="148.6" y="91.5" font-size="1.5" font-weight="700" text-anchor="middle" fill="#5a8fc0">S5</text></g>
+<g><rect x="150.4" y="87.5" width="3.6" height="2.6" rx="0" fill="#fff" stroke="#1d8a7a" stroke-width="0.4"/><text x="152.2" y="89.3" font-size="1.5" font-weight="700" text-anchor="middle" fill="#1d8a7a">S6</text></g>
+<text x="140.5" y="78.2" font-size="1.15" fill="#c0392b" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">SWITCH BANK 1 (UPPER) — 3 DIMMERS · ~41" AFF TO CENTER</text>
+<text x="140.5" y="93.6" font-size="1.15" fill="#2e6fa7" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">SWITCH BANK 2 (LOWER) — 3 STANDARD SWITCHES · ~35½" AFF TO CENTER</text>
+<text x="140.5" y="95.1" font-size="1.00" fill="#333" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">Both plates stacked on the ~11" wall between the vanity and the door (latch side)</text>
+<g><rect x="2.7" y="109.7" width="3.6" height="2.6" rx="0.3" fill="#fff" stroke="#7d7d7d" stroke-width="0.4"/><text x="4.2" y="111.5" font-size="1.5" font-weight="700" text-anchor="middle" fill="#7d7d7d">S</text><text x="5.8" y="112.1" font-size="0.9" text-anchor="middle" fill="#7d7d7d">D</text></g>
+<text x="7.5" y="108.0" font-size="1.05" fill="#7d7d7d" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">MAKEUP WALL: 2 DIMMERS (PENDANTS · G1)</text>
+<text x="7.5" y="109.3" font-size="0.95" fill="#7d7d7d" text-anchor="start" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">~36" AFF, 2-gang + 1-gang (outlet) · C1 / C2</text>
+<g><rect x="25.2" y="137.1" width="3.6" height="2.6" rx="0.3" fill="#fff" stroke="#a8895a" stroke-width="0.4"/><text x="26.7" y="139.0" font-size="1.5" font-weight="700" text-anchor="middle" fill="#a8895a">S</text><text x="28.3" y="139.5" font-size="0.9" text-anchor="middle" fill="#a8895a">D</text></g>
+<text x="30.0" y="141.2" font-size="1.00" fill="#a8895a" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">CLOSET DIMMER (G4) · ~48" AFF · C6</text>
+<g><circle cx="151.5" cy="6.0" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="151.1" y1="5.4" x2="151.1" y2="6.6" stroke="#0b6e4f" stroke-width="0.3"/><line x1="151.9" y1="5.4" x2="151.9" y2="6.6" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="149.5" y="5.8" font-size="1.15" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">GFCI</text><text x="149.5" y="7.2" font-size="1.05" fill="#0b6e4f" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C2 · 41" AFF</text>
+<g><circle cx="151.5" cy="41.0" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="151.1" y1="40.4" x2="151.1" y2="41.6" stroke="#0b6e4f" stroke-width="0.3"/><line x1="151.9" y1="40.4" x2="151.9" y2="41.6" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="149.5" y="40.8" font-size="1.15" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">USB-C (GFCI-PROT.)</text><text x="149.5" y="42.2" font-size="1.05" fill="#0b6e4f" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C2 · 41"</text>
+<g><circle cx="151.5" cy="75.0" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="151.1" y1="74.4" x2="151.1" y2="75.6" stroke="#0b6e4f" stroke-width="0.3"/><line x1="151.9" y1="74.4" x2="151.9" y2="75.6" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="149.5" y="74.8" font-size="1.15" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">GFCI-PROT.</text><text x="149.5" y="76.2" font-size="1.05" fill="#0b6e4f" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C2 · 41"</text>
+<g><circle cx="4.5" cy="114.5" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="4.1" y1="113.9" x2="4.1" y2="115.1" stroke="#0b6e4f" stroke-width="0.3"/><line x1="4.9" y1="113.9" x2="4.9" y2="115.1" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="6.5" y="114.3" font-size="1.15" fill="#0b6e4f" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">GFCI-PROT. (MAKEUP)</text><text x="6.5" y="115.7" font-size="1.05" fill="#0b6e4f" text-anchor="start" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C2 · ~36" AFF</text>
+<g><circle cx="40.0" cy="83.6" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="39.6" y1="83.0" x2="39.6" y2="84.2" stroke="#0b6e4f" stroke-width="0.3"/><line x1="40.4" y1="83.0" x2="40.4" y2="84.2" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="42.0" y="83.4" font-size="1.15" fill="#0b6e4f" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">GFCI-PROT. (TOWEL WARMER)</text><text x="42.0" y="84.8" font-size="1.05" fill="#0b6e4f" text-anchor="start" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C2 · ~6" AFF</text>
+<g><circle cx="114.5" cy="4.6" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="114.1" y1="4.0" x2="114.1" y2="5.2" stroke="#0b6e4f" stroke-width="0.3"/><line x1="114.9" y1="4.0" x2="114.9" y2="5.2" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="116.5" y="4.4" font-size="1.15" fill="#0b6e4f" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">GFCI (BIDET)</text><text x="116.5" y="5.8" font-size="1.05" fill="#0b6e4f" text-anchor="start" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C4 · ~12" AFF · TBD</text>
+<g><circle cx="7.0" cy="138.6" r="1.25" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><line x1="6.6" y1="138.0" x2="6.6" y2="139.2" stroke="#0b6e4f" stroke-width="0.3"/><line x1="7.4" y1="138.0" x2="7.4" y2="139.2" stroke="#0b6e4f" stroke-width="0.3"/></g><text x="9.0" y="138.4" font-size="1.15" fill="#0b6e4f" text-anchor="start" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">CL-1 (AFCI/GFCI per code)</text><text x="9.0" y="139.8" font-size="1.05" fill="#0b6e4f" text-anchor="start" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C6 · ~18" AFF</text>
+<g><rect x="151.1" y="20.4" width="2.2" height="2.2" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><text x="152.2" y="21.9" font-size="1.2" font-weight="700" text-anchor="middle" fill="#0b6e4f">J</text></g><text x="150.0" y="21.3" font-size="1.10" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">MC-1 (hardwired)</text><text x="150.0" y="22.6" font-size="1.00" fill="#0b6e4f" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C3 · dedicated</text>
+<g><rect x="151.1" y="59.4" width="2.2" height="2.2" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><text x="152.2" y="61.0" font-size="1.2" font-weight="700" text-anchor="middle" fill="#0b6e4f">J</text></g><text x="150.0" y="60.3" font-size="1.10" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">MC-2 (hardwired)</text><text x="150.0" y="61.6" font-size="1.00" fill="#0b6e4f" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">C3 · dedicated</text>
+<g><rect x="139.8" y="5.0" width="4.4" height="2.8" fill="#fff" stroke="#0b6e4f" stroke-width="0.4"/><text x="142" y="6.9" font-size="1.4" font-weight="700" text-anchor="middle" fill="#0b6e4f">T</text></g>
+<text x="139.0" y="10.6" font-size="1.05" fill="#0b6e4f" text-anchor="end" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">FLOOR HEAT THERMOSTAT · 52" AFF · C5 dedicated (GFCI)</text>
+<text x="73.5" y="53.2" font-size="1.00" fill="#2e6fa7" text-anchor="middle" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">FAN/LIGHT: light S4 · fan S5 · C1 (TBD)</text>
+<text x="108.5" y="22.6" font-size="1.00" fill="#1d8a7a" text-anchor="middle" font-weight="700" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">TOILET FAN · S6 · C1 (TBD)</text>
+<text x="77.0" y="66.0" font-size="1.00" fill="#0b6e4f" text-anchor="middle" style="paint-order:stroke;stroke:#fff;stroke-width:0.35">HEATED FLOOR ZONE: bath tile only (not shower, not closet)</text>
+</g>
+</svg>
+      </div>
+
+      <div class="scale-row">
+        <svg width="6in" height="0.42in" viewBox="0 0 6 0.42" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#000" stroke-width="0.02">
+            <line x1="0" y1="0.12" x2="6" y2="0.12"/>
+            <line x1="0" y1="0.05" x2="0" y2="0.19"/>
+            <line x1="0.75" y1="0.05" x2="0.75" y2="0.19"/>
+            <line x1="1.5" y1="0.05" x2="1.5" y2="0.19"/>
+            <line x1="3" y1="0.05" x2="3" y2="0.19"/>
+            <line x1="6" y1="0.05" x2="6" y2="0.19"/>
+          </g>
+          <g font-family="Helvetica" font-size="0.09" fill="#000" text-anchor="middle">
+            <text x="0" y="0.34">0</text>
+            <text x="0.75" y="0.34">1'</text>
+            <text x="1.5" y="0.34">2'</text>
+            <text x="3" y="0.34">4'</text>
+            <text x="6" y="0.34">8'</text>
+          </g>
+        </svg>
+        <div class="scale-bar-label">GRAPHIC SCALE — 3/4" = 1'-0"</div>
+        <div class="north-mini">&#9650; NORTH UP</div>
+      </div>
+
+      <div class="keynotes" style="font-size:9pt;line-height:1.45;">
+        <b>NOTES</b>
+        <ol style="margin:4px 0 0 0;padding-left:0.22in;">
+          <li><b>All work to code; final circuit layout to be confirmed by the licensed electrician.</b></li>
+          <li>Switch legs (curved dashed lines) are diagrammatic: they show which switch controls which fixture, not wire routing. Colors and switch numbers match Sheet A-107.1.</li>
+          <li>All bathroom receptacles GFCI-protected; the vanity GFCI (left) protects the center and right vanity outlets downstream. AFCI/GFCI protection for the closet outlet per code.</li>
+          <li>No outlet inside any cabinet. No toe-kick lighting.</li>
+          <li>Lighted medicine cabinets (MC-1, MC-2) are hardwired on constant power; their lights run from each cabinet's own touch switch.</li>
+          <li>Circuit numbers are a proposed grouping. Circuit count, breaker sizes and fan control type: <b>TBD – confirm with electrician</b>.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="col-heading">SWITCHING (matches A-107.1)</div>
+      <table class="sched"><tr><th>Switch</th><th>Controls</th><th>Type</th></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#c0392b;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>1 · General</b></td><td>5 downlights (D)</td><td><b>Dimmer</b> · bank 1</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#e08a1e;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>2 · Gimbals</b></td><td>4 gimbals: 2 over the double vanity (G2) + 2 aimed at the slatted screen (G3)</td><td><b>Dimmer</b> · bank 1</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#7b4fa0;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>3 · Pendant + Niche</b></td><td>Pendant over the double vanity (PV) + shower niche LED</td><td><b>Dimmer</b> · bank 1</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#2e6fa7;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>4 · Shower light</b></td><td>FL light</td><td><b>Standard switch</b> · bank 2</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#5a8fc0;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>5 · Shower fan</b></td><td>FL fan</td><td><b>Standard switch</b> · bank 2</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#1d8a7a;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>6 · Toilet fan</b></td><td>F fan</td><td><b>Standard switch</b> · bank 2</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#7d7d7d;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>— · Makeup wall</b></td><td>2 pendants (P) / G1</td><td>2 dimmers at ~36" AFF</td></tr><tr><td><span style="display:inline-block;width:0.16in;height:0.16in;background:#a8895a;border-radius:2px;vertical-align:middle;margin-right:5px;"></span><b>— · Closet</b></td><td>4 closet gimbals (G4)</td><td>1 dimmer, closet face of west wing wall</td></tr></table>
+      <div style="font-size:8.6pt;margin:6px 0 14px 0;"><b>Bank 1</b> (upper plate, ~41" AFF to center): switches 1–3, all dimmers. <b>Bank 2</b> (lower plate, directly below, ~35½" AFF to center): switches 4–6, standard switches. Two Legrand adorne 3-gang screwless plates, Magnesium, on the ~11" wall between the vanity and the door.</div>
+      <div class="col-heading">CIRCUIT SCHEDULE</div>
+      <table class="sched"><tr><th>Circuit</th><th>Serves</th><th>Notes</th><th>Breaker</th></tr><tr><td><b>C1</b></td><td>Bath lighting (switches 1–4), makeup-wall lighting, exhaust fans (FL, F)</td><td>TBD – confirm with electrician whether fans share this circuit</td><td>Breaker size per electrician</td></tr><tr><td><b>C2</b></td><td>Bathroom receptacles: 3 vanity (GFCI at left), makeup outlet, towel-warmer outlet</td><td>20A bathroom receptacle circuit per code; GFCI</td><td>Breaker size per electrician</td></tr><tr><td><b>C3</b></td><td>Lighted medicine cabinets MC-1, MC-2 (hardwired, constant power)</td><td>Dedicated</td><td>Breaker size per electrician</td></tr><tr><td><b>C4</b></td><td>Bidet toilet outlet (behind toilet)</td><td>Dedicated per manufacturer: TBD – confirm with electrician; GFCI</td><td>Breaker size per electrician</td></tr><tr><td><b>C5</b></td><td>Floor heat (DITRA-HEAT) + thermostat</td><td>Dedicated; GFCI per manufacturer</td><td>Breaker size per electrician</td></tr><tr><td><b>C6</b></td><td>Closet lighting (G4) + closet outlet CL-1</td><td>TBD – confirm with electrician; AFCI/GFCI per code</td><td>Breaker size per electrician</td></tr></table>
+      <div style="font-size:8.6pt;margin:6px 0 14px 0;color:#a00000;"><b>Circuit count, grouping and breaker sizes: TBD – confirm with electrician.</b> Fan control: standard on/off switches (S5, S6); confirm with electrician.</div>
+      <div class="legend-box">
+        <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><rect x="1.5" y="0.5" width="5" height="3" rx="0.4" fill="#fff" stroke="#171310" stroke-width="0.35"/><text x="3.6" y="2.9" font-size="1.9" font-weight="700" text-anchor="middle">S</text><text x="5.6" y="3.3" font-size="1.1" text-anchor="middle">D</text></svg>Dimmer (S + "D"; number = switch)</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><rect x="1.5" y="0.5" width="5" height="3" fill="#fff" stroke="#171310" stroke-width="0.35"/><text x="4" y="2.9" font-size="1.9" font-weight="700" text-anchor="middle">S</text></svg>Standard switch (not a dimmer)</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><circle cx="4" cy="2" r="1.6" fill="#fff" stroke="#0b6e4f" stroke-width="0.35"/><line x1="3.5" y1="1.2" x2="3.5" y2="2.8" stroke="#0b6e4f" stroke-width="0.3"/><line x1="4.5" y1="1.2" x2="4.5" y2="2.8" stroke="#0b6e4f" stroke-width="0.3"/></svg>Receptacle; label shows GFCI / GFCI-protected and circuit</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><rect x="2" y="0.2" width="3.6" height="3.6" fill="#e6f1f4" stroke="#171310" stroke-width="0.3"/><path d="M2,0.2 L5.6,3.8 M5.6,0.2 L2,3.8" stroke="#171310" stroke-width="0.3"/></svg>Exhaust fan (FL = fan/light, F = fan only)</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><rect x="1.8" y="0.6" width="4.4" height="2.8" fill="#fff" stroke="#0b6e4f" stroke-width="0.35"/><text x="4" y="2.9" font-size="2" font-weight="700" text-anchor="middle" fill="#0b6e4f">T</text></svg>Floor-heat thermostat</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><rect x="2.6" y="0.6" width="2.8" height="2.8" fill="#fff" stroke="#0b6e4f" stroke-width="0.35"/><text x="4" y="2.8" font-size="1.8" font-weight="700" text-anchor="middle" fill="#0b6e4f">J</text></svg>Hardwired junction (lighted medicine cabinet)</div>
+        <div class="legend-row"><svg width="0.42in" height="0.22in" viewBox="0 0 8 4"><path d="M0.5,3 Q4,-0.5 7.5,3" fill="none" stroke="#c0392b" stroke-width="0.4" stroke-dasharray="1.2,0.7"/></svg>Switch leg (curved dashed), colored by switch</div>
+        <div class="legend-row" style="color:#555;">Faded background = lighting plan (A-107) and floor plan (A-101) for reference</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="title-block">
+    <div class="tb-logo">
+      <svg width="1.45in" height="1.45in" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>EDI Design Studio seal</title>
+        <g fill="none" stroke="#171310">
+          <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="78" stroke-width="1"/>
+        </g>
+        <path id="sealArcTop7" d="M18.25,70.25 A87,87 0 0 1 181.75,70.25" fill="none"/>
+        <path id="sealArcBottom7" d="M18.25,129.75 A87,87 0 0 1 181.75,129.75" fill="none"/>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="1.5" fill="#171310">
+          <textPath href="#sealArcTop7" xlink:href="#sealArcTop7" startOffset="50%" text-anchor="middle">EDI DESIGN STUDIO</textPath>
+        </text>
+        <text font-family="Georgia, 'Times New Roman', serif" font-size="9.5" letter-spacing="2" fill="#171310">
+          <textPath href="#sealArcBottom7" xlink:href="#sealArcBottom7" startOffset="50%" text-anchor="middle">AI-ASSISTED DRAFTING</textPath>
+        </text>
+        <circle cx="13" cy="100" r="2.2" fill="#171310"/>
+        <circle cx="187" cy="100" r="2.2" fill="#171310"/>
+        <!-- drafting compass icon -->
+        <g stroke="#171310" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="100" cy="36" r="3.2" fill="#171310" stroke="none"/>
+          <line x1="100" y1="38" x2="83" y2="66"/>
+          <line x1="100" y1="38" x2="117" y2="66"/>
+          <line x1="80" y1="68" x2="86" y2="68"/>
+          <line x1="114" y1="68" x2="120" y2="68"/>
+          <path d="M92,50 Q100,54 108,50" stroke-width="1.4"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" letter-spacing="3" fill="#171310">EDI</text>
+        <text x="100" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="9" letter-spacing="2.5" fill="#171310">MMXXVI</text>
+      </svg>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label">Project</div>
+      <div class="tb-value">Ravenwood<br>Primary Bath &amp; Walk-In Closet Remodel</div>
+      <div class="tb-label">Owner</div>
+      <div class="tb-value small">Mike &amp; Aimee Cornelia</div>
+      <div class="tb-label">Project Address</div>
+      <div class="tb-value small">190 Ravenwood Ct, Athens, GA</div>
+      <div class="tb-label">General Contractor</div>
+      <div class="tb-value small">[ GENERAL CONTRACTOR — TBD ]</div>
+    </div>
+
+    <div class="tb-section" style="text-align:center; padding:0.18in 0.15in;">
+      <div class="tb-label">Sheet Title</div>
+      <div style="font-size:13pt; font-weight:800; line-height:1.3; margin-top:2px;">POWER &amp;<br>SWITCHING PLAN</div>
+    </div>
+
+    <div class="tb-grid" style="border-bottom: 0.02in solid #000;">
+      <div><div class="tb-label">Scale</div><div class="tb-value small">3/4" = 1'-0"</div></div>
+      <div><div class="tb-label">Sheet Size</div><div class="tb-value small">ARCH D 24&times;36</div></div>
+      <div><div class="tb-label">Date</div><div class="tb-value small">11.05.2026</div></div>
+      <div><div class="tb-label">Drawn By</div><div class="tb-value small">EDI</div></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-label" style="margin-bottom:4px;">Revisions</div>
+      <table class="tb-rev-table">
+        <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
+        <tr><td>1</td><td>11.05.2026</td><td>Initial issue — electrician\'s power &amp; switching reference</td></tr>
+      </table>
+    </div>
+
+    <div class="tb-stamp">
+      ISSUED FOR CONTRACTOR WALKTHROUGH &amp; PRICING — 10.26.2026.<br>
+      PRELIMINARY — DESIGN INTENT ONLY.<br>
+      NOT FOR PERMIT OR CONSTRUCTION UNTIL REVIEWED &amp; APPROVED.<br>
+      GC TO FIELD VERIFY ALL DIMENSIONS, EXISTING CONDITIONS, STRUCTURAL FRAMING, AND CODE COMPLIANCE (EGRESS, GFCI/AFCI, EXHAUST VENTILATION, WATERPROOFING, CLEARANCES) PRIOR TO BID, PERMIT, OR CONSTRUCTION.
+    </div>
+
+    <div class="tb-sheetno">
+      <div class="num">E-101</div>
+      <div class="of">SHEET 11 OF 13 · PRIMARY BATH SET</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

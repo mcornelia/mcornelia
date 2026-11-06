@@ -133,7 +133,7 @@
           <line x1="2" y1="0" x2="182" y2="0" stroke="#171310" stroke-width="0.6"/>
 
           <defs>
-            <!-- Bedrosians Sahara 3x12 Dark "kit-kat", vertical stack, grout matched (warm taupe-brown). Rows start at wainscot top (47" AFF → y=52). -->
+            <!-- Bedrosians Cement Sahara 3x12, Dark "3x12 tile", vertical stack, grout matched (warm taupe-brown). Rows start at wainscot top (47" AFF → y=52). -->
             <pattern id="kitkat" x="0" y="52" width="3" height="12" patternUnits="userSpaceOnUse">
               <rect width="3" height="12" fill="#5e5249"/>
               <line x1="0" y1="0" x2="0" y2="12" stroke="#4a4039" stroke-width="0.12"/>
@@ -146,7 +146,7 @@
             </pattern>
           </defs>
 
-          <!-- REV 3 (2026-10-06): bath portion of this wall (elev_x 0–140, north of the closet screen line) gets Stonehenge Earth wainscot, two 24x24 tiles high (0–47" AFF), with Sahara 3x12 Dark kit-kat, vertical stack, from 47" AFF to ceiling. Closet portion (elev_x 140–180) stays painted drywall + PAX. -->
+          <!-- REV 3 (2026-10-06): bath portion of this wall (elev_x 0–140, north of the closet screen line) gets Stonehenge Earth wainscot, two 24x24 tiles high (0–47" AFF), with Cement Sahara 3x12, Dark 3x12 tile, vertical stack, from 47" AFF to ceiling. Closet portion (elev_x 140–180) stays painted drywall + PAX. -->
           <rect x="2" y="52" width="130" height="47" fill="#cdb99a" stroke="none"/>
           <g stroke="#a8916d" stroke-width="0.12">
             <line x1="2" y1="75.5" x2="132" y2="75.5"/>
@@ -161,37 +161,40 @@
 
           <!-- ================= VANITY ZONE (elev_x 2-86) ================= -->
           <!-- floating WALNUT cabinet body (DraytonWorks / Greg): 6" float + 26" cabinet (assumed) -->
-          <rect x="2" y="67" width="78" height="26" fill="url(#walnut)" stroke="#171310" stroke-width="0.3"/>
-          <line x1="28" y1="67" x2="28" y2="93" stroke="#2e1f14" stroke-width="0.15"/>
-          <line x1="54" y1="67" x2="54" y2="93" stroke="#2e1f14" stroke-width="0.15"/>
-          <line x1="2" y1="80" x2="80" y2="80" stroke="#2e1f14" stroke-width="0.1"/>
-          <line x1="2" y1="93" x2="80" y2="93" stroke="#8a6a3a" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
+          <rect x="2" y="71" width="78" height="16" fill="url(#walnut)" stroke="#171310" stroke-width="0.3"/>
+          <line x1="28" y1="71" x2="28" y2="87" stroke="#2e1f14" stroke-width="0.15"/>
+          <line x1="54" y1="71" x2="54" y2="87" stroke="#2e1f14" stroke-width="0.15"/>
+          <line x1="2" y1="79" x2="80" y2="79" stroke="#2e1f14" stroke-width="0.1"/>
+          <line x1="2" y1="87" x2="80" y2="87" stroke="#8a6a3a" stroke-width="0.15" stroke-dasharray="0.8,0.6"/>
           <!-- VANITY OUTLETS (rev 3b, 10.07.26): Legrand adorne, Magnesium, ~41" AFF (y=58): left of left sink (x=9), center GFCI (x=44), right of right sink (x=79) -->
           <rect x="4.4" y="55.4" width="3.2" height="5.2" rx="0.3" fill="#8e8f93" stroke="#171310" stroke-width="0.2"/><rect x="5.1" y="56.4" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/><rect x="5.1" y="58.3" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/>
           <rect x="39.4" y="55.4" width="3.2" height="5.2" rx="0.3" fill="#8e8f93" stroke="#171310" stroke-width="0.2"/><rect x="40.1" y="56.4" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/><rect x="40.1" y="58.3" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/>
           <rect x="74.4" y="55.4" width="3.2" height="5.2" rx="0.3" fill="#8e8f93" stroke="#171310" stroke-width="0.2"/><rect x="75.1" y="56.4" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/><rect x="75.1" y="58.3" width="1.8" height="1.3" rx="0.2" fill="#6d6e72"/>
           <text x="41" y="54.4" text-anchor="middle" font-family="Helvetica" font-size="1.3" fill="#171310">OUTLETS ~41" AFF: L = GFCI · CENTER = USB-C · R = REGULAR</text>
-          <!-- DOOR SWITCH BANK (rev 5, 11.01.26): two Legrand adorne 3-gang plates, Magnesium, stacked, centered on the ~17" wall between the vanity end (x74) and the door casing; upper plate centered ~41" AFF (aligned with the vanity outlets), lower plate directly below. Upper S1 = 1 general / 2 vanity / 3 accent (dimmers); lower S2 = 4 shower light / 5 shower fan / 6 toilet fan. See A-107 / A-107.1. -->
+          <!-- DOOR SWITCH BANK (rev 5, 11.01.26): two Legrand adorne 3-gang plates, Magnesium, stacked, centered on the ~17" wall between the vanity end (x74) and the door casing; upper plate centered ~41" AFF (aligned with the vanity outlets), lower plate directly below. Upper = 1 general / 2 gimbals / 3 pendant + niche (dimmers); lower = 4 shower light / 5 shower fan / 6 toilet fan (standard switches). See A-107 / A-107.1. -->
           <rect x="82.30" y="55.7" width="6.4" height="4.6" rx="0" fill="#8e8f93" stroke="#171310" stroke-width="0.2"/><rect x="83.05" y="56.3" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/><rect x="85.00" y="56.3" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/><rect x="86.95" y="56.3" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/><rect x="82.30" y="61.0" width="6.4" height="4.6" rx="0" fill="#8e8f93" stroke="#171310" stroke-width="0.2"/><rect x="83.05" y="61.6" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/><rect x="85.00" y="61.6" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/><rect x="86.95" y="61.6" width="1.0" height="3.4" rx="0.05" fill="#6d6e72"/>
           <text x="85.5" y="54.9" text-anchor="middle" font-family="Helvetica" font-size="0.95" font-weight="700" fill="#171310">SWITCHES</text>
-          <text x="85.5" y="67.6" text-anchor="middle" font-family="Helvetica" font-size="0.8" fill="#171310">UPPER: GEN ·</text>
-          <text x="85.5" y="68.7" text-anchor="middle" font-family="Helvetica" font-size="0.8" fill="#171310">VANITY · ACCENT</text>
-          <text x="85.5" y="69.9" text-anchor="middle" font-family="Helvetica" font-size="0.8" fill="#171310">LOWER: SHOWER</text>
-          <text x="85.5" y="71.0" text-anchor="middle" font-family="Helvetica" font-size="0.8" fill="#171310">LT · FAN · WC FAN</text>
-          <text x="85.5" y="72.2" text-anchor="middle" font-family="Helvetica" font-size="0.8" fill="#a00000">SEE A-107.1</text>
+          <text x="85.5" y="67.3" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">UPPER = DIMMERS:</text>
+          <text x="85.5" y="68.3" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">GENERAL · GIMBALS ·</text>
+          <text x="85.5" y="69.4" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">PENDANT + NICHE</text>
+          <text x="85.5" y="70.5" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">LOWER = SWITCHES:</text>
+          <text x="85.5" y="71.5" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">SHOWER LT · FAN ·</text>
+          <text x="85.5" y="72.5" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#171310">TOILET FAN</text>
+          <text x="85.5" y="73.6" text-anchor="middle" font-family="Helvetica" font-size="0.78" fill="#a00000">SEE A-107.1</text>
           <!-- hand towel hook stays on the vanity's south end panel (not visible in this view; rev 5b, owner 11.01.26) -->
-          <!-- counter slab ONLY (no backsplash): Black Concrete, 2" thick, 32–34" AFF -->
-          <rect x="2" y="65" width="78" height="2" fill="#2b2b2b" stroke="#171310" stroke-width="0.2"/>
+          <text x="25.5" y="65.6" text-anchor="middle" font-family="Helvetica" font-size="0.95" fill="#171310">8" SPREAD</text><line x1="21.5" y1="66.2" x2="29.5" y2="66.2" stroke="#171310" stroke-width="0.1"/>
+          <!-- counter slab ONLY (no backsplash): Concrete, 2" thick, 32–34" AFF -->
+          <rect x="2" y="69" width="78" height="2" fill="#9a958e" stroke="#171310" stroke-width="0.2"/>
           <!-- integrated sinks — hidden lines (basins poured into the slab) -->
-          <rect x="11.5" y="65" width="20" height="5" fill="none" stroke="#e8e0d0" stroke-width="0.25" stroke-dasharray="0.8,0.5"/>
-          <rect x="50.5" y="65" width="20" height="5" fill="none" stroke="#e8e0d0" stroke-width="0.25" stroke-dasharray="0.8,0.5"/>
+          <rect x="11.5" y="69" width="20" height="5" fill="none" stroke="#e8e0d0" stroke-width="0.25" stroke-dasharray="0.8,0.5"/>
+          <rect x="50.5" y="69" width="20" height="5" fill="none" stroke="#e8e0d0" stroke-width="0.25" stroke-dasharray="0.8,0.5"/>
           <!-- faucets (REV 4m, 10.26.26): Handle Shop Couture KANE, Matte Black, 1-hole — front view (spout projects toward viewer). Was Rejuvenation Monterey, Antique Brass. -->
           <g fill="#1e1e1e" stroke="#000" stroke-width="0.1">
-            <rect x="20.8" y="56.5" width="1.4" height="8.5"/><rect x="20.6" y="55.4" width="1.8" height="1.4"/>
-            <rect x="59.8" y="56.5" width="1.4" height="8.5"/><rect x="59.6" y="55.4" width="1.8" height="1.4"/>
+            <rect x="20.8" y="60.5" width="1.4" height="8.5"/><rect x="20.6" y="59.4" width="1.8" height="1.4"/><rect x="28.7" y="66.6" width="1.6" height="2.4" rx="0.2"/><line x1="29.5" y1="66.8" x2="29.5" y2="67.6" stroke="#b08d57" stroke-width="0.25"/>
+            <rect x="59.8" y="60.5" width="1.4" height="8.5"/><rect x="59.6" y="59.4" width="1.8" height="1.4"/><rect x="67.7" y="66.6" width="1.6" height="2.4" rx="0.2"/><line x1="68.5" y1="66.8" x2="68.5" y2="67.6" stroke="#b08d57" stroke-width="0.25"/>
           </g>
-          <!-- LIGHTED MIRRORED MEDICINE CABINETS (owner 2026-10-07): two units side by side, RECESSED if the wall allows, frameless, straight edges. Integrated vertical light bands in the mirror face on both sides of each cabinet (front-facing, flanking each sink) = the east vanity lighting (no separate sconces). REV 4j (10.12.26): SELECTED Kohler Verdera K-99011-TLC, 2 x 40"W x 30"H x 5-3/16"D, centered on the <s>84"</s> vanity (superseded by the Fresca Spazio, rev 4o), bottom 49" / top 79" AFF. Look for CRI 90+, ~3000K, dimmable, defog. -->
-          <!-- REV 4o (10.26.26, owner): Fresca Spazio FMC023036, 2 x 30"W x 36"H x 5"D, each CENTERED ON ITS SINK (sinks 40" o.c.), 47"-83" AFF (bottom on the wainscot line). 10" gap between them for the PV pendant; <s>7" of tile at each end of the 84" vanity</s> 4½" of tile at each end of the 78" vanity (rev 5b). Lighted frame band inside the mirror face. -->
+          <!-- LIGHTED MIRRORED MEDICINE CABINETS (owner 2026-10-07): two units side by side, RECESSED if the wall allows, frameless, straight edges. Integrated vertical light bands in the mirror face on both sides of each cabinet (front-facing, flanking each sink) = the east vanity lighting (no separate sconces). REV 4j (10.12.26): SELECTED Kohler Verdera K-99011-TLC, 2 x 40"W x 30"H x 5-3/16"D, centered on the vanity (superseded by the Fresca Spazio, rev 4o), bottom 49" / top 79" AFF. Look for CRI 90+, ~3000K, dimmable, defog. -->
+          <!-- REV 4o (10.26.26, owner): Fresca Spazio FMC023036, 2 x 30"W x 36"H x 5"D, each CENTERED ON ITS SINK (sinks 40" o.c.), 47"-83" AFF (bottom on the wainscot line). 10" gap between them for the PV pendant; 4½" of tile at each end of the 78" vanity (rev 5b). Lighted frame band inside the mirror face. -->
           <rect x="6.5" y="16" width="30" height="36" fill="#dce8ea" stroke="#171310" stroke-width="0.3"/>
           <rect x="45.5" y="16" width="30" height="36" fill="#dce8ea" stroke="#171310" stroke-width="0.3"/>
           <g fill="none" stroke="#e8c45a" stroke-width="0.4">
@@ -246,21 +249,21 @@
             <g stroke="#a00000" stroke-width="0.12" fill="#a00000">
               <line x1="185" y1="19" x2="191" y2="19"/>
               <text x="193" y="20.6">80" DOOR HEAD</text>
-              <line x1="185" y1="65" x2="191" y2="65"/>
-              <text x="193" y="65.8">34" COUNTER</text>
+              <line x1="185" y1="69" x2="191" y2="69"/>
+              <text x="193" y="69.8">30" COUNTER (TOP OF 18" VANITY)</text>
               <line x1="185" y1="58" x2="191" y2="58"/>
               <text x="193" y="58.8">~41" OUTLETS · UPPER SWITCH PLATE</text>
-              <line x1="185" y1="93" x2="191" y2="93"/>
-              <text x="193" y="93.8">6" FLOAT</text>
+              <line x1="185" y1="87" x2="191" y2="87"/>
+              <text x="193" y="87.8">12" FLOAT (VANITY UNDERSIDE)</text>
             </g>
           </g>
 
           <!-- ================= ZONE LABELS (below elevation) ================= -->
           <g font-family="Helvetica" font-size="2.4" fill="#333" text-anchor="middle">
-            <text x="41" y="107">EAST DOUBLE VANITY — 78" x 22", TIGHT TO NORTH WALL (NO GAP)</text>
-            <text x="41" y="110.5" fill="#333" font-size="1.9">DraytonWorks (Greg), WALNUT, floating · Blk. concrete top, 2 integrated sinks, no backsplash</text>
+            <text x="41" y="107">EAST DOUBLE VANITY — 78"W x 22"D x 18"H, FLOATING 12" AFF, TIGHT TO NORTH WALL</text>
+            <text x="41" y="110.5" fill="#333" font-size="1.9">DraytonWorks (Greg), WALNUT, floating · concrete top, 2 integrated sinks, no backsplash</text>
             <text x="109" y="107">36" SOLID DOOR</text>
-            <text x="70" y="114" font-size="1.9" fill="#333">BATH: STONEHENGE WAINSCOT (0–47") + SAHARA DARK KIT-KAT (47"–CLG) ◄─── | ───► CLOSET: PAINTED DRYWALL</text>
+            <text x="70" y="114" font-size="1.9" fill="#333">BATH: STONEHENGE WAINSCOT (0–47") + CEMENT SAHARA 3x12, STACK BOND (47"–CLG) ◄─── | ───► CLOSET: PAINTED DRYWALL</text>
             <text x="164.7" y="107">EAST PAX RETURN — 34 5/8"</text>
             <text x="164.7" y="110.5" fill="#a00000" font-size="1.9">IKEA PAX, DARK GRAY</text>
           </g>
@@ -323,15 +326,15 @@
         <div class="hdr">DIMENSIONS TO VERIFY</div>
         <p style="margin:0 0 8px 0;">The original design brief specified plan (footprint) dimensions in detail, but did not specify most vertical/mounting heights. The heights below are reasonable industry-standard assumptions used to draft this elevation — <b>none are confirmed selections.</b> Confirm each with the relevant trade before fabrication/install:</p>
         <ol>
-          <li><b>Vanity counter height</b> (assumed 34" AFF) — confirm w/ DraytonWorks (Greg) and Modern Concrete of Athens.</li>
-          <li><b>Cabinet float height</b> (assumed 6" AFF at underside) — confirm w/ DraytonWorks; affects blocking height per Note 5 on A-101.</li>
-          <li><b>Backsplash</b> — ELIMINATED by owner 2026-10-06. Counter is one Black Concrete slab with two integrated sinks; it meets the Stonehenge wainscot directly (color-matched silicone joint). Same on the west makeup countertop (A-104).</li>
-          <li><b>Lighted medicine cabinets</b> — owner 2026-10-07: two lighted mirrored medicine cabinets side by side, <b>recessed if at all possible</b>, frameless, straight edges; vertical light bands in the mirror face on both sides of each unit. They serve as the east vanity lighting. <b>REV 4o (10.26.26): CHANGED to Fresca Spazio FMC023036, 2 x 30"W x 36"H x 5"D</b>, each centered on its sink, <b>47"–83" AFF</b> (bottom on the wainscot line; top stays reachable for cleaning). 9" gap between them for the PV pendant; 4½" of tile at each end (rev 5b: 78" vanity, sinks 39" o.c.). Lighted frame band in the mirror (touch dimmer on the mirror), interior LED, electrical/USB outlet inside, 4 adjustable glass shelves, defog, Blum soft-close doors. Recessed opening 28.40" x 34.40" x 5" (sits ~3/4"-1" proud in a 2x4 wall unless the framing is deepened). Offset (unequal) doors: order a mirrored pair so the seams are symmetric. <s>Kohler Verdera K-99011-TLC 40x30</s>. Specs to look for: CRI 90+, ~3000K, dimmable, defog. <b>Interior outlet (and USB) REQUIRED</b> (owner 2026-10-07) so electric toothbrushes and a water flosser charge out of sight; confirm interior depth fits them. <b>Before framing, confirm:</b> (a) stud depth vs. the unit's recess depth (2x4 wall may need furring or 2x6); (b) sink supply and drain lines come up <b>through the floor</b> (owner 2026-10-07), so they don't conflict with the openings; plumber to confirm the <b>vent</b> route (e.g., under the floor or an air admittance valve in the vanity) also stays clear; (c) headers for two ~28-1/2" rough openings; (d) electrical to each unit.</li>
-          <li><b>Wainscot + kit-kat</b> — CONFIRMED 2026-10-06: Stonehenge Earth 24x24, two full tiles high (0–~47" AFF incl. grout, no cut at top); Sahara 3x12 Dark, vertical stack, 47" AFF to ceiling; flush transition, no trim; partial kit-kat row at the ceiling. Bath portion of the wall only (north of the closet screen line).</li>
-          <li><b>Faucets</b> — <b>REV 4m (10.26.26): Handle Shop Couture KANE mixer tap, Matte Black</b> (brass line on the knurled control), qty. 2, same as the guest bath. Match the guest bath's faucet-to-wall setback so the spout lands at the bowl center. <s>Rejuvenation Monterey, Antique Brass</s>.</li>
+          <li><b>Vanity size</b> — 78"W x 22"D x 18"H overall (walnut cabinet + concrete top), top at 30" AFF. Confirm with DraytonWorks (Greg) and Modern Concrete of Athens.</li>
+          <li><b>Float height</b> — 12" AFF to the underside of the vanity; set blocking to suit (Note 5 on A-101).</li>
+          <li><b>Backsplash</b> — ELIMINATED by owner 2026-10-06. Counter is one concrete slab with two integrated sinks; it meets the Stonehenge wainscot directly (color-matched silicone joint). Same on the west makeup countertop (A-104).</li>
+          <li><b>Lighted medicine cabinets (2)</b> — Fresca Spazio FMC023036 (Home Depot), 30"W x 36"H x 5"D, recessed, one centered on each sink, 47"–83" AFF. <a href="https://www.homedepot.com/p/Fresca-Spazio-30-in-W-x-36-in-H-Recessed-or-Surface-Mount-Medicine-Cabinet-with-LED-Lighting-and-Mirror-Defogger-FMC023036/305253776">Product link</a></li>
+          <li><b>Wainscot + 3x12 tile</b> — CONFIRMED 2026-10-06: Stonehenge Earth 24x24, two full tiles high (0–~47" AFF incl. grout, no cut at top); Cement Sahara 3x12, Dark, vertical stack, 47" AFF to ceiling; flush transition, no trim; partial 3x12 tile row at the ceiling. Bath portion of the wall only (north of the closet screen line).</li>
+          <li><b>Faucets</b> — <b>REV 4m (10.26.26): Handle Shop Couture KANE mixer tap, Matte Black</b> (brass line on the knurled control), qty. 2, same as the guest bath. <b>8" spread between each spout and its control knob.</b> Match the guest bath's faucet-to-wall setback so the spout lands at the bowl center.</li>
           <li><b>Outlets</b> — 3 Legrand adorne outlets in Magnesium at ~41" AFF in the terrazzo band: left = GFCI (AGFTR2152M4, power enters here), center = 65W USB-C plus-size outlet (ARTRUSB15PD65M4), right = regular (ARCD152M10); center and right wired on the GFCI load side. Keep each box within a single tile; do not straddle the 47" wainscot line.</li>
           <li><b>East vanity lighting</b> — provided by the lighted medicine cabinets (no separate sconces).</li>
-          <li><b>Floor heat thermostat</b> — REV 3c (10.08.26, owner): on the <b>north wall</b> (perpendicular to this elevation, at its left end), above the north end of the vanity, ~10-12" from the corner, 52" AFF to center in the kit-kat. <b>Hinge the north medicine cabinet on its south edge</b> so its door clears the thermostat. See A-101.</li>
+          <li><b>Floor heat thermostat</b> — REV 3c (10.08.26, owner): on the <b>north wall</b> (perpendicular to this elevation, at its left end), above the north end of the vanity, ~10-12" from the corner, 52" AFF to center in the 3x12 tile. <b>Hinge the north medicine cabinet on its south edge</b> so its door clears the thermostat. See A-101.</li>
           <li><b>Door width / swing</b> — REV 3: widened to <b>36"</b> (was 32"), solid door per owner; <b>hinged on the south jamb, swings in toward the closet</b> (rev 3b). Switch bank (two 3-gang Magnesium plates, stacked) on the ~11" wall (rev 5b, 78" vanity; switch plates centered, keep the door casing slim) north of the door, so keep that casing slim; opening extends north toward the vanity, leaving ~10" of wall. New header required — GC to confirm framing.</li>
           <li><b>Door height</b> (assumed 80" standard) — not specified in original brief; verify against actual door unit.</li>
         </ol>
@@ -339,11 +342,11 @@
 
       <div class="legend-box">
         <div style="font-weight:700; margin-bottom:6px;">LEGEND</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:#2b2b2b;"></div>Black Concrete countertop w/ 2 integrated sinks — Modern Concrete of Athens (no backsplash)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:#9a958e;"></div>Concrete countertop w/ 2 integrated sinks — Modern Concrete of Athens (no backsplash)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#6b4a30;"></div>Walnut floating vanity cabinet — DraytonWorks (Greg)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#dce8ea;"></div>Lighted mirrored medicine cabinets — 2 Fresca Spazio 30x36, recessed, centered on the sinks</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#cdb99a; border-color:#a8916d;"></div>Wainscot — Bond Tile Stonehenge 24x24, Earth, 2 tiles high (0–47" AFF)</div>
-        <div class="legend-row"><div class="legend-swatch" style="background:repeating-linear-gradient(90deg,#5e5249 0 3px,#4a4039 3px 4px);"></div>Kit-kat — Bedrosians Sahara 3x12 Dark, vertical stack (47" AFF to ceiling)</div>
+        <div class="legend-row"><div class="legend-swatch" style="background:repeating-linear-gradient(90deg,#5e5249 0 3px,#4a4039 3px 4px);"></div>Wall tile above wainscot — Bedrosians Cement Sahara 3x12, Dark, vertical stack bond (47" AFF to ceiling)</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#1e1e1e;"></div>Faucet — Handle Shop Couture KANE, Matte Black</div>
         <div class="legend-row"><div class="legend-swatch" style="background:#dcdcdc;"></div>IKEA PAX/COMPLEMENT cabinetry</div>
         <div class="legend-row"><span style="color:#a00000; font-weight:700; font-size:10pt;">—</span>Red dimension = assumed, needs verification</div>
@@ -355,7 +358,7 @@
         <ol>
           <li>This elevation is a companion to Sheet A-101 (Floor Plan). Refer to A-101 for the plan footprint, all plan-view dimensions, and the full Finish &amp; Fixture Schedule.</li>
           <li>Elevation shown is the full east wall of the bathroom (180" of the room's N–S depth), viewed looking east from inside the room. See Key Plan, this sheet.</li>
-          <li>Rev 3 (2026-10-06): the bath portion of this wall (north end to the closet screen line) is tiled: Stonehenge wainscot to 47" AFF, Sahara Dark kit-kat above to the ceiling, including behind the vanity (the wainscot is the backsplash) and around the door casing. The closet portion (PAX return) stays painted drywall.</li>
+          <li>Rev 3 (2026-10-06): the bath portion of this wall (north end to the closet screen line) is tiled: Stonehenge wainscot to 47" AFF, Cement Sahara 3x12 above to the ceiling, including behind the vanity (the wainscot is the backsplash) and around the door casing. The closet portion (PAX return) stays painted drywall.</li>
           <li>Additional interior elevations: shower (unfolded, 3 walls) on Sheet A-103, west vanity/upper-cabinet wall on Sheet A-104, south PAX wardrobe wall on Sheet A-105.</li>
           <li>Dimensions govern over scale. Do not scale this drawing for construction — request clarification for any missing dimension.</li>
         </ol>
@@ -425,9 +428,10 @@
         <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
         <tr><td>1</td><td>07.17.2026</td><td>Initial issue for Aimee review</td></tr>
         <tr><td>2</td><td>07.18.2026</td><td>Issued for GC review</td></tr>
-        <tr><td>3</td><td>10.06.2026</td><td>No backsplash, wainscot + kit-kat, walnut vanity, 2 med. cabinets, 36" door</td></tr>
+        <tr><td>3</td><td>10.06.2026</td><td>No backsplash, wainscot + 3x12 tile, walnut vanity, 2 med. cabinets, 36" door</td></tr>
         <tr><td>5</td><td>10.31.2026</td><td>72" vanity, door N. jamb 89", hardware on latch side, 180" wall — verify in field</td></tr>
         <tr><td>5b</td><td>11.01.2026</td><td>78" vanity, cabinets 9" apart, switch bank on the ~11" wall by the door</td></tr>
+        <tr><td>6</td><td>11.05.2026</td><td>Rev 6: vanity 78x22x18 at 12" AFF; faucet knobs 8" spread; switch labels</td></tr>
       </table>
     </div>
 
@@ -440,7 +444,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-102</div>
-      <div class="of">SHEET 4 OF 12 · PRIMARY BATH SET</div>
+      <div class="of">SHEET 4 OF 13 · PRIMARY BATH SET</div>
     </div>
   </div>
 

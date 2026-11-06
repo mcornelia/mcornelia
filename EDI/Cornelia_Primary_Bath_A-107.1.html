@@ -145,7 +145,7 @@
 <div class="main-field" style="display:block;">
 <div class="swd" style="transform:scale(1.86);transform-origin:0 0;width:1500px;margin-top:0.5in;"><div class="wrap">
 <h1>SWITCHING DIAGRAM — WHAT EACH SWITCH CONTROLS</h1>
-<div class="sub">Two stacked 3-gang plates (Legrand adorne, Magnesium) on the ~11" of wall between the 78" double vanity and the bathroom door, upper plate centered ~41" AFF (hand towel hook above at ~61"). Colors on the plan match the switches.</div>
+<div class="sub">Two stacked 3-gang plates (Legrand adorne, Magnesium) on the ~11" of wall between the 78" double vanity and the bathroom door, upper plate centered ~41" AFF. Colors on the plan match the switches.</div>
 <div class="row">
 <div class="plan">
 <svg viewBox="-14 -10 186 212" width="616" height="702" font-family="Helvetica">
@@ -174,15 +174,15 @@
  <!-- switch bank -->
  <rect x="150.5" y="80.5" width="3" height="8" fill="#2b2117"/>
  <path d="M146,85 L132,96" stroke="#2b2117" stroke-width="0.4"/><text x="104" y="101" font-size="3.4" font-weight="700">SWITCH BANKS ↗</text>
- <!-- Z1 downlights red -->
+ <!-- switch 1 general: downlights, red -->
  <g fill="#c0392b"><circle cx="113" cy="50" r="2.4"/><circle cx="52" cy="98" r="2.4"/><circle cx="100" cy="98" r="2.4"/><circle cx="52" cy="120" r="2.4"/><circle cx="100" cy="120" r="2.4"/></g>
- <!-- Z2 vanity orange -->
- <g fill="#e08a1e"><rect x="124.5" y="19" width="5" height="5"/><rect x="124.5" y="58" width="5" height="5"/><circle cx="146" cy="41" r="2.2"/></g>
- <!-- Z4 accent purple -->
- <g fill="#7b4fa0"><rect x="61.5" y="118.5" width="5" height="5"/><rect x="88.5" y="118.5" width="5" height="5"/><rect x="54" y="4" width="2.6" height="54"/></g>
- <!-- Z5 shower blue -->
+ <!-- switch 2 gimbals: G2 vanity + G3 screen, orange -->
+ <g fill="#e08a1e"><rect x="124.5" y="19" width="5" height="5"/><rect x="124.5" y="58" width="5" height="5"/><rect x="61.5" y="118.5" width="5" height="5"/><rect x="88.5" y="118.5" width="5" height="5"/></g>
+ <!-- switch 3 pendant + niche, purple -->
+ <g fill="#7b4fa0"><circle cx="146" cy="41" r="2.2"/><rect x="54" y="4" width="2.6" height="54"/></g>
+ <!-- switch 4 shower light, blue (switch 5 fan is the same unit) -->
  <rect x="68.5" y="38" width="10" height="7" rx="1" fill="#2e6fa7"/><text x="73.5" y="43" text-anchor="middle" font-size="3" fill="#fff" font-weight="700">FL</text>
- <!-- Z6 toilet fan teal -->
+ <!-- switch 6 toilet fan, teal -->
  <rect x="104" y="27" width="9" height="6" rx="1" fill="#1d8a7a"/><text x="108.5" y="31.4" text-anchor="middle" font-size="3" fill="#fff" font-weight="700">F</text>
  <!-- local controls gray -->
  <g fill="#8c8c8c"><circle cx="5" cy="126" r="2"/><circle cx="6" cy="129" r="2"/><rect x="9.5" y="93.5" width="5" height="5"/></g>
@@ -193,26 +193,25 @@
 <div class="right">
  <div class="bank"><h2>Bank 1 (upper plate) — LIGHTS · all dimmers</h2>
   <div class="plate">
-   <div class="sw" style="background:#c0392b"><b>1 · General</b><span>5 ceiling downlights: room, shower entry and the area in front of the screen</span><div class="k">Zone Z1</div></div>
-   <div class="sw" style="background:#e08a1e"><b>2 · Vanity</b><span>2 gimbals over the sinks + the Burning Man pendant between the cabinets</span><div class="k">Zone Z2 · cabinets dim at their own touch switch</div></div>
-   <div class="sw" style="background:#7b4fa0"><b>3 · Accent / evening</b><span>2 gimbals grazing the oak screen + the lighted shower niche</span><div class="k">Zone Z4</div></div>
+   <div class="sw" style="background:#c0392b"><b>1 · General — DIMMER</b><span>5 ceiling downlights: room, shower entry and the area in front of the screen</span><div class="k">Dimmer</div></div>
+   <div class="sw" style="background:#e08a1e"><b>2 · Gimbals — DIMMER</b><span>All 4 gimbals: the 2 over the double vanity and the 2 aimed at the slatted screen</span><div class="k">Dimmer</div></div>
+   <div class="sw" style="background:#7b4fa0"><b>3 · Pendant + Niche — DIMMER</b><span>The Burning Man pendant over the double vanity + the lighted shower niche</span><div class="k">Dimmer</div></div>
   </div></div>
- <div class="bank"><h2>Bank 2 (lower plate) — SHOWER &amp; FANS</h2>
+ <div class="bank"><h2>Bank 2 (lower plate) — SHOWER &amp; FANS · standard switches, NOT dimmers</h2>
   <div class="plate">
-   <div class="sw" style="background:#2e6fa7"><b>4 · Shower light</b><span>Light in the shower fan/light combo</span><div class="k">Zone Z5</div></div>
-   <div class="sw" style="background:#2e6fa7;opacity:.85"><b>5 · Shower fan</b><span>Exhaust in the same unit, on its own plain on/off switch (no timer or humidity sensor)</span><div class="k">Zone Z5</div></div>
-   <div class="sw" style="background:#1d8a7a"><b>6 · Toilet fan</b><span>Separate fan over the toilet, on a timer</span><div class="k">Zone Z6</div></div>
+   <div class="sw" style="background:#2e6fa7"><b>4 · Shower light — SWITCH</b><span>Light in the shower fan/light combo</span><div class="k">Standard switch (not a dimmer)</div></div>
+   <div class="sw" style="background:#5a8fc0"><b>5 · Shower fan — SWITCH</b><span>Exhaust in the same unit, on its own switch</span><div class="k">Standard switch (not a dimmer)</div></div>
+   <div class="sw" style="background:#1d8a7a"><b>6 · Toilet fan — SWITCH</b><span>Separate fan over the toilet</span><div class="k">Standard switch (not a dimmer)</div></div>
   </div></div>
  <div class="bank"><h2>Controlled elsewhere (not at the door)</h2>
   <div class="else">
    <div><span class="dot" style="background:#8c8c8c"></span><span><b>Makeup wall, under the mirror (~36"):</b> 2 dimmers: the 2 globe pendants, and the makeup fill gimbal (G1). An outlet sits beside them.</span></div>
-   <div><span class="dot" style="background:#b8a27a"></span><span><b>Closet, on the wing wall by the full-length mirror:</b> 1 dimmer for the 4 closet gimbals (Zone Z7, White plate).</span></div>
-   <div><span class="dot" style="background:#e08a1e;opacity:.5"></span><span><b>Medicine cabinets:</b> on constant power, so their lights run from the touch switch on each cabinet and the inside outlets are always live.</span></div>
-   <div><span class="dot" style="background:#ddd"></span><span><b>Floor heat:</b> its own thermostat at 52" by the vanity. <b>Niche LED</b> rides with Accent (switch 3).</span></div>
+   <div><span class="dot" style="background:#b8a27a"></span><span><b>Closet, on the wing wall by the full-length mirror:</b> 1 dimmer for the 4 closet gimbals (White plate).</span></div>
+   <div><span class="dot" style="background:#ddd"></span><span><b>Medicine cabinets:</b> on constant power, so their lights run from the touch switch on each cabinet and the inside outlets are always live.</span></div>
+   <div><span class="dot" style="background:#ddd"></span><span><b>Floor heat:</b> its own thermostat at 52" by the vanity. <b>Niche LED</b> is on switch 3 with the pendant.</span></div>
   </div>
-  <div class="note"><b>Still open (yours to decide):</b> whether the vanity pendant gets its own dimmer so it can be a soft night light. Bank 1 is full, so it would need a two-channel dimmer: with the 78" vanity (rev 5b), the ~11" wall beside the door has no room for a 4-gang plate.</div>
  </div>
-</div></div><div class="note" style="margin-top:6px">Companion to Sheet A-107 (Reflected Ceiling &amp; Lighting Plan). Zone numbers (Z1–Z7) match the A-107 Switching &amp; Dimming Zones table. Fixture positions are diagrammatic; A-107 governs. Rev 5 field measurements: verify in field.</div></div></div>
+</div></div><div class="note" style="margin-top:6px">Companion to Sheet A-107 (Reflected Ceiling &amp; Lighting Plan) and Sheet E-101 (Power &amp; Switching Plan). Switch numbers and colors match the A-107 switching table. Fixture positions are diagrammatic; A-107 governs. Rev 5 field measurements: verify in field.</div></div></div>
 </div>
   <div class="title-block">
     <div class="tb-logo">
@@ -275,6 +274,7 @@
         <tr><th style="width:14%">Rev</th><th style="width:28%">Date</th><th>Description</th></tr>
         <tr><td>1</td><td>10.31.2026</td><td>Initial issue — switch banks and zones, companion to A-107</td></tr>
         <tr><td>5b</td><td>11.01.2026</td><td>Plan updated for the 78" vanity</td></tr>
+        <tr><td>6</td><td>11.05.2026</td><td>Rev 6: switches renamed and recolored; dimmer / switch labels</td></tr>
       </table>
     </div>
 
@@ -287,7 +287,7 @@
 
     <div class="tb-sheetno">
       <div class="num">A-107.1</div>
-      <div class="of">SHEET 10 OF 12 · PRIMARY BATH SET</div>
+      <div class="of">SHEET 10 OF 13 · PRIMARY BATH SET</div>
     </div>
   </div>
 
