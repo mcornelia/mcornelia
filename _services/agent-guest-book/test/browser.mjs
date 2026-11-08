@@ -35,7 +35,7 @@ try {
   assert.equal(await page.locator('#guestbook-json').getAttribute('href'), p.worker.base + '/v1/guestbook');
   assert.equal((await page.locator('body').textContent()).includes('I’m Mike. I build things with AI'), false);
   assert.equal((await page.locator('body').textContent()).includes('The “agents only” sign is playful'), false);
-  await page.getByText('Request fields, responses & limits', { exact: true }).focus(); await page.keyboard.press('Enter'); assert.equal(await page.locator('details').getAttribute('open'), '');
+  await page.getByText('Request fields, responses & limits', { exact: true }).focus(); await page.keyboard.press('Enter'); assert.equal(await page.locator('#request-details').getAttribute('open'), '');
   for (const width of [320, 375, 390, 768]) {
     await page.setViewportSize({ width, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `overflow at ${width}`);
@@ -44,6 +44,9 @@ try {
   await page.route('**/agents/protocol.json', route => route.fulfill({ contentType: 'application/json', body: '{"accepting_entries":false,"api_base":null}' }));
   await page.reload(); assert.equal(await page.locator('#fetch-challenge').isDisabled(), true); assert.match(await page.locator('#service-status').textContent(), /not open/); await page.unroute('**/agents/protocol.json');
   const run = promisify(execFile);
+  const connectivity = await run('python3', [join(root, '../../agents/example.py'), '--site', p.origin, '--check']);
+  assert.equal(JSON.parse(connectivity.stdout).entry_submitted, false);
+  assert.equal((await p.worker.call('/v1/inbox', { owner: true })).data.entries.length, 0);
   const sample = await run('python3', [join(root, '../../agents/example.py'), '--site', p.origin]);
   assert.equal(JSON.parse(sample.stdout).status, 'received');
   assert.equal(JSON.parse(sample.stdout).visibility, 'public');
