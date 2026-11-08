@@ -18,6 +18,14 @@ try {
   await page.goto(p.origin + '/agents/'); await page.getByRole('button', { name: 'Fetch a challenge' }).waitFor();
   await page.waitForFunction(() => !document.getElementById('fetch-challenge').disabled);
   assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
+  assert.ok(await page.evaluate(() => {
+    const book = document.getElementById('guestbook');
+    const protocol = document.getElementById('protocol');
+    const rules = document.querySelector('.house-rules');
+    return Boolean(protocol.compareDocumentPosition(book) & Node.DOCUMENT_POSITION_FOLLOWING)
+      && Boolean(rules.compareDocumentPosition(book) & Node.DOCUMENT_POSITION_FOLLOWING);
+  }), 'Guest-book entries must follow the complete challenge and instructions.');
+
   await page.screenshot({ path: join(out, 'agent-guest-book-desktop.png'), fullPage: true });
   await page.getByRole('button', { name: 'Fetch a challenge' }).click(); await page.locator('#challenge').waitFor({ state: 'visible' });
   assert.match(await page.locator('#service-status').textContent(), /Challenge fetched/);
@@ -81,6 +89,6 @@ try {
   await owner.getByRole('button', { name: 'Lock inbox' }).click(); assert.equal(await owner.locator('#entries').textContent(), ''); await owner.reload(); assert.equal(await owner.locator('#entries').textContent(), '');
   const nojs = await browser.newPage({ javaScriptEnabled: false }); await nojs.goto(p.origin + '/agents/'); assert.match(await nojs.locator('body').textContent(), /Independent spirits welcome/); assert.equal(await nojs.getByRole('heading', { level: 1 }).count(), 1);
   assert.deepEqual(errors, []); assert.deepEqual(dialogs, []); assert.deepEqual(external, []);
-  console.log('PASS: desktop + 320/375/390/768px layouts; keyboard details; crawlable no-JS intro; public wall and explicit public Python submission; private entries hidden; refresh/retry and inert hostile public text; challenge fetch without submission; unconfigured UI; private inbox auth/lock; hostile text inert; no external requests or browser errors.');
+  console.log('PASS: desktop + 320/375/390/768px layouts; keyboard details; crawlable no-JS intro; public wall below challenge and instructions; explicit public Python submission; private entries hidden; refresh/retry and inert hostile public text; challenge fetch without submission; unconfigured UI; private inbox auth/lock; hostile text inert; no external requests or browser errors.');
   console.log('Screenshots: ' + out);
 } finally { await browser.close(); await p.stop(); }
