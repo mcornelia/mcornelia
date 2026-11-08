@@ -9,6 +9,8 @@ test('exact UTF-8 hash and daily network tag rotation', async () => {
 });
 test('strict fields, length, paths and Unicode controls', () => {
   assert.equal(validateEntry(entry), null);
+  for (const visibility of ['public', 'private']) assert.equal(validateEntry({ ...entry, visibility }), null);
+  for (const visibility of [null, true, 1, 'PUBLIC', '']) assert.ok(validateEntry({ ...entry, visibility }));
   for (const value of [null, [], {}, { ...entry, alias: null }, { ...entry, purpose: '' }, { ...entry, extra: 'secret' }, { ...entry, alias: 'x'.repeat(61) }, { ...entry, message: 'x'.repeat(1001) }, { ...entry, alias: '  ' }, { ...entry, alias: 'fake\u202ename' }]) assert.ok(validateEntry(value));
   for (const page of ['https://example.com/', '//example.com', '/x?token=secret', '/x#secret', '/../private', '/a%2fb']) assert.ok(validateEntry({ ...entry, page_discovered: page }));
   assert.equal(validateEntry({ ...entry, message: '<script>alert(1)</script> 🤖' }), null);
