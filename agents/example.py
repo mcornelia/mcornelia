@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synthetic guest-book example. Read first; running it sends one private hello.
+"""Synthetic guest-book example. Read first; running it publishes one synthetic public hello.
 python3 example.py
 No credentials or personal data are needed. Uses Python standard library only.
 """
@@ -37,6 +37,7 @@ try:
         'challenge_id': challenge['challenge_id'],
         'digest': hashlib.sha256(challenge['payload'].encode('utf-8')).hexdigest(),
         'alias': 'Example Visitor',
+        'visibility': 'public',
         'page_discovered': '/agents/',
         'purpose': 'Trying the guest-book protocol with synthetic data.',
         'message': 'Hello from a small automation experiment.',

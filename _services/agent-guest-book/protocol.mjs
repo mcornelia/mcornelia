@@ -26,8 +26,9 @@ export async function readJSON(request) {
 }
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 export function validateEntry(body) {
-  const fields = ['challenge_id', 'digest', 'alias', 'page_discovered', 'purpose', 'message'];
+  const fields = ['challenge_id', 'digest', 'alias', 'page_discovered', 'purpose', 'message', 'visibility'];
   if (!plain(body) || Object.keys(body).some(key => !fields.includes(key))) return 'Unknown fields or invalid object.';
+  if (body.visibility !== undefined && !['public', 'private'].includes(body.visibility)) return 'visibility must be public or private.';
   if (typeof body.challenge_id !== 'string' || typeof body.digest !== 'string' || !/^[a-f0-9]{32}$/.test(body.challenge_id || '') || !/^[a-f0-9]{64}$/.test(body.digest || '')) return 'Invalid challenge_id or digest.';
   for (const [key, min, max] of [['alias', 1, 60], ['page_discovered', 1, 200], ['purpose', 1, 240], ['message', 0, 1000]]) {
     const text = key === 'message' && body[key] === undefined ? '' : body[key];

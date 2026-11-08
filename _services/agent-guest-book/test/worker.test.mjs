@@ -20,7 +20,7 @@ test('real Worker: challenge, validation, replay/concurrency, private inbox, ret
     const race = await Promise.all(Array.from({ length: 8 }, () => s.call('/v1/entries', { ip: '192.0.2.2', body })));
     assert.equal(race.filter(r => r.status === 201).length, 1); assert.equal(race.filter(r => r.status === 409).length, 7);
     const inbox = await s.call('/v1/inbox', { owner: true }); assert.equal(inbox.data.entries.length, 1); assert.equal(inbox.data.entries[0].message, body.message);
-    assert.deepEqual(Object.keys(inbox.data.entries[0]).sort(), ['alias', 'created', 'id', 'message', 'page', 'purpose', 'receipt']);
+    assert.deepEqual(Object.keys(inbox.data.entries[0]).sort(), ['alias', 'created', 'id', 'message', 'page', 'purpose', 'receipt', 'visibility']);
     const saved = inbox.data.entries; await s.stop(); s = await start({ directory });
     assert.deepEqual((await s.call('/v1/inbox', { owner: true })).data.entries, saved);
     assert.equal((await s.call('/v1/entries', { ip: '192.0.2.2', body })).status, 409);
@@ -61,4 +61,38 @@ test('per-network request/submission limits, global caps, full inbox, fail-close
   } finally { await s.stop(); }
   const unconfigured = await start({ configured: false });
   try { for (const path of ['/v1/challenge', '/v1/inbox']) assert.equal((await unconfigured.call(path, { owner: true })).status, 503); } finally { await unconfigured.stop(); }
+});
+
+test('public listing is opt-in, private-safe, paginated, retained and owner-controlled', async () => {
+  const s = await start();
+  try {
+    assert.equal((await s.call('/v1/guestbook')).status, 200);
+    assert.deepEqual((await s.call('/v1/guestbook')).data.entries, []);
+    const hidden = await submission(s, '192.0.2.201', { alias: 'Private Visitor' });
+    assert.equal((await s.call('/v1/entries', { ip: '192.0.2.201', body: hidden })).data.visibility, 'private');
+    const publicBody = await submission(s, '192.0.2.202', { alias: 'Public Visitor', visibility: 'public' });
+    assert.equal((await s.call('/v1/entries', { ip: '192.0.2.202', body: publicBody })).data.visibility, 'public');
+    const listing = await s.call('/v1/guestbook', { headers: { Origin: 'https://mcornelia.com' } });
+    assert.equal(listing.headers.get('access-control-allow-origin'), 'https://mcornelia.com');
+    assert.equal(listing.data.entries.length, 1);
+    assert.equal(listing.data.entries[0].alias, 'Public Visitor');
+    assert.deepEqual(Object.keys(listing.data.entries[0]).sort(), ['alias', 'created', 'message', 'page', 'purpose']);
+    assert.equal((await s.call('/v1/guestbook?before=oops')).status, 400);
+    assert.equal((await s.call('/v1/guestbook', { body: {} })).status, 405);
+    const all = (await s.call('/v1/inbox', { owner: true })).data.entries;
+    const privateId = all.find(e => e.alias === 'Private Visitor').id;
+    assert.equal((await s.call('/v1/inbox/visibility', { body: { id: privateId, visibility: 'public' } })).status, 401);
+    assert.equal((await s.call('/v1/inbox/visibility', { owner: true, body: { id: privateId, visibility: 'public' } })).status, 200);
+    assert.equal((await s.call('/v1/guestbook')).data.entries.length, 2);
+    assert.equal((await s.call('/v1/inbox/visibility', { owner: true, body: { id: privateId, visibility: 'private' } })).status, 200);
+    assert.equal((await s.call('/v1/guestbook')).data.entries.length, 1);
+    assert.equal((await s.call('/v1/inbox/visibility', { owner: true, body: { id: privateId, visibility: 'PUBLIC' } })).status, 400);
+    assert.equal((await s.call('/v1/inbox/visibility', { owner: true, body: { id: 99999, visibility: 'public' } })).status, 404);
+    for (let i = 0; i < 51; i++) await s.sql('INSERT INTO entries (receipt,created,alias,page,purpose,message,visibility) VALUES (?,?,?,?,?,?,?)', `public-${i}`, Date.now(), 'Pagination test', '/', 'Fixture', 'Synthetic', 'public');
+    const page = await s.call('/v1/guestbook'); assert.equal(page.data.entries.length, 50); assert.ok(page.data.next);
+    const older = await s.call('/v1/guestbook?before=' + page.data.next); assert.equal(older.data.entries.length, 2); assert.equal(older.data.next, null);
+    await s.sql('UPDATE entries SET created=? WHERE visibility=?', Date.now() - 31 * 86400000, 'public');
+    assert.equal((await s.call('/v1/guestbook')).data.entries.length, 0);
+    assert.equal((await s.call('/v1/inbox', { owner: true })).data.entries.length, 1);
+  } finally { await s.stop(); }
 });
