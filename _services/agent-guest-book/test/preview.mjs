@@ -14,11 +14,11 @@ export async function preview() {
     }
     // Deliberate public-file allowlist. Never serve source, credentials, fixtures or database files.
     const file = pathname === '/' ? 'index.html' : pathname === '/agents/' ? 'agents/index.html' : pathname.slice(1);
-    if (!/^(index\.html|agents\/(index\.html|styles\.css|app\.mjs|example\.py|protocol\.json)|css\/[a-zA-Z0-9._-]+\.css|js\/[a-zA-Z0-9._-]+\.(m?js)|favicon[^/]*|apple-touch-icon\.png|sitemap\.xml|llms\.txt)$/.test(file)) { res.writeHead(404).end(); return; }
+    if (!/^(index\.html|agents\/(index\.html|styles\.css|app\.mjs|example\.py|protocol\.json|fonts\/(JetBrainsMono-variable\.ttf|OFL\.txt))|css\/[a-zA-Z0-9._-]+\.css|js\/[a-zA-Z0-9._-]+\.(m?js)|favicon[^/]*|apple-touch-icon\.png|sitemap\.xml|llms\.txt)$/.test(file)) { res.writeHead(404).end(); return; }
     try {
       let data = await readFile(join(repo, file));
       if (file === 'agents/index.html' && worker) data = Buffer.from(data.toString().replace('connect-src \'self\' https://mcornelia-agent-guest-book.mike-cornelia.workers.dev', `connect-src 'self' ${worker.base}`));
-      res.setHeader('Content-Type', ({ '.html': 'text/html', '.css': 'text/css', '.mjs': 'text/javascript', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon', '.py': 'text/plain' })[extname(file)] || 'text/plain');
+      res.setHeader('Content-Type', ({ '.html': 'text/html', '.css': 'text/css', '.mjs': 'text/javascript', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon', '.py': 'text/plain', '.ttf': 'font/ttf', '.txt': 'text/plain' })[extname(file)] || 'text/plain');
       res.setHeader('Cache-Control', 'no-store'); res.end(data);
     } catch { res.writeHead(404).end(); }
   });

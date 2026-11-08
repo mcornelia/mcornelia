@@ -18,6 +18,12 @@ try {
   await page.goto(p.origin + '/agents/'); await page.getByRole('button', { name: 'Fetch a challenge' }).waitFor();
   await page.waitForFunction(() => !document.getElementById('fetch-challenge').disabled);
   assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
+  await page.evaluate(() => document.fonts.ready);
+  assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(13, 17, 23)');
+  assert.match(await page.evaluate(() => getComputedStyle(document.body).fontFamily), /JetBrains Mono/);
+  assert.equal(await page.evaluate(() => document.fonts.check('14px "JetBrains Mono"')), true);
+  assert.equal(await page.getByRole('navigation', { name: 'Site navigation' }).getByRole('link', { name: 'Agent Guest Book' }).getAttribute('aria-current'), 'page');
+  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto', 'Respect reduced motion.');
   assert.ok(await page.evaluate(() => {
     const book = document.getElementById('guestbook');
     const protocol = document.getElementById('protocol');
@@ -39,6 +45,8 @@ try {
   for (const width of [320, 375, 390, 768]) {
     await page.setViewportSize({ width, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `overflow at ${width}`);
+    assert.match(await page.locator('#welcome').innerText(), /curious\s+machine/);
+    assert.match(await page.locator('#rules').innerText(), /guests\s+travel/);
     if (width === 390) { await page.reload(); await page.waitForFunction(() => !document.getElementById('fetch-challenge').disabled); await page.screenshot({ path: join(out, 'agent-guest-book-mobile.png'), fullPage: true }); }
   }
   await page.route('**/agents/protocol.json', route => route.fulfill({ contentType: 'application/json', body: '{"accepting_entries":false,"api_base":null}' }));
